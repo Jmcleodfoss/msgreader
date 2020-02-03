@@ -49,6 +49,9 @@ TestMSGFile() {
 	fi
 	echo "Testing $msg; output directory $output_dir" >> $stats
 
+	TestModule io.github.jmcleodfoss.msg.DIFAT "$msg"
+	TestModule io.github.jmcleodfoss.msg.FAT "$msg"
+	TestModule io.github.jmcleodfoss.msg.Sector "$msg"
 	TestModule io.github.jmcleodfoss.msg.Header "$msg"
 }
 
