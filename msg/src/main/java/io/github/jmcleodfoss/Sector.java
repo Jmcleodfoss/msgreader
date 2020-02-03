@@ -10,7 +10,6 @@ class Sector {
 
 	static String getDescription(int sectorId)
 	{
-
 		switch (sectorId){
 			case RESERVED: return "Reserved";
 			case DIFSECT: return "DIFAT";
@@ -25,9 +24,9 @@ class Sector {
 
 	final int sectorSize;
 
-	Sector(int sectorSize)
+	Sector(Header header)
 	{
-		this.sectorSize = sectorSize;
+		this.sectorSize = header.sectorSize;
 	}
 
 	byte[] read(java.nio.MappedByteBuffer mbb, int sectorIndex)
