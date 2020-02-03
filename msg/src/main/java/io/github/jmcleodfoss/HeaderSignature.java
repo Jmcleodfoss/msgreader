@@ -1,6 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
+/** The file signature. */
 class HeaderSignature {
+
 	/** The bytes which form the signature, in the order in which they are documented. */
 	static final byte[] SIGNATURE_BYTES = {(byte)0xd0, (byte)0xcf, (byte)0x11, (byte)0xe0, (byte)0xa1, (byte)0xb1, (byte)0x1a, (byte)0xe1};
 
