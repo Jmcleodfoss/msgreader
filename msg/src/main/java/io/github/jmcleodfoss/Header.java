@@ -51,7 +51,7 @@ public class Header {
 	private static short byteOrder;
 
 	/** The sector shift. */
-	private static int sectorSize;
+	static int sectorSize;
 
 	/** The mini sector shift */
 	private static int miniSectorSize;
