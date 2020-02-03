@@ -7,7 +7,7 @@ package io.github.jmcleodfoss.msg;
 *	@see	"[MS-OXDATA] Data Structures v20101026, Section 2.11.1"
 *	@see	<a href="http://msdn.microsoft.com/en-us/library/ee157583.aspx">Property Data Types (MSDN)</a>
 */
-public abstract class DataType {
+abstract class DataType {
 	static final short UNSPECIFIED = 0x0000;
 	static final short NULL = 0x0001;
 	static final short INTEGER_16 = 0x0002;
@@ -157,7 +157,7 @@ public abstract class DataType {
 	}
 
 	/**	The SizedByteArray class is used to read in and display an array of bytes whose size is known. */
-	public static class SizedByteArray extends SizedObject {
+	static class SizedByteArray extends SizedObject {
 
 		/**	Create a reader/display manipulator for an array of bytes of known size.
 		*
@@ -360,7 +360,7 @@ public abstract class DataType {
 	}
 
 	/**	The reader/display manipulator for 16-bit integers in the PST file. */
-	public static final Integer16 integer16Reader = new Integer16();
+	static final Integer16 integer16Reader = new Integer16();
 
 	/**	The Integer32 data type describes a 32-bit integer. */
 	private static class Integer32 extends DataType {
@@ -404,7 +404,7 @@ public abstract class DataType {
 	}
 
 	/**	The reader/display manipulator for 32-bit integers in the PST file. */
-	public static final Integer32 integer32Reader = new Integer32();
+	static final Integer32 integer32Reader = new Integer32();
 
 	/**	The Integer64 data type described a 64-bit integer. */
 	private static class Integer64 extends DataType {
@@ -448,7 +448,7 @@ public abstract class DataType {
 	}
 
 	/**	The reader/display manipulator for 64-bit integers. */
-	public static final Integer64 integer64Reader = new Integer64();
+	static final Integer64 integer64Reader = new Integer64();
 
 	/**	The MultipleBinary class describes how to read in multiple binary objects from a PST file. */
 	private static class MultipleBinary extends DataType {
@@ -591,7 +591,7 @@ public abstract class DataType {
 	}
 
 	/**	The reader/display manipulator for lists of 32-bit integers. */
-	public static final MultipleInteger32 multipleInteger32Reader = new MultipleInteger32();
+	static final MultipleInteger32 multipleInteger32Reader = new MultipleInteger32();
 
 	/**	The MultipleInteger64 class describes how to read in multiple 64-bit integers from a PST file. */
 	private static class MultipleInteger64 extends DataType {
