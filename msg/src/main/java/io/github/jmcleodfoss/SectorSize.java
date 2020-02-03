@@ -7,6 +7,6 @@ class SectorSize {
 	*/
 	static int sectorSize(short sectorShift)
 	{
-		return 2 << sectorShift;
+		return 2 << (sectorShift - 1);
 	}
 }
