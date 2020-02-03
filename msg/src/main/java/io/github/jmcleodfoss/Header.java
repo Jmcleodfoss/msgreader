@@ -19,7 +19,6 @@ public class Header {
 	private static final String nm_NumberOfMiniFATSectors = "NumberOfMiniFATSectors";
 	private static final String nm_FirstDIFATSectorLocation = "FirstMiniFATSectorLocation";
 	private static final String nm_NumberOfDIFATSectors = "NumberOfDIFATSectors";
-	private static final String nm_DIFATSectorLocations = "DIFATSectorLocationss";
 
 	/** The fields in a CFB header object. */
 	private static final DataDefinition[] header_fields = {
@@ -40,7 +39,6 @@ public class Header {
 		new DataDefinition(nm_NumberOfMiniFATSectors, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstDIFATSectorLocation, DataType.integer32Reader, true),
 		new DataDefinition(nm_NumberOfDIFATSectors, DataType.integer32Reader, true),
-		new DataDefinition(nm_DIFATSectorLocations, DataType.multipleInteger32Reader, true),
 	};
 
 	/** Size of the header block */
@@ -79,9 +77,6 @@ public class Header {
 	/** The number of DIFAT sectors */
 	private static int numberOfDIFATSectors;
 
-	/** The first 109 DIFAT sector locations */
-	private static int[] difatSectorLocations;
-
 	/** Read in the header data and save the fields we need for later.
 	*
 	*	@param	byteBuffer	The data stream from which to read the PST header.
@@ -111,7 +106,6 @@ public class Header {
 		numberOfMiniFATSectors = (Integer)dc.get(nm_NumberOfMiniFATSectors);
 		firstDIFATSectorLocation = (Integer)dc.get(nm_FirstDIFATSectorLocation);
 		numberOfDIFATSectors = (Integer)dc.get(nm_NumberOfDIFATSectors);
-		difatSectorLocations = (int[])dc.get(nm_DIFATSectorLocations);
 	}
 
 	/** Calculate the size of the header block.
