@@ -32,7 +32,8 @@ class Sector {
 	byte[] read(java.nio.MappedByteBuffer mbb, int sectorIndex)
 	{
 		byte data[] = new byte[sectorSize];
-		mbb.get(data, sectorIndex*sectorSize, sectorSize);
+		mbb.position(sectorIndex*sectorSize);
+		mbb.get(data);
 		return data;
 	}
 }
