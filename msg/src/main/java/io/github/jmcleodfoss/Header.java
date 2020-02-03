@@ -167,9 +167,6 @@ public class Header {
 
 			Header header = new Header(mbb);
 			System.out.println(header);
-for (int i = 0; i < 110; ++i) System.out.printf("DIFAT %d: 0x%08x\n", i, header.difatSectorLocations[i]);
-Sector s = new Sector(header.sectorSize);
-s.read(mbb, 1);
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
