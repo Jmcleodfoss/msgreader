@@ -60,7 +60,7 @@ public class Header {
 	private static int numberOfDirectorySectors;
 
 	/** The number of FAT sectors */
-	private static int numberOfFATSectors;
+	static int numberOfFATSectors;
 
 	/** The first directory sector location */
 	private static int firstDirectorySectorLocation;
