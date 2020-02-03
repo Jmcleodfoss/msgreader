@@ -6,6 +6,9 @@ package io.github.jmcleodfoss.msg;
 */
 public class Header {
 
+	/** The number of bytes in an integer. */
+	static final int SIZEOF_INT = Integer.SIZE / Byte.SIZE;
+
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
 	private static final String nm_MajorVersion = "MajorVersion";
@@ -108,6 +111,15 @@ public class Header {
 		numberOfDIFATSectors = (Integer)dc.get(nm_NumberOfDIFATSectors);
 	}
 
+	/** The number of 4-byte integers (int) which will fit in a sector.
+	*
+	* 	@return	The number of ints which will fit in a sector.
+	*/
+	int intsPerSector()
+	{
+		return sectorSize / SIZEOF_INT;
+	}
+ 
 	/** Calculate the size of the header block.
 	*
 	*	@return	The size of the header for this file.
