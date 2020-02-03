@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/**	The Header object is the CFB header.
+/** The Header object is the CFB header.
 *
 * 	MS-CFB Section 2.2, Compound File Header
 */
@@ -21,7 +21,7 @@ public class Header {
 	private static final String nm_NumberOfDIFATSectors = "NumberOfDIFATSectors";
 	private static final String nm_DIFATSectorLocations = "DIFATSectorLocationss";
 
-	/**	The fields in a CFB header object. */
+	/** The fields in a CFB header object. */
 	private static final DataDefinition[] header_fields = {
 		new DataDefinition(nm_qwHeaderSignature, DataType.integer64Reader, true),
 		new DataDefinition(nm_HeaderCLSID, new DataType.SizedByteArray(16)),
@@ -43,46 +43,46 @@ public class Header {
 		new DataDefinition(nm_DIFATSectorLocations, DataType.multipleInteger32Reader, true),
 	};
 
-	/**	Size of the header block */
+	/** Size of the header block */
 	private static final int SIZE = DataDefinition.size(header_fields);
 
-	/**	The major version number. */
+	/** The major version number. */
 	private static short majorVersion;
 
-	/**	The byte order. */
+	/** The byte order. */
 	private static short byteOrder;
 
-	/**	The sector shift. */
+	/** The sector shift. */
 	private static int sectorSize;
 
-	/**	The mini sector shift */
+	/** The mini sector shift */
 	private static int miniSectorSize;
 
-	/**	The number of directory sectors */
+	/** The number of directory sectors */
 	private static int numberOfDirectorySectors;
 
-	/**	The number of FAT sectors */
+	/** The number of FAT sectors */
 	private static int numberOfFATSectors;
 
-	/**	The first directory sector location */
+	/** The first directory sector location */
 	private static int firstDirectorySectorLocation;
 
-	/**	The first mini FAT sector location */
+	/** The first mini FAT sector location */
 	private static int firstMiniFATSectorLocation;
 
-	/**	The number of mini FAT sectors */
+	/** The number of mini FAT sectors */
 	private static int numberOfMiniFATSectors;
 
-	/**	The first DIFAT (Double Indirect File Allocation Table) sector location */
+	/** The first DIFAT (Double Indirect File Allocation Table) sector location */
 	private static int firstDIFATSectorLocation;
 
-	/**	The number of DIFAT sectors */
+	/** The number of DIFAT sectors */
 	private static int numberOfDIFATSectors;
 
-	/**	The first 109 FAT sector locations */
+	/** The first 109 DIFAT sector locations */
 	private static int[] difatSectorLocations;
 
-	/**	Read in the header data and save the fields we need for later.
+	/** Read in the header data and save the fields we need for later.
 	*
 	*	@param	byteBuffer	The data stream from which to read the PST header.
 	*
@@ -104,7 +104,6 @@ public class Header {
 		byteOrder = (Short)dc.get(nm_ByteOrder);
 		sectorSize = SectorSize.sectorSize((Short)dc.get(nm_SectorShift));
 		miniSectorSize = SectorSize.sectorSize((Short)dc.get(nm_MiniSectorShift));
-
 		numberOfDirectorySectors = (Integer)dc.get(nm_NumberOfDirectorySectors);
 		numberOfFATSectors = (Integer)dc.get(nm_NumberOfFATSectors);
 		firstDirectorySectorLocation = (Integer)dc.get(nm_FirstDirectorySectorLocation);
@@ -115,7 +114,7 @@ public class Header {
 		difatSectorLocations = (int[])dc.get(nm_DIFATSectorLocations);
 	}
 
-	/**	Calculate the size of the header block.
+	/** Calculate the size of the header block.
 	*
 	*	@return	The size of the header for this file.
 	*/
@@ -124,7 +123,7 @@ public class Header {
 		return SIZE;
 	}
 
-	/**	Provide a summary of the header in String form. This is typically used for debugging.
+	/** Provide a summary of the header in String form. This is typically used for debugging.
 	*
 	*	@return	A description of the header.
 	*/
@@ -145,7 +144,7 @@ public class Header {
 		numberOfDIFATSectors, Sector.getDescription(firstDIFATSectorLocation));
 	}
 
-	/**	Test this class by reading in the PST file header and printing it out.
+	/** Test this class by reading in the MSG file header and printing it out.
 	*
 	*	@param	args	The command line arguments to the test application.
 	*/
@@ -169,7 +168,6 @@ public class Header {
 			Header header = new Header(mbb);
 			System.out.println(header);
 for (int i = 0; i < 110; ++i) System.out.printf("DIFAT %d: 0x%08x\n", i, header.difatSectorLocations[i]);
-
 Sector s = new Sector(header.sectorSize);
 s.read(mbb, 1);
 		} catch (final Exception e) {
