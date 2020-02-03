@@ -72,10 +72,10 @@ public class Header {
 	private static int numberOfMiniFATSectors;
 
 	/** The first DIFAT (Double Indirect File Allocation Table) sector location */
-	private static int firstDIFATSectorLocation;
+	static int firstDIFATSectorLocation;
 
 	/** The number of DIFAT sectors */
-	private static int numberOfDIFATSectors;
+	static int numberOfDIFATSectors;
 
 	/** Read in the header data and save the fields we need for later.
 	*
