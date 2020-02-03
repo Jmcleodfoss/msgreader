@@ -140,7 +140,7 @@ public class Header {
 
 	/** Test this class by reading in the MSG file header and printing it out.
 	*
-	*	@param	args	The command line arguments to the test application.
+	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
 	{
