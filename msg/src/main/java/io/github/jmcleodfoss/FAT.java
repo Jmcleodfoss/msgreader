@@ -11,30 +11,6 @@ class FAT {
 	/** The list of FAT index entries. */
 	final private int[] fat;
 
-	/** Iterator for FAT index entries */
-	class Iterator implements java.util.Iterator<Integer> {
-	
-		/** The next entry to be returned. */
-		private int entry;
-
-		Iterator()
-		{
-			entry = 0;
-		}
-
-		/** Is there a new entry to return? */
-		public boolean hasNext()
-		{
-			return entry < numEntries;
-		}
-
-		/** Return the next FAT index entry */
-		public Integer next()
-		{
-			return fat[entry++];
-		}
-	}
-
 	/** Create a FAT
 	*
 	* 	@param	mbb	The data stream
@@ -65,12 +41,6 @@ System.out.printf("current sector %d readoffset 0x%04x\n", currentSector, readOf
 		}
 	}
 
-	/**	Get an iterator for this FAT */
-	java.util.Iterator<Integer> iterator()
-	{
-		return new Iterator();
-	}
-
 	/**	Test this class by reading in the FAT index table and printing it out.
 	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
@@ -95,9 +65,9 @@ System.out.printf("current sector %d readoffset 0x%04x\n", currentSector, readOf
 			Header header = new Header(mbb);
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
-			java.util.Iterator<Integer> iterator = fat.iterator();
-			while (iterator.hasNext()) {
-				System.out.println(Sector.getDescription(iterator.next()));
+
+			for (int i = 0; i < FAT.numEntries; ++i)
+				System.out.printf("%d: %s\n", i, Sector.getDescription(i));
 			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
