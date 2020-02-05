@@ -24,12 +24,8 @@ abstract class DataType {
 	*	@param	byteBuffer	The incoming data stream from which to read the object.
 	*
 	*	@return	The object read from the data stream.
-	*
-	*	@throws	java.io.UnsupportedEncodingException	An unsupported encoding was found when creating a String from a data buffer.
 	*/
-	public abstract Object read(java.nio.ByteBuffer byteBuffer)
-	throws
-		java.io.UnsupportedEncodingException;
+	public abstract Object read(java.nio.ByteBuffer byteBuffer);
 
 	/**	Get the size of the object read in in this class.
 	*
@@ -472,6 +468,47 @@ abstract class DataType {
 
 	/**	The reader/display manipulator for lists of 64-bit integers. */
 	private static final MultipleInteger64 multipleInteger64Reader = new MultipleInteger64();
+
+	/**	The UnicodeString class reads in a UTF-16 string of a given size. */
+	static class UnicodeString extends SizedObject {
+		/** Construct an manipulator for a UTF-16 String.
+		* 
+		*	@param	size	The number of bytes in the UTF-16 string.
+		*/
+		UnicodeString(final int size)
+		{
+			super(size);
+		}
+
+		/**	Create a String representation of a String (to be consistent with other data types).
+		*
+		*	@param	o	The String to display.
+		*
+		*	@return	The given String.
+		*/
+		public String makeString(final Object o)
+		{
+			return (String)o;
+		}
+
+		/**	Read in a String from the data stream.
+		*
+		*	@param	byteBuffer	The incoming data stream from which to read the data.
+		*
+		*	@return	A String corresponding to the Boolean read in from the data stream.
+		*/
+		public Object read(java.nio.ByteBuffer byteBuffer)
+		{
+			byte arr[] = new byte[size];
+			byteBuffer.get(arr);
+			try {
+				return new String(arr, CHARSET_WIDE);
+			} catch (java.io.UnsupportedEncodingException e){
+				// UTF-16 should be supported everywhere by now.
+				return "";
+			}
+		}
+	}
 
 	/**	The Time class represents an MS Time object. It is converted on input to a standard Java Date object.
 	*
