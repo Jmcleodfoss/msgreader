@@ -638,4 +638,33 @@ abstract class DataType {
 			return size*2;
 		}
 	}
+
+	static class ClassId extends DataType {
+		static final int SIZE = 16;
+
+		ClassId()
+		{
+			super();
+		}
+
+		public String makeString(final Object o)
+		{
+			return ((io.github.jmcleodfoss.msg.ClassId)o).toString();
+		}
+
+		public Object read(java.nio.ByteBuffer byteBuffer)
+		{
+			byte arr[] = new byte[SIZE];
+			byteBuffer.get(arr);
+			io.github.jmcleodfoss.msg.ClassId classId = new io.github.jmcleodfoss.msg.ClassId(arr);
+			return classId;
+		}
+
+		public int size()
+		{
+			return SIZE;
+		}
+	}
+
+	static final ClassId classIdReader = new ClassId();
 }
