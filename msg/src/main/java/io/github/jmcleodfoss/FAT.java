@@ -34,7 +34,6 @@ class FAT {
 			if (currentSector == Sector.FREESECT)
 				continue;
 			int readOffset = (currentSector + 1) * header.intsPerSector();
-System.out.printf("current sector %d readoffset 0x%04x\n", currentSector, readOffset);
 			al.position(readOffset);
 			al.get(fat, destIndex, header.intsPerSector());
 			destIndex += header.intsPerSector();
