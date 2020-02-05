@@ -72,6 +72,33 @@ class FAT {
 		}
 	}
 
+	public String toString()
+	{
+		StringBuilder s = new StringBuilder();
+		boolean[] shown = new boolean[numEntries];
+		for (int i = 0; i < numEntries; ++i){
+			if (shown[i])
+				continue;
+			if (fat[i] == Sector.FATSECT || fat[i] == Sector.DIFSECT || fat[i] == Sector.FREESECT){
+				shown[i] = true;
+				continue;
+			}
+			if (s.length() > 0)
+				s.append("\n");
+
+			int sector = i;
+			do {
+				if (sector != i)
+					s.append(" ");
+				s.append(sector);
+				shown[sector] = true;
+System.out.printf("old 0x%08x new 0x%08x\n", sector, fat[sector]);
+				sector = fat[sector];
+			} while (sector != Sector.ENDOFCHAIN);
+		}
+		return s.toString();
+	}
+
 	/**	Test this class by reading in the FAT index table and printing it out.
 	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
@@ -99,6 +126,7 @@ class FAT {
 
 			for (int i = 0; i < fat.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
+			System.out.println(fat);
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
