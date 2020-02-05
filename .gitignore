@@ -20,6 +20,7 @@
 *.rar
 
 # Directories
+test-msg-files
 test-output
 target
 */target
