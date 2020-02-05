@@ -97,7 +97,7 @@ class FAT {
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
 
-			for (int i = 0; i < FAT.numEntries; ++i)
+			for (int i = 0; i < fat.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(i));
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
