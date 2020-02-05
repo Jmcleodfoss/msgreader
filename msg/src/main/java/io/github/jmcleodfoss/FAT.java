@@ -11,6 +11,38 @@ class FAT {
 	/** The list of FAT index entries. */
 	final private int[] fat;
 
+	/** Iterator for FAT index entry chains */
+	class ChainIterator implements java.util.Iterator<Integer> {
+
+		/** The next entry to be returned. */
+		private int entry;
+
+		ChainIterator(int firstSector)
+		{
+			entry = firstSector;
+		}
+
+		/** Is there a new entry to return? */
+		public boolean hasNext()
+		{
+			return entry != Sector.ENDOFCHAIN;
+		}
+
+		/** Return the next FAT index entry */
+		public Integer next()
+		{
+			int retval = entry;
+			entry = fat[entry];
+			return retval;
+		}
+	}
+
+	/**	Get an iterator for this FAT */
+	java.util.Iterator<Integer> chainIterator(int firstSector)
+	{
+		return new ChainIterator(firstSector);
+	}
+
 	/** Create a FAT
 	*
 	* 	@param	mbb	The data stream
