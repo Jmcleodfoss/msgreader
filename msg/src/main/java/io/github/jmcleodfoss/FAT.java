@@ -92,7 +92,6 @@ class FAT {
 					s.append(" ");
 				s.append(sector);
 				shown[sector] = true;
-System.out.printf("old 0x%08x new 0x%08x\n", sector, fat[sector]);
 				sector = fat[sector];
 			} while (sector != Sector.ENDOFCHAIN);
 		}
