@@ -99,7 +99,6 @@ class FAT {
 
 			for (int i = 0; i < FAT.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(i));
-			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
