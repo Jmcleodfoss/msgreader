@@ -26,7 +26,7 @@ public class Header {
 	/** The fields in a CFB header object. */
 	private static final DataDefinition[] header_fields = {
 		new DataDefinition(nm_qwHeaderSignature, DataType.integer64Reader, true),
-		new DataDefinition(nm_HeaderCLSID, new DataType.SizedByteArray(16)),
+		new DataDefinition(nm_HeaderCLSID, DataType.classIdReader),
 		new DataDefinition("MinorVersion", DataType.integer16Reader),
 		new DataDefinition(nm_MajorVersion, DataType.integer16Reader, true),
 		new DataDefinition(nm_ByteOrder, DataType.integer16Reader, true),
