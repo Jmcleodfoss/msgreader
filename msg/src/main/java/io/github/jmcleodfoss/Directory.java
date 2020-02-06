@@ -47,7 +47,7 @@ class Directory {
 			FAT fat = new FAT(mbb, header, difat);
 			Directory directory = new Directory(mbb, header, fat);	
 
-			java.util.Iterator iterator = directory.iterator();
+			java.util.Iterator<DirectoryEntry> iterator = directory.iterator();
 			while (iterator.hasNext())
 				System.out.println(iterator.next());
 		} catch (final Exception e) {
