@@ -124,8 +124,10 @@ class FAT {
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
 
+			System.out.println("FAT contents");
 			for (int i = 0; i < fat.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
+			System.out.println("\nFAT sector chains");
 			System.out.println(fat.getChains());
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
