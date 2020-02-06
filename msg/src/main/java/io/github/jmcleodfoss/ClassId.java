@@ -19,10 +19,9 @@ class ClassId {
 	*/
 	ClassId(byte[] arr)
 	{
-		byte[] classId = new byte[SIZE];
+		classId = new byte[SIZE];
 		for (int i = 0; i < SIZE; ++i)
 			classId[i] = arr[i];
-		this.classId = classId;
 	}
 
 	/**	Compare two ClassId.
