@@ -69,10 +69,10 @@ public class Header {
 	static int firstDirectorySectorLocation;
 
 	/** The first mini FAT sector location */
-	private static int firstMiniFATSectorLocation;
+	static int firstMiniFATSectorLocation;
 
 	/** The number of mini FAT sectors */
-	private static int numberOfMiniFATSectors;
+	static int numberOfMiniFATSectors;
 
 	/** The first DIFAT (Double Indirect File Allocation Table) sector location */
 	static int firstDIFATSectorLocation;
