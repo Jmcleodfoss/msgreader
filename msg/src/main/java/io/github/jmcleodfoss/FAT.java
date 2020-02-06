@@ -73,7 +73,7 @@ class FAT {
 		}
 	}
 
-	public String toString()
+	public String getChains()
 	{
 		StringBuilder s = new StringBuilder();
 		boolean[] shown = new boolean[numEntries];
@@ -126,7 +126,7 @@ class FAT {
 
 			for (int i = 0; i < fat.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
-			System.out.println(fat);
+			System.out.println(fat.getChains());
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
