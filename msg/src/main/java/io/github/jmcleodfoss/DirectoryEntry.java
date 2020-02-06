@@ -27,7 +27,7 @@ public class DirectoryEntry {
 		new DataDefinition(nm_LeftSiblingId, DataType.integer32Reader, true),
 		new DataDefinition(nm_RightSiblingId, DataType.integer32Reader, true),
 		new DataDefinition(nm_ChildId, DataType.integer32Reader, true),
-		new DataDefinition(nm_CLSID, DataType.classIdReader),
+		new DataDefinition(nm_CLSID, DataType.classIdReader, true),
 		new DataDefinition("StateBits", DataType.integer32Reader),
 		new DataDefinition(nm_CreationTime, DataType.timeReader, true),
 		new DataDefinition(nm_ModifiedTime, DataType.timeReader, true),
@@ -43,7 +43,7 @@ public class DirectoryEntry {
 	final int leftSiblingId;
 	final int rightSiblingId;
 	final int childId;
-	final byte[] clsid;
+	final ClassId clsid;
 	final java.util.Date creationTime;
 	final java.util.Date modifiedTime;
 	final int startingSectorLocation;
@@ -63,7 +63,7 @@ public class DirectoryEntry {
 		leftSiblingId = (Integer)dc.get(nm_LeftSiblingId);	
 		rightSiblingId = (Integer)dc.get(nm_RightSiblingId);	
 		childId = (Integer)dc.get(nm_ChildId);	
-		clsid = (byte[])dc.get(nm_CLSID);
+		clsid = (ClassId)dc.get(nm_CLSID);
 		creationTime = (java.util.Date)dc.get(nm_CreationTime);
 		modifiedTime = (java.util.Date)dc.get(nm_ModifiedTime);
 		startingSectorLocation = (Integer)dc.get(nm_StartingSectorLocation);
@@ -82,7 +82,7 @@ public class DirectoryEntry {
 		startingSectorLocation, startingSectorLocation, streamSize,
 		objectType.toString(),
 		leftSiblingId, rightSiblingId, childId,
-		clsid,
+		clsid.toString(),
 		creationTime.toString(), modifiedTime.toString()
 		);
 	}
