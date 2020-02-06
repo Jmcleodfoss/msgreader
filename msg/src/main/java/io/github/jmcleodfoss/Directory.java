@@ -48,8 +48,9 @@ class Directory {
 			Directory directory = new Directory(mbb, header, fat);	
 
 			java.util.Iterator<DirectoryEntry> iterator = directory.iterator();
+			int i = 0;
 			while (iterator.hasNext())
-				System.out.println(iterator.next());
+				System.out.printf("0x%02x: %s\n", i++, iterator.next().toString());
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
