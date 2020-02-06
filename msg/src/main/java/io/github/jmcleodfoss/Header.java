@@ -48,37 +48,37 @@ public class Header {
 	private static final int SIZE = DataDefinition.size(header_fields);
 
 	/** The major version number. */
-	private static short majorVersion;
+	private final short majorVersion;
 
 	/** The byte order. */
-	private static short byteOrder;
+	private final short byteOrder;
 
 	/** The sector shift. */
-	static int sectorSize;
+	final int sectorSize;
 
 	/** The mini sector shift */
-	private static int miniSectorSize;
+	private final int miniSectorSize;
 
 	/** The number of directory sectors */
-	private static int numberOfDirectorySectors;
+	private final int numberOfDirectorySectors;
 
 	/** The number of FAT sectors */
-	static int numberOfFATSectors;
+	final int numberOfFATSectors;
 
 	/** The first directory sector location */
-	static int firstDirectorySectorLocation;
+	final int firstDirectorySectorLocation;
 
 	/** The first mini FAT sector location */
-	static int firstMiniFATSectorLocation;
+	final int firstMiniFATSectorLocation;
 
 	/** The number of mini FAT sectors */
-	static int numberOfMiniFATSectors;
+	final int numberOfMiniFATSectors;
 
 	/** The first DIFAT (Double Indirect File Allocation Table) sector location */
-	static int firstDIFATSectorLocation;
+	final int firstDIFATSectorLocation;
 
 	/** The number of DIFAT sectors */
-	static int numberOfDIFATSectors;
+	final int numberOfDIFATSectors;
 
 	/** Read in the header data and save the fields we need for later.
 	*

@@ -24,7 +24,7 @@ class Sector {
 
 	static int offset(int sectorIndex, Header header)
 	{
-		return (sectorIndex + 1) * Header.sectorSize;
+		return (sectorIndex + 1) * header.sectorSize;
 	}
 }
 
