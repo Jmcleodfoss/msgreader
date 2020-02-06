@@ -20,7 +20,7 @@ public class Header {
 	private static final String nm_FirstDirectorySectorLocation = "FirstDirectorySectorLocation";
 	private static final String nm_FirstMiniFATSectorLocation = "FirstMiniFATSectorLocation";
 	private static final String nm_NumberOfMiniFATSectors = "NumberOfMiniFATSectors";
-	private static final String nm_FirstDIFATSectorLocation = "FirstMiniFATSectorLocation";
+	private static final String nm_FirstDIFATSectorLocation = "FirstDIFATSectorLocation";
 	private static final String nm_NumberOfDIFATSectors = "NumberOfDIFATSectors";
 
 	/** The fields in a CFB header object. */
