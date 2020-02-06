@@ -43,10 +43,11 @@ class FAT {
 		return new ChainIterator(firstSector);
 	}
 
-	/** Create a FAT
+	/** Read in the entire FAT
 	*
 	* 	@param	mbb	The data stream
-	* 	@param	header	The CBF header structur
+	* 	@param	header	The CBF header structure
+	* 	@param	difat	The double-indirect file allocation table structure.
 	*/ 
 	FAT(java.nio.MappedByteBuffer mbb, Header header, DIFAT difat)
 	{
