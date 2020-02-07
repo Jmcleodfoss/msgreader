@@ -14,8 +14,8 @@ class Directory {
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position((dirSector+1)*header.sectorSize);
-			for (int i = 0; i < header.sectorSize / DirectoryEntry.size(); ++i) {
-			 	entries.add(new DirectoryEntry(byteBuffer)); 
+			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i) {
+			 	entries.add(DirectoryEntry.factory(byteBuffer)); 
 			}
 		}
 	}
