@@ -63,7 +63,7 @@ public class DirectoryEntry {
 
 		public String toString()
 		{
-			return String.format("%s %s child ID 0x%08x created %s", directoryEntryName, clsid, childId, creationTime.toString());
+			return String.format("%s %s child ID 0x%08x", directoryEntryName, clsid, childId);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class DirectoryEntry {
 
 		public String toString()
 		{
-			return String.format("String Stream (%s) 0x%04x 0x%04x", directoryEntryName, propertyId, propertyType);
+			return String.format("String Stream 0x%04x 0x%04x starting sector %d size %d", propertyId, propertyType, startingSectorLocation, streamSize);
 		}
 	}
 
@@ -101,6 +101,11 @@ public class DirectoryEntry {
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
+
+		public String toString()
+		{
+			return String.format("Properties starting sector %d size %d", startingSectorLocation, streamSize);
+		}
 	}
 
 	static class Recipient extends DirectoryEntry {
@@ -108,12 +113,22 @@ public class DirectoryEntry {
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
+
+		public String toString()
+		{
+			return String.format("Recipient child Id 0x%04x", childId);
+		}
 	}
 
 	static class Attachment extends DirectoryEntry {
 		Attachment(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+		}
+
+		public String toString()
+		{
+			return String.format("Attachment child Id 0x%04x", childId);
 		}
 	}
 
