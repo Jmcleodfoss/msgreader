@@ -216,7 +216,7 @@ public class DirectoryEntry {
 			return new Unallocated(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
 		} else {
 			System.out.println(directoryEntryName);
-			return null;
+			return new DirectoryEntry(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
 	}
 }
