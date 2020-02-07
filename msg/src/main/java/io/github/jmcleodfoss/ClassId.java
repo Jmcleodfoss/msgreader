@@ -73,7 +73,7 @@ class ClassId {
 	@Override
 	public String toString()
 	{
-		final int[] blockOffsets = {16, 8, 8, SIZE}; 
+		final int[] blockOffsets = {4, 6, 8, 10, SIZE}; 
 		String s = new String("");
 
 		int i = 0;
