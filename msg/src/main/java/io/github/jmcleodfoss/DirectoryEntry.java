@@ -12,6 +12,7 @@ public class DirectoryEntry {
 	static final String PROPERTIES = "__properties_version1.0";
 	static final java.util.regex.Pattern RECIP_PATTERN = java.util.regex.Pattern.compile("__recip_version1.0_#\\p{XDigit}{8}");
 	static final java.util.regex.Pattern ATTACH_PATTERN = java.util.regex.Pattern.compile("__attach_version1.0_#\\p{XDigit}{8}");
+	static final String UNALLOCATED = "";
 
 	final String directoryEntryName;
 	final ObjectType objectType;
@@ -132,6 +133,17 @@ public class DirectoryEntry {
 		}
 	}
 
+	static class Unallocated extends DirectoryEntry {
+		Unallocated(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		{
+			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+		}
+
+		public String toString()
+		{
+			return "Unallocated";
+		}
+	}
 	private static String nm_DirectoryEntryName = "DirectoryEntryName";
 	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
 	private static String nm_ObjectType = "ObjectType";
@@ -200,6 +212,8 @@ public class DirectoryEntry {
 			return new Recipient(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
 		} else if (ATTACH_PATTERN.matcher(directoryEntryName).matches()){
 			return new Attachment(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+		} else if (UNALLOCATED.equals(directoryEntryName)){
+			return new Unallocated(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
 		} else {
 			System.out.println(directoryEntryName);
 			return null;
