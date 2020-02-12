@@ -32,11 +32,20 @@ class MiniFAT {
 	/** The number of bytes in a mini sector. */
 	static final int MINI_SECTOR_SIZE = 64;
 
+	/** The sector size (from the file header */
+	private final int sectorSize;
+
+	/** The number of mini sectors in a full sector */
+	private final int miniSectorsPerFullSector;
+
 	/** The number of mini FAT sectors */
 	final int numEntries;
 
 	/** The mini FAT data */
 	final int[] miniFATSectors;
+
+	/** The mini stream sectors. */
+	private java.util.ArrayList<Integer> miniSectors = new java.util.ArrayList<Integer>();
 
 	/** Read the Mini FAT
 	*
@@ -44,8 +53,10 @@ class MiniFAT {
 	* 	@param	header	The CBF header structure
 	* 	@param	fat	The file allocation table structure
 	*/ 
-	MiniFAT(java.nio.MappedByteBuffer mbb, Header header, FAT fat)
+	MiniFAT(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory)
 	{
+		sectorSize = header.sectorSize;
+		miniSectorsPerFullSector = sectorSize / MINI_SECTOR_SIZE;
 		numEntries = header.numberOfMiniFATSectors * header.sectorSize / header.SIZEOF_INT;
 		miniFATSectors = new int[numEntries];
 		java.util.Iterator<Integer> iter = fat.chainIterator(header.firstMiniFATSectorLocation);
@@ -55,6 +66,11 @@ class MiniFAT {
 			java.nio.IntBuffer al = mbb.asIntBuffer();
 			al.get(miniFATSectors, destIndex, header.intsPerSector());
 			destIndex += header.intsPerSector();
+		}
+
+		java.util.Iterator<Integer> miniSectorIterator = fat.chainIterator(directory.entries.get(0).startingSectorLocation);
+		while(miniSectorIterator.hasNext()) {
+			miniSectors.add(miniSectorIterator.next());
 		}
 	}
 
@@ -87,6 +103,15 @@ class MiniFAT {
 		return s.toString();
 	}
 
+	int fileOffset(int miniSectorEntry)
+	{
+		int fullSectorIndex = miniSectorEntry / miniSectorsPerFullSector;
+		int fullSector = miniSectors.get(fullSectorIndex);
+		int sectorFileOffset = (fullSector+1) * sectorSize;
+		int miniSectorIndexThisSector = miniSectorEntry % miniSectorsPerFullSector;
+		int miniSectorOffsetIntoThisSector = miniSectorIndexThisSector * MINI_SECTOR_SIZE;
+		return sectorFileOffset + miniSectorOffsetIntoThisSector;
+	}
 	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
 	{
 		return new ChainIterator(firstSector, header, fat);
@@ -116,7 +141,8 @@ class MiniFAT {
 			Header header = new Header(mbb);
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
-			MiniFAT minifat = new MiniFAT(mbb, header, fat);
+			Directory directory = new Directory(mbb, header, fat);
+			MiniFAT minifat = new MiniFAT(mbb, header, fat, directory);
 
 			System.out.println("Mini FAT contents");
 			for (int i = 0; i < minifat.miniFATSectors.length; ++i)
