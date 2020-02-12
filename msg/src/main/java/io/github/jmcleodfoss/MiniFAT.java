@@ -3,6 +3,32 @@ package io.github.jmcleodfoss.msg;
 /** The Mini File Allocation Table */
 class MiniFAT {
 
+	/** Iterator for Mini FAT index entry chains. This returns the offset of the next mini sector to read. */
+	class ChainIterator implements java.util.Iterator<Integer> {
+
+		/** The next entry to be returned. */
+		private int entry;
+
+		ChainIterator(int firstMiniSector, Header header, FAT fat)
+		{
+			entry = firstMiniSector;
+		}
+
+		/** Is there a new entry to return? */
+		public boolean hasNext()
+		{
+			return entry != Sector.ENDOFCHAIN;
+		}
+
+		/** Return the next FAT index entry */
+		public Integer next()
+		{
+			int retval = entry;
+			entry = miniFATSectors[entry];
+			return retval;
+		}
+	}
+
 	/** The number of bytes in a mini sector. */
 	static final int MINI_SECTOR_SIZE = 64;
 
@@ -30,7 +56,6 @@ class MiniFAT {
 			al.get(miniFATSectors, destIndex, header.intsPerSector());
 			destIndex += header.intsPerSector();
 		}
-
 	}
 
 	/** Get the chains of mini sectors defined in the mini FAT.
@@ -60,6 +85,11 @@ class MiniFAT {
 			} while (sector != Sector.ENDOFCHAIN);
 		}
 		return s.toString();
+	}
+
+	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
+	{
+		return new ChainIterator(firstSector, header, fat);
 	}
 
 	/**	Test this class by reading in the mini FAT index table and printing it out.
