@@ -39,6 +39,11 @@ public class DirectoryEntry {
 		this.streamSize = streamSize;
 	}
 
+	Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+	{
+		return null;
+	}
+
 	public String toString()
 	{
 		return String.format("name %s\n" +
@@ -90,6 +95,70 @@ public class DirectoryEntry {
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 			this.propertyId = Integer.decode("0x"+ propertyId);
 			this.propertyType = Integer.decode("0x"+ propertyType);
+		}
+
+		private byte[] getMiniStreamContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+		{
+			byte[] data = new byte[(int)streamSize];
+			java.util.Iterator<Integer> iter = miniFAT.getChainIterator(startingSectorLocation, header, fat);
+			int destOffset = 0;
+			int nRemaining = (int)streamSize;
+			while (iter.hasNext()){
+				int miniFATSector = iter.next();
+				mbb.position(miniFAT.fileOffset(miniFATSector));
+				int nToRead = Math.min(nRemaining, MiniFAT.MINI_SECTOR_SIZE);
+				mbb.get(data, destOffset, nToRead);
+				destOffset += nToRead;
+				nRemaining -= nToRead;
+			}
+			return data;
+		}
+
+		private byte[] getStreamContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat)
+		{
+			byte[] data = new byte[(int)streamSize];
+			java.util.Iterator<Integer> iter = fat.chainIterator(startingSectorLocation);
+			int destOffset = 0;
+			int nRemaining = (int)streamSize;
+			while (iter.hasNext()){
+				int sector = iter.next();
+				mbb.position((sector+1)*header.sectorSize);
+				int nToRead = Math.min(nRemaining, header.sectorSize);
+				mbb.get(data, destOffset, nToRead);
+				destOffset += nToRead;
+				nRemaining -= nToRead;
+			}
+			return data;
+		}
+
+		Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+		{
+			// Check for tag
+			String tagName = PropertyTags.tags.get(propertyId);
+			if (tagName != null)
+				System.out.printf("\ntag 0x%04x found %s type 0x%04x size %d\n", propertyId, tagName, propertyType, streamSize);
+			else
+				System.out.printf("\ntag 0x%04x not found in tag list type 0x%04x size %d\n", propertyId, propertyType, streamSize);
+
+			byte[] data;
+			if (streamSize < header.miniStreamCutoffSize)
+				data = getMiniStreamContent(mbb, header, fat, miniFAT);
+			else {
+				data = getStreamContent(mbb, header, fat);
+			}
+
+			switch(propertyType){
+			case 0x01f:
+				return DataType.createString(data);
+
+			case 0x0102:
+				return data;
+
+			default:
+				System.out.printf("unrecognized data type 0x%04x\n", propertyType);
+			}
+
+			return "Not implemented";
 		}
 
 		public String toString()
