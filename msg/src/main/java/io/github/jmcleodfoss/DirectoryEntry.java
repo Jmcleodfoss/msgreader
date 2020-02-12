@@ -68,6 +68,7 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs. */
 	static class NamedPropertiesMapping extends DirectoryEntry {
 		NamedPropertiesMapping(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
@@ -97,6 +98,7 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
 	static class Properties extends DirectoryEntry {
 		Properties(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
