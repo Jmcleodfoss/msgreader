@@ -18,6 +18,7 @@ public class Header {
 	private static final String nm_NumberOfDirectorySectors = "NumberOfDirectorySectors";
 	private static final String nm_NumberOfFATSectors = "NumberOfFATSectors";
 	private static final String nm_FirstDirectorySectorLocation = "FirstDirectorySectorLocation";
+	private static final String nm_MiniStreamCutoffSize = "MiniStreamCutoffSize";
 	private static final String nm_FirstMiniFATSectorLocation = "FirstMiniFATSectorLocation";
 	private static final String nm_NumberOfMiniFATSectors = "NumberOfMiniFATSectors";
 	private static final String nm_FirstDIFATSectorLocation = "FirstDIFATSectorLocation";
@@ -37,7 +38,7 @@ public class Header {
 		new DataDefinition(nm_NumberOfFATSectors, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstDirectorySectorLocation, DataType.integer32Reader, true),
 		new DataDefinition("TransactionSignatureNumber", DataType.integer32Reader),
-		new DataDefinition("MiniStreamCutoffSize", DataType.integer32Reader),
+		new DataDefinition(nm_MiniStreamCutoffSize, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstMiniFATSectorLocation, DataType.integer32Reader, true),
 		new DataDefinition(nm_NumberOfMiniFATSectors, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstDIFATSectorLocation, DataType.integer32Reader, true),
@@ -67,6 +68,9 @@ public class Header {
 
 	/** The first directory sector location */
 	final int firstDirectorySectorLocation;
+
+	/** The cut-off between storage in the Mini FAT stream or the regular one. */
+	final int miniStreamCutoffSize;
 
 	/** The first mini FAT sector location */
 	final int firstMiniFATSectorLocation;
@@ -105,6 +109,7 @@ public class Header {
 		numberOfDirectorySectors = (Integer)dc.get(nm_NumberOfDirectorySectors);
 		numberOfFATSectors = (Integer)dc.get(nm_NumberOfFATSectors);
 		firstDirectorySectorLocation = (Integer)dc.get(nm_FirstDirectorySectorLocation);
+		miniStreamCutoffSize = (Integer)dc.get(nm_MiniStreamCutoffSize);
 		firstMiniFATSectorLocation = (Integer)dc.get(nm_FirstMiniFATSectorLocation);
 		numberOfMiniFATSectors = (Integer)dc.get(nm_NumberOfMiniFATSectors);
 		firstDIFATSectorLocation = (Integer)dc.get(nm_FirstDIFATSectorLocation);
