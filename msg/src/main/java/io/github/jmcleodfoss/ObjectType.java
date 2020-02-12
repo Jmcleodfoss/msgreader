@@ -1,10 +1,10 @@
 package io.github.jmcleodfoss.msg;
 
 class ObjectType {
-	private static final byte UNKNOWN = 0x00;
-	private static final byte STORAGE = 0x01;
-	private static final byte STREAM = 0x02;
-	private static final byte ROOT_STORAGE = 0x05;
+	static final byte UNKNOWN = 0x00;
+	static final byte STORAGE = 0x01;
+	static final byte STREAM = 0x02;
+	static final byte ROOT_STORAGE = 0x05;
 
 	byte type;
 

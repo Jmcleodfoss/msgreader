@@ -341,12 +341,17 @@ abstract class DataType {
 		{
 			byte arr[] = new byte[size];
 			byteBuffer.get(arr);
-			try {
-				return new String(arr, CHARSET_WIDE);
-			} catch (java.io.UnsupportedEncodingException e){
-				// UTF-16 should be supported everywhere by now.
-				return "";
-			}
+			return createString(arr);
+		}
+	}
+
+	static String createString(byte[] arr)
+	{
+		try {
+			return new String(arr, CHARSET_WIDE);
+		} catch (java.io.UnsupportedEncodingException e){
+			// UTF-16 should be supported everywhere by now.
+			return "";
 		}
 	}
 
