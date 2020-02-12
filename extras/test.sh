@@ -51,6 +51,7 @@ TestMSGFile() {
 
 	TestModule io.github.jmcleodfoss.msg.DIFAT "$msg"
 	TestModule io.github.jmcleodfoss.msg.Directory "$msg"
+	TestModule io.github.jmcleodfoss.msg.DirectoryEntry "$msg"
 	TestModule io.github.jmcleodfoss.msg.FAT "$msg"
 	TestModule io.github.jmcleodfoss.msg.Header "$msg"
 	TestModule io.github.jmcleodfoss.msg.MiniFAT "$msg"
