@@ -1,9 +1,17 @@
 package io.github.jmcleodfoss.msg;
 
+/** The directory structure in the CFB. */
 class Directory {
 
+	/** The directory entries. */
 	java.util.ArrayList<DirectoryEntry> entries;
 
+	/** Construct a directory object.
+	*	@param	bytebuffer	The CFB file
+	*	@param	header		The CFB header
+	*	@param	FAT		The CFB file allocation table
+	*	@throws	java.io.IOException	An error was encountered reading the directory structure.
+	*/
 	Directory(java.nio.ByteBuffer byteBuffer, Header header, FAT fat)
 	throws
 		java.io.IOException
@@ -20,6 +28,10 @@ class Directory {
 		}
 	}
 
+	/** Collect all siblings and self for the given childIndex.
+	*	@param	siblings	The list of children of childIndex's parent
+	*	@param	childIndex	The given child for the parent we are collecting the children of.
+	*/
 	void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
 	{
 		DirectoryEntry child = entries.get(childIndex);
@@ -30,6 +42,10 @@ class Directory {
 			addSiblings(siblings, child.rightSiblingId);
 	}
 
+	/** Get the children for a given node.
+	*	@param parentIndex	The directory entry index of the parent we want to find the children of, if any.
+	*	@return	The (possibly entry) list of children of the directory entry for parentIndex.
+	*/
 	java.util.ArrayList<Integer> getChildren(int parentIndex)
 	{
 		java.util.ArrayList<Integer> children = new java.util.ArrayList<Integer>();
@@ -40,11 +56,16 @@ class Directory {
 		return children;
 	}
 
+	/** Get an iterator through the directory entries. */
 	java.util.Iterator<DirectoryEntry> iterator()
 	{
 		return entries.iterator();
 	}
 
+	/**	Test this class by printing out the directory and the list of children for each node.
+	*
+	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
+	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
