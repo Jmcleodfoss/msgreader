@@ -3,6 +3,9 @@ package io.github.jmcleodfoss.msg;
 /**	The DataType class represents data types within a PST file as well as PST file properties.
 */
 abstract class DataType {
+	/** The number of bytes in an integer. */
+	static final int SIZEOF_INT = Integer.SIZE / Byte.SIZE;
+
 	/**	The character encoding used for Unicode data.  */
 	private static final String CHARSET_WIDE = new String("UTF-16LE");
 

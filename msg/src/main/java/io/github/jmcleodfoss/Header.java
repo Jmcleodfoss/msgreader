@@ -6,9 +6,6 @@ package io.github.jmcleodfoss.msg;
 */
 public class Header {
 
-	/** The number of bytes in an integer. */
-	static final int SIZEOF_INT = Integer.SIZE / Byte.SIZE;
-
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
 	private static final String nm_MajorVersion = "MajorVersion";
@@ -122,7 +119,7 @@ public class Header {
 	*/
 	int intsPerSector()
 	{
-		return sectorSize / SIZEOF_INT;
+		return sectorSize / DataType.SIZEOF_INT;
 	}
  
 	/** Calculate the size of the header block.

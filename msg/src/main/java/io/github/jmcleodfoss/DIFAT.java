@@ -4,7 +4,7 @@ package io.github.jmcleodfoss.msg;
 class DIFAT {
 
 	/** Offset of DIFAT entries in the header (in terms of ints). */
-	static final int HEADER_DIFAT_OFFSET = 0x004c / Header.SIZEOF_INT;
+	static final int HEADER_DIFAT_OFFSET = 0x004c / DataType.SIZEOF_INT;
 
 	/** The number of DIFAT entries in the header. */
 	static final int HEADER_DIFAT_ENTRIES = 109;
