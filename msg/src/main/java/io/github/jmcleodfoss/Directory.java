@@ -20,6 +20,26 @@ class Directory {
 		}
 	}
 
+	void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
+	{
+		DirectoryEntry child = entries.get(childIndex);
+		if (child.leftSiblingId != Sector.FREESECT)
+			addSiblings(siblings, child.leftSiblingId);
+		siblings.add(childIndex);
+		if (child.rightSiblingId != Sector.FREESECT)
+			addSiblings(siblings, child.rightSiblingId);
+	}
+
+	java.util.ArrayList<Integer> getChildren(int parentIndex)
+	{
+		java.util.ArrayList<Integer> children = new java.util.ArrayList<Integer>();
+		int childIndex = entries.get(parentIndex).childId;
+		if (childIndex != Sector.FREESECT){
+			addSiblings(children, childIndex);
+		}
+		return children;
+	}
+
 	java.util.Iterator<DirectoryEntry> iterator()
 	{
 		return entries.iterator();
@@ -51,6 +71,17 @@ class Directory {
 			int i = 0;
 			while (iterator.hasNext())
 				System.out.printf("0x%02x: %s\n", i++, iterator.next().toString());
+
+			System.out.println("\n");
+			for (i = 0; i < directory.entries.size(); ++i){
+				java.util.ArrayList<Integer> children = directory.getChildren(i);
+				if (children.size() > 0){
+					System.out.printf("Children of 0x%02x:\n", i);
+					java.util.Iterator<Integer> childIterator = children.iterator();
+					while (childIterator.hasNext())
+						System.out.println("\t" + childIterator.next());
+				}
+			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}
