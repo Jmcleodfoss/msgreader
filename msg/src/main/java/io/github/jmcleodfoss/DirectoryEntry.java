@@ -141,7 +141,7 @@ public class DirectoryEntry {
 			}
 
 			switch(propertyType){
-			case 0x01f:
+			case 0x001f:
 				return DataType.createString(data);
 
 			case 0x0102:
