@@ -1,6 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 /** The ClassID class holds a class ID, which specifies the format of the corresponding data.
+*   This was copied (and the class name changed) from pstreader pst GUID.java.
 */
 class ClassId {
 
@@ -14,7 +15,6 @@ class ClassId {
 	final byte[] classId;
 
 	/** Create a ClassId from the bytes in the given array.
-	*
 	*	@param	arr	The array of bytes from which to construct the ClassId
 	*/
 	ClassId(byte[] arr)
@@ -25,9 +25,7 @@ class ClassId {
 	}
 
 	/**	Compare two ClassId.
-	*
 	*	@param	o	The other ClassId to check.
-	*
 	*	@return	false if the other ClassId differs from this one, true if it is the same as this one.
 	*/
 	@Override
@@ -52,7 +50,6 @@ class ClassId {
 	}
 
 	/**	Calculate hashcode.
-	*
 	*	@return	Hashcode for the ClassId.
 	*/
 	@Override
@@ -67,7 +64,6 @@ class ClassId {
 	}
 
 	/**	Obtain a string representation of this Class ID
-	*
 	*	@return	A string describing the Class ID in "Canonical" format (0x000000000000 0x00000000 0x0000000000).
 	*/
 	@Override

@@ -82,9 +82,7 @@ public class Header {
 	final int numberOfDIFATSectors;
 
 	/** Read in the header data and save the fields we need for later.
-	*
 	*	@param	byteBuffer	The data stream from which to read the PST header.
-	*
 	*	@throws	NotCFBFileException	This is not a cfb file.
 	*	@throws	java.io.IOException	An I/O error was encountered when reading the msg header.
 	*/
@@ -114,7 +112,6 @@ public class Header {
 	}
 
 	/** The number of 4-byte integers (int) which will fit in a sector.
-	*
 	* 	@return	The number of ints which will fit in a sector.
 	*/
 	int intsPerSector()
@@ -123,7 +120,6 @@ public class Header {
 	}
  
 	/** Calculate the size of the header block.
-	*
 	*	@return	The size of the header for this file.
 	*/
 	public int size()
@@ -132,7 +128,6 @@ public class Header {
 	}
 
 	/** Provide a summary of the header in String form. This is typically used for debugging.
-	*
 	*	@return	A description of the header.
 	*/
 	@Override
@@ -153,7 +148,6 @@ public class Header {
 	}
 
 	/** Test this class by reading in the MSG file header and printing it out.
-	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
