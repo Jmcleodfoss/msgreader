@@ -133,13 +133,6 @@ public class DirectoryEntry {
 
 		Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
-			// Check for tag
-			String tagName = PropertyTags.tags.get(propertyId);
-			if (tagName != null)
-				System.out.printf("\ntag 0x%04x found %s type 0x%04x size %d\n", propertyId, tagName, propertyType, streamSize);
-			else
-				System.out.printf("\ntag 0x%04x not found in tag list type 0x%04x size %d\n", propertyId, propertyType, streamSize);
-
 			byte[] data;
 			if (streamSize < header.miniStreamCutoffSize)
 				data = getMiniStreamContent(mbb, header, fat, miniFAT);
