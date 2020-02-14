@@ -6,6 +6,9 @@ abstract class DataType {
 	/** The number of bytes in an integer. */
 	static final int SIZEOF_INT = Integer.SIZE / Byte.SIZE;
 
+	/** The number of bytes in a long. */
+	static final int SIZEOF_LONG = Long.SIZE / Byte.SIZE;
+
 	/**	The character encoding used for Unicode data.  */
 	private static final String CHARSET_WIDE = new String("UTF-16LE");
 
