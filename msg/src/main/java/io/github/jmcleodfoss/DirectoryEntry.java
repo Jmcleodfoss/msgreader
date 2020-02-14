@@ -319,7 +319,7 @@ public class DirectoryEntry {
 			while (iterator.hasNext()){
 				DirectoryEntry de = iterator.next();
 				System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s\n",
-					i++, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
+					i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
 				Object o = de.getContent(mbb, header, fat, miniFAT);
 				if (o != null){
 					if (o instanceof String)
@@ -328,6 +328,7 @@ public class DirectoryEntry {
 						System.out.println(ByteUtil.createHexByteString((byte[])o));
 				}
 				System.out.println();
+				++i;
 			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
