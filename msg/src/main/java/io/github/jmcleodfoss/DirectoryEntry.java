@@ -19,13 +19,13 @@ public class DirectoryEntry {
 	final int leftSiblingId;
 	final int rightSiblingId;
 	final int childId;
-	final ClassId clsid;
+	final GUID clsid;
 	final java.util.Date creationTime;
 	final java.util.Date modifiedTime;
 	final int startingSectorLocation;
 	final long streamSize;
 
-	protected DirectoryEntry(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+	protected DirectoryEntry(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 	{
 		this.directoryEntryName = directoryEntryName;
 		this.objectType = objectType;
@@ -62,7 +62,7 @@ public class DirectoryEntry {
 	}
 
 	static class RootEntry extends DirectoryEntry {
-		RootEntry(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		RootEntry(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -75,7 +75,7 @@ public class DirectoryEntry {
 
 	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs. */
 	static class NamedPropertiesMapping extends DirectoryEntry {
-		NamedPropertiesMapping(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		NamedPropertiesMapping(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -90,7 +90,7 @@ public class DirectoryEntry {
 		int propertyId;
 		int propertyType;
 
-		StringStream(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType)
+		StringStream(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 			this.propertyId = Integer.decode("0x"+ propertyId);
@@ -162,7 +162,7 @@ public class DirectoryEntry {
 
 	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
 	static class Properties extends DirectoryEntry {
-		Properties(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Properties(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -174,7 +174,7 @@ public class DirectoryEntry {
 	}
 
 	static class Recipient extends DirectoryEntry {
-		Recipient(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Recipient(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -186,7 +186,7 @@ public class DirectoryEntry {
 	}
 
 	static class Attachment extends DirectoryEntry {
-		Attachment(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Attachment(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -198,7 +198,7 @@ public class DirectoryEntry {
 	}
 
 	static class Unallocated extends DirectoryEntry {
-		Unallocated(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, ClassId clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Unallocated(String directoryEntryName, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
 		{
 			super(directoryEntryName, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
 		}
@@ -257,7 +257,7 @@ public class DirectoryEntry {
 		int leftSiblingId = (Integer)dc.get(nm_LeftSiblingId);	
 		int rightSiblingId = (Integer)dc.get(nm_RightSiblingId);	
 		int childId = (Integer)dc.get(nm_ChildId);	
-		ClassId clsid = (ClassId)dc.get(nm_CLSID);
+		GUID clsid = (GUID)dc.get(nm_CLSID);
 		java.util.Date creationTime = (java.util.Date)dc.get(nm_CreationTime);
 		java.util.Date modifiedTime = (java.util.Date)dc.get(nm_ModifiedTime);
 		int startingSectorLocation = (Integer)dc.get(nm_StartingSectorLocation);

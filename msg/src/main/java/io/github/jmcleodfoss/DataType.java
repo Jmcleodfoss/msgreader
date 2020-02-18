@@ -490,24 +490,24 @@ abstract class DataType {
 		}
 	}
 
-	static class ClassId extends DataType {
+	static class GUID extends DataType {
 		static final int SIZE = 16;
 
-		ClassId()
+		GUID()
 		{
 			super();
 		}
 
 		public String makeString(final Object o)
 		{
-			return ((io.github.jmcleodfoss.msg.ClassId)o).toString();
+			return ((io.github.jmcleodfoss.msg.GUID)o).toString();
 		}
 
 		public Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			byte arr[] = new byte[SIZE];
 			byteBuffer.get(arr);
-			io.github.jmcleodfoss.msg.ClassId classId = new io.github.jmcleodfoss.msg.ClassId(arr);
+			io.github.jmcleodfoss.msg.GUID classId = new io.github.jmcleodfoss.msg.GUID(arr);
 			return classId;
 		}
 
@@ -517,5 +517,5 @@ abstract class DataType {
 		}
 	}
 
-	static final ClassId classIdReader = new ClassId();
+	static final GUID classIdReader = new GUID();
 }
