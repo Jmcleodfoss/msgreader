@@ -6,6 +6,9 @@ class Directory {
 	/** The directory entries. */
 	java.util.ArrayList<DirectoryEntry> entries;
 
+	/** The index to the named properties directory entry */
+	int namedPropertiesMappingIndex;
+
 	/** Construct a directory object.
 	*	@param	bytebuffer	The CFB file
 	*	@param	header		The CFB header
@@ -23,7 +26,10 @@ class Directory {
 			int dirSector = chain.next();
 			byteBuffer.position((dirSector+1)*header.sectorSize);
 			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i) {
-			 	entries.add(DirectoryEntry.factory(byteBuffer)); 
+				DirectoryEntry de = DirectoryEntry.factory(byteBuffer);
+				entries.add(de);
+				if (de instanceof DirectoryEntry.NamedPropertiesMapping)
+					namedPropertiesMappingIndex = entries.indexOf(de);
 			}
 		}
 	}
