@@ -52,12 +52,6 @@ public class Header {
 	*/
 	DataContainer dc;
 
-	/** The major version number. */
-	private final short majorVersion;
-
-	/** The byte order. */
-	private final short byteOrder;
-
 	/** The sector shift. */
 	final int sectorSize;
 
@@ -103,8 +97,6 @@ public class Header {
 
 		HeaderSignature.validate((Long)dc.get(nm_qwHeaderSignature));
 
-		majorVersion = (Short)dc.get(nm_MajorVersion);
-		byteOrder = (Short)dc.get(nm_ByteOrder);
 		sectorSize = SectorSize.sectorSize((Short)dc.get(nm_SectorShift));
 		miniSectorSize = SectorSize.sectorSize((Short)dc.get(nm_MiniSectorShift));
 		numberOfDirectorySectors = (Integer)dc.get(nm_NumberOfDirectorySectors);
@@ -139,14 +131,12 @@ public class Header {
 	@Override
 	public String toString()
 	{
-		return String.format("version 0x%04x\n" +
-		"byte order 0x%04x sector size 0x%04x mini sector size 0x%04x\n" +
+		return String.format("sector size 0x%04x mini sector size 0x%04x\n" +
 		"dir sectors %d starting at %s\n" +
 		"FAT sectors %d\n" +
 		"mini FAT sectors %d starting at %s\n" +
 		"DIFAT sectors %d starting at %s",
-		majorVersion,
-		byteOrder, sectorSize, miniSectorSize,
+		sectorSize, miniSectorSize,
  		numberOfDirectorySectors, Sector.getDescription(firstDirectorySectorLocation),
 		numberOfFATSectors,
 		numberOfMiniFATSectors, Sector.getDescription(firstMiniFATSectorLocation),
