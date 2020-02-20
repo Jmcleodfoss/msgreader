@@ -94,7 +94,6 @@ public class Header {
 		DataContainer dc = new DataContainer();
 		dc.read(byteBuffer, header_fields);
 
-		HeaderSignature.validate((long)(Long)dc.get(nm_qwHeaderSignature));
 		HeaderSignature.validate((Long)dc.get(nm_qwHeaderSignature));
 
 		majorVersion = (Short)dc.get(nm_MajorVersion);
