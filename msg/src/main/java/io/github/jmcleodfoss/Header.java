@@ -8,6 +8,7 @@ public class Header {
 
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
+	private static final String nm_MinorVersion = "MinorVersion";
 	private static final String nm_MajorVersion = "MajorVersion";
 	private static final String nm_ByteOrder = "ByteOrder";
 	private static final String nm_SectorShift = "SectorShift";
@@ -15,6 +16,7 @@ public class Header {
 	private static final String nm_NumberOfDirectorySectors = "NumberOfDirectorySectors";
 	private static final String nm_NumberOfFATSectors = "NumberOfFATSectors";
 	private static final String nm_FirstDirectorySectorLocation = "FirstDirectorySectorLocation";
+	private static final String nm_TransactionSignatureNumber = "TransactionSignatureNumber";
 	private static final String nm_MiniStreamCutoffSize = "MiniStreamCutoffSize";
 	private static final String nm_FirstMiniFATSectorLocation = "FirstMiniFATSectorLocation";
 	private static final String nm_NumberOfMiniFATSectors = "NumberOfMiniFATSectors";
@@ -24,8 +26,8 @@ public class Header {
 	/** The fields in a CFB header object. */
 	private static final DataDefinition[] header_fields = {
 		new DataDefinition(nm_qwHeaderSignature, DataType.integer64Reader, true),
-		new DataDefinition(nm_HeaderCLSID, DataType.classIdReader),
-		new DataDefinition("MinorVersion", DataType.integer16Reader),
+		new DataDefinition(nm_HeaderCLSID, DataType.classIdReader, true),
+		new DataDefinition(nm_MinorVersion, DataType.integer16Reader, true),
 		new DataDefinition(nm_MajorVersion, DataType.integer16Reader, true),
 		new DataDefinition(nm_ByteOrder, DataType.integer16Reader, true),
 		new DataDefinition(nm_SectorShift, DataType.integer16Reader, true),
@@ -34,7 +36,7 @@ public class Header {
 		new DataDefinition(nm_NumberOfDirectorySectors, DataType.integer32Reader, true),
 		new DataDefinition(nm_NumberOfFATSectors, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstDirectorySectorLocation, DataType.integer32Reader, true),
-		new DataDefinition("TransactionSignatureNumber", DataType.integer32Reader),
+		new DataDefinition(nm_TransactionSignatureNumber, DataType.integer32Reader, true),
 		new DataDefinition(nm_MiniStreamCutoffSize, DataType.integer32Reader, true),
 		new DataDefinition(nm_FirstMiniFATSectorLocation, DataType.integer32Reader, true),
 		new DataDefinition(nm_NumberOfMiniFATSectors, DataType.integer32Reader, true),
@@ -44,6 +46,11 @@ public class Header {
 
 	/** Size of the header block */
 	private static final int SIZE = DataDefinition.size(header_fields);
+
+	/** The data repository (presevered after constructor since we don't
+	*   read everything from it that we might want to display).
+	*/
+	DataContainer dc;
 
 	/** The major version number. */
 	private final short majorVersion;
@@ -91,7 +98,7 @@ public class Header {
 		NotCFBFileException,
 		java.io.IOException
 	{
-		DataContainer dc = new DataContainer();
+		dc = new DataContainer();
 		dc.read(byteBuffer, header_fields);
 
 		HeaderSignature.validate((Long)dc.get(nm_qwHeaderSignature));
