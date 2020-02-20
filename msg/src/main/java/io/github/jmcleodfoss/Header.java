@@ -141,10 +141,10 @@ public class Header {
 	{
 		return String.format("version 0x%04x\n" +
 		"byte order 0x%04x sector size 0x%04x mini sector size 0x%04x\n" +
-		"# dir sectors %d starting at %s\n" +
-		"# FAT sectors %d\n" +
-		"# mini FAT sectors %d starting at %s\n" +
-		"# DIFAT sectors %d starting at %s",
+		"dir sectors %d starting at %s\n" +
+		"FAT sectors %d\n" +
+		"mini FAT sectors %d starting at %s\n" +
+		"DIFAT sectors %d starting at %s",
 		majorVersion,
 		byteOrder, sectorSize, miniSectorSize,
  		numberOfDirectorySectors, Sector.getDescription(firstDirectorySectorLocation),
