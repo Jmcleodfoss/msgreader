@@ -155,12 +155,12 @@ public class Header {
 		l.add(nm_MiniSectorShift, ((Short)dc.get(nm_MiniSectorShift)).toString());
 		l.add(nm_NumberOfDirectorySectors, Integer.toString(numberOfDirectorySectors));
 		l.add(nm_NumberOfFATSectors, Integer.toString(numberOfFATSectors));
-		l.add(nm_FirstDirectorySectorLocation, Integer.toString(firstDirectorySectorLocation));
+		l.add(nm_FirstDirectorySectorLocation, Sector.getDescription(firstDirectorySectorLocation));
 		l.add(nm_TransactionSignatureNumber, String.format("0x%016x", (Integer)dc.get(nm_TransactionSignatureNumber)));
 		l.add(nm_MiniStreamCutoffSize, Integer.toString(miniStreamCutoffSize));
-		l.add(nm_FirstMiniFATSectorLocation, Integer.toString(firstMiniFATSectorLocation));
+		l.add(nm_FirstMiniFATSectorLocation, Sector.getDescription(firstMiniFATSectorLocation));
 		l.add(nm_NumberOfMiniFATSectors, Integer.toString(numberOfMiniFATSectors));
-		l.add(nm_FirstDIFATSectorLocation, Integer.toString(firstDIFATSectorLocation));
+		l.add(nm_FirstDIFATSectorLocation, Sector.getDescription(firstDIFATSectorLocation));
 		l.add(nm_NumberOfDIFATSectors, Integer.toString(numberOfDIFATSectors));
 		return l;
 	}
