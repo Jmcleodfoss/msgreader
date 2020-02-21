@@ -146,9 +146,9 @@ public class Header {
 	/** Make header data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	public KVPArray data()
+	public KVPArray<String, String> data()
 	{
-		KVPArray l = new KVPArray();
+		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(nm_qwHeaderSignature, String.format("0x%16x", (Long)dc.get(nm_qwHeaderSignature)));
 		l.add(nm_HeaderCLSID, ((GUID)dc.get(nm_HeaderCLSID)).toString());
 		l.add(nm_MinorVersion, ((Short)dc.get(nm_MinorVersion)).toString());
@@ -191,9 +191,9 @@ public class Header {
 			Header header = new Header(mbb);
 			System.out.println(header);
 
-			java.util.Iterator<KVPEntry> i = header.data().iterator();
+			java.util.Iterator<KVPEntry<String, String>> i = header.data().iterator();
 			while (i.hasNext()){
-				KVPEntry kvp = i.next();
+				KVPEntry<String, String> kvp = i.next();
 				System.out.println(kvp);
 			}
 		} catch (final Exception e) {
