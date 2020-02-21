@@ -89,8 +89,21 @@ class DIFAT {
 		return new Iterator();
 	}
 
+	/**	Make DIFAT data available to client applications
+	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*/
+	public KVPArray<Integer, Integer> data()
+	{
+		KVPArray<Integer, Integer> l = new KVPArray<Integer, Integer>();
+		for (int iSrc = 0, iDest = 0; iSrc < numEntries; ++iSrc){
+			if (difat[iSrc] != Sector.FREESECT){
+				l.add((Integer)iDest++, (Integer)difat[iSrc]);
+			}
+		}
+		return l;
+	}
+
 	/**	Test this class by reading in the DIFAT index table and printing it out.
-	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
@@ -115,6 +128,15 @@ class DIFAT {
 			java.util.Iterator<Integer> iterator = difat.iterator();
 			while (iterator.hasNext()) {
 				System.out.println(Sector.getDescription(iterator.next()));
+			}
+
+			System.out.println();
+			System.out.println("FAT sector chain description");
+			KVPArray<Integer, Integer> data = difat.data();
+			java.util.Iterator<KVPEntry<Integer, Integer>> fatchain = data.iterator();
+			while (fatchain.hasNext()){
+				KVPEntry<Integer, Integer> e = fatchain.next();
+				System.out.printf("FAT sector %d index %d\n", e.getKey(), e.getValue());
 			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
