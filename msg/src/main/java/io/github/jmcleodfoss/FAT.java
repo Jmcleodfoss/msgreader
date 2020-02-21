@@ -80,6 +80,9 @@ class FAT {
 		for (int i = 0; i < numEntries; ++i){
 			if (shown[i])
 				continue;
+			/* FAT sector chains are defined in the DIFAT.
+			*  DIFAT sector chains are defined in the DIFAT.
+			*  Free sectors are not chained.
 			if (fat[i] == Sector.FATSECT || fat[i] == Sector.DIFSECT || fat[i] == Sector.FREESECT){
 				shown[i] = true;
 				continue;
