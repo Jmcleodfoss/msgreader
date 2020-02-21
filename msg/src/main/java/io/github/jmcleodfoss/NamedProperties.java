@@ -58,7 +58,6 @@ class NamedProperties
 			} else if (STRING_STREAM_NAME.equals(de.directoryEntryName)){
 				setStrings(de, data);
 			} else {
-				System.out.println(ByteUtil.createHexByteString(data));
 				propertyNameMappings[pnmIndex] = new DataWithIndexAndKind(data);
 				++pnmIndex;
 			}
