@@ -19,7 +19,7 @@ class Sector {
 			case MAXREGSEC: return "Max Regular Sector";
 		}
 
-		return "Regular Sector " + String.format("0x%08x", sectorId);
+		return "Regular Sector " + String.format("%d", sectorId);
 	}
 
 	static int offset(int sectorIndex, Header header)
