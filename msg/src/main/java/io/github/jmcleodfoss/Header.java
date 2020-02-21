@@ -143,6 +143,9 @@ public class Header {
 		numberOfDIFATSectors, Sector.getDescription(firstDIFATSectorLocation));
 	}
 
+	/** Make header data available to client applications
+	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*/
 	public KVPArray data()
 	{
 		KVPArray l = new KVPArray();
