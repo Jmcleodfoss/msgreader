@@ -1,7 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Double-Indirect File Allocation Table */
-class DIFAT {
+public class DIFAT {
 
 	/** Offset of DIFAT entries in the header (in terms of ints). */
 	static final int HEADER_DIFAT_OFFSET = 0x004c / DataType.SIZEOF_INT;
