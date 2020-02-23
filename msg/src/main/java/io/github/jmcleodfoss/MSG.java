@@ -57,6 +57,16 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
+	KVPArray<String, String> headerData()
+	{
+		return header.data();
+	}
+
+	KVPArray<Integer, Integer> difatData()
+	{
+		return difat.data();
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/

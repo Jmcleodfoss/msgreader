@@ -1,7 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Double-Indirect File Allocation Table */
-public class DIFAT {
+class DIFAT {
 
 	/** Offset of DIFAT entries in the header (in terms of ints). */
 	static final int HEADER_DIFAT_OFFSET = 0x004c / DataType.SIZEOF_INT;
@@ -92,7 +92,7 @@ public class DIFAT {
 	/**	Make DIFAT data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	public KVPArray<Integer, Integer> data()
+	KVPArray<Integer, Integer> data()
 	{
 		KVPArray<Integer, Integer> l = new KVPArray<Integer, Integer>();
 		for (int iSrc = 0, iDest = 0; iSrc < numEntries; ++iSrc){

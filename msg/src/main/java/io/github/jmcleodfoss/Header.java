@@ -4,7 +4,7 @@ package io.github.jmcleodfoss.msg;
 *
 * 	MS-CFB Section 2.2, Compound File Header
 */
-public class Header {
+class Header {
 
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
@@ -146,7 +146,7 @@ public class Header {
 	/** Make header data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	public KVPArray<String, String> data()
+	KVPArray<String, String> data()
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(nm_qwHeaderSignature, String.format("0x%16x", (Long)dc.get(nm_qwHeaderSignature)));
