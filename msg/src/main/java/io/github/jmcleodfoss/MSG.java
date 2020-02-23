@@ -57,12 +57,12 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
-	KVPArray<String, String> headerData()
+	public KVPArray<String, String> headerData()
 	{
 		return header.data();
 	}
 
-	KVPArray<Integer, Integer> difatData()
+	public KVPArray<Integer, Integer> difatData()
 	{
 		return difat.data();
 	}
@@ -81,7 +81,7 @@ public class MSG
 	/** Make FAT data available to client applications
 	*	@return	An array of key-value pairs consisting of the stream names and the corresponding sector chains
 	*/
-	KVPArray<String, String> fatData()
+	public KVPArray<String, String> fatData()
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(new KVPEntry<String, String>("DirectoryStream", getFATChainString(fat.chainIterator(header.firstDirectorySectorLocation))));
