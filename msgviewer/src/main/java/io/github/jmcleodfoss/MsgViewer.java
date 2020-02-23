@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class MsgViewer extends javafx.application.Application
 {
-	static private final String PROPNAME_FAT_TAB_TITLE = "FAT";
 	static private final String PROPNAME_SECTOR_TAB_TITLE = "Sectors";
 	static private final String PROPNAME_MINISTREAM_TAB_TITLE = "Ministream";
 	static private final String PROPNAME_DIRECTORY_TAB_TITLE = "Directory";
@@ -45,7 +44,6 @@ public class MsgViewer extends javafx.application.Application
 
 		header = new Header(localizer);
 		difat = new DIFAT(localizer);
-//		fat = new Tab(localizer.getText(PROPNAME_FAT_TAB_TITLE));
 		fat = new FAT(localizer);
 		sectors = new Tab(localizer.getText(PROPNAME_SECTOR_TAB_TITLE));
 		miniStream = new Tab(localizer.getText(PROPNAME_MINISTREAM_TAB_TITLE));
