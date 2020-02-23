@@ -108,13 +108,18 @@ class FAT {
 		}
 	}
 
-	public String getChains()
+	/** Get all the sector chains
+	*	@return	An ArrayList of ArrayLists containing the sector chains
+	*/
+	java.util.ArrayList<java.util.ArrayList<Integer>> getAllChains()
 	{
-		StringBuilder s = new StringBuilder();
+		java.util.ArrayList<java.util.ArrayList<Integer>> chains = new java.util.ArrayList<java.util.ArrayList<Integer>>();
+
 		boolean[] shown = new boolean[numEntries];
 		for (int i = 0; i < numEntries; ++i){
 			if (shown[i])
 				continue;
+
 			/* FAT sector chains are defined in the DIFAT.
 			*  DIFAT sector chains are defined in the DIFAT.
 			*  Free sectors are not chained.
@@ -123,17 +128,43 @@ class FAT {
 				shown[i] = true;
 				continue;
 			}
-			if (s.length() > 0)
-				s.append("\n");
+
+			/* Found a new chain */
+			java.util.ArrayList<Integer> thisChain = new java.util.ArrayList<Integer>();
 
 			int sector = i;
 			do {
-				if (sector != i)
-					s.append(" ");
-				s.append(sector);
+				thisChain.add(sector);
 				shown[sector] = true;
 				sector = fat[sector];
 			} while (sector != Sector.ENDOFCHAIN);
+
+			chains.add(thisChain);
+		}
+
+		return chains;
+	}
+
+	/** Get a String representation of all the sector chains in the FAT,
+	*   one chain per line.
+	*/
+	public String getChains()
+	{
+		java.util.Iterator<java.util.ArrayList<Integer>> chainsIterator = getAllChains().iterator();
+
+		StringBuilder s = new StringBuilder();
+		while(chainsIterator.hasNext()){
+			if (s.length() > 0)
+				s.append("\n");
+			java.util.Iterator<Integer> thisChain = chainsIterator.next().iterator();
+			boolean first = true;
+			while (thisChain.hasNext()){
+				if (first)
+					first = false;
+				else
+					s.append(" ");
+				s.append(thisChain.next());
+			}
 		}
 		return s.toString();
 	}

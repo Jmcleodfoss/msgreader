@@ -83,10 +83,49 @@ public class MSG
 	*/
 	public KVPArray<String, String> fatData()
 	{
+		final String DIRECTORY_STREAM = "DirectoryStream";
+		final String MINI_FAT_STREAM = "MiniFATStream";
+		final String DIFAT_STREAM = "DIFATStream";
+		final String APPLICATION_STREAM_FORMAT = "ApplicationDefinedStream%d";
+		final String FREE_SECTORS = "FreeSectors";
+
+		java.util.Map<String, Boolean> mandatoryEntries = new java.util.HashMap<String, Boolean>();
+		mandatoryEntries.put(DIRECTORY_STREAM, false);
+		mandatoryEntries.put(MINI_FAT_STREAM, false);
+		mandatoryEntries.put(DIFAT_STREAM, false);
+
 		KVPArray<String, String> l = new KVPArray<String, String>();
-		l.add(new KVPEntry<String, String>("DirectoryStream", getFATChainString(fat.chainIterator(header.firstDirectorySectorLocation))));
-		l.add(new KVPEntry<String, String>("MiniFATStream", getFATChainString(fat.chainIterator(header.firstMiniFATSectorLocation))));
-		l.add(new KVPEntry<String, String>("DIFATStream", getFATChainString(fat.chainIterator(header.firstDIFATSectorLocation))));
+
+		java.util.Iterator<java.util.ArrayList<Integer>> chains = fat.getAllChains().iterator();
+		int applicationChainIndex = 0;
+		while (chains.hasNext()){
+			java.util.ArrayList<Integer> chain = chains.next();
+			int firstSector = chain.get(0);
+
+			String entryName;
+			if (firstSector == header.firstDirectorySectorLocation){
+				entryName = DIRECTORY_STREAM;
+				mandatoryEntries.put(entryName, true);
+			} else if (firstSector == header.firstMiniFATSectorLocation){
+				entryName = MINI_FAT_STREAM;
+				mandatoryEntries.put(entryName, true);
+			} else if (firstSector == header.firstDIFATSectorLocation){
+				entryName = DIFAT_STREAM;
+				mandatoryEntries.put(entryName, true);
+			} else {
+				entryName = String.format(APPLICATION_STREAM_FORMAT, applicationChainIndex++);
+			}
+
+			l.add(new KVPEntry<String, String>(entryName, getFATChainString(chain.iterator())));
+		}
+
+		java.util.Iterator<String> iter = mandatoryEntries.keySet().iterator();
+		while (iter.hasNext()){
+			String entryName = iter.next();
+			if (!mandatoryEntries.get(entryName))
+				l.add(new KVPEntry<String, String>(entryName, ""));
+		}
+
 		l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
 		return l;
 	}
