@@ -87,7 +87,7 @@ public class MSG
 		l.add(new KVPEntry<String, String>("DirectoryStream", getFATChainString(fat.chainIterator(header.firstDirectorySectorLocation))));
 		l.add(new KVPEntry<String, String>("MiniFATStream", getFATChainString(fat.chainIterator(header.firstMiniFATSectorLocation))));
 		l.add(new KVPEntry<String, String>("DIFATStream", getFATChainString(fat.chainIterator(header.firstDIFATSectorLocation))));
-		l.add(new KVPEntry<String, String>("DIFATStream", getFATChainString(fat.freeSectorIterator())));
+		l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
 		return l;
 	}
 
