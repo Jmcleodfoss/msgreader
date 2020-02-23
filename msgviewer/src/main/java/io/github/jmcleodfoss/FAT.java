@@ -5,8 +5,8 @@ import io.github.jmcleodfoss.msg.MSG;
 class FAT extends KVPTableTab
 {
 	static private final String PROPNAME_FAT_TAB_TITLE = "FAT";
-	static private final String PROPNAME_FAT_COL1_HEADING = "Stream";
-	static private final String PROPNAME_FAT_COL2_HEADING = "SectorChain";
+	static private final String PROPNAME_FAT_COL1_HEADING = "FATKVPKey";
+	static private final String PROPNAME_FAT_COL2_HEADING = "FATKVPValue";
 
 	FAT(LocalizedText localizer)
 	{
