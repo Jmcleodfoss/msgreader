@@ -37,10 +37,45 @@ class FAT {
 		}
 	}
 
+	/** Iterator for free FAT entries */
+	class FreeSectorIterator implements java.util.Iterator<Integer> {
+
+		/** The next entry to be returned. */
+		private int entry;
+
+		FreeSectorIterator()
+		{
+			while (entry < numEntries && fat[entry] != Sector.FREESECT)
+				entry++;
+		}
+
+		/** Is there a new free entry to return? */
+		public boolean hasNext()
+		{
+			return entry < numEntries && fat[entry] == Sector.FREESECT;
+		}
+
+		/** Return the next FAT free entry */
+		public Integer next()
+		{
+			int retval = entry;
+			do {
+				++entry;
+			} while (entry < numEntries && fat[entry] != Sector.FREESECT);
+			return retval;
+		}
+	}
+
 	/**	Get an iterator for this FAT */
 	java.util.Iterator<Integer> chainIterator(int firstSector)
 	{
 		return new ChainIterator(firstSector);
+	}
+
+	/**	Get an iterator for free sectors in this FAT */
+	java.util.Iterator<Integer> freeSectorIterator()
+	{
+		return new FreeSectorIterator();
 	}
 
 	/** Read in the entire FAT
@@ -131,8 +166,19 @@ class FAT {
 			System.out.println("FAT contents");
 			for (int i = 0; i < fat.numEntries; ++i)
 				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
+
 			System.out.println("\nFAT sector chains");
 			System.out.println(fat.getChains());
+
+			System.out.println("\nFAT free sectors");
+			StringBuilder s = new StringBuilder();
+			java.util.Iterator<Integer> iter = fat.freeSectorIterator();
+			while (iter.hasNext()){
+				if (s.length() > 0)
+					s.append(" ");
+				s.append(iter.next());
+			}
+			System.out.println(s);
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);
 		}

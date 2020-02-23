@@ -67,6 +67,30 @@ public class MSG
 		return difat.data();
 	}
 
+	String getFATChainString(java.util.Iterator<Integer> iterator)
+	{
+		java.lang.StringBuilder chain = new java.lang.StringBuilder();
+		while (iterator.hasNext()){
+			if (chain.length() > 0)
+				chain.append(" ");
+			chain.append(iterator.next());
+		}
+		return chain.toString();
+	}
+
+	/** Make FAT data available to client applications
+	*	@return	An array of key-value pairs consisting of the stream names and the corresponding sector chains
+	*/
+	KVPArray<String, String> fatData()
+	{
+		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(new KVPEntry<String, String>("DirectoryStream", getFATChainString(fat.chainIterator(header.firstDirectorySectorLocation))));
+		l.add(new KVPEntry<String, String>("MiniFATStream", getFATChainString(fat.chainIterator(header.firstMiniFATSectorLocation))));
+		l.add(new KVPEntry<String, String>("DIFATStream", getFATChainString(fat.chainIterator(header.firstDIFATSectorLocation))));
+		l.add(new KVPEntry<String, String>("DIFATStream", getFATChainString(fat.freeSectorIterator())));
+		return l;
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/
