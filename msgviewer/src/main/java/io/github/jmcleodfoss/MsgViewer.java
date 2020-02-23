@@ -9,18 +9,12 @@ import javafx.application.Application.Parameters;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 public class MsgViewer extends javafx.application.Application
 {
-	static private final String PROPNAME_SECTOR_TAB_TITLE = "Sectors";
-	static private final String PROPNAME_MINISTREAM_TAB_TITLE = "Ministream";
-	static private final String PROPNAME_DIRECTORY_TAB_TITLE = "Directory";
-
 	String filename;
-
 	MSG file;
 
 	LocalizedText localizer;
@@ -30,9 +24,9 @@ public class MsgViewer extends javafx.application.Application
 	Header header;
 	DIFAT difat;
 	FAT fat;
-	Tab sectors;
-	Tab miniStream;
-	Tab directory;
+	Sectors sectors;
+	MiniStream miniStream;
+	Directory directory;
 
 	public MsgViewer()
 	{
@@ -45,9 +39,9 @@ public class MsgViewer extends javafx.application.Application
 		header = new Header(localizer);
 		difat = new DIFAT(localizer);
 		fat = new FAT(localizer);
-		sectors = new Tab(localizer.getText(PROPNAME_SECTOR_TAB_TITLE));
-		miniStream = new Tab(localizer.getText(PROPNAME_MINISTREAM_TAB_TITLE));
-		directory = new Tab(localizer.getText(PROPNAME_DIRECTORY_TAB_TITLE));
+		sectors = new Sectors(localizer);
+		miniStream = new MiniStream(localizer);
+		directory = new Directory(localizer);
 		
 		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
 		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -89,6 +83,9 @@ public class MsgViewer extends javafx.application.Application
 		header.update(msg, localizer);
 		difat.update(msg, localizer);
 		fat.update(msg, localizer);
+		sectors.update(msg, localizer);
+		miniStream.update(msg, localizer);
+		directory.update(msg, localizer);
 	}
 
 	static public void main(String[] args)
