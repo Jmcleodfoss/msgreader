@@ -15,22 +15,22 @@ public class MSG
 	private java.nio.MappedByteBuffer mbb;
 
 	/**	The header */
-	public Header header;
+	private Header header;
 
 	/**	The DIFAT */
-	public DIFAT difat;
+	private DIFAT difat;
 
 	/**	The DAT */
-	public FAT fat;
+	private FAT fat;
 
 	/**	The directory */
-	public Directory directory;
+	private Directory directory;
 
 	/**	The Mini FAT */
-	public MiniFAT miniFAT;
+	private MiniFAT miniFAT;
 
 	/**	The named properties */
-	public NamedProperties namedProperties;
+	private NamedProperties namedProperties;
 
 	/**	Create a FileChannel for the given filename and read in the
  	*	header, DIFAT, etc.
