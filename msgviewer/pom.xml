@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>msgviewer</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>An application for reading Outlook msg files.</description>
+
+	<properties>
+		<javafx.version>11</javafx.version>
+	</properties>
+
+	<parent>
+		<groupId>io.github.jmcleodfoss</groupId>
+		<artifactId>msg-parent</artifactId>
+		<version>0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<repositories>
+		<repository>
+			<id>jfx-repo</id>
+			<url>file://${basedir}/jfx-repo</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.zenjava</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.3</version>
+				<configuration>
+					<mainClass>io.github.jmcleodfoss.msgviewer</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.github.jmcleodfoss</groupId>
+			<artifactId>msg</artifactId>
+			<version>0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<!-- jfxrt.jar, added manually to local project maven repository via: 
+				mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file
+					-Dfile=/opt/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686/jre/lib/ext/jfxrt.jar
+					-DgroupId=com.zulu
+					-DartifactId=javafx
+					-Dversion=8.42.0
+					-DlocalRepositoryPath=jfx-repo
+					-Dpackaging=jar
+			-->
+			<groupId>com.zulu</groupId>
+			<artifactId>javafx</artifactId>
+			<version>8.42.0</version>
+		</dependency>
+	</dependencies>
+</project>
