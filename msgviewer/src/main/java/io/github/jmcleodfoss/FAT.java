@@ -12,7 +12,8 @@ class FAT extends KVPTableTab
 	{
 		super(localizer.getText(PROPNAME_FAT_TAB_TITLE),
 			localizer.getText(PROPNAME_FAT_COL1_HEADING),
-			localizer.getText(PROPNAME_FAT_COL2_HEADING));
+			localizer.getText(PROPNAME_FAT_COL2_HEADING),
+			true);
 	}
 
 	void update(MSG file, LocalizedText localizer)
