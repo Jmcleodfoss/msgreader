@@ -130,6 +130,27 @@ public class MSG
 		return l;
 	}
 
+	/** Get information for the requested directory entry
+	*	@param	entry	The entry to retreive data for
+	*	@return	A DirectoryEntryData structure providing information about this entry
+	*/
+	public DirectoryEntryData getDirectoryEntryData(int entry)
+	{
+		return new DirectoryEntryData(directory, entry);
+	}
+
+	/** Get the raw bytes for the requested directory entry
+	*	@param	entry	The entry to retreive data for
+	*	@return	An array consiting of the bytes in the directory entry.
+	*/
+	public byte[] getRawDirectoryEntry(int i)
+	{
+		mbb.position(directory.entries.get(i).directoryEntryPosition);
+		byte[] data = new byte[DirectoryEntry.SIZE];
+		mbb.get(data);
+		return data;
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/

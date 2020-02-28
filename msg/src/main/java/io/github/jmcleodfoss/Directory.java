@@ -24,7 +24,7 @@ class Directory {
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
 		while(chain.hasNext()){
 			int dirSector = chain.next();
-			byteBuffer.position((dirSector+1)*header.sectorSize);
+			byteBuffer.position(Sector.offset(dirSector, header));
 			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i) {
 				DirectoryEntry de = DirectoryEntry.factory(byteBuffer);
 				entries.add(de);
