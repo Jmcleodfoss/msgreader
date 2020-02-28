@@ -43,6 +43,7 @@
 
 			<modules>
 				<module>msg</module>
+				<module>msgviewer</module>
 			</modules>
 
 			<activation>
@@ -84,10 +85,8 @@
 			<id>deploy-ossrh</id>
 
 			<modules>
-				<module>pst</module>
-				<module>explorer</module>
-				<module>util</module>
-				<module>swingutil</module>
+				<module>msg</module>
+				<module>msgviewer</module>
 			</modules>
 
 			<activation>
