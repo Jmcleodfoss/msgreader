@@ -1,0 +1,5 @@
+#!/bin/bash
+declare -a SAVED_PATH="$PATH"
+export PATH="/opt/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686/bin:$PATH"
+java -cp msgviewer/target/msgviewer-0.0-SNAPSHOT.jar:msg/target/msg-0.0-SNAPSHOT.jar io.github.jmcleodfoss.msgviewer.MsgViewer "$*"
+export PATH=$SAVED_PATH
