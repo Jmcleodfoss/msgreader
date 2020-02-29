@@ -26,7 +26,12 @@ public class DirectoryEntry {
 	final int startingSectorLocation;
 	final long streamSize;
 
-	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+	/** The data repository (preserved after constructor since we don't
+	*   read everything from it that we might want to display).
+	*/
+	final DataContainer dc;
+
+	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 	{
 		this.directoryEntryName = directoryEntryName;
 		this.directoryEntryPosition = directoryEntryPosition;
@@ -39,6 +44,7 @@ public class DirectoryEntry {
 		this.modifiedTime = modifiedTime;
 		this.startingSectorLocation = startingSectorLocation;
 		this.streamSize = streamSize;
+		this.dc = dc;
 	}
 
 	Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
@@ -64,9 +70,9 @@ public class DirectoryEntry {
 	}
 
 	static class RootEntry extends DirectoryEntry {
-		RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -77,9 +83,9 @@ public class DirectoryEntry {
 
 	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs. */
 	static class NamedPropertiesMapping extends DirectoryEntry {
-		NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -92,9 +98,9 @@ public class DirectoryEntry {
 		int propertyId;
 		int propertyType;
 
-		StringStream(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType)
+		StringStream(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 			this.propertyId = Integer.decode("0x"+ propertyId);
 			this.propertyType = Integer.decode("0x"+ propertyType);
 		}
@@ -164,9 +170,9 @@ public class DirectoryEntry {
 
 	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
 	static class Properties extends DirectoryEntry {
-		Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -176,9 +182,9 @@ public class DirectoryEntry {
 	}
 
 	static class Recipient extends DirectoryEntry {
-		Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -188,9 +194,9 @@ public class DirectoryEntry {
 	}
 
 	static class Attachment extends DirectoryEntry {
-		Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -200,9 +206,9 @@ public class DirectoryEntry {
 	}
 
 	static class Unallocated extends DirectoryEntry {
-		Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize)
+		Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
@@ -218,6 +224,7 @@ public class DirectoryEntry {
 	private static String nm_RightSiblingId = "RightSiblingId";
 	private static String nm_ChildId = "ChildId";
 	private static String nm_CLSID = "CLSID";
+	private static String nm_StateBits = "StateBits";
 	private static String nm_CreationTime = "CreationTime";
 	private static String nm_ModifiedTime = "ModifiedTime";
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
@@ -227,12 +234,12 @@ public class DirectoryEntry {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
 		new DataDefinition(nm_DirectoryEntryNameLength, DataType.integer16Reader, true),
 		new DataDefinition(nm_ObjectType, DataType.integer8Reader, true),
-		new DataDefinition("ColorFlag", DataType.integer8Reader),
+		new DataDefinition(nm_ColorFlag, DataType.integer8Reader, true),
 		new DataDefinition(nm_LeftSiblingId, DataType.integer32Reader, true),
 		new DataDefinition(nm_RightSiblingId, DataType.integer32Reader, true),
 		new DataDefinition(nm_ChildId, DataType.integer32Reader, true),
 		new DataDefinition(nm_CLSID, DataType.classIdReader, true),
-		new DataDefinition("StateBits", DataType.integer32Reader),
+		new DataDefinition(nm_StateBits, DataType.integer32Reader, true),
 		new DataDefinition(nm_CreationTime, DataType.timeReader, true),
 		new DataDefinition(nm_ModifiedTime, DataType.timeReader, true),
 		new DataDefinition(nm_StartingSectorLocation, DataType.integer32Reader, true),
@@ -268,23 +275,45 @@ public class DirectoryEntry {
 
 		java.util.regex.Matcher matcher;
 		if (ROOT_ENTRY.equals(directoryEntryName)){
-			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else if (NAMEID.equals(directoryEntryName)){
-			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
-			return new StringStream(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2)); 
+			return new StringStream(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc); 
 		} else if (PROPERTIES.equals(directoryEntryName)){
-			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else if (RECIP_PATTERN.matcher(directoryEntryName).matches()){
-			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else if (ATTACH_PATTERN.matcher(directoryEntryName).matches()){
-			return new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else if (UNALLOCATED.equals(directoryEntryName)){
-			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize); 
+			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
 		} else {
 			System.out.println(directoryEntryName);
-			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize);
+			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
+	}
+
+	/** Make full directory information data available to client applications
+	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*/
+	KVPArray<String, String> data()
+	{
+		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(nm_DirectoryEntryName, directoryEntryName);
+		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
+		l.add(nm_ObjectType, objectType.toString());
+		l.add(nm_ColorFlag, Byte.toString((Byte)dc.get(nm_ColorFlag)));
+		l.add(nm_LeftSiblingId, Integer.toString(leftSiblingId));
+		l.add(nm_RightSiblingId, Integer.toString(rightSiblingId));
+		l.add(nm_ChildId, Integer.toString(childId));
+		l.add(nm_CLSID, clsid.toString());
+		l.add(nm_StateBits, Integer.toString((Integer)dc.get(nm_StateBits)));
+		l.add(nm_CreationTime, creationTime.toString());
+		l.add(nm_ModifiedTime, modifiedTime.toString());
+		l.add(nm_StartingSectorLocation, Integer.toString(startingSectorLocation));
+		l.add(nm_StreamSize, Long.toString(streamSize));
+		return l;
 	}
 
 	public static void main(String[] args)
