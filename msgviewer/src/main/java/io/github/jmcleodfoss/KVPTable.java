@@ -112,6 +112,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		valueColumn.setCellValueFactory(new PropertyValueFactory("value"));
 		if (fWideData)
 			valueColumn.setCellFactory(new wideCellFactoryCallback());
+
 		getColumns().setAll(keyColumn, valueColumn);
 	}
 
@@ -153,7 +154,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 					super.updateItem(item, empty);
 					if (!isEmpty()){
 						text = new Text(item);
-						double newWidth = getWidth() - getTableUsedWidth();
+						double newWidth = KVPTable.this.getWidth() - getTableUsedWidth();
 						text.setWrappingWidth(newWidth);
 						getColumns().get(1).setPrefWidth(newWidth);
 						setGraphic(text);
