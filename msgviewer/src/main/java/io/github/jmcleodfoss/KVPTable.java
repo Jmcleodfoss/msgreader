@@ -113,6 +113,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		if (fWideData)
 			valueColumn.setCellFactory(new wideCellFactoryCallback());
 
+		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		getColumns().setAll(keyColumn, valueColumn);
 	}
 
