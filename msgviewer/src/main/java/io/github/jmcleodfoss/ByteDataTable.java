@@ -84,11 +84,13 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		}
 	}
 
+	private boolean fHasUnicode;
 	private int nColumns;
 
-	ByteDataTable(String[] headings, boolean fShowUnicode)
+	ByteDataTable(String[] headings, boolean fHasUnicode)
 	{
 		super();
+		this.fHasUnicode = fHasUnicode;
 
 		int dataLength = headings.length;
 		nColumns = dataLength;
@@ -101,7 +103,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			col.setPrefWidth(cellWidth);
 			columns.add(col);
   		}
-		if (fShowUnicode){
+		if (fHasUnicode){
 			assert headings.length % UNICODE_BYTES == 0;
 
 			TableColumn<Row, String> unicodeData = new TableColumn<Row, String>("Unicode");
@@ -117,6 +119,13 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		}
 
 		getColumns().setAll(columns);
+	}
+
+	void setUnicodeVisible(boolean fVisible)
+	{
+		if (!fHasUnicode)
+			return;
+		getColumns().get(nColumns-1).setVisible(false);
 	}
 
 	void update(byte[] data)
