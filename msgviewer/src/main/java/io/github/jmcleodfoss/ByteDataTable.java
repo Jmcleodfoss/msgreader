@@ -118,6 +118,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			}
 		}
 
+		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		getColumns().setAll(columns);
 	}
 
