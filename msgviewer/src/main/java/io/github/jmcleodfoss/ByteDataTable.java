@@ -15,6 +15,9 @@ import javafx.scene.text.Text;
 
 class ByteDataTable extends TableView<ByteDataTable.Row>
 {
+	// Unicode for CFB files is UTF-16.
+	static private final int UNICODE_BYTES = 2;
+
 	static private final Text WIDEST_BYTE_STRING = new Text(" 88");
 
 	/** Convenience class for displaying byte arrays in a TableView */
@@ -86,14 +89,11 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	ByteDataTable(String[] headings, boolean fShowUnicode)
 	{
 		super();
-		assert headings.length %2 == 0;
-		double cellWidth = WIDEST_BYTE_STRING.getBoundsInLocal().getWidth();
 
 		int dataLength = headings.length;
 		nColumns = dataLength;
-		if (fShowUnicode)
-			++nColumns;
 
+		double cellWidth = WIDEST_BYTE_STRING.getBoundsInLocal().getWidth();
 		ArrayList<TableColumn<Row, String>> columns = new ArrayList<TableColumn<Row, String>>();
 		for (int i = 0; i < dataLength; ++i) {
 			TableColumn<Row, String> col = new TableColumn<Row, String>(headings[i]);
@@ -102,9 +102,13 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			columns.add(col);
   		}
 		if (fShowUnicode){
+			assert headings.length % UNICODE_BYTES == 0;
+
 			TableColumn<Row, String> unicodeData = new TableColumn<Row, String>("Unicode");
 			columns.add(unicodeData);
-			for (int i = 0; i < dataLength/2; ++i) {
+			++nColumns;
+
+			for (int i = 0; i < headings.length / UNICODE_BYTES; ++i) {
 				TableColumn<Row, String> col = new TableColumn<Row, String>();
 			  	col.setCellValueFactory(new ASCIITableCell("columns", i));
 				col.setPrefWidth(cellWidth/2);
