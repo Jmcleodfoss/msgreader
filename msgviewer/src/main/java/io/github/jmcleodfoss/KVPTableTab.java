@@ -40,6 +40,9 @@ class KVPTableTab<K, V> extends Tab
 	
 	void update(KVPArray<K, V> data, LocalizedText localizer)
 	{
-		table.update(data, localizer);
+		if (data == null)
+			table.getItems().clear();
+		else
+			table.update(data, localizer);
 	}
 }
