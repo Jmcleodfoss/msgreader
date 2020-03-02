@@ -47,7 +47,14 @@ public class DirectoryEntry {
 		this.dc = dc;
 	}
 
-	Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+	String createString(byte[] data)
+	{
+		if (data == null)
+			return "Empty";
+		return ByteUtil.createHexByteString(data);
+	}
+
+	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
 		return null;
 	}
@@ -139,27 +146,20 @@ public class DirectoryEntry {
 			return data;
 		}
 
-		Object getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+		@Override
+		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
-			byte[] data;
 			if (streamSize < header.miniStreamCutoffSize)
-				data = getMiniStreamContent(mbb, header, fat, miniFAT);
-			else {
-				data = getStreamContent(mbb, header, fat);
-			}
+				return getMiniStreamContent(mbb, header, fat, miniFAT);
+			return getStreamContent(mbb, header, fat);
+		}
 
-			switch(propertyType){
-			case 0x001f:
+		@Override
+		String createString(byte[] data)
+		{
+			if (data != null && propertyType == 0x001f)
 				return DataType.createString(data);
-
-			case 0x0102:
-				return data;
-
-			default:
-				System.out.printf("unrecognized data type 0x%04x\n", propertyType);
-			}
-
-			return "Not implemented";
+			return super.createString(data);
 		}
 
 		public String toString()
@@ -345,13 +345,9 @@ public class DirectoryEntry {
 				DirectoryEntry de = iterator.next();
 				System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s\n",
 					i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
-				Object o = de.getContent(mbb, header, fat, miniFAT);
-				if (o != null){
-					if (o instanceof String)
-						System.out.println(o);
-					else
-						System.out.println(ByteUtil.createHexByteString((byte[])o));
-				}
+				byte[] data = de.getContent(mbb, header, fat, miniFAT);
+				if (data != null)
+					System.out.println(de.createString(data));
 				System.out.println();
 				++i;
 			}

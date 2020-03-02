@@ -141,14 +141,34 @@ public class MSG
 
 	/** Get the raw bytes for the requested directory entry
 	*	@param	entry	The entry to retreive data for
-	*	@return	An array consiting of the bytes in the directory entry.
+	*	@return	An array of the bytes in the directory entry.
 	*/
-	public byte[] getRawDirectoryEntry(int i)
+	public byte[] getRawDirectoryEntry(int entry)
 	{
-		mbb.position(directory.entries.get(i).directoryEntryPosition);
+		mbb.position(directory.entries.get(entry).directoryEntryPosition);
 		byte[] data = new byte[DirectoryEntry.SIZE];
 		mbb.get(data);
 		return data;
+	}
+
+	/** Get the file pointed to by the given directory entry index
+	*	@param	entry	The entry to retrieve the file for
+	*	@return	An array of the bytes in the file.
+	*/
+	public byte[] getFile(int entry)
+	{
+		return directory.entries.get(entry).getContent(mbb, header, fat, miniFAT);
+	}
+
+	/** Create a string representation of the given bytes, assumed to be
+	*   file content
+	*	@param	data	The file contents
+	*	@return	A string showing the file contents. This will be hex
+	*		bytes if the field is not text.
+	*/
+	public String convertFileToString(int entry, byte[] data)
+	{
+		return directory.entries.get(entry).createString(data);
 	}
 
 	/**	Close the file.
