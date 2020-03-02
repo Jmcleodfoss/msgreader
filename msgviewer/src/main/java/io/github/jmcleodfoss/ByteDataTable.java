@@ -135,6 +135,9 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		getItems().clear();
 	}
 
+	/** Update the table with new data.
+	*	@param	data	The data to display
+	*/
 	void update(byte[] data)
 	{
 		ObservableList<Row> a = FXCollections.observableArrayList();
