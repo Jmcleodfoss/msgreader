@@ -58,7 +58,6 @@ public class ByteUtil {
 		return s.toString();
 	}
 
-
 	/**	Create a signed long from the first "n" bytes of the given array, ordered from MSB to LSB
 	*
 	*	@param	rawData	The bytes to make the long value from.
