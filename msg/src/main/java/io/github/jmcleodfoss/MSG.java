@@ -139,6 +139,16 @@ public class MSG
 		return new DirectoryEntryData(directory, entry);
 	}
 
+	/** Get the directory entry keys (this allows a table for display to
+	*   be set up with the correct number of entries before we have any data)
+	*	@return	A list of keys and values in the same order as
+	*		getDirectoryEntryData but with empty strings for the values
+	*/
+	public static KVPArray<String, String> getDirectoryEntryKeys()
+	{
+		return DirectoryEntry.keys();
+	}
+
 	/** Get the raw bytes for the requested directory entry
 	*	@param	entry	The entry to retreive data for
 	*	@return	An array of the bytes in the directory entry.

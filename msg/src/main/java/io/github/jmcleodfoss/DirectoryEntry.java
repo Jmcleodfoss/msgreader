@@ -316,6 +316,29 @@ public class DirectoryEntry {
 		return l;
 	}
 
+	/** Provide keys (with empty values) to allow tables to be set up with
+	*   the correct length before we have any data.
+	*	@return	An array of key-value pairs consisting of a description of the data and an empty string.
+	*/
+	static KVPArray<String, String> keys()
+	{
+		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(nm_DirectoryEntryName, "");
+		l.add(nm_DirectoryEntryNameLength, "");
+		l.add(nm_ObjectType, "");
+		l.add(nm_ColorFlag, "");
+		l.add(nm_LeftSiblingId, "");
+		l.add(nm_RightSiblingId, "");
+		l.add(nm_ChildId, "");
+		l.add(nm_CLSID, "");
+		l.add(nm_StateBits, "");
+		l.add(nm_CreationTime, "");
+		l.add(nm_ModifiedTime, "");
+		l.add(nm_StartingSectorLocation, "");
+		l.add(nm_StreamSize, "");
+		return l;
+	}
+
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
