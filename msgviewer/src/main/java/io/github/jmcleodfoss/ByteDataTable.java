@@ -129,6 +129,12 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		getColumns().get(nColumns-1).setVisible(false);
 	}
 
+	/** Clear the table's cells */
+	void clear()
+	{
+		getItems().clear();
+	}
+
 	void update(byte[] data)
 	{
 		ObservableList<Row> a = FXCollections.observableArrayList();
