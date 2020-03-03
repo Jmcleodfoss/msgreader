@@ -84,7 +84,7 @@ class Directory extends Tab
 					@Override
 					public void handle(WorkerStateEvent t)
 					{
-						byte[] fileData = msg.getFile(updateInfoService.getEntryIndex());
+						byte[] fileData = (byte[])t.getSource().getValue();
 						if (fileData != null) {
 							fileContentsRaw.update(fileData);
 							fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
