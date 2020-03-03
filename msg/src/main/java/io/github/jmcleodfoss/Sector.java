@@ -3,7 +3,7 @@ package io.github.jmcleodfoss.msg;
 /** Constants and classes for dealing with sectors */
 class Sector {
 
-	/** The maximum regular sector index *.
+	/** The maximum regular sector index */
 	static final int MAXREGSEC = 0xfffffffa;
 
 	/** A reserved sector */
