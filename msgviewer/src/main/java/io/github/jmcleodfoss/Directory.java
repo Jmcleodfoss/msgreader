@@ -79,7 +79,6 @@ class Directory extends Tab
 
 			// Header points to the mini stream, so skip it.
 			if (de.entry != 0) {
-				updateInfoService.reset();
 				updateInfoService.setEntryIndex(de.entry);
 				updateInfoService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 					@Override
@@ -95,7 +94,7 @@ class Directory extends Tab
 						}
 					}
 				});
-				updateInfoService.start();
+				updateInfoService.restart();
 			} else {
 				fileContentsRaw.clear();
 				fileContentsText.setText("");
