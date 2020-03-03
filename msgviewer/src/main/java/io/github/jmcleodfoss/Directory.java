@@ -122,7 +122,7 @@ class Directory extends Tab
 			return new Task<byte[]>() {
 				protected byte[] call()
 				{
-					return msg.getRawDirectoryEntry(getEntryIndex());
+					return msg.getFile(getEntryIndex());
 				}
 			};
 		}
