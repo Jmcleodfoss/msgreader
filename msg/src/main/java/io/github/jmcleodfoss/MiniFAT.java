@@ -62,7 +62,7 @@ class MiniFAT {
 		java.util.Iterator<Integer> iter = fat.chainIterator(header.firstMiniFATSectorLocation);
 		int destIndex = 0;
 		while (iter.hasNext()){
-			mbb.position(Sector.offset(iter.next(), header));
+			mbb.position(header.offset(iter.next()));
 			java.nio.IntBuffer al = mbb.asIntBuffer();
 			al.get(miniFATSectors, destIndex, header.intsPerSector());
 			destIndex += header.intsPerSector();

@@ -168,6 +168,17 @@ class Header {
 		return l;
 	}
 
+	/** Get the offset into the file for the given sector number (excluding the header sector)
+	*   Sector index 0 returns physical sector 1, etc. This function cannot be used to
+	*   retrieve the header contents.
+	*	@param	sectorNumber	The sector to get the offset of
+	*	@return	The offset into the file that the requested sector begins at.
+	*/
+	int offset(int sectorNumber)
+	{
+		return (sectorNumber + 1) * sectorSize;
+	}
+
 	/** Test this class by reading in the MSG file header and printing it out.
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/

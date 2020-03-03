@@ -46,14 +46,4 @@ class Sector {
 	{
 		return 2 << (sectorShift - 1);
 	}
-
-	/** Get the offset into the file for the given sector
-	*	@param	sectorIndex	The index of the sector to get the offset of
-	*	@param	header		The header of this CFB file
-	*	@return	The offset into the file that the requested sector begins at.
-	*/
-	static int offset(int sectorIndex, Header header)
-	{
-		return (sectorIndex + 1) * header.sectorSize;
-	}
 }
