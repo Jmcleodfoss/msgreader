@@ -97,7 +97,11 @@ class Directory extends Tab
 			byte[] fileData = (byte[])t.getSource().getValue();
 			if (fileData != null) {
 				fileContentsRaw.update(fileData);
-				fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
+				if (msg.isTextData(updateInfoService.getEntryIndex())) {
+					fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
+				} else {
+					fileContentsText.setText("");
+				}
 			} else {
 				fileContentsRaw.clear();
 				fileContentsText.setText("");
