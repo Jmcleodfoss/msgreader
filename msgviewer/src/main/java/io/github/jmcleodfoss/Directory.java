@@ -77,7 +77,7 @@ class Directory extends Tab
 			descriptionTab.update(de.kvps, localizer);
 			data.update(msg.getRawDirectoryEntry(de.entry));
 
-			// Header points to the mini stream, so skip it..
+			// Header points to the mini stream, so skip it.
 			if (de.entry != 0) {
 				updateInfoService.reset();
 				updateInfoService.setEntryIndex(de.entry);
