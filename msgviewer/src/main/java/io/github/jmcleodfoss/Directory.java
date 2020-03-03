@@ -80,21 +80,24 @@ class Directory extends Tab
 			// Header points to the mini stream, so skip it.
 			if (de.entry != 0) {
 				updateInfoService.setEntryIndex(de.entry);
-				updateInfoService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-					@Override
-					public void handle(WorkerStateEvent t)
-					{
-						byte[] fileData = (byte[])t.getSource().getValue();
-						if (fileData != null) {
-							fileContentsRaw.update(fileData);
-							fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
-						} else {
-							fileContentsRaw.clear();
-							fileContentsText.setText("");
-						}
-					}
-				});
+				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 				updateInfoService.restart();
+			} else {
+				fileContentsRaw.clear();
+				fileContentsText.setText("");
+			}
+		}
+	}
+
+	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
+	{
+		@Override
+		public void handle(WorkerStateEvent t)
+		{
+			byte[] fileData = (byte[])t.getSource().getValue();
+			if (fileData != null) {
+				fileContentsRaw.update(fileData);
+				fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
 			} else {
 				fileContentsRaw.clear();
 				fileContentsText.setText("");
