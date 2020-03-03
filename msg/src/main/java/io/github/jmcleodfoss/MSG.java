@@ -205,6 +205,14 @@ public class MSG
 		return data;
 	}
 
+	/** Get the number of sectors in the file
+	*	@return	The number of sectors in the file
+	*/
+	public int numberOfSectors()
+	{
+		return header.numberOfFATSectors;
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/
