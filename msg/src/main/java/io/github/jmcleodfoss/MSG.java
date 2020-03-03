@@ -191,6 +191,20 @@ public class MSG
 		return directory.entries.get(entry).isTextData();
 	}
 
+	/** Retrieve the contents of the requested sector.
+	*	@param	i	The 0-based sector to retrieve. Note that this
+	*			is not a sector number (sector #0 is physical
+	*			sector 1, etc).
+	*	@return	An array of bytes holding the stream contents
+	*/
+	public byte[] getSector(int i)
+	{
+		mbb.position(i*header.sectorSize);
+		byte[] data = new byte[header.sectorSize];
+		mbb.get(data);
+		return data;
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/
