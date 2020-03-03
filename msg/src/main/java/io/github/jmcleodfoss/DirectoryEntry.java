@@ -59,6 +59,11 @@ public class DirectoryEntry {
 		return null;
 	}
 
+	boolean isTextData()
+	{
+		return false;
+	}
+
 	public String toString()
 	{
 		return String.format("name %s\n" +
@@ -102,6 +107,8 @@ public class DirectoryEntry {
 	}
 
 	static class StringStream extends DirectoryEntry {
+		private static final int PROPERTY_TYPE_STRING = 0x001f;
+
 		int propertyId;
 		int propertyType;
 
@@ -155,9 +162,15 @@ public class DirectoryEntry {
 		}
 
 		@Override
+		boolean isTextData()
+		{
+			return propertyType == PROPERTY_TYPE_STRING;
+		}
+
+		@Override
 		String createString(byte[] data)
 		{
-			if (data != null && propertyType == 0x001f)
+			if (data != null && isTextData())
 				return DataType.createString(data);
 			return super.createString(data);
 		}

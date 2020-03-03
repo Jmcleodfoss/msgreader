@@ -181,6 +181,16 @@ public class MSG
 		return directory.entries.get(entry).createString(data);
 	}
 
+	/** Is there a text representation of the "file" for a given directory,
+	*   or is it binary?
+	*	@param	entry	The directory entry to check the data type of
+	*	@return	true if the file is text, false if it is binary
+	*/
+	public boolean isTextData(int entry)
+	{
+		return directory.entries.get(entry).isTextData();
+	}
+
 	/**	Close the file.
 	* 	@throws java.io.IOException	There was a problem closing the file.
 	*/
