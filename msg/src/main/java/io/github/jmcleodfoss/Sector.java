@@ -39,6 +39,14 @@ class Sector {
 		return "Regular Sector " + String.format("%d", sectorId);
 	}
 
+	/** Get the sector size given the sector shift.
+	*   @param	sectorShift	The sector shift value (2 is shifted by this number to get the sector size)
+	*/
+	static int sectorSize(short sectorShift)
+	{
+		return 2 << (sectorShift - 1);
+	}
+
 	/** Get the offset into the file for the given sector
 	*	@param	sectorIndex	The index of the sector to get the offset of
 	*	@param	header		The header of this CFB file

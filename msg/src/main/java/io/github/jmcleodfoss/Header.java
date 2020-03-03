@@ -97,8 +97,8 @@ class Header {
 
 		HeaderSignature.validate((Long)dc.get(nm_qwHeaderSignature));
 
-		sectorSize = SectorSize.sectorSize((Short)dc.get(nm_SectorShift));
-		miniSectorSize = SectorSize.sectorSize((Short)dc.get(nm_MiniSectorShift));
+		sectorSize = Sector.sectorSize((Short)dc.get(nm_SectorShift));
+		miniSectorSize = Sector.sectorSize((Short)dc.get(nm_MiniSectorShift));
 		numberOfDirectorySectors = (Integer)dc.get(nm_NumberOfDirectorySectors);
 		numberOfFATSectors = (Integer)dc.get(nm_NumberOfFATSectors);
 		firstDirectorySectorLocation = (Integer)dc.get(nm_FirstDirectorySectorLocation);
