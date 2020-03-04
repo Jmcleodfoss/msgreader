@@ -210,7 +210,7 @@ public class MSG
 	*/
 	public int numberOfSectors()
 	{
-		return header.numberOfFATSectors;
+		return header.numberOfFATSectors * header.intsPerSector();
 	}
 
 	/**	Close the file.
