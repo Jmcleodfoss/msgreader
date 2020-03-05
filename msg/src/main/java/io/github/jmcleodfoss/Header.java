@@ -142,7 +142,7 @@ class Header {
 		"mini FAT sectors %d starting at %s\n" +
 		"DIFAT sectors %d starting at %s",
 		sectorSize, miniSectorSize,
- 		numberOfDirectorySectors, Sector.getDescription(firstDirectorySectorLocation),
+		numberOfDirectorySectors, Sector.getDescription(firstDirectorySectorLocation),
 		numberOfFATSectors,
 		numberOfMiniFATSectors, Sector.getDescription(firstMiniFATSectorLocation),
 		numberOfDIFATSectors, Sector.getDescription(firstDIFATSectorLocation));
