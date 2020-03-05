@@ -50,7 +50,7 @@ class Header {
 	/** The data repository (preserved after constructor since we don't
 	*   read everything from it that we might want to display).
 	*/
-	DataContainer dc;
+	private DataContainer dc;
 
 	/** The file size */
 	final long fileSize;
@@ -125,7 +125,7 @@ class Header {
 	/** Calculate the size of the header block.
 	*	@return	The size of the header for this file.
 	*/
-	public int size()
+	int size()
 	{
 		return SIZE;
 	}
