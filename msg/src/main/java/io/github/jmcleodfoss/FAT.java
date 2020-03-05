@@ -70,17 +70,6 @@ class FAT {
 		}
 	}
 
-	/** Get an iterator for this FAT */
-	java.util.Iterator<Integer> chainIterator(int firstSector)
-	{
-		return new ChainIterator(firstSector);
-	}
-
-	/** Get an iterator for free sectors in this FAT */
-	java.util.Iterator<Integer> freeSectorIterator()
-	{
-		return new FreeSectorIterator();
-	}
 
 	/** Read in the entire FAT
 	* 	@param	mbb	The data stream
@@ -118,6 +107,17 @@ class FAT {
 		}
 	}
 
+	/** Get an iterator for this FAT */
+	java.util.Iterator<Integer> chainIterator(int firstSector)
+	{
+		return new ChainIterator(firstSector);
+	}
+
+	/** Get an iterator for free sectors in this FAT */
+	java.util.Iterator<Integer> freeSectorIterator()
+	{
+		return new FreeSectorIterator();
+	}
 	/** Get all the sector chains
 	*	@return	An ArrayList of ArrayLists containing the sector chains
 	*/
