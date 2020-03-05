@@ -31,8 +31,6 @@ class Directory extends Tab
 	static private final String PROPNAME_DIRECTORY_CONTENTS_VALUE = "DirContentValue";
 	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW = "DirContentRaw";
 
-	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
-
 	/** The overall pane for all directory info. Left side is the directory
 	*   tree, and the right side is the information about the selected node
 	*   (if any). The right side is invisible if no node is selected.
@@ -152,14 +150,14 @@ class Directory extends Tab
 			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_VALUE));
 		descriptionTab.update(MSG.getDirectoryEntryKeys(), localizer);
 
-		data = new ByteDataTable(COLUMN_HEADINGS, false);
+		data = new ByteDataTable(false);
 		dataTab = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW));
 		dataTab.setContent(data);
 
 		contentTabs = new TabPane(descriptionTab, dataTab);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		fileContentsRaw = new ByteDataTable(COLUMN_HEADINGS, true);
+		fileContentsRaw = new ByteDataTable(true);
 		fileContentsRaw.setUnicodeVisible(false);
 
 		fileContentsRawTab = new Tab("Raw");

@@ -20,6 +20,8 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 
 	static private final Text WIDEST_BYTE_STRING = new Text(" 88");
 
+	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
+
 	/** Convenience class for displaying byte arrays in a TableView */
 	static public class Row {
 		private ListProperty<Byte> columns;
@@ -87,30 +89,30 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	private boolean fHasUnicode;
 	private int nColumns;
 
-	ByteDataTable(String[] headings, boolean fHasUnicode)
+	ByteDataTable(boolean fHasUnicode)
 	{
 		super();
 		this.fHasUnicode = fHasUnicode;
 
-		int dataLength = headings.length;
+		int dataLength = COLUMN_HEADINGS.length;
 		nColumns = dataLength;
 
 		double cellWidth = WIDEST_BYTE_STRING.getBoundsInLocal().getWidth();
 		ArrayList<TableColumn<Row, String>> columns = new ArrayList<TableColumn<Row, String>>();
 		for (int i = 0; i < dataLength; ++i) {
-			TableColumn<Row, String> col = new TableColumn<Row, String>(headings[i]);
+			TableColumn<Row, String> col = new TableColumn<Row, String>(COLUMN_HEADINGS[i]);
 		  	col.setCellValueFactory(new HexTableCell("columns", i));
 			col.setPrefWidth(cellWidth);
 			columns.add(col);
   		}
 		if (fHasUnicode){
-			assert headings.length % UNICODE_BYTES == 0;
+			assert COLUMN_HEADINGS.length % UNICODE_BYTES == 0;
 
 			TableColumn<Row, String> unicodeData = new TableColumn<Row, String>("Unicode");
 			columns.add(unicodeData);
 			++nColumns;
 
-			for (int i = 0; i < headings.length / UNICODE_BYTES; ++i) {
+			for (int i = 0; i < COLUMN_HEADINGS.length / UNICODE_BYTES; ++i) {
 				TableColumn<Row, String> col = new TableColumn<Row, String>();
 			  	col.setCellValueFactory(new ASCIITableCell("columns", i));
 				col.setPrefWidth(cellWidth/2);
