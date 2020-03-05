@@ -87,12 +87,6 @@ class DIFAT {
 		} while (currentSector != Sector.ENDOFCHAIN);
 	}
 
-	/** Get an iterator for this DIFAT */
-	java.util.Iterator<Integer> iterator()
-	{
-		return new Iterator();
-	}
-
 	/** Make DIFAT data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
@@ -105,6 +99,12 @@ class DIFAT {
 			}
 		}
 		return l;
+	}
+
+	/** Get an iterator for this DIFAT */
+	java.util.Iterator<Integer> iterator()
+	{
+		return new Iterator();
 	}
 
 	/**	Test this class by reading in the DIFAT index table and printing it out.
