@@ -9,18 +9,27 @@ class MiniFAT {
 		/** The next entry to be returned. */
 		private int entry;
 
+		/** Initialize the mini chain iterator
+		*	@param	firstMiniSector	The first sector in the mini chain
+		*	@param	header	The header for this CFB file
+		*	@param	fat	The FAT for this CFB file
+		*/
 		ChainIterator(int firstMiniSector, Header header, FAT fat)
 		{
 			entry = firstMiniSector;
 		}
 
-		/** Is there a new entry to return? */
+		/** Is there a new entry to return?
+ 		*	@return	true if there is another entry, false if there is not
+ 		*/
 		public boolean hasNext()
 		{
 			return entry != Sector.ENDOFCHAIN;
 		}
 
-		/** Return the next FAT index entry */
+		/** Return the next mini FAT index entry
+		*	@return	The next entry in the mini FAT sector chain
+		*/
 		public Integer next()
 		{
 			int retval = entry;
@@ -48,10 +57,10 @@ class MiniFAT {
 	private java.util.ArrayList<Integer> miniSectors = new java.util.ArrayList<Integer>();
 
 	/** Read the Mini FAT
-	*
 	* 	@param	mbb	The data stream
 	* 	@param	header	The CBF header structure
 	* 	@param	fat	The file allocation table structure
+	* 	@param	directory	The directory for this file
 	*/ 
 	MiniFAT(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory)
 	{
@@ -103,6 +112,10 @@ class MiniFAT {
 		return s.toString();
 	}
 
+	/** Get the physical file offset for the given mini sector entry
+	*	@param	miniSectorEntry	The mini sector entry to retrieve the file offset of
+	*	@return	A file offset suitable for use in ByteBuffer.position
+	*/
 	int fileOffset(int miniSectorEntry)
 	{
 		int fullSectorIndex = miniSectorEntry / miniSectorsPerFullSector;
@@ -112,13 +125,20 @@ class MiniFAT {
 		int miniSectorOffsetIntoThisSector = miniSectorIndexThisSector * MINI_SECTOR_SIZE;
 		return sectorFileOffset + miniSectorOffsetIntoThisSector;
 	}
+
+	/** Create an iterator through a mini sector chain given the first sector
+	*	@param	firstSector	The first sector of the chain to return
+	*	@param	Header		The file header information
+	*	@param	FAT		The file's FAT
+	*	@return	An iterator which will return all the mini FAT sector indices in
+	*		the chain
+	*/
 	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
 	{
 		return new ChainIterator(firstSector, header, fat);
 	}
 
 	/**	Test this class by reading in the mini FAT index table and printing it out.
-	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
