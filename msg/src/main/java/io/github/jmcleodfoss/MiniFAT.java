@@ -138,7 +138,7 @@ class MiniFAT {
 			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
 			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb);
+			Header header = new Header(mbb, fc.size());
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
 			Directory directory = new Directory(mbb, header, fat);

@@ -52,6 +52,9 @@ class Header {
 	*/
 	DataContainer dc;
 
+	/** The file size */
+	final long fileSize;
+
 	/** The sector shift. */
 	final int sectorSize;
 
@@ -87,11 +90,13 @@ class Header {
 	*	@throws	NotCFBFileException	This is not a cfb file.
 	*	@throws	java.io.IOException	An I/O error was encountered when reading the msg header.
 	*/
-	Header(java.nio.ByteBuffer byteBuffer)
+	Header(java.nio.ByteBuffer byteBuffer, long fileSize)
 	throws
 		NotCFBFileException,
 		java.io.IOException
 	{
+		this.fileSize = fileSize;
+
 		dc = new DataContainer();
 		dc.read(byteBuffer, header_fields);
 
@@ -116,7 +121,7 @@ class Header {
 	{
 		return sectorSize / DataType.SIZEOF_INT;
 	}
- 
+
 	/** Calculate the size of the header block.
 	*	@return	The size of the header for this file.
 	*/
@@ -199,7 +204,7 @@ class Header {
 			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
 			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb);
+			Header header = new Header(mbb, fc.size());
 			System.out.println(header);
 
 			System.out.println();

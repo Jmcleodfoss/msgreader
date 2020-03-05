@@ -49,7 +49,7 @@ public class MSG
 		mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
 		mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-		header = new Header(mbb);
+		header = new Header(mbb, fc.size());
 		difat = new DIFAT(mbb, header);
 		fat = new FAT(mbb, header, difat);
 		directory = new Directory(mbb, header, fat);	

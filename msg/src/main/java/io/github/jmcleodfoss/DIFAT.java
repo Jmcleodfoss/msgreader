@@ -123,7 +123,7 @@ class DIFAT {
 			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
 			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb);
+			Header header = new Header(mbb, fc.size());
 			DIFAT difat = new DIFAT(mbb, header);
 			java.util.Iterator<Integer> iterator = difat.iterator();
 			while (iterator.hasNext()) {
