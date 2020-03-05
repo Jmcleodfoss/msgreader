@@ -7,6 +7,9 @@ class FAT {
 	*/
 	final private int numEntries;
 
+	/** The number of sectors in the file */
+	final private int numSectors;
+
 	/** The list of FAT index entries. */
 	final private int[] fat;
 
@@ -46,14 +49,14 @@ class FAT {
 		/** Create an iterator over the free sectors */
 		FreeSectorIterator()
 		{
-			while (entry < numEntries && fat[entry] != Sector.FREESECT)
+			while (entry < numSectors && fat[entry] != Sector.FREESECT)
 				entry++;
 		}
 
 		/** Is there a new free entry to return? */
 		public boolean hasNext()
 		{
-			return entry < numEntries && fat[entry] == Sector.FREESECT;
+			return entry < numSectors && fat[entry] == Sector.FREESECT;
 		}
 
 		/** Return the next FAT free entry */
@@ -62,7 +65,7 @@ class FAT {
 			int retval = entry;
 			do {
 				++entry;
-			} while (entry < numEntries && fat[entry] != Sector.FREESECT);
+			} while (entry < numSectors && fat[entry] != Sector.FREESECT);
 			return retval;
 		}
 	}
@@ -95,6 +98,8 @@ class FAT {
 		// Normally, a file will not end with a bunch of free sectors.
 		numEntries = header.numberOfFATSectors * header.intsPerSector();
 		fat = new int[numEntries];
+
+		numSectors = header.numberOfSectors();
 
 		mbb.rewind();
 		java.nio.IntBuffer al = mbb.asIntBuffer();
