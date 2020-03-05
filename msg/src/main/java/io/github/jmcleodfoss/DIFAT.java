@@ -15,7 +15,7 @@ class DIFAT {
 	private final int numEntries;
 
 	/** The list of DIFAT index entries. */
-	private static int[] difat;
+	private int[] difat;
 
 	/** Iterator for DIFAT index entries */
 	class Iterator implements java.util.Iterator<Integer> {
