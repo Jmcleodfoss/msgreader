@@ -10,9 +10,9 @@ class HeaderSignature {
 	static final long SIGNATURE = io.github.jmcleodfoss.msg.ByteUtil.makeLongLE(SIGNATURE_BYTES, 8);
 
 	/** Validate that the passed signature is a valid header signature.
- 	*	@param	signature	The signature to be checked
- 	*	@throws	NotCFBFileException	The signature does not match the expected value.
- 	*/
+	*	@param	signature	The signature to be checked
+	*	@throws	NotCFBFileException	The signature does not match the expected value.
+	*/
 	static void validate(long signature)
 	throws
 		NotCFBFileException
