@@ -1,7 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
-/** This class is used to publish directory entry info to a client applicaiton */
+/** This class is used to publish directory entry info to a client application */
 public class DirectoryEntryData {
+
 	/** The directory entry index */
 	public final int entry;
 
