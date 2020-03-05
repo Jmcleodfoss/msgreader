@@ -122,6 +122,14 @@ class Header {
 		return sectorSize / DataType.SIZEOF_INT;
 	}
 
+	/** The number of sectors in this file
+	*	@return	The number of sectors (based on the sector size)
+	*/
+	int numberOfSectors()
+	{
+		return (int)(fileSize / sectorSize);
+	}
+
 	/** Calculate the size of the header block.
 	*	@return	The size of the header for this file.
 	*/
