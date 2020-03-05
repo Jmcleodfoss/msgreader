@@ -25,13 +25,18 @@ class FAT {
 			entry = firstSector;
 		}
 
-		/** Is there a new entry to return? */
+		/** Is there a new entry to return?
+		*	@return	true if there are any more sectors in this chain,
+		*		false otherwise
+		*/
 		public boolean hasNext()
 		{
 			return entry != Sector.ENDOFCHAIN;
 		}
 
-		/** Return the next FAT index entry */
+		/** Return the next FAT index entry
+		*	@return	the next entry in the chain as given by the FAT
+		*/
 		public Integer next()
 		{
 			int retval = entry;
@@ -53,13 +58,18 @@ class FAT {
 				entry++;
 		}
 
-		/** Is there a new free entry to return? */
+		/** Is there a new free entry to return?
+		*	@return	true if there are any more free sectors to list,
+		*		false otherwise
+		*/
 		public boolean hasNext()
 		{
 			return entry < numSectors && fat[entry] == Sector.FREESECT;
 		}
 
-		/** Return the next FAT free entry */
+		/** Return the next FAT free entry
+		*	@return	The next free sector according to the FAT
+		*/
 		public Integer next()
 		{
 			int retval = entry;
