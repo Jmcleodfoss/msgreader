@@ -70,7 +70,6 @@ class FAT {
 		}
 	}
 
-
 	/** Read in the entire FAT
 	* 	@param	mbb	The data stream
 	* 	@param	header	The CBF header structure
@@ -118,6 +117,7 @@ class FAT {
 	{
 		return new FreeSectorIterator();
 	}
+
 	/** Get all the sector chains
 	*	@return	An ArrayList of ArrayLists containing the sector chains
 	*/
