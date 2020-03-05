@@ -12,7 +12,7 @@ class DIFAT {
 	/** The number of DIFAT sectors (from the header)
 	*	@see	Header.numberOfDIFATSectors
 	*/
-	final private int numEntries;
+	private final int numEntries;
 
 	/** The list of DIFAT index entries. */
 	private static int[] difat;
