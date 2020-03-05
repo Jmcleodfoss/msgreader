@@ -10,7 +10,6 @@ class DIFAT {
 	static final int HEADER_DIFAT_ENTRIES = 109;
 
 	/** The number of DIFAT sectors (from the header)
-	*
 	*	@see	Header.numberOfDIFATSectors
 	*/
 	final private int numEntries;
@@ -24,17 +23,23 @@ class DIFAT {
 		/** The next entry to be returned. */
 		private int entry;
 
+		/** Initialize the DIFAT iterator */
 		Iterator(){
 			entry = 0;
 		}
 
-		/** Is there a new entry to return? */
+		/** Is there a new entry to return?
+		*	@return	True if there is another DIFAT entry to return,
+		*		false if there is not
+		*/
 		public boolean hasNext()
 		{
 			return entry < numEntries;
 		}
 
-		/** Return the next DIFAT index entry */
+		/** Get the next DIFAT index entry
+		*	@return	The next DIFAT index entry
+		*/
 		public Integer next()
 		{
 			return difat[entry++];
@@ -42,7 +47,6 @@ class DIFAT {
 	}
 
 	/** Create the list of DIFAT entries
-	*
 	*   @param	mbb	The data stream
 	*   @param	header	The CBF header structur
 	*/ 
@@ -83,13 +87,13 @@ class DIFAT {
 		} while (currentSector != Sector.ENDOFCHAIN);
 	}
 
-	/**	Get an iterator for this DIFAT */
+	/** Get an iterator for this DIFAT */
 	java.util.Iterator<Integer> iterator()
 	{
 		return new Iterator();
 	}
 
-	/**	Make DIFAT data available to client applications
+	/** Make DIFAT data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
 	KVPArray<Integer, Integer> data()
