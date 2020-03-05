@@ -87,7 +87,7 @@ class FAT {
 	FAT(java.nio.MappedByteBuffer mbb, Header header, DIFAT difat)
 	{
 		// First index in a FAT sector is the FAT signature
-		// //and the last is either the index to the next sector, or the empty sector flag, 0xffffffff
+		// and the last is either the index to the next sector, or the empty sector flag, 0xffffffff
 		numEntries = header.numberOfFATSectors * header.intsPerSector();
 		fat = new int[numEntries];
 
