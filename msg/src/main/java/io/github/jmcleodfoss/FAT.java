@@ -88,6 +88,11 @@ class FAT {
 	{
 		// First index in a FAT sector is the FAT signature
 		// and the last is either the index to the next sector, or the empty sector flag, 0xffffffff
+
+		// Note that the number of entries in the FAT is usually greater
+		// than the number of sectors in the file, since the number in
+		// the FAT list is rounded up to fill an integral number of sectors.
+		// Normally, a file will not end with a bunch of free sectors.
 		numEntries = header.numberOfFATSectors * header.intsPerSector();
 		fat = new int[numEntries];
 
