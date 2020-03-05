@@ -69,8 +69,7 @@ class Directory {
 	}
 
 
-	/**	Test this class by printing out the directory and the list of children for each node.
-	*
+	/** Test this class by printing out the directory and the list of children for each node.
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
 	*/
 	public static void main(String[] args)
