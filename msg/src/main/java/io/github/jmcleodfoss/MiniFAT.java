@@ -83,6 +83,32 @@ class MiniFAT {
 		}
 	}
 
+	/** Get the physical file offset for the given mini sector entry
+	*	@param	miniSectorEntry	The mini sector entry to retrieve the file offset of
+	*	@return	A file offset suitable for use in ByteBuffer.position
+	*/
+	int fileOffset(int miniSectorEntry)
+	{
+		int fullSectorIndex = miniSectorEntry / miniSectorsPerFullSector;
+		int fullSector = miniSectors.get(fullSectorIndex);
+		int sectorFileOffset = (fullSector+1) * sectorSize;
+		int miniSectorIndexThisSector = miniSectorEntry % miniSectorsPerFullSector;
+		int miniSectorOffsetIntoThisSector = miniSectorIndexThisSector * MINI_SECTOR_SIZE;
+		return sectorFileOffset + miniSectorOffsetIntoThisSector;
+	}
+
+	/** Create an iterator through a mini sector chain given the first sector
+	*	@param	firstSector	The first sector of the chain to return
+	*	@param	Header		The file header information
+	*	@param	FAT		The file's FAT
+	*	@return	An iterator which will return all the mini FAT sector indices in
+	*		the chain
+	*/
+	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
+	{
+		return new ChainIterator(firstSector, header, fat);
+	}
+
 	/** Get the chains of mini sectors defined in the mini FAT.
 	*   @return	A string containing all the chains in the mini FAT, one per line.
 	*/
@@ -110,32 +136,6 @@ class MiniFAT {
 			} while (sector != Sector.ENDOFCHAIN);
 		}
 		return s.toString();
-	}
-
-	/** Get the physical file offset for the given mini sector entry
-	*	@param	miniSectorEntry	The mini sector entry to retrieve the file offset of
-	*	@return	A file offset suitable for use in ByteBuffer.position
-	*/
-	int fileOffset(int miniSectorEntry)
-	{
-		int fullSectorIndex = miniSectorEntry / miniSectorsPerFullSector;
-		int fullSector = miniSectors.get(fullSectorIndex);
-		int sectorFileOffset = (fullSector+1) * sectorSize;
-		int miniSectorIndexThisSector = miniSectorEntry % miniSectorsPerFullSector;
-		int miniSectorOffsetIntoThisSector = miniSectorIndexThisSector * MINI_SECTOR_SIZE;
-		return sectorFileOffset + miniSectorOffsetIntoThisSector;
-	}
-
-	/** Create an iterator through a mini sector chain given the first sector
-	*	@param	firstSector	The first sector of the chain to return
-	*	@param	Header		The file header information
-	*	@param	FAT		The file's FAT
-	*	@return	An iterator which will return all the mini FAT sector indices in
-	*		the chain
-	*/
-	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
-	{
-		return new ChainIterator(firstSector, header, fat);
 	}
 
 	/**	Test this class by reading in the mini FAT index table and printing it out.
