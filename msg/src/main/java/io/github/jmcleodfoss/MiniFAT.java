@@ -48,10 +48,10 @@ class MiniFAT {
 	private final int miniSectorsPerFullSector;
 
 	/** The number of mini FAT sectors */
-	final int numEntries;
+	private final int numEntries;
 
 	/** The mini FAT data */
-	final int[] miniFATSectors;
+	private final int[] miniFATSectors;
 
 	/** The mini stream sectors. */
 	private java.util.ArrayList<Integer> miniSectors = new java.util.ArrayList<Integer>();
@@ -86,7 +86,7 @@ class MiniFAT {
 	/** Get the chains of mini sectors defined in the mini FAT.
 	*   @return	A string containing all the chains in the mini FAT, one per line.
 	*/
-	public String getChains()
+	String getChains()
 	{
 		StringBuilder s = new StringBuilder();
 		boolean[] shown = new boolean[numEntries];
