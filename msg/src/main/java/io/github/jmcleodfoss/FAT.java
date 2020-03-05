@@ -3,7 +3,6 @@ package io.github.jmcleodfoss.msg;
 /** The File Allocation Table */
 class FAT {
 	/** The number of FAT entries
-	*
 	*	@see	Header.numberOfFATSectors
 	*/
 	final private int numEntries;
@@ -17,6 +16,7 @@ class FAT {
 		/** The next entry to be returned. */
 		private int entry;
 
+		/** Initialize the iterator through the FAT sector chains */
 		ChainIterator(int firstSector)
 		{
 			entry = firstSector;
@@ -43,6 +43,7 @@ class FAT {
 		/** The next entry to be returned. */
 		private int entry;
 
+		/** Create an iterator over the free sectors */
 		FreeSectorIterator()
 		{
 			while (entry < numEntries && fat[entry] != Sector.FREESECT)
@@ -66,20 +67,19 @@ class FAT {
 		}
 	}
 
-	/**	Get an iterator for this FAT */
+	/** Get an iterator for this FAT */
 	java.util.Iterator<Integer> chainIterator(int firstSector)
 	{
 		return new ChainIterator(firstSector);
 	}
 
-	/**	Get an iterator for free sectors in this FAT */
+	/** Get an iterator for free sectors in this FAT */
 	java.util.Iterator<Integer> freeSectorIterator()
 	{
 		return new FreeSectorIterator();
 	}
 
 	/** Read in the entire FAT
-	*
 	* 	@param	mbb	The data stream
 	* 	@param	header	The CBF header structure
 	* 	@param	difat	The double-indirect file allocation table structure.
@@ -170,7 +170,6 @@ class FAT {
 	}
 
 	/**	Test this class by reading in the FAT index table and printing it out.
-	*
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
