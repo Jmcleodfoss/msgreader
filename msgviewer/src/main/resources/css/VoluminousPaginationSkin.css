@@ -1,0 +1,55 @@
+/** Copied from 
+ * https://github.com/openjdk/jfx/blob/master/modules/javafx.controls/src/main/resources/com/sun/javafx/scene/control/skin/caspian/caspian.css
+ */
+
+.pagination > .pagination-control > .control-box > .first-arrow-button {
+	-fx-background-radius: 0;
+	-fx-padding: 0.166667em 0.416em 0.25em 0.333em;
+}
+
+.pagination > .pagination-control > .control-box > .jump-backward-arrow-button {
+	-fx-background-radius: 0;
+	-fx-padding: 0.166667em 0.416em 0.25em 0.333em;
+}
+
+.pagination > .pagination-control > .control-box > .jump-forward-arrow-button {
+	-fx-background-radius: 0;
+	-fx-padding: 0.166667em 0.333em 0.25em 0.416em;
+}
+
+.pagination > .pagination-control > .control-box > .last-arrow-button {
+	-fx-background-radius: 0;
+	-fx-padding: 0.166667em 0.333em 0.25em 0.416em;
+}
+
+.pagination > .pagination-control .first-arrow {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.375em 0.291em 0.375em 0.291em;
+	-fx-shape: "M 0 0 L -13 7 L 0 13 z M -13 0 L -13 13 L -16 13 L -16 0 z";
+	-fx-scale-shape: true;
+}
+
+.pagination > .pagination-control .jump-backward-arrow {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.375em 0.291em 0.375em 0.291em;
+	-fx-shape: "M 0 0 L -13 7 L 0 13 z M -13 0 L -26 7 L -13 13 z";
+	-fx-scale-shape: true;
+}
+
+.pagination > .pagination-control .jump-forward-arrow {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.375em 0.291em 0.375em 0.291em;
+	-fx-shape: "M 0 0 L 13 7 L 0 13 z M 13 0 L 26 7 L 13 13 z";
+	-fx-scale-shape: true;
+}
+
+.pagination > .pagination-control .last-arrow {
+	-fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+	-fx-background-insets: 1 0 -1 0, 0;
+	-fx-padding: 0.375em 0.291em 0.375em 0.291em;
+	-fx-shape: "M 0 0 L 13 7 L 0 13 z M 13 0 L 13 13 L 16 13 L 16 0 L 13 0 z";
+	-fx-scale-shape: true;
+}
