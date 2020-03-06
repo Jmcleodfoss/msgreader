@@ -9,21 +9,6 @@ package io.github.jmcleodfoss.msg;
 */
 public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 
-	/** The IncompleteInitializationException indicates that a required component is not available at the time it is required. */
-	static class IncompleteInitializationException extends RuntimeException {
-
-		/** The serialVersionUID is required because the base class is serializable. */
-		private static final long serialVersionUID = 1L;
-
-		/** Create an IncompleteInitializationException for the given field.
-		*	@param	component	The name of the component requested but not found.
-		*/
-		IncompleteInitializationException(final String component)
-		{
-			super("Incomplete initialization: " + component + " not yet available");
-		}
-	}
-
 	/** The serialVersionUID is required because the base class is serializable. */
 	private static final long serialVersionUID = 1L;
 
@@ -31,23 +16,6 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 	DataContainer()
 	{
 		super();
-	}
-
-	/** Constructor with a known expected maximum number of entries.
-	*	@param	expectedMaxSize	The number of entries which will be put in the underlying collection.
-	*/
-	DataContainer(final int expectedMaxSize)
-	{
-		super(expectedMaxSize);
-	}
-
-	/** Return an unsigned 8-bit value.
-	*	@param	name	The name of the value to return.
-	*	@return	An integer containing the unsigned 8-bit value.
-	*/
-	int getUInt8(String name)
-	{
-		return 0xff & (Byte)get(name);
 	}
 
 	/** Read in all descriptions from the given data stream.
@@ -96,14 +64,5 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 			s.append(entry.getValue().toString());
 		}
 		return s.toString();
-	}
-
-	/** Confirm the given field was read in; throw an exception if it wasn't.
-	*	@param	nm_field	The name of the field to check.
-	*/
-	protected void validateFieldExists(final String nm_field)
-	{
-		if (!containsKey(nm_field))
-			throw new IncompleteInitializationException(nm_field);
 	}
 }
