@@ -6,6 +6,7 @@ package io.github.jmcleodfoss.msg;
 */
 class Header {
 
+	/* The keys used to retrieve data from the DataContainer */
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
 	private static final String nm_MinorVersion = "MinorVersion";
