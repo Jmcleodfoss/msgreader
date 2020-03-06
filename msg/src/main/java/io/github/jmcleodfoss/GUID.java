@@ -1,7 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 // copied from pstreader
-/**	The GUID class holds a PST GUID.
+/** The GUID class holds a PST GUID.
 *	@see	"[MS-PST] Outlook Personal Folders (.pst) File Format v20110608, section 2.5"
 *	@see	<a href="http://msdn.microsoft.com/en-us/library/ff386696(v=office.12).aspx">Calculated Properties (MSDN)</a>
 *	@see	"[MS-OXPROPS] Exchange Server Protocols Master Property List v20101026 section 1.3.2"
@@ -9,47 +9,47 @@ package io.github.jmcleodfoss.msg;
 */
 class GUID {
 
-	/**	The size of a GUID, in bytes */
+	/** The size of a GUID, in bytes */
 	static final int SIZE = 16;
 
-	/**	The null GUID (used for unassigned or unknown GUIDs). */
+	/** The null GUID (used for unassigned or unknown GUIDs). */
 	static final GUID PS_NULL = new GUID(new byte[]{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
 
-	/**	The public strings property set GUID */
+	/** The public strings property set GUID */
 	static final GUID PS_PUBLIC_STRINGS = new GUID(new byte[]{0x00, 0x02, 0x03, 0x29, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The common property set GUID */
+	/** The common property set GUID */
 	static final GUID PS_COMMON = new GUID(new byte[]{0x00, 0x06, 0x20, 0x08, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The address property set GUID */
+	/** The address property set GUID */
 	static final GUID PS_ADDRESS = new GUID(new byte[]{0x00, 0x06, 0x20, 0x04, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The appointment property set GUID */
+	/** The appointment property set GUID */
 	static final GUID PS_APPOINTMENT = new GUID(new byte[]{0x00, 0x06, 0x20, 0x02, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The meetings property set GUID. Note that the documented value does not match what has been observed in PST files. */
+	/** The meetings property set GUID. Note that the documented value does not match what has been observed in PST files. */
 //	static final GUID PS_MEETING = new GUID(new byte[]{0x6E, (byte)0xD8, (byte)0xDA, (byte)0x90, 0x0B, 0x45, 0x1B, 0x10, (byte)0x98, (byte)0xDA, 0x00, (byte)0xAA, 0x00, 0x3F, 0x13, 0x05});
 	static final GUID PS_MEETING = new GUID(new byte[]{0x6E, (byte)0xD8, (byte)0xDA, (byte)0x90, 0x45, 0x0B, 0x1B, 0x10, (byte)0x98, (byte)0xDA, 0x00, (byte)0xAA, 0x00, 0x3F, 0x13, 0x05});
 
-	/**	The sticky notes property set GUID */
+	/** The sticky notes property set GUID */
 	static final GUID PS_NOTE = new GUID(new byte[]{0x00, 0x06, 0x20, 0x0E, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The task property set GUID */
+	/** The task property set GUID */
 	static final GUID PS_TASK = new GUID(new byte[]{0x00, 0x06, 0x20, 0x03, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The MAPI property set GUID */
+	/** The MAPI property set GUID */
 	static final GUID PS_MAPI = new GUID(new byte[]{0x00, 0x02, 0x03, 0x28, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
 
-	/**	The (unknown use) property set GUID */
+	/** The (unknown use) property set GUID */
 	static final GUID PS_INTERNAL = new GUID(new byte[]{(byte)0xc1, (byte)0x84, 0x32, (byte)0x81, (byte)0x85, 0x05, (byte)0xd0, 0x11, (byte)0xb2, (byte)0x90, 0x00, (byte)0xaa, 0x00, 0x3c, (byte)0xf6, (byte)0x76});
 
-	/**	The ProviderUID for a one-off recipient in a distribution list. */
+	/** The ProviderUID for a one-off recipient in a distribution list. */
 	static final GUID PROVIDER_UID_ONE_OFF = new GUID(new byte[]{(byte)0x81, (byte)0x2b, (byte)0x1f, (byte)0xa4, (byte)0xbe, (byte)0xa3, (byte)0x10, (byte)0x19, (byte)0x9d, (byte)0x6e, (byte)0x00, (byte)0xdd, (byte)0x01, (byte)0x0f, (byte)0x54, (byte)0x02});
 
-	/**	The actual GUID */
+	/** The actual GUID */
 	final byte[] guid;
 
-	/**	Create a GUID from the bytes in the given array.
+	/** Create a GUID from the bytes in the given array.
 	*	@param	arr	The array of bytes from which to construct the GUID.
 	*/
 	GUID(byte[] arr)
@@ -60,7 +60,7 @@ class GUID {
 		this.guid = guid;
 	}
 
-	/**	Create a GUID from the bytes at the given offset in the given array.read in from the PST file. Note that the first four
+	/** Create a GUID from the bytes at the given offset in the given array.read in from the PST file. Note that the first four
 	*	bytes form a little-endian 16 bit value, and the remaining bytes form big-endian values.
 	*	@param	arr	The array of bytes containing the GUID
 	*	@param	offset	The offset to the start of the GUID in arr.
@@ -76,7 +76,7 @@ class GUID {
 		this.guid = guid;
 	}
 
-	/**	Compare two GUIDs.
+	/** Compare two GUIDs.
 	*	@param	o	The other GUID to check.
 	*	@return	false if the other guid differs from this one, true if it is the same as this one.
 	*/
@@ -101,7 +101,7 @@ class GUID {
 		return true;
 	}
 
-	/**	Calculate hashcode.
+	/** Calculate hashcode.
 	*	@return	Hashcode for the guid.
 	*/
 	@Override
@@ -115,7 +115,7 @@ class GUID {
 		return hashcode;
 	}
 
-	/**	Obtain a string representation of this GUID.
+	/** Obtain a string representation of this GUID.
 	*	@return	A string describing the GUID in PST "Canonical" format (00000000-0000-0000-0000-0000000000).
 	*/
 	@Override
@@ -136,7 +136,7 @@ class GUID {
 		return s;
 	}
 
-	/**	Test this class by printing out the known GUIDs
+	/** Test this class by printing out the known GUIDs
 	*	@param	args	The command line arguments to the test application (unused).
 	*/
 	public static void main(String[] args)
