@@ -2,7 +2,6 @@ package io.github.jmcleodfoss.msg;
 
 // copied from pstreader
 /**	The GUID class holds a PST GUID.
-*
 *	@see	"[MS-PST] Outlook Personal Folders (.pst) File Format v20110608, section 2.5"
 *	@see	<a href="http://msdn.microsoft.com/en-us/library/ff386696(v=office.12).aspx">Calculated Properties (MSDN)</a>
 *	@see	"[MS-OXPROPS] Exchange Server Protocols Master Property List v20101026 section 1.3.2"
@@ -51,7 +50,6 @@ class GUID {
 	final byte[] guid;
 
 	/**	Create a GUID from the bytes in the given array.
-	*
 	*	@param	arr	The array of bytes from which to construct the GUID.
 	*/
 	GUID(byte[] arr)
@@ -64,7 +62,6 @@ class GUID {
 
 	/**	Create a GUID from the bytes at the given offset in the given array.read in from the PST file. Note that the first four
 	*	bytes form a little-endian 16 bit value, and the remaining bytes form big-endian values.
-	*
 	*	@param	arr	The array of bytes containing the GUID
 	*	@param	offset	The offset to the start of the GUID in arr.
 	*/
@@ -80,9 +77,7 @@ class GUID {
 	}
 
 	/**	Compare two GUIDs.
-	*
 	*	@param	o	The other GUID to check.
-	*
 	*	@return	false if the other guid differs from this one, true if it is the same as this one.
 	*/
 	@Override
@@ -107,7 +102,6 @@ class GUID {
 	}
 
 	/**	Calculate hashcode.
-	*
 	*	@return	Hashcode for the guid.
 	*/
 	@Override
@@ -122,7 +116,6 @@ class GUID {
 	}
 
 	/**	Obtain a string representation of this GUID.
-	*
 	*	@return	A string describing the GUID in PST "Canonical" format (00000000-0000-0000-0000-0000000000).
 	*/
 	@Override
@@ -144,7 +137,6 @@ class GUID {
 	}
 
 	/**	Test this class by printing out the known GUIDs
-	*
 	*	@param	args	The command line arguments to the test application (unused).
 	*/
 	public static void main(String[] args)
