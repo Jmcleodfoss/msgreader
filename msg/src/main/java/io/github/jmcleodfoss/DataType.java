@@ -439,7 +439,7 @@ abstract class DataType {
 	private static class GUID extends DataType {
 
 		/** The size of a GUID. */
-		static final int SIZE = GUID.SIZE;
+		static final int SIZE = io.github.jmcleodfoss.msg.GUID.SIZE;
 
 		/** Create a reader / display object for GUIDs. */
 		GUID()
