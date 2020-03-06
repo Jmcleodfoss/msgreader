@@ -134,6 +134,30 @@ class MiniFAT {
 		return s.toString();
 	}
 
+	/** Read the contents of a mini FAT sector chain in the mini stream
+	*	@param	startingSector	The starting sector in the mini stream
+	*	@param	size	The number of bytes in the mini FAT sector chain
+	*	@param	mbb	The file to read
+	*	@return	An array of bytes consisting of the contents of the
+	*		requested mini FAT sector chain
+	*/
+	byte[] read(int startingSector, long size, java.nio.MappedByteBuffer mbb)
+	{
+		int nRemaining = (int)size;
+		byte[] data = new byte[nRemaining];
+		java.util.Iterator<Integer> iter = getChainIterator(startingSector);
+		int destOffset = 0;
+		while (iter.hasNext()){
+			int miniFATSector = iter.next();
+			mbb.position(fileOffset(miniFATSector));
+			int nToRead = Math.min(nRemaining, MINI_SECTOR_SIZE);
+			mbb.get(data, destOffset, nToRead);
+			destOffset += nToRead;
+			nRemaining -= nToRead;
+		}
+		return data;
+	}
+
 	/** Test this class by reading in the mini FAT index table and printing it out.
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
