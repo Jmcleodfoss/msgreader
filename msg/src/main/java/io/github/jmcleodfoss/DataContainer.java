@@ -18,7 +18,7 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 		/** Create an IncompleteInitializationException for the given field.
 		*	@param	component	The name of the component requested but not found.
 		*/
-		public IncompleteInitializationException(final String component)
+		IncompleteInitializationException(final String component)
 		{
 			super("Incomplete initialization: " + component + " not yet available");
 		}
@@ -28,7 +28,7 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 
 	/** Constructor with default maximum size .*/
-	public DataContainer()
+	DataContainer()
 	{
 		super();
 	}
