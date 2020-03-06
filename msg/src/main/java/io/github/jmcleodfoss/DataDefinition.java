@@ -6,22 +6,6 @@ public class DataDefinition {
 	/** Logger for data reading */
 	static java.util.logging.Logger logger = Debug.getLogger("io.github.jmcleodfoss.msg.DataDefinition");
 
-	/** The IncompleteFieldException is used to signal that it was not possible to read in all the required bytes for a field */
-	static class IncompleteFieldException extends RuntimeException {
-
-		/** The serial version UID is required since the base class is serializable. */
-		private static final long serialVersionUID = 1L;
-
-		/** Create an IncompleteFieldException describing the incomplete field.
-		*	@param	component	The name of the field which was not read fully.
-		*	@param	expected	The number of bytes expected to be read.
-		*	@param	found		The number of bytes actually read.
-		*/
-		public IncompleteFieldException(final String component, final int expected, final int found){
-			super(component + " should have " + expected + " bytes, but " + found + " were found");
-		}
-	}
-
 	/** The name under which the data for this field is to be stored. */
 	final String name;
 
