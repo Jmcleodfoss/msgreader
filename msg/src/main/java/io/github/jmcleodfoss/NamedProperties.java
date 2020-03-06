@@ -21,6 +21,7 @@ class NamedProperties
 	/** The list of strings in the string stream */
 	private java.util.ArrayList<String> strings;
 
+	/** The property ID to name mapping array */
 	private DataWithIndexAndKind[] propertyNameMappings;
 
 	/** Read in the named properties information
