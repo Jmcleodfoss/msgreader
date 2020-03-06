@@ -165,7 +165,7 @@ public class MSG
 	*/
 	private String getFATChainString(java.util.Iterator<Integer> iterator)
 	{
-		java.lang.StringBuilder chain = new java.lang.StringBuilder();
+		StringBuilder chain = new StringBuilder();
 		while (iterator.hasNext()){
 			if (chain.length() > 0)
 				chain.append(" ");
