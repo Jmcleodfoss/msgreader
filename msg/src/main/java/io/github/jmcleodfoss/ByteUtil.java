@@ -26,18 +26,6 @@ public class ByteUtil {
 		'F'
 	};
 
-	/** Create a String representing a single byte in hexadecimal.
-	*	@param	b	The byte to convert to a hexadecimal string.
-	*	@return	The hexadecimal String corresponding to the given byte.
-	*/
-	public static String toHexString(final byte b)
-	{
-		StringBuilder s = new StringBuilder (2);
-		s.append(HEX_DIGIT[(b & 0xff)/16]);
-		s.append(HEX_DIGIT[(b & 0xff)%16]);
-		return s.toString();
-	}
-
 	/** Create a string representation expressing the given sequence of bytes in hexadecimal.
 	*	@param	bytes	The bytes to convert to a String of hexadecimal values.
 	*	@return	The String containing the hexadecimal representation of the given bytes.
@@ -78,6 +66,18 @@ public class ByteUtil {
 	public static long makeLongLE(byte[] rawData)
 	{
 		return makeLongLE(rawData, LONG_BYTES);
+	}
+
+	/** Create a String representing a single byte in hexadecimal.
+	*	@param	b	The byte to convert to a hexadecimal string.
+	*	@return	The hexadecimal String corresponding to the given byte.
+	*/
+	public static String toHexString(final byte b)
+	{
+		StringBuilder s = new StringBuilder (2);
+		s.append(HEX_DIGIT[(b & 0xff)/16]);
+		s.append(HEX_DIGIT[(b & 0xff)%16]);
+		return s.toString();
 	}
 
 	/** This is a simplistic test for some of the functions in this class.
