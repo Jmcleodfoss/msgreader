@@ -1,38 +1,38 @@
 package io.github.jmcleodfoss.msg;
 
 /** Consolidated interface for reading MSG files (this will work for other CFB
- * files but has special handling for some information found only in MSG files).
- */
+*   files but has special handling for some information found only in MSG files).
+*/
 public class MSG
 {
-	/**	The data stream for the file. */
+	/** The data stream for the file. */
 	private java.io.FileInputStream stream;
 
-	/**	The FileChannel of the data stream, used to jump around the file. */
+	/** The FileChannel of the data stream, used to jump around the file. */
 	private java.nio.channels.FileChannel fc;
 
-	/**	The file, as a memory-mapped byte file. */
+	/** The file, as a memory-mapped byte file. */
 	private java.nio.MappedByteBuffer mbb;
 
-	/**	The header */
+	/** The header */
 	private Header header;
 
-	/**	The DIFAT */
+	/** The DIFAT */
 	private DIFAT difat;
 
-	/**	The DAT */
+	/** The DAT */
 	private FAT fat;
 
-	/**	The directory */
+	/** The directory */
 	private Directory directory;
 
-	/**	The Mini FAT */
+	/** The Mini FAT */
 	private MiniFAT miniFAT;
 
-	/**	The named properties */
+	/** The named properties */
 	private NamedProperties namedProperties;
 
-	/**	Create a FileChannel for the given filename and read in the
+	/** Create a FileChannel for the given filename and read in the
 	*	header, DIFAT, etc.
 	*	@param	fn	The name of the file to read.
 	*	@throws	NotCFBFileException	The input stream does not contain a PST file.
@@ -57,16 +57,28 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
+	/** Get the data from the header, as an array of key-value pairs.
+	*	@return	A KVP array of the header field names and values
+	*/
 	public KVPArray<String, String> headerData()
 	{
 		return header.data();
 	}
 
+	/** Get the data from the DIFAT, as an array of key-value pairs.
+	*	@return	A KVP array of the DIFAT entries, with the DIFAT index
+	*		as the key and the corresponding FAT sector as the value
+	*/
 	public KVPArray<Integer, Integer> difatData()
 	{
 		return difat.data();
 	}
 
+	/** Get the FAT sector chain for the given iterator as a String
+	*	@param	iterator	The iterator to create the chain
+	*				description for
+	*	@return	A String listing the sectors in the chain
+	*/
 	String getFATChainString(java.util.Iterator<Integer> iterator)
 	{
 		java.lang.StringBuilder chain = new java.lang.StringBuilder();
