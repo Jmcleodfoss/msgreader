@@ -77,18 +77,6 @@ class NamedProperties
 		return guids[index-3];
 	}
 
-	/** Set the GUIDs from the GUID stream
-	*	@param	de	The String Stream containing the GUIDs.
-	*	@param	data	The data for this entrym
-	*/
-	private void setGUIDS(DirectoryEntry.StringStream de, byte[] data)
-	{
-		int numGUIDS = (int)de.streamSize / GUID.SIZE;
-		guids = new GUID[numGUIDS];
-		for (int i = 0; i < numGUIDS; ++i)
-			guids[i] = new GUID(java.util.Arrays.copyOfRange(data, i*GUID.SIZE, (i+1)*GUID.SIZE));
-	}
-
 	/** Set the entries from the entry stream.
 	*	@param	de	The String Stream containing the entries
 	*	@param	data	The data for this entrym
@@ -99,6 +87,18 @@ class NamedProperties
 		entries = new DataWithIndexAndKind[numEntries];
 		for (int i = 0; i < numEntries; ++i)
 			entries[i] = new DataWithIndexAndKind(java.util.Arrays.copyOfRange(data, i*DataType.SIZEOF_LONG, (i+1)*DataType.SIZEOF_LONG));
+	}
+
+	/** Set the GUIDs from the GUID stream
+	*	@param	de	The String Stream containing the GUIDs.
+	*	@param	data	The data for this entrym
+	*/
+	private void setGUIDS(DirectoryEntry.StringStream de, byte[] data)
+	{
+		int numGUIDS = (int)de.streamSize / GUID.SIZE;
+		guids = new GUID[numGUIDS];
+		for (int i = 0; i < numGUIDS; ++i)
+			guids[i] = new GUID(java.util.Arrays.copyOfRange(data, i*GUID.SIZE, (i+1)*GUID.SIZE));
 	}
 
 	/** Set the strings from the string stream.
