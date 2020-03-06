@@ -57,12 +57,25 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
-	/** Get the data from the header, as an array of key-value pairs.
-	*	@return	A KVP array of the header field names and values
+	/**	Close the file.
+	* 	@throws	java.io.IOException	There was a problem closing the file.
 	*/
-	public KVPArray<String, String> headerData()
+	public void close()
+	throws
+		java.io.IOException
 	{
-		return header.data();
+		fc.close();
+	}
+
+	/** Create a string representation of the given bytes, assumed to be
+	*   file content
+	*	@param	data	The file contents
+	*	@return	A string showing the file contents. This will be hex
+	*		bytes if the field is not text.
+	*/
+	public String convertFileToString(int entry, byte[] data)
+	{
+		return directory.entries.get(entry).createString(data);
 	}
 
 	/** Get the data from the DIFAT, as an array of key-value pairs.
@@ -72,22 +85,6 @@ public class MSG
 	public KVPArray<Integer, Integer> difatData()
 	{
 		return difat.data();
-	}
-
-	/** Get the FAT sector chain for the given iterator as a String
-	*	@param	iterator	The iterator to create the chain
-	*				description for
-	*	@return	A String listing the sectors in the chain
-	*/
-	String getFATChainString(java.util.Iterator<Integer> iterator)
-	{
-		java.lang.StringBuilder chain = new java.lang.StringBuilder();
-		while (iterator.hasNext()){
-			if (chain.length() > 0)
-				chain.append(" ");
-			chain.append(iterator.next());
-		}
-		return chain.toString();
 	}
 
 	/** Make FAT data available to client applications
@@ -161,16 +158,20 @@ public class MSG
 		return DirectoryEntry.keys();
 	}
 
-	/** Get the raw bytes for the requested directory entry
-	*	@param	entry	The entry to retreive data for
-	*	@return	An array of the bytes in the directory entry.
+	/** Get the FAT sector chain for the given iterator as a String
+	*	@param	iterator	The iterator to create the chain
+	*				description for
+	*	@return	A String listing the sectors in the chain
 	*/
-	public byte[] getRawDirectoryEntry(int entry)
+	String getFATChainString(java.util.Iterator<Integer> iterator)
 	{
-		mbb.position(directory.entries.get(entry).directoryEntryPosition);
-		byte[] data = new byte[DirectoryEntry.SIZE];
-		mbb.get(data);
-		return data;
+		java.lang.StringBuilder chain = new java.lang.StringBuilder();
+		while (iterator.hasNext()){
+			if (chain.length() > 0)
+				chain.append(" ");
+			chain.append(iterator.next());
+		}
+		return chain.toString();
 	}
 
 	/** Get the file pointed to by the given directory entry index
@@ -182,25 +183,16 @@ public class MSG
 		return directory.entries.get(entry).getContent(mbb, header, fat, miniFAT);
 	}
 
-	/** Create a string representation of the given bytes, assumed to be
-	*   file content
-	*	@param	data	The file contents
-	*	@return	A string showing the file contents. This will be hex
-	*		bytes if the field is not text.
+	/** Get the raw bytes for the requested directory entry
+	*	@param	entry	The entry to retreive data for
+	*	@return	An array of the bytes in the directory entry.
 	*/
-	public String convertFileToString(int entry, byte[] data)
+	public byte[] getRawDirectoryEntry(int entry)
 	{
-		return directory.entries.get(entry).createString(data);
-	}
-
-	/** Is there a text representation of the "file" for a given directory,
-	*   or is it binary?
-	*	@param	entry	The directory entry to check the data type of
-	*	@return	true if the file is text, false if it is binary
-	*/
-	public boolean isTextData(int entry)
-	{
-		return directory.entries.get(entry).isTextData();
+		mbb.position(directory.entries.get(entry).directoryEntryPosition);
+		byte[] data = new byte[DirectoryEntry.SIZE];
+		mbb.get(data);
+		return data;
 	}
 
 	/** Retrieve the contents of the requested sector.
@@ -217,21 +209,29 @@ public class MSG
 		return data;
 	}
 
+	/** Get the data from the header, as an array of key-value pairs.
+	*	@return	A KVP array of the header field names and values
+	*/
+	public KVPArray<String, String> headerData()
+	{
+		return header.data();
+	}
+
+	/** Is there a text representation of the "file" for a given directory,
+	*   or is it binary?
+	*	@param	entry	The directory entry to check the data type of
+	*	@return	true if the file is text, false if it is binary
+	*/
+	public boolean isTextData(int entry)
+	{
+		return directory.entries.get(entry).isTextData();
+	}
+
 	/** Get the number of sectors in the file
 	*	@return	The number of sectors in the file
 	*/
 	public int numberOfSectors()
 	{
 		return header.numberOfSectors();
-	}
-
-	/**	Close the file.
-	* 	@throws	java.io.IOException	There was a problem closing the file.
-	*/
-	public void close()
-	throws
-		java.io.IOException
-	{
-		fc.close();
 	}
 }
