@@ -163,7 +163,7 @@ public class MSG
 	*				description for
 	*	@return	A String listing the sectors in the chain
 	*/
-	String getFATChainString(java.util.Iterator<Integer> iterator)
+	private String getFATChainString(java.util.Iterator<Integer> iterator)
 	{
 		java.lang.StringBuilder chain = new java.lang.StringBuilder();
 		while (iterator.hasNext()){
