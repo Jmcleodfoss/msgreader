@@ -6,7 +6,7 @@ class ObjectType {
 	static final byte STREAM = 0x02;
 	static final byte ROOT_STORAGE = 0x05;
 
-	byte type;
+	private final byte type;
 
 	ObjectType(byte type)
 	{
