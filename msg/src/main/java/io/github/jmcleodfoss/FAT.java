@@ -189,6 +189,30 @@ class FAT {
 		return s.toString();
 	}
 
+	/** Retrieve the content of a chain of sectors
+	*	@param	startingSector	The starting sector in the chain
+	*	@param	size		The size of the chain, in bytes
+	*	@param	mbb		The byte buffer to read from
+	*	@param	header		The file header
+	*	@return	An array of bytes holding the contents of the sector chain.
+	*/
+	byte[] read(int startingSector, long size, java.nio.MappedByteBuffer mbb, Header header)
+	{
+		int nRemaining = (int)size;
+		byte[] data = new byte[nRemaining];
+		java.util.Iterator<Integer> iter = chainIterator(startingSector);
+		int destOffset = 0;
+		while (iter.hasNext()){
+			int sector = iter.next();
+			mbb.position(header.offset(sector));
+			int nToRead = Math.min(nRemaining, header.sectorSize);
+			mbb.get(data, destOffset, nToRead);
+			destOffset += nToRead;
+			nRemaining -= nToRead;
+		}
+		return data;
+	}
+
 	/**	Test this class by reading in the FAT index table and printing it out.
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/

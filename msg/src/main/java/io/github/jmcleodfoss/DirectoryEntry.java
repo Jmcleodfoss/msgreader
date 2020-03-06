@@ -119,29 +119,12 @@ public class DirectoryEntry {
 			this.propertyType = Integer.decode("0x"+ propertyType);
 		}
 
-		private byte[] getStreamContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat)
-		{
-			byte[] data = new byte[(int)streamSize];
-			java.util.Iterator<Integer> iter = fat.chainIterator(startingSectorLocation);
-			int destOffset = 0;
-			int nRemaining = (int)streamSize;
-			while (iter.hasNext()){
-				int sector = iter.next();
-				mbb.position((sector+1)*header.sectorSize);
-				int nToRead = Math.min(nRemaining, header.sectorSize);
-				mbb.get(data, destOffset, nToRead);
-				destOffset += nToRead;
-				nRemaining -= nToRead;
-			}
-			return data;
-		}
-
 		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
 			if (streamSize < header.miniStreamCutoffSize)
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
-			return getStreamContent(mbb, header, fat);
+			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
 
 		@Override
