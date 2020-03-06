@@ -115,6 +115,31 @@ class Header {
 		numberOfDIFATSectors = (Integer)dc.get(nm_NumberOfDIFATSectors);
 	}
 
+	/** Make header data available to client applications
+	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*/
+	KVPArray<String, String> data()
+	{
+		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(nm_qwHeaderSignature, String.format("0x%16x", (Long)dc.get(nm_qwHeaderSignature)));
+		l.add(nm_HeaderCLSID, ((GUID)dc.get(nm_HeaderCLSID)).toString());
+		l.add(nm_MinorVersion, ((Short)dc.get(nm_MinorVersion)).toString());
+		l.add(nm_MajorVersion, ((Short)dc.get(nm_MajorVersion)).toString());
+		l.add(nm_ByteOrder, String.format("0x%04x", (Short)dc.get(nm_ByteOrder)));
+		l.add(nm_SectorShift, ((Short)dc.get(nm_SectorShift)).toString());
+		l.add(nm_MiniSectorShift, ((Short)dc.get(nm_MiniSectorShift)).toString());
+		l.add(nm_NumberOfDirectorySectors, Integer.toString(numberOfDirectorySectors));
+		l.add(nm_NumberOfFATSectors, Integer.toString(numberOfFATSectors));
+		l.add(nm_FirstDirectorySectorLocation, Sector.getDescription(firstDirectorySectorLocation));
+		l.add(nm_TransactionSignatureNumber, String.format("0x%016x", (Integer)dc.get(nm_TransactionSignatureNumber)));
+		l.add(nm_MiniStreamCutoffSize, Integer.toString(miniStreamCutoffSize));
+		l.add(nm_FirstMiniFATSectorLocation, Sector.getDescription(firstMiniFATSectorLocation));
+		l.add(nm_NumberOfMiniFATSectors, Integer.toString(numberOfMiniFATSectors));
+		l.add(nm_FirstDIFATSectorLocation, Sector.getDescription(firstDIFATSectorLocation));
+		l.add(nm_NumberOfDIFATSectors, Integer.toString(numberOfDIFATSectors));
+		return l;
+	}
+
 	/** The number of 4-byte integers (int) which will fit in a sector.
 	* 	@return	The number of ints which will fit in a sector.
 	*/
@@ -129,6 +154,17 @@ class Header {
 	int numberOfSectors()
 	{
 		return (int)(fileSize / sectorSize);
+	}
+
+	/** Get the offset into the file for the given sector number (excluding the header sector)
+	*   Sector index 0 returns physical sector 1, etc. This function cannot be used to
+	*   retrieve the header contents.
+	*	@param	sectorNumber	The sector to get the offset of
+	*	@return	The offset into the file that the requested sector begins at.
+	*/
+	int offset(int sectorNumber)
+	{
+		return (sectorNumber + 1) * sectorSize;
 	}
 
 	/** Calculate the size of the header block.
@@ -155,42 +191,6 @@ class Header {
 		numberOfFATSectors,
 		numberOfMiniFATSectors, Sector.getDescription(firstMiniFATSectorLocation),
 		numberOfDIFATSectors, Sector.getDescription(firstDIFATSectorLocation));
-	}
-
-	/** Make header data available to client applications
-	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
-	*/
-	KVPArray<String, String> data()
-	{
-		KVPArray<String, String> l = new KVPArray<String, String>();
-		l.add(nm_qwHeaderSignature, String.format("0x%16x", (Long)dc.get(nm_qwHeaderSignature)));
-		l.add(nm_HeaderCLSID, ((GUID)dc.get(nm_HeaderCLSID)).toString());
-		l.add(nm_MinorVersion, ((Short)dc.get(nm_MinorVersion)).toString());
-		l.add(nm_MajorVersion, ((Short)dc.get(nm_MajorVersion)).toString());
-		l.add(nm_ByteOrder, String.format("0x%04x", (Short)dc.get(nm_ByteOrder)));
-		l.add(nm_SectorShift, ((Short)dc.get(nm_SectorShift)).toString());
-		l.add(nm_MiniSectorShift, ((Short)dc.get(nm_MiniSectorShift)).toString());
-		l.add(nm_NumberOfDirectorySectors, Integer.toString(numberOfDirectorySectors));
-		l.add(nm_NumberOfFATSectors, Integer.toString(numberOfFATSectors));
-		l.add(nm_FirstDirectorySectorLocation, Sector.getDescription(firstDirectorySectorLocation));
-		l.add(nm_TransactionSignatureNumber, String.format("0x%016x", (Integer)dc.get(nm_TransactionSignatureNumber)));
-		l.add(nm_MiniStreamCutoffSize, Integer.toString(miniStreamCutoffSize));
-		l.add(nm_FirstMiniFATSectorLocation, Sector.getDescription(firstMiniFATSectorLocation));
-		l.add(nm_NumberOfMiniFATSectors, Integer.toString(numberOfMiniFATSectors));
-		l.add(nm_FirstDIFATSectorLocation, Sector.getDescription(firstDIFATSectorLocation));
-		l.add(nm_NumberOfDIFATSectors, Integer.toString(numberOfDIFATSectors));
-		return l;
-	}
-
-	/** Get the offset into the file for the given sector number (excluding the header sector)
-	*   Sector index 0 returns physical sector 1, etc. This function cannot be used to
-	*   retrieve the header contents.
-	*	@param	sectorNumber	The sector to get the offset of
-	*	@return	The offset into the file that the requested sector begins at.
-	*/
-	int offset(int sectorNumber)
-	{
-		return (sectorNumber + 1) * sectorSize;
 	}
 
 	/** Test this class by reading in the MSG file header and printing it out.
