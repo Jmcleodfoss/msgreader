@@ -1,12 +1,12 @@
 package io.github.jmcleodfoss.msg;
 
-/**	The ByteUtil class contains utility functions for dealing with bytes. */
+/** The ByteUtil class contains utility functions for dealing with bytes. */
 public class ByteUtil {
 
-	/**	The number of 8-bit bytes in a long. */
+	/** The number of 8-bit bytes in a long. */
 	private static final int LONG_BYTES = Long.SIZE/Byte.SIZE;
 
-	/**	This array of hex digits is used for conversion of values 0-15 to 0-9, A-F. */
+	/** This array of hex digits is used for conversion of values 0-15 to 0-9, A-F. */
 	private final static char[] HEX_DIGIT = {
 		'0',
 		'1',
@@ -26,10 +26,8 @@ public class ByteUtil {
 		'F'
 	};
 
-	/**	Create a String representing a single byte in hexadecimal.
-	*
+	/** Create a String representing a single byte in hexadecimal.
 	*	@param	b	The byte to convert to a hexadecimal string.
-	*
 	*	@return	The hexadecimal String corresponding to the given byte.
 	*/
 	public static String toHexString(final byte b)
@@ -40,10 +38,8 @@ public class ByteUtil {
 		return s.toString();
 	}
 
-	/**	Create a string representation expressing the given sequence of bytes in hexadecimal.
-	*
+	/** Create a string representation expressing the given sequence of bytes in hexadecimal.
 	*	@param	bytes	The bytes to convert to a String of hexadecimal values.
-	*
 	*	@return	The String containing the hexadecimal representation of the given bytes.
 	*/
 	public static String createHexByteString(final byte[] bytes)
@@ -58,11 +54,9 @@ public class ByteUtil {
 		return s.toString();
 	}
 
-	/**	Create a signed long from the first "n" bytes of the given array, ordered from LSB to MSB.
-	*
+	/** Create a signed long from the first "n" bytes of the given array, ordered from LSB to MSB.
 	*	@param	rawData	The bytes to make the long value from.
 	*	@param	n	The number of bytes to use (n must be less than or equal to 8, the number of bytes in a long value).
-	*
 	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
 	*/
 	public static long makeLongLE(byte[] rawData, int n)
@@ -77,10 +71,8 @@ public class ByteUtil {
 		return val;
 	}
 
-	/**	Create a signed long from the given array of bytes, ordered from LSB to MSB.
-	*
+	/** Create a signed long from the given array of bytes, ordered from LSB to MSB.
 	*	@param	rawData	The bytes to make the long value from.
-	*
 	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
 	*/
 	public static long makeLongLE(byte[] rawData)
@@ -88,8 +80,7 @@ public class ByteUtil {
 		return makeLongLE(rawData, LONG_BYTES);
 	}
 
-	/**	This is a simplistic test for some of the functions in this class.
-	*
+	/** This is a simplistic test for some of the functions in this class.
 	*	@param	args	The command line arguments passed to the test application (ignored).
 	*/
 	public static void main(String[] args)
