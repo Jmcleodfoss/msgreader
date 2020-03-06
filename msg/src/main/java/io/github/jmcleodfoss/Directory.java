@@ -49,7 +49,7 @@ class Directory {
 	}
 
 	/** Get the children for a given node.
-	*	@param parentIndex	The directory entry index of the parent we want to find the children of, if any.
+	*	@param	parentIndex	The directory entry index of the parent we want to find the children of, if any.
 	*	@return	The (possibly entry) list of children of the directory entry for parentIndex.
 	*/
 	java.util.ArrayList<Integer> getChildren(int parentIndex)
