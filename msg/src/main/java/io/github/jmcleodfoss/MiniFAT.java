@@ -138,7 +138,7 @@ class MiniFAT {
 		return s.toString();
 	}
 
-	/**	Test this class by reading in the mini FAT index table and printing it out.
+	/** Test this class by reading in the mini FAT index table and printing it out.
 	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
 	*/
 	public static void main(final String[] args)
