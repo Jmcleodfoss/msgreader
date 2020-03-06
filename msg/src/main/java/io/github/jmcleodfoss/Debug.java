@@ -1,12 +1,12 @@
 package io.github.jmcleodfoss.msg;
 
-/**	The Debug class provides rudimentary logging for calls within the library. */
+/** The Debug class provides rudimentary logging for calls within the library. */
 public class Debug {
 
-	/**	Should we log to console? */
+	/** Should we log to console? */
 	static final boolean logToConsole = false;
 
-	/**	The filename to log to */
+	/** The filename to log to */
 	static final String logFilename = "diag.txt";
 
 	static java.io.FileOutputStream diagOutputStream;
@@ -19,13 +19,13 @@ public class Debug {
 		}
 	}
 
-	/**	Diagnostic log handler */
+	/** Diagnostic log handler */
 	static final java.util.logging.Handler logHandler = new java.util.logging.StreamHandler(diagOutputStream, new java.util.logging.SimpleFormatter());
 	static {
 		logHandler.setLevel(java.util.logging.Level.FINEST);
 	}
 
-	/**	Package logger - this governs child loggers. */
+	/** Package logger - this governs child loggers. */
 	static final java.util.logging.Logger packageLogger = java.util.logging.Logger.getLogger("io.github.jmcleodfoss.msg");
 	static {
 		packageLogger.setUseParentHandlers(false);
@@ -33,10 +33,8 @@ public class Debug {
 		packageLogger.setLevel(java.util.logging.Level.OFF);
 	}
 
-	/**	Get a logger. This is a wrapper around java.utilo.logging.Logger.getLogger(); using it to obtaina logger ensures that packageLogger is appropriately initialized.
-	*
+	/** Get a logger. This is a wrapper around java.utilo.logging.Logger.getLogger(); using it to obtaina logger ensures that packageLogger is appropriately initialized.
 	*	@param	name	The name of the logger to use.
-	*
 	*	@return	The logger with the requested name.
 	*/
 	public static java.util.logging.Logger getLogger(final String name)
@@ -46,11 +44,9 @@ public class Debug {
 		return logger;
 	}
 
-	/**	Translate a log level string into a log level, allowing it to be one of the keywords "off", "severe", "warning", "info",
+	/** Translate a log level string into a log level, allowing it to be one of the keywords "off", "severe", "warning", "info",
 	*	"fine", "finer", "finest."
-	*
 	*	@param	s	The String to look up the log level for.
-	*
 	*	@return	The log level from java.util.logging.Level corresponding to the passed String s, if any.
 	*/
 	public static java.util.logging.Level getLogLevel(final String s)
@@ -74,8 +70,7 @@ public class Debug {
 		throw new RuntimeException("Unknown log level name " + s);
 	}
 
-	/**	Set up a logger with the library logging defaults.
-	*
+	/** Set up a logger with the library logging defaults.
 	*	@param	logger	The logger to set up.
 	*/
 	private static void setupLogger(java.util.logging.Logger logger)
