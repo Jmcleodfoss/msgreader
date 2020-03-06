@@ -11,10 +11,8 @@ class MiniFAT {
 
 		/** Initialize the mini chain iterator
 		*	@param	firstMiniSector	The first sector in the mini chain
-		*	@param	header	The header for this CFB file
-		*	@param	fat	The FAT for this CFB file
 		*/
-		ChainIterator(int firstMiniSector, Header header, FAT fat)
+		ChainIterator(int firstMiniSector)
 		{
 			entry = firstMiniSector;
 		}
@@ -99,14 +97,12 @@ class MiniFAT {
 
 	/** Create an iterator through a mini sector chain given the first sector
 	*	@param	firstSector	The first sector of the chain to return
-	*	@param	Header		The file header information
-	*	@param	FAT		The file's FAT
 	*	@return	An iterator which will return all the mini FAT sector indices in
 	*		the chain
 	*/
-	java.util.Iterator<Integer> getChainIterator(int firstSector, Header header, FAT fat)
+	java.util.Iterator<Integer> getChainIterator(int firstSector)
 	{
-		return new ChainIterator(firstSector, header, fat);
+		return new ChainIterator(firstSector);
 	}
 
 	/** Get the chains of mini sectors defined in the mini FAT.

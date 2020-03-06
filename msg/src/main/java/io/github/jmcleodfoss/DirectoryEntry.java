@@ -119,10 +119,10 @@ public class DirectoryEntry {
 			this.propertyType = Integer.decode("0x"+ propertyType);
 		}
 
-		private byte[] getMiniStreamContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+		private byte[] getMiniStreamContent(java.nio.MappedByteBuffer mbb, MiniFAT miniFAT)
 		{
 			byte[] data = new byte[(int)streamSize];
-			java.util.Iterator<Integer> iter = miniFAT.getChainIterator(startingSectorLocation, header, fat);
+			java.util.Iterator<Integer> iter = miniFAT.getChainIterator(startingSectorLocation);
 			int destOffset = 0;
 			int nRemaining = (int)streamSize;
 			while (iter.hasNext()){
@@ -157,7 +157,7 @@ public class DirectoryEntry {
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
 			if (streamSize < header.miniStreamCutoffSize)
-				return getMiniStreamContent(mbb, header, fat, miniFAT);
+				return getMiniStreamContent(mbb, miniFAT);
 			return getStreamContent(mbb, header, fat);
 		}
 
