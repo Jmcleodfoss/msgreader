@@ -33,7 +33,7 @@ public class MSG
 	private NamedProperties namedProperties;
 
 	/**	Create a FileChannel for the given filename and read in the
- 	*	header, DIFAT, etc.
+	*	header, DIFAT, etc.
 	*	@param	fn	The name of the file to read.
 	*	@throws	NotCFBFileException	The input stream does not contain a PST file.
 	* 	@throws	java.io.IOException	There was an I/O error reading the input stream.
