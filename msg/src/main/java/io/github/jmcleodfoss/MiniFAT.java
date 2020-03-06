@@ -95,6 +95,39 @@ class MiniFAT {
 		return sectorFileOffset + miniSectorOffsetIntoThisSector;
 	}
 
+	/** Get all the mini sector chains
+	*	@return	An ArrayList of ArrayLists containing the mini sector chains
+	*/
+	java.util.ArrayList<java.util.ArrayList<Integer>> getAllChains()
+	{
+		java.util.ArrayList<java.util.ArrayList<Integer>> chains = new java.util.ArrayList<java.util.ArrayList<Integer>>();
+
+		boolean[] shown = new boolean[numEntries];
+		for (int i = 0; i < numEntries; ++i){
+			if (shown[i])
+				continue;
+
+			if (miniFATSectors[i] == Sector.FREESECT){
+				shown[i] = true;
+				continue;
+			}
+
+			/* Found a new chain */
+			java.util.ArrayList<Integer> thisChain = new java.util.ArrayList<Integer>();
+
+			int sector = i;
+			do {
+				thisChain.add(sector);
+				shown[sector] = true;
+				sector = miniFATSectors[sector];
+			} while (sector != Sector.ENDOFCHAIN);
+
+			chains.add(thisChain);
+		}
+
+		return chains;
+	}
+
 	/** Create an iterator through a mini sector chain given the first sector
 	*	@param	firstSector	The first sector of the chain to return
 	*	@return	An iterator which will return all the mini FAT sector indices in
@@ -110,26 +143,21 @@ class MiniFAT {
 	*/
 	String getChains()
 	{
+		java.util.Iterator<java.util.ArrayList<Integer>> chainsIterator = getAllChains().iterator();
+
 		StringBuilder s = new StringBuilder();
-		boolean[] shown = new boolean[numEntries];
-		for (int i = 0; i < numEntries; ++i){
-			if (shown[i])
-				continue;
-			if (miniFATSectors[i] == Sector.FREESECT){
-				shown[i] = true;
-				continue;
-			}
+		while(chainsIterator.hasNext()){
 			if (s.length() > 0)
 				s.append("\n");
-
-			int sector = i;
-			do {
-				if (sector != i)
+			java.util.Iterator<Integer> thisChain = chainsIterator.next().iterator();
+			boolean first = true;
+			while (thisChain.hasNext()){
+				if (first)
+					first = false;
+				else
 					s.append(" ");
-				s.append(sector);
-				shown[sector] = true;
-				sector = miniFATSectors[sector];
-			} while (sector != Sector.ENDOFCHAIN);
+				s.append(thisChain.next());
+			}
 		}
 		return s.toString();
 	}
