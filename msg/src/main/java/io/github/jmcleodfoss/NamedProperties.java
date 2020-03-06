@@ -69,7 +69,7 @@ class NamedProperties
 	*	@param	index	The GUID index
 	*	@return	The GUID corresponding to the GUID index
 	*/
-	GUID indexToGUID(int index)
+	private GUID indexToGUID(int index)
 	{
 		if (index == 1)
 			return GUID.PS_MAPI;
