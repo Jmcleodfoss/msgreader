@@ -76,15 +76,6 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 			read(byteBuffer, d);
 	}
 
-	/** Confirm the given field was read in; throw an exception if it wasn't.
-	*	@param	nm_field	The name of the field to check.
-	*/
-	protected void validateFieldExists(final String nm_field)
-	{
-		if (!containsKey(nm_field))
-			throw new IncompleteInitializationException(nm_field);
-	}
-
 	/** Format and return a human-readable representation of this
 	*   DataContainer with the property names and hex byte strings for each.
 	*	@return	A String showing the contents of this DataContainer object.
@@ -105,5 +96,14 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 			s.append(entry.getValue().toString());
 		}
 		return s.toString();
+	}
+
+	/** Confirm the given field was read in; throw an exception if it wasn't.
+	*	@param	nm_field	The name of the field to check.
+	*/
+	protected void validateFieldExists(final String nm_field)
+	{
+		if (!containsKey(nm_field))
+			throw new IncompleteInitializationException(nm_field);
 	}
 }
