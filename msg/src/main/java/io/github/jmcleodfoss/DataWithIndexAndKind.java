@@ -2,14 +2,15 @@ package io.github.jmcleodfoss.msg;
 
 class DataWithIndexAndKind
 {
-	static enum PropertyType {
+	private static enum PropertyType {
 		NUMERICAL_NAMED_PROPERTY,
 		STRING_NAMED_PROPERTY
 	};
-	int nameIdentifierOrStringOffset;
-	short propertyIndex;
-	short guidIndex;
-	PropertyType propertyType;
+
+	private final int nameIdentifierOrStringOffset;
+	private final short propertyIndex;
+	final short guidIndex;
+	private final PropertyType propertyType;
 
 	DataWithIndexAndKind(byte[] rawData)
 	{
