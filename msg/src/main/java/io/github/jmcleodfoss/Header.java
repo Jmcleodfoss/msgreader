@@ -51,7 +51,7 @@ class Header {
 	/** The data repository (preserved after constructor since we don't
 	*   read everything from it that we might want to display).
 	*/
-	private DataContainer dc;
+	private final DataContainer dc;
 
 	/** The file size */
 	final long fileSize;
