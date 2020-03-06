@@ -7,7 +7,7 @@ package io.github.jmcleodfoss.msg;
 *
 *	Changing from HashMap to IdentityHashMap reduced run-time by ~33% for the original test PST file.
 */
-public class DataContainer extends java.util.IdentityHashMap<String, Object> {
+class DataContainer extends java.util.IdentityHashMap<String, Object> {
 
 	/** The serialVersionUID is required because the base class is serializable. */
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class DataContainer extends java.util.IdentityHashMap<String, Object> {
 	*	@param	description	The list of descriptions of data to be read.
 	*	@throws	java.io.IOException	An I/O problem was encountered while reading in the requested data.
 	*/
-	public void read(java.nio.ByteBuffer byteBuffer, final DataDefinition... description)
+	void read(java.nio.ByteBuffer byteBuffer, final DataDefinition... description)
 	throws
 		java.io.IOException
 	{
