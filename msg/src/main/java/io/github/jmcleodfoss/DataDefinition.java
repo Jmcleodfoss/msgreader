@@ -1,10 +1,10 @@
 package io.github.jmcleodfoss.msg;
 
 /** The DataDefinition class encapsulates definitions used for reading values from a data stream. */
-public class DataDefinition {
+class DataDefinition {
 
 	/** Logger for data reading */
-	static java.util.logging.Logger logger = Debug.getLogger("io.github.jmcleodfoss.msg.DataDefinition");
+	private static java.util.logging.Logger logger = Debug.getLogger("io.github.jmcleodfoss.msg.DataDefinition");
 
 	/** The name under which the data for this field is to be stored. */
 	final String name;
@@ -20,7 +20,7 @@ public class DataDefinition {
 	*	@param	description	The description of how to read in the field.
 	*	@param	fSave		A flag indicating whether the data should be saved or skipped.
 	*/
-	public DataDefinition(final String name, final DataType description, final boolean fSave)
+	DataDefinition(final String name, final DataType description, final boolean fSave)
 	{
 		this.name = name;
 		this.description = description;
@@ -31,7 +31,7 @@ public class DataDefinition {
 	*	@param	name		The field name with which the data would be stored and retrieved (used for logging only in this
 	*	@param	description	The description of how to read in the field.
 	*/
-	public DataDefinition(final String name, final DataType description)
+	DataDefinition(final String name, final DataType description)
 	{
 		this(name, description, false);
 	}
