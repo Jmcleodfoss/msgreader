@@ -15,11 +15,11 @@ class DIFAT extends KVPTableTab
 			localizer.getText(PROPNAME_DIFAT_COL2_HEADING));
 	}
 
-	void update(MSG file, LocalizedText localizer)
+	void update(MSG msg, LocalizedText localizer)
 	{
-		if (file == null)
+		if (msg == null)
 			return;
 
-		super.update(file.difatData(), localizer);
+		super.update(msg.difatData(), localizer);
 	}
 }

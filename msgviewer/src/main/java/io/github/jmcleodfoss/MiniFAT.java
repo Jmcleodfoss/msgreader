@@ -13,7 +13,7 @@ class MiniStream extends Tab
 		super(localizer.getText(PROPNAME_MINISTREAM_TAB_TITLE));
 	}
 
-	void update(MSG file, LocalizedText localizer)
+	void update(MSG msg, LocalizedText localizer)
 	{
 	}
 }

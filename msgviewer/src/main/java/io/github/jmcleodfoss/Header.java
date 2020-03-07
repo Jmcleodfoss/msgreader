@@ -15,11 +15,11 @@ class Header extends KVPTableTab
 			localizer.getText(PROPNAME_HEADER_COL2_HEADING));
 	}
 
-	void update(MSG file, LocalizedText localizer)
+	void update(MSG msg, LocalizedText localizer)
 	{
-		if (file == null)
+		if (msg == null)
 			return;
 
-		super.update(file.headerData(), localizer);
+		super.update(msg.headerData(), localizer);
 	}
 }

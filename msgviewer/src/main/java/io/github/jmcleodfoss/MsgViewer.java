@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 public class MsgViewer extends javafx.application.Application
 {
 	String filename;
-	MSG file;
+	MSG msg;
 
 	LocalizedText localizer;
 
@@ -55,13 +55,13 @@ public class MsgViewer extends javafx.application.Application
 		if (filename != null) {
 			stage.setTitle(filename);
 			try {
-				file = new MSG(filename);
+				msg = new MSG(filename);
 			} catch (Exception e){
-				file = null;
+				msg = null;
 				filename = null;
 			}
-			if (file != null)
-				update(file);
+			if (msg != null)
+				update(msg);
 		} else {
 			stage.setTitle("msg Viewer application");
 		}

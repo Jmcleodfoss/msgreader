@@ -16,11 +16,11 @@ class FAT extends KVPTableTab
 			true);
 	}
 
-	void update(MSG file, LocalizedText localizer)
+	void update(MSG msg, LocalizedText localizer)
 	{
-		if (file == null)
+		if (msg == null)
 			return;
 
-		super.update(file.fatData(), localizer);
+		super.update(msg.fatData(), localizer);
 	}
 }
