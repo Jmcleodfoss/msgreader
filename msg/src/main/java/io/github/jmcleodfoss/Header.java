@@ -60,7 +60,7 @@ class Header {
 	final int sectorSize;
 
 	/** The mini sector shift */
-	private final int miniSectorSize;
+	final int miniSectorSize;
 
 	/** The number of directory sectors */
 	private final int numberOfDirectorySectors;
