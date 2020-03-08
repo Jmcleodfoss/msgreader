@@ -73,7 +73,6 @@ public class MsgViewer extends javafx.application.Application
 		ap.setRightAnchor(tabs, 0.0);
 
 		Scene scene = new Scene(ap, 800, 600);
-		scene.getStylesheets().add(getClass().getResource("/css/VoluminousPaginationSkin.css").toExternalForm());
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Pagination;
@@ -133,6 +134,16 @@ class VoluminousPaginationSkin extends PaginationSkin
 						updateNavigation();
 					}
 				}
+			}
+		});
+
+		// Load the style sheet once the scene becomes available
+		firstArrowButton.parentProperty().addListener(new ChangeListener<Parent>(){
+			@Override
+			public void changed(ObservableValue parent, Parent oldValue, Parent newValue)
+			{
+				if (firstArrowButton.getScene() != null)
+					firstArrowButton.getScene().getStylesheets().add(getClass().getResource("/css/VoluminousPaginationSkin.css").toExternalForm());
 			}
 		});
 
