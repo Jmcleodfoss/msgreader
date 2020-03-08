@@ -50,7 +50,7 @@ class Directory extends Tab
 	/** The tabbed pane showing the directory entry contents. */
 	private TabPane contentTabs;
 
-	private KVPTableTab descriptionTab;
+	private KVPTableTab<String, String> descriptionTab;
 	private Tab dataTab;
 	private ByteDataTable data;
 	private TabPane filePane;
@@ -90,7 +90,7 @@ class Directory extends Tab
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
 	{
 		@Override
-		public void handle(WorkerStateEvent t)
+		public final void handle(WorkerStateEvent t)
 		{
 			byte[] fileData = (byte[])t.getSource().getValue();
 			if (fileData != null) {
@@ -107,7 +107,7 @@ class Directory extends Tab
 		}
 	}
 
-	private class UpdateInfoService extends Service
+	private class UpdateInfoService extends Service<byte[]>
 	{
 		private IntegerProperty entryIndex = new SimpleIntegerProperty();
 		public IntegerProperty getEntryIndexProperty()
