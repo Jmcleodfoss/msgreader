@@ -34,7 +34,7 @@ class KVPTableTab<K, V> extends Tab
 	KVPTableTab(String tabName, String keyColumnName, String valueColumnName, boolean fWideData)
 	{
 		super(tabName);
-		table = new KVPTable(keyColumnName, valueColumnName, fWideData);
+		table = new KVPTable<K, V>(keyColumnName, valueColumnName, fWideData);
 		setContent(table);
 	}
 	

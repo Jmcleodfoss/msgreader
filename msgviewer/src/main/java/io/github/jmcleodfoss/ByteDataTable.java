@@ -28,7 +28,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 
 		public ListProperty<Byte> getColumnsProperty()
 		{
-			if (columns == null) columns = new SimpleListProperty(this, "columns");
+			if (columns == null) columns = new SimpleListProperty<Byte>(this, "columns");
 			return columns;
 		}
 		public ObservableList<Byte> getColumns()
@@ -60,7 +60,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		@Override
 		public ObservableValue<String> call(TableColumn.CellDataFeatures<Row, String> param)
 		{
-			return new ReadOnlyObjectWrapper(String.format("%02x", getValue(param)));
+			return new ReadOnlyObjectWrapper<String>(String.format("%02x", getValue(param)));
 		}
 	}
 
@@ -74,15 +74,16 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		@Override
 		public ObservableValue<String> call(TableColumn.CellDataFeatures<Row, String> param)
 		{
-			ReadOnlyObjectWrapper o = (ReadOnlyObjectWrapper)super.call(param);
-			ObservableList<Byte> ol = (ObservableList)o.get();
+			@SuppressWarnings("unchecked")
+			ReadOnlyObjectWrapper<ObservableList<Byte>> o = (ReadOnlyObjectWrapper)super.call(param);
+			ObservableList<Byte> ol = o.get();
 			int index = getIndex();
 			byte highByte = ol.get(index);
 			byte lowByte  = ol.get(index+1);
 			char codepoint = (char)(0xffff & (highByte << 8 | lowByte));
 			if (!java.lang.Character.isDefined(codepoint))
 				codepoint = 0;
-			return new ReadOnlyObjectWrapper(String.format("%c", codepoint));
+			return new ReadOnlyObjectWrapper<String>(String.format("%c", codepoint));
 		}
 	}
 

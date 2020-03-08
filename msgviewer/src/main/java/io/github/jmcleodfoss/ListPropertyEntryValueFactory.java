@@ -97,8 +97,9 @@ class ListPropertyEntryValueFactory<R, S, T> extends PropertyValueFactory<S, T>
 	*/
 	R getValue(TableColumn.CellDataFeatures<S,T> param)
 	{
-		ReadOnlyObjectWrapper o = (ReadOnlyObjectWrapper)super.call(param);
-		return (R)((ObservableList)o.get()).get(index);
+		@SuppressWarnings("unchecked")
+		ReadOnlyObjectWrapper<ObservableList<R>> o = (ReadOnlyObjectWrapper<ObservableList<R>>)super.call(param);
+		return o.get().get(index);
 	}
 
 	/** Get the index into the property list for this object.
