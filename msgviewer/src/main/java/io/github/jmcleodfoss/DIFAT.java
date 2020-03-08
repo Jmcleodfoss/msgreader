@@ -2,7 +2,7 @@ package io.github.jmcleodfoss.msgviewer;
 
 import io.github.jmcleodfoss.msg.MSG;
 
-class DIFAT extends KVPTableTab
+class DIFAT extends KVPTableTab<Integer, Integer>
 {
 	static private final String PROPNAME_DIFAT_TAB_TITLE = "DIFAT";
 	static private final String PROPNAME_DIFAT_COL1_HEADING = "DIFATKVPKey";

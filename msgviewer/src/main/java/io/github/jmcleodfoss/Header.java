@@ -2,7 +2,7 @@ package io.github.jmcleodfoss.msgviewer;
 
 import io.github.jmcleodfoss.msg.MSG;
 
-class Header extends KVPTableTab
+class Header extends KVPTableTab<String, String>
 {
 	static private final String PROPNAME_HEADER_TAB_TITLE = "Header";
 	static private final String PROPNAME_HEADER_COL1_HEADING = "HeaderKVPKey";

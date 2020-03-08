@@ -121,7 +121,7 @@ class VoluminousPaginationSkin extends PaginationSkin
 		});
 		lastArrowButton.disableProperty().bind(pagination.currentPageIndexProperty().isEqualTo(pagination.pageCountProperty().subtract(1)));
 
-		controlBox.getChildren().addListener(new ListChangeListener(){
+		controlBox.getChildren().addListener(new ListChangeListener<Node>(){
 			@Override
 			public void onChanged(ListChangeListener.Change c)
 			{

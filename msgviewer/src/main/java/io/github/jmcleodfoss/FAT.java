@@ -2,7 +2,7 @@ package io.github.jmcleodfoss.msgviewer;
 
 import io.github.jmcleodfoss.msg.MSG;
 
-class FAT extends KVPTableTab
+class FAT extends KVPTableTab<String, String>
 {
 	static private final String PROPNAME_FAT_TAB_TITLE = "FAT";
 	static private final String PROPNAME_FAT_COL1_HEADING = "FATKVPKey";

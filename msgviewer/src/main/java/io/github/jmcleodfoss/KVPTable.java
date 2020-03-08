@@ -106,10 +106,10 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		super();
 
 		TableColumn<TableData, String> keyColumn = new TableColumn<TableData, String>(keyColumnName);
-		keyColumn.setCellValueFactory(new PropertyValueFactory("key"));
+		keyColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("key"));
 
 		TableColumn<TableData, String> valueColumn = new TableColumn<TableData, String>(valueColumnName);
-		valueColumn.setCellValueFactory(new PropertyValueFactory("value"));
+		valueColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("value"));
 		if (fWideData)
 			valueColumn.setCellFactory(new wideCellFactoryCallback());
 
