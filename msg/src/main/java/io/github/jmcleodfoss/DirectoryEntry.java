@@ -120,6 +120,14 @@ public class DirectoryEntry {
 		}
 
 		@Override
+		String createString(byte[] data)
+		{
+			if (data != null && isTextData())
+				return DataType.createString(data);
+			return super.createString(data);
+		}
+
+		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
 			if (streamSize < header.miniStreamCutoffSize)
@@ -131,14 +139,6 @@ public class DirectoryEntry {
 		boolean isTextData()
 		{
 			return propertyType == PROPERTY_TYPE_STRING;
-		}
-
-		@Override
-		String createString(byte[] data)
-		{
-			if (data != null && isTextData())
-				return DataType.createString(data);
-			return super.createString(data);
 		}
 
 		public String toString()
@@ -228,6 +228,28 @@ public class DirectoryEntry {
 	/** Size of the directory entry */
 	static final int SIZE = DataDefinition.size(fields);
 
+	/** Make full directory information data available to client applications
+	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*/
+	KVPArray<String, String> data()
+	{
+		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(nm_DirectoryEntryName, directoryEntryName);
+		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
+		l.add(nm_ObjectType, objectType.toString());
+		l.add(nm_ColorFlag, Byte.toString((Byte)dc.get(nm_ColorFlag)));
+		l.add(nm_LeftSiblingId, Integer.toString(leftSiblingId));
+		l.add(nm_RightSiblingId, Integer.toString(rightSiblingId));
+		l.add(nm_ChildId, Integer.toString(childId));
+		l.add(nm_CLSID, clsid.toString());
+		l.add(nm_StateBits, Integer.toString((Integer)dc.get(nm_StateBits)));
+		l.add(nm_CreationTime, creationTime.toString());
+		l.add(nm_ModifiedTime, modifiedTime.toString());
+		l.add(nm_StartingSectorLocation, Integer.toString(startingSectorLocation));
+		l.add(nm_StreamSize, Long.toString(streamSize));
+		return l;
+	}
+
 	/** Create a directory entry of the required type based on the directory entry name.
 	*	@param	byteBuffer	The data stream for the msg file.
 	*/
@@ -271,28 +293,6 @@ public class DirectoryEntry {
 			System.out.println(directoryEntryName);
 			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
-	}
-
-	/** Make full directory information data available to client applications
-	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
-	*/
-	KVPArray<String, String> data()
-	{
-		KVPArray<String, String> l = new KVPArray<String, String>();
-		l.add(nm_DirectoryEntryName, directoryEntryName);
-		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
-		l.add(nm_ObjectType, objectType.toString());
-		l.add(nm_ColorFlag, Byte.toString((Byte)dc.get(nm_ColorFlag)));
-		l.add(nm_LeftSiblingId, Integer.toString(leftSiblingId));
-		l.add(nm_RightSiblingId, Integer.toString(rightSiblingId));
-		l.add(nm_ChildId, Integer.toString(childId));
-		l.add(nm_CLSID, clsid.toString());
-		l.add(nm_StateBits, Integer.toString((Integer)dc.get(nm_StateBits)));
-		l.add(nm_CreationTime, creationTime.toString());
-		l.add(nm_ModifiedTime, modifiedTime.toString());
-		l.add(nm_StartingSectorLocation, Integer.toString(startingSectorLocation));
-		l.add(nm_StreamSize, Long.toString(streamSize));
-		return l;
 	}
 
 	/** Provide keys (with empty values) to allow tables to be set up with
