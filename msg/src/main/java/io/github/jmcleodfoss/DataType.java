@@ -17,6 +17,20 @@ abstract class DataType {
 	{
 	}
 
+	/** Create a String from the given array of bytes, assuming UTF-16LE
+	*	@param	arr	The bytes
+	*	@return	The UTF-16LE String consist of the bytes in arr.
+	*/
+	static String createString(byte[] arr)
+	{
+		try {
+			return new String(arr, CHARSET_WIDE);
+		} catch (java.io.UnsupportedEncodingException e){
+			// UTF-16 should be supported everywhere by now.
+			return "";
+		}
+	}
+
 	/** Create a String describing an object of the type read in by this class.
 	*	@param	o	The object to create a String representation of.
 	*	@return	A String describing the object.
@@ -307,16 +321,6 @@ abstract class DataType {
 			byte arr[] = new byte[size];
 			byteBuffer.get(arr);
 			return createString(arr);
-		}
-	}
-
-	static String createString(byte[] arr)
-	{
-		try {
-			return new String(arr, CHARSET_WIDE);
-		} catch (java.io.UnsupportedEncodingException e){
-			// UTF-16 should be supported everywhere by now.
-			return "";
 		}
 	}
 
