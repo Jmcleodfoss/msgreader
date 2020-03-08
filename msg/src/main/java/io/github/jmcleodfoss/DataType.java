@@ -72,48 +72,50 @@ abstract class DataType {
 		}
 	}
 
-	/** The SizedByteArray class is used to read in and display an array of bytes whose size is known. */
-	static class SizedByteArray extends SizedObject {
+	/** Datatype for GUID class. */
+	private static class GUID extends DataType {
 
-		/** Create a reader/display manipulator for an array of bytes of known size.
-		*	@param	size	The number of bytes in the array.
-		*/
-		SizedByteArray(final int size)
+		/** The size of a GUID. */
+		static final int SIZE = io.github.jmcleodfoss.msg.GUID.SIZE;
+
+		/** Create a reader / display object for GUIDs. */
+		GUID()
 		{
-			super(size);
+			super();
 		}
 
-		/** Create a String describing a array of bytes.
-		*	@param	o	The array of bytes to display.
-		*	@return	A String showing the bytes in the array in hexadecimal.
+		/** Create a String describing the GUID
+		*	@param	o	The GUID to display.
+		*	@return	A String showing the GUID.
 		*/
 		String makeString(final Object o)
 		{
-			byte[] a = (byte[])o;
-			return ByteUtil.createHexByteString(a);
+			return ((io.github.jmcleodfoss.msg.GUID)o).toString();
 		}
 
-		/** Read in an array of bytes of the given size.
-		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
-		*	@param	size		The number of bytes to read in
-		*	@return	The array of bytes read in from the incoming data stream.
-		*/
-		Object read(java.nio.ByteBuffer byteBuffer, final int size)
-		{
-			byte arr[] = new byte[size];
-			byteBuffer.get(arr);
-			return arr;
-		}
-
-		/** Read in an array of bytes.
-		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
-		*	@return	The array of bytes read in from the incoming data stream.
+		/** Read in GUID
+		*	@param	byteBuffer	The incoming data stream to read from.
+		*	@return	The GUID read in from the incoming data stream.
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
-			return read(byteBuffer, size);
+			byte arr[] = new byte[SIZE];
+			byteBuffer.get(arr);
+			io.github.jmcleodfoss.msg.GUID classId = new io.github.jmcleodfoss.msg.GUID(arr);
+			return classId;
+		}
+
+		/** Return the size of GUID object
+		*	@return	The size of a GUID
+		*/
+		int size()
+		{
+			return SIZE;
 		}
 	}
+
+	/** A reader/display manipulation object for GUIDs. */
+	static final GUID classIdReader = new GUID();
 
 	/** The Integer8 data type describes how to manipulate an 8-bit integer. */
 	private static class Integer8 extends DataType {
@@ -271,34 +273,46 @@ abstract class DataType {
 	/** The reader/display manipulator for 64-bit integers. */
 	static final Integer64 integer64Reader = new Integer64();
 
-	/** The UnicodeString class reads in a UTF-16 string of a given size. */
-	static class UnicodeString extends SizedObject {
-		/** Construct an manipulator for a UTF-16 String.
-		*	@param	size	The number of bytes in the UTF-16 string.
+	/** The SizedByteArray class is used to read in and display an array of bytes whose size is known. */
+	static class SizedByteArray extends SizedObject {
+
+		/** Create a reader/display manipulator for an array of bytes of known size.
+		*	@param	size	The number of bytes in the array.
 		*/
-		UnicodeString(final int size)
+		SizedByteArray(final int size)
 		{
 			super(size);
 		}
 
-		/** Create a String representation of a String (to be consistent with other data types).
-		*	@param	o	The String to display.
-		*	@return	The given String.
+		/** Create a String describing a array of bytes.
+		*	@param	o	The array of bytes to display.
+		*	@return	A String showing the bytes in the array in hexadecimal.
 		*/
 		String makeString(final Object o)
 		{
-			return (String)o;
+			byte[] a = (byte[])o;
+			return ByteUtil.createHexByteString(a);
 		}
 
-		/** Read in a String from the data stream.
-		*	@param	byteBuffer	The incoming data stream from which to read the data.
-		*	@return	A String corresponding to the Boolean read in from the data stream.
+		/** Read in an array of bytes of the given size.
+		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
+		*	@param	size		The number of bytes to read in
+		*	@return	The array of bytes read in from the incoming data stream.
 		*/
-		Object read(java.nio.ByteBuffer byteBuffer)
+		Object read(java.nio.ByteBuffer byteBuffer, final int size)
 		{
 			byte arr[] = new byte[size];
 			byteBuffer.get(arr);
-			return createString(arr);
+			return arr;
+		}
+
+		/** Read in an array of bytes.
+		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
+		*	@return	The array of bytes read in from the incoming data stream.
+		*/
+		Object read(java.nio.ByteBuffer byteBuffer)
+		{
+			return read(byteBuffer, size);
 		}
 	}
 
@@ -314,6 +328,12 @@ abstract class DataType {
 		/** The format to use when converting time objects to strings. */
 		private static final java.text.SimpleDateFormat OUTPUT_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
 
+		/** Create a time reader/display manipulation object. */
+		private Time()
+		{
+			super();
+		}
+
 		/** Initialize the base time; exit on exception.
 		*	@return	A Date object for the base time used by PST files.
 		*/
@@ -327,12 +347,6 @@ abstract class DataType {
 				System.exit(1);
 			}
 			return new java.util.Date();
-		}
-
-		/** Create a time reader/display manipulation object. */
-		private Time()
-		{
-			super();
 		}
 
 		/** Create a String representation of a Date.
@@ -369,48 +383,34 @@ abstract class DataType {
 	/** A reader/display manipulation object for times in PST files. */
 	static final Time timeReader = new Time();
 
-	/** Datatype for GUID class. */
-	private static class GUID extends DataType {
-
-		/** The size of a GUID. */
-		static final int SIZE = io.github.jmcleodfoss.msg.GUID.SIZE;
-
-		/** Create a reader / display object for GUIDs. */
-		GUID()
+	/** The UnicodeString class reads in a UTF-16 string of a given size. */
+	static class UnicodeString extends SizedObject {
+		/** Construct an manipulator for a UTF-16 String.
+		*	@param	size	The number of bytes in the UTF-16 string.
+		*/
+		UnicodeString(final int size)
 		{
-			super();
+			super(size);
 		}
 
-		/** Create a String describing the GUID
-		*	@param	o	The GUID to display.
-		*	@return	A String showing the GUID.
+		/** Create a String representation of a String (to be consistent with other data types).
+		*	@param	o	The String to display.
+		*	@return	The given String.
 		*/
 		String makeString(final Object o)
 		{
-			return ((io.github.jmcleodfoss.msg.GUID)o).toString();
+			return (String)o;
 		}
 
-		/** Read in GUID
-		*	@param	byteBuffer	The incoming data stream to read from.
-		*	@return	The GUID read in from the incoming data stream.
+		/** Read in a String from the data stream.
+		*	@param	byteBuffer	The incoming data stream from which to read the data.
+		*	@return	A String corresponding to the Boolean read in from the data stream.
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
-			byte arr[] = new byte[SIZE];
+			byte arr[] = new byte[size];
 			byteBuffer.get(arr);
-			io.github.jmcleodfoss.msg.GUID classId = new io.github.jmcleodfoss.msg.GUID(arr);
-			return classId;
-		}
-
-		/** Return the size of GUID object
-		*	@return	The size of a GUID
-		*/
-		int size()
-		{
-			return SIZE;
+			return createString(arr);
 		}
 	}
-
-	/** A reader/display manipulation object for GUIDs. */
-	static final GUID classIdReader = new GUID();
 }
