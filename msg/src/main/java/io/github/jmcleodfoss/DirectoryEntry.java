@@ -81,15 +81,15 @@ public class DirectoryEntry {
 		);
 	}
 
-	static class RootEntry extends DirectoryEntry {
-		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
+	static class Attachment extends DirectoryEntry {
+		private Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
 		public String toString()
 		{
-			return String.format("%s %s %s child ID 0x%08x modified %s mini sector index %d size %d", directoryEntryName, objectType.toString(), clsid, childId, modifiedTime.toString(), startingSectorLocation, streamSize);
+			return String.format("Attachment %s child Id 0x%04x", objectType.toString(), childId);
 		}
 	}
 
@@ -103,6 +103,43 @@ public class DirectoryEntry {
 		public String toString()
 		{
 			return String.format("Named Properties Mapping %s child ID 0x%08x, created %s modified %s",  objectType.toString(), childId, creationTime.toString(), modifiedTime.toString());
+		}
+	}
+
+	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
+	static class Properties extends DirectoryEntry {
+		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
+		{
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		public String toString()
+		{
+			return String.format("Properties %s starting sector %d size %d", objectType.toString(), startingSectorLocation, streamSize);
+		}
+	}
+
+	static class Recipient extends DirectoryEntry {
+		private Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
+		{
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		public String toString()
+		{
+			return String.format("Recipient %s child Id 0x%04x", objectType.toString(), childId);
+		}
+	}
+
+	static class RootEntry extends DirectoryEntry {
+		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
+		{
+			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		public String toString()
+		{
+			return String.format("%s %s %s child ID 0x%08x modified %s mini sector index %d size %d", directoryEntryName, objectType.toString(), clsid, childId, modifiedTime.toString(), startingSectorLocation, streamSize);
 		}
 	}
 
@@ -144,43 +181,6 @@ public class DirectoryEntry {
 		public String toString()
 		{
 			return String.format("String Stream %s 0x%04x 0x%04x starting sector %d size %d", objectType.toString(), propertyId, propertyType, startingSectorLocation, streamSize);
-		}
-	}
-
-	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
-	static class Properties extends DirectoryEntry {
-		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
-		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		public String toString()
-		{
-			return String.format("Properties %s starting sector %d size %d", objectType.toString(), startingSectorLocation, streamSize);
-		}
-	}
-
-	static class Recipient extends DirectoryEntry {
-		private Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
-		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		public String toString()
-		{
-			return String.format("Recipient %s child Id 0x%04x", objectType.toString(), childId);
-		}
-	}
-
-	static class Attachment extends DirectoryEntry {
-		private Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
-		{
-			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		public String toString()
-		{
-			return String.format("Attachment %s child Id 0x%04x", objectType.toString(), childId);
 		}
 	}
 
