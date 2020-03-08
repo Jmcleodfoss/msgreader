@@ -9,6 +9,6 @@ public class KVPArray<K, V> extends java.util.ArrayList<KVPEntry<K, V>>
 	*/
 	void add(K k, V v)
 	{
-		super.add(new KVPEntry(k, v));
+		super.add(new KVPEntry<K, V>(k, v));
 	}
 }
