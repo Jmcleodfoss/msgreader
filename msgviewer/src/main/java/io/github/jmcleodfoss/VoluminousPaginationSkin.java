@@ -21,10 +21,10 @@ import javafx.scene.text.Font;
  *  must display a large number of pages. It adds the following controls to
  *  the navigation section:
  *  <ul>
- *  	<li>Jump to first page</li>
- *  	<li>Jump backward by 10%</li>
- *  	<li>Jump forward by 10%</li>
- *  	<li>Jump to last page</li>
+ *  	<li>\\u23ee, Jump to first page</li>
+ *  	<li>\\u23ea, Jump backward by 10%</li>
+ *  	<li>\\u23a9, Jump forward by 10%</li>
+ *  	<li>\\u23ed, Jump to last page</li>
  *  </ul>
  *
  *  This is for JavaFX 8. Later versions should extend
