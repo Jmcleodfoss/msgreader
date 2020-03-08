@@ -115,28 +115,6 @@ abstract class DataType {
 		}
 	}
 
-	/** The ByteArray class described an array of bytes taking up the remainder of byteBuffer. */
-	private static class ByteArray extends SizedByteArray {
-
-		/** Construct an manipulator for a byte array. */
-		private ByteArray()
-		{
-			super(0);
-		}
-
-		/** Read in an array of bytes.
-		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
-		*	@return	The array of bytes read in from the incoming data stream.
-		*/
-		Object read(java.nio.ByteBuffer byteBuffer)
-		{
-			return read(byteBuffer, byteBuffer.remaining());
-		}
-	}
-
-	/** The reader for generic arrays of bytes. */
-	private static final ByteArray byteArrayReader = new ByteArray();
-	
 	/** The Integer8 data type describes how to manipulate an 8-bit integer. */
 	private static class Integer8 extends DataType {
 
@@ -390,54 +368,6 @@ abstract class DataType {
 
 	/** A reader/display manipulation object for times in PST files. */
 	static final Time timeReader = new Time();
-
-	/** The SizedInteger16Array class described how to read and display an array of 16-bit integers whose size is known. */
-	private static class SizedInt16Array extends SizedObject {
-
-		/** Create a reader/display manipulator for an array of 16-bit integers of known size.
-		*	@param	size	The number of 16-bit integers in the array.
-		*/
-		SizedInt16Array(final int size)
-		{
-			super(size);
-		}
-
-		/** Create a String describing an array of shorts array.
-		*	@param	o	The array of shorts to display.
-		*	@return	A String showing the shorts in the array.
-		*/
-		String makeString(final Object o)
-		{
-			short[] a = (short[])o;
-			StringBuilder s = new StringBuilder();
-			for (int i = 0; i < size; ++i) {
-				if (i > 0)
-					s.append(' ');
-				s.append(a[i]);
-			}
-			return s.toString();
-		}
-
-		/** Read in an array of 16-bit integers of the predetermined size.
-		*	@param	byteBuffer	The incoming data stream to read from.
-		*	@return	The array of shorts read in from the incoming data stream.
-		*/
-		Object read(java.nio.ByteBuffer byteBuffer)
-		{
-			short arr[] = new short[size];
-			for (int i = 0; i < size; ++i)
-				arr[i] = byteBuffer.getShort();
-			return arr;
-		}
-
-		/** Return the size of the array of 16-bit integers.
-		*	@return	The size of the array of 16-bit integers in the PST file.
-		*/
-		int size()
-		{
-			return size*2;
-		}
-	}
 
 	/** Datatype for GUID class. */
 	private static class GUID extends DataType {
