@@ -20,7 +20,6 @@ class Directory {
 		java.io.IOException
 	{
 		entries = new java.util.ArrayList<DirectoryEntry>();
-
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
 		while(chain.hasNext()){
 			int dirSector = chain.next();
