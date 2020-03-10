@@ -275,7 +275,7 @@ public class DirectoryEntry {
 		} else if (PropertyTags.tags.keySet().contains(propertyId)) {
 			propertyName = PropertyTags.tags.get(propertyId);
 		} else {
-			propertyName = "TBD!";
+			propertyName = String.format("Unknown property 0x%04x", propertyId);
 		}
 		l.add(fldnm_PropertyName, propertyName);
 
