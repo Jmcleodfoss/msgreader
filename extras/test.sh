@@ -30,6 +30,18 @@ GetTestDirectory() {
 	echo "$results_dir/${temp%.pst}"
 }
 
+TestMSGIndependentModule() {
+	declare class=$1
+	shift
+
+	declare output=$results_dir/${class#io.github.jmcleodfoss.*.*}.out
+	echo "
+"`date +%H:%M:%S`": starting $class test" >> $stats
+echo "java $options -cp $cp $class $@ > $output"
+	java $options -cp "$cp" $class "$@" > "$output"
+	echo `date +%H:%M:%S`": done $class test" >> $stats
+}
+
 TestModule() {
 	declare class=$1
 	shift
@@ -65,6 +77,8 @@ fi
 
 echo "Starting tests at " `date +%H:%M:%S` > $stats
 
+# Tests which have the same output for all pst files.
+TestMSGIndependentModule io.github.jmcleodfoss.msg.GUID
 
 # Tests done on each pst file
 for msg in "$input_dir"/*.msg; do
