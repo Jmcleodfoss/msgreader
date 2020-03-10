@@ -19,7 +19,7 @@ class NamedProperties
 	private static final String STRING_STREAM_NAME = "__substg1.0_00040102";
 
 	/** The list of strings in the string stream */
-	private java.util.ArrayList<String> strings;
+	private java.util.HashMap<Integer, String> strings;
 
 	/** The property ID to name mapping array */
 	private DataWithIndexAndKind[] propertyNameMappings;
@@ -110,16 +110,17 @@ class NamedProperties
 	{
 		java.nio.ByteBuffer thisStream = java.nio.ByteBuffer.wrap(data);
 		thisStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
-		strings = new java.util.ArrayList<String>();
+		strings = new java.util.HashMap<Integer, String>();
 		int nRemaining = (int)de.streamSize;
 		while (nRemaining > 0) {
 			// Retrieving UTF-16 characters
+			int position = thisStream.position();
 			int stringLen = thisStream.getInt();
 			nRemaining -= 4;
 			byte[] stringData = new byte[stringLen];
 			thisStream.get(stringData);
 			nRemaining -= stringLen;
-			strings.add(DataType.createString(stringData));
+			strings.put(position, DataType.createString(stringData));
 			for (int i = 0; i < stringLen % 4 && nRemaining > 0; ++i){
 				thisStream.get();
 				--nRemaining;
@@ -165,9 +166,11 @@ class NamedProperties
 
 			System.out.println();
 			System.out.println("String stream");
-			java.util.Iterator<String> iter = namedPropertiesMapping.strings.iterator();
-			while (iter.hasNext())
-				System.out.println(iter.next());
+			java.util.Iterator<Integer> iter = namedPropertiesMapping.strings.keySet().iterator();
+			while (iter.hasNext()){
+				int key = iter.next();
+				System.out.printf("%0x%04x: %s\n", key, namedPropertiesMapping.strings.get(key));
+			}
 
 			System.out.println();
 			System.out.println("Entries");
