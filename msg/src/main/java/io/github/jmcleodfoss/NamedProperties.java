@@ -78,7 +78,10 @@ class NamedProperties
 		if (entries[propertyIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
 			return strings.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
-		return guids[entries[propertyIndex].guidIndex-3].toString();
+		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset))
+			return PropertyLIDs.lids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+
+		return String.format("Not found: 0x%04x (%s)", entries[propertyIndex].nameIdentifierOrStringOffset, indexToGUID(entries[propertyIndex].guidIndex));
 	}
 
 	/** Get the GUID from the GUID index
