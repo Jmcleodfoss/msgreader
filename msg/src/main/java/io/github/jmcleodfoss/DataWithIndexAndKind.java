@@ -24,6 +24,9 @@ class DataWithIndexAndKind
 		propertyType = ((temp & 0x01) != 0) ? PropertyType.STRING_NAMED_PROPERTY : PropertyType.NUMERICAL_NAMED_PROPERTY;
 	}
 
+	/** Get a String representation of this object.
+	*	@return	A string representing this object
+	*/
 	public String toString()
 	{
 		String pt;
