@@ -14,6 +14,13 @@ public class DirectoryEntry {
 	private static final java.util.regex.Pattern ATTACH_PATTERN = java.util.regex.Pattern.compile("__attach_version1.0_#\\p{XDigit}{8}");
 	private static final String UNALLOCATED = "";
 
+	/** Property IDs are only defined for string stream entries; 0x0000 is
+	*   never used as a property ID, so we use it as a sentinel value to
+	*   indicate no property ID exists for other classes
+	*	@see getPropertyId()
+	*/
+	private static final int NO_PROPERTY_ID = 0x0000;
+
 	final String directoryEntryName;
 	final int directoryEntryPosition;
 	final ObjectType objectType;
@@ -57,6 +64,18 @@ public class DirectoryEntry {
 	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
 		return null;
+	}
+
+	/** Return the property ID, if any.
+	*	@return	The property ID. The default implementation, suitable
+	*		for all classes except StringStrem, returns
+	*		NO_PROPERTY_ID, a sentinel value indicating that there
+	*		is no property related to this object type.
+	*	@see	NO_PROPERTY_ID
+	*/
+	int getPropertyId()
+	{
+		return NO_PROPERTY_ID;
 	}
 
 	boolean isTextData()
@@ -172,6 +191,15 @@ public class DirectoryEntry {
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
 
+		/* Return the property Id.
+		*	@return	The property ID for this object.
+		*/
+		@Override
+		int getPropertyId()
+		{
+			return this.propertyId;
+		}
+
 		@Override
 		boolean isTextData()
 		{
@@ -208,6 +236,7 @@ public class DirectoryEntry {
 	private static String nm_ModifiedTime = "ModifiedTime";
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
 	private static String nm_StreamSize = "StreamSize";
+	private static String fldnm_PropertyName = "PropertyName";
 
 	private static final DataDefinition[] fields = {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
@@ -231,9 +260,25 @@ public class DirectoryEntry {
 	/** Make full directory information data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	KVPArray<String, String> data()
+	KVPArray<String, String> data(final NamedProperties namedProperties)
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
+
+		int propertyId = getPropertyId();
+		String propertyName;
+		if (propertyId == NO_PROPERTY_ID)
+		{
+			propertyName = "n/a";
+		} else if ((propertyId & 0x8000) != 0) {
+			int propertyIndex = propertyId & 0x7fff;
+			propertyName = namedProperties.getPropertyName(propertyIndex);
+		} else if (PropertyTags.tags.keySet().contains(propertyId)) {
+			propertyName = PropertyTags.tags.get(propertyId);
+		} else {
+			propertyName = "TBD!";
+		}
+		l.add(fldnm_PropertyName, propertyName);
+
 		l.add(nm_DirectoryEntryName, directoryEntryName);
 		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
 		l.add(nm_ObjectType, objectType.toString());
@@ -302,6 +347,7 @@ public class DirectoryEntry {
 	static KVPArray<String, String> keys()
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
+		l.add(fldnm_PropertyName, "");
 		l.add(nm_DirectoryEntryName, "");
 		l.add(nm_DirectoryEntryNameLength, "");
 		l.add(nm_ObjectType, "");

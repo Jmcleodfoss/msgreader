@@ -65,6 +65,22 @@ class NamedProperties
 		}
 	}
 
+	/** Get the String name for the named given property index
+	*	@param	propertyIndex	The 0-based property index
+	*	@return	The name of the property if it has a string name,
+	*		otherwise a string representation of the GUID
+	*/
+	String getPropertyName(int propertyIndex)
+	{
+		if (propertyIndex >= entries.length)
+			return String.format("Out of bounds error (%d >= %d", propertyIndex, entries.length);
+
+		if (entries[propertyIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
+			return strings.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+
+		return guids[entries[propertyIndex].guidIndex-3].toString();
+	}
+
 	/** Get the GUID from the GUID index
 	*	@param	index	The GUID index
 	*	@return	The GUID corresponding to the GUID index

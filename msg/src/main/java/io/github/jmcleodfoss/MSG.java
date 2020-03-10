@@ -145,7 +145,7 @@ public class MSG
 	*/
 	public DirectoryEntryData getDirectoryEntryData(int entry)
 	{
-		return new DirectoryEntryData(directory, entry);
+		return new DirectoryEntryData(directory, entry, namedProperties);
 	}
 
 	/** Get the directory entry keys (this allows a table for display to

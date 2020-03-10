@@ -25,7 +25,7 @@ public class DirectoryEntryData {
 	*	@param	directory	The Directory object the entry is from
 	*	@param	entry	The index of the directory entry to retreive
 	*/
-	DirectoryEntryData(Directory directory, int entry)
+	DirectoryEntryData(Directory directory, int entry, NamedProperties namedProperties)
 	{
 		this.entry = entry;
 		final DirectoryEntry de = directory.entries.get(entry);
@@ -34,7 +34,7 @@ public class DirectoryEntryData {
 		size = (int)de.streamSize;
 		startingSector = de.startingSectorLocation;
 
-		kvps = de.data();
+		kvps = de.data(namedProperties);
 	}
 
 	/** Create a string representing this directory entry
