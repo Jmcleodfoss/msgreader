@@ -17,13 +17,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<repositories>
-		<repository>
-			<id>jfx-repo</id>
-			<url>file://${basedir}/jfx-repo</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -44,16 +37,7 @@
 			<version>0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<!-- jfxrt.jar, added manually to local project maven repository via: 
-				mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file
-					-Dfile=/opt/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686/jre/lib/ext/jfxrt.jar
-					-DgroupId=com.zulu
-					-DartifactId=javafx
-					-Dversion=8.42.0
-					-DlocalRepositoryPath=jfx-repo
-					-Dpackaging=jar
-			-->
-			<groupId>com.zulu</groupId>
+			<groupId>org.openjfx</groupId>
 			<artifactId>javafx</artifactId>
 			<version>8.42.0</version>
 		</dependency>
