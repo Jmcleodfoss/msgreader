@@ -183,6 +183,33 @@ public class MSG
 		return directory.entries.get(entry).getContent(mbb, header, fat, miniFAT);
 	}
 
+	/** Get the mini FAT data as a table consisting of the mini FAT sectors
+	*   in the first column, and the data in the second.
+	*	@return	An array of the mini FAT chains and data
+	*/
+	public KVPArray<java.util.ArrayList<Integer>, byte[]> miniFATData()
+	{
+		KVPArray<java.util.ArrayList<Integer>, byte[]> l = new KVPArray<java.util.ArrayList<Integer>, byte[]>();
+
+		java.util.Iterator<java.util.ArrayList<Integer>> chains = miniFAT.getAllChains().iterator();
+		while (chains.hasNext()){
+			java.util.ArrayList<Integer> chain = chains.next();
+			java.util.Iterator<Integer> iter = chain.iterator();
+			int destOffset = 0;
+			byte[] data = new byte[chain.size()*header.miniSectorSize];
+			while (iter.hasNext()){
+				mbb.position(miniFAT.fileOffset(iter.next()));
+				mbb.get(data, destOffset, header.miniSectorSize);
+				destOffset += header.miniSectorSize;
+			}
+
+			l.add(new KVPEntry<java.util.ArrayList<Integer>, byte[]>(chain, data));
+		}
+
+		//l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
+		return l;
+	}
+
 	/** Get the raw bytes for the requested directory entry
 	*	@param	entry	The entry to retreive data for
 	*	@return	An array of the bytes in the directory entry.
