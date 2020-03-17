@@ -12,12 +12,4 @@
 		<version>0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
-	<dependencies>
-		<dependency>
-			<groupId>io.github.jmcleodfoss</groupId>
-			<artifactId>pst</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 </project>
