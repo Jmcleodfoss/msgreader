@@ -35,7 +35,6 @@
 		<url>https://github.com/Jmcleodfoss/msgreader</url>
 	</scm>
 
-
 	<profiles>
 		<profile>
 			<!-- Do all included modules by default -->
