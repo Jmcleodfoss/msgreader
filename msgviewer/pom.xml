@@ -19,14 +19,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>com.zenjava</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>0.0.3</version>
-				<configuration>
-					<mainClass>io.github.jmcleodfoss.msgviewer</mainClass>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
