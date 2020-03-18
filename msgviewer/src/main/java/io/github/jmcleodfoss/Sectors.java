@@ -1,6 +1,7 @@
 package io.github.jmcleodfoss.msgviewer;
 
 import io.github.jmcleodfoss.msg.MSG;
+import io.github.jmcleodfoss.voluminouspaginationskin.VoluminousPaginationSkin;
 
 import javafx.scene.Node;
 import javafx.scene.control.Pagination;
