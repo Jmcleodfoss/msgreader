@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/** Convenience class for propogating ordered KVP data to client applications. */
+/** Convenience class for propagating ordered KVP data to client applications. */
 public class KVPArray<K, V> extends java.util.ArrayList<KVPEntry<K, V>>
 {
 	/** Add a new KVP pair to the end of the list.
