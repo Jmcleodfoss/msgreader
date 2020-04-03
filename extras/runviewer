@@ -7,8 +7,8 @@ declare CP_JAVAFX=
 # Set the path to the java executable if not using the first instance in the path
 declare JAVA_PATH="/cygdrive/c/Program Files/Java/jdk-8/bin"
 
-# This is the classpath to the msgviewer jar
-declare CP_MSGVIEWER=msgviewer/target/msgviewer-0.0-SNAPSHOT.jar
+# This is the classpath to the msgexplorer jar
+declare CP_MSGEXPLORER=msgexplorer/target/msgexploer-0.0-SNAPSHOT.jar
 
 if [ "$OS" == "Windows_NT" ]
 then
@@ -26,7 +26,7 @@ fi
 
 if [ -n "$CP_JAVAFX" ]
 then
-	CP_MSGVIEWER=${CP_MSGVIEWER}${DIR_SEP}${CP_JAVAFX}
+	CP_MSGEXPLORER=${CP_MSGEXPLORER}${DIR_SEP}${CP_JAVAFX}
 fi
 
-"$JAVA_EXECUTABLE" -cp "$CP_MSGVIEWER" io.github.jmcleodfoss.msgviewer.MsgViewer "$*"
+"$JAVA_EXECUTABLE" -cp "$CP_MSGEXPLORER" io.github.jmcleodfoss.msgexplorer.MsgExplorer "$*"

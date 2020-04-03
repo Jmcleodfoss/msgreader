@@ -1,4 +1,4 @@
-package io.github.jmcleodfoss.msgviewer;
+package io.github.jmcleodfoss.msgexplorer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

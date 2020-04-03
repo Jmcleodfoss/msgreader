@@ -1,11 +1,11 @@
-package io.github.jmcleodfoss.msgviewer;
+package io.github.jmcleodfoss.msgexplorer;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 class LocalizedText
 {
-	private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgviewer.text";
+	private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgexplorer.text";
 	private Locale locale;
 	private ResourceBundle resources;
 

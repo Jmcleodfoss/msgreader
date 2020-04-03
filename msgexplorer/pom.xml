@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>msgviewer</artifactId>
+	<artifactId>msgexplorer</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<description>An application for reading Outlook msg files.</description>
+	<description>An application for low-level exploring of Outlook msg files.</description>
 
 	<properties>
 		<javafx.version>11</javafx.version>

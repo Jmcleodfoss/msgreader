@@ -1,4 +1,4 @@
-package io.github.jmcleodfoss.msgviewer;
+package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.MSG;

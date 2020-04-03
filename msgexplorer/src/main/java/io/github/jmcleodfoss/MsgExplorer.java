@@ -1,4 +1,4 @@
-package io.github.jmcleodfoss.msgviewer;
+package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
-public class MsgViewer extends javafx.application.Application
+public class MsgExplorer extends javafx.application.Application
 {
 	String filename;
 	MSG msg;
@@ -28,7 +28,7 @@ public class MsgViewer extends javafx.application.Application
 	MiniStream miniStream;
 	Directory directory;
 
-	public MsgViewer()
+	public MsgExplorer()
 	{
 	}
 
@@ -90,6 +90,6 @@ public class MsgViewer extends javafx.application.Application
 
 	static public void main(String[] args)
 	{
-		launch(MsgViewer.class, args);
+		launch(MsgExplorer.class, args);
 	}
 }
