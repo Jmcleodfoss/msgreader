@@ -40,7 +40,7 @@
 					</descriptors>
 					<archive>
 						<manifest>
-							<mainClass>io.github.jmcleodfoss.msgviewer.MsgViewer</mainClass>
+							<mainClass>io.github.jmcleodfoss.msgexplorer.MsgExplorer</mainClass>
 						</manifest>
 					</archive>
 					<appendAssemblyId>false</appendAssemblyId>

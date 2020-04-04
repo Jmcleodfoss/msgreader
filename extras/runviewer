@@ -8,7 +8,7 @@ declare CP_JAVAFX=
 declare JAVA_PATH="/cygdrive/c/Program Files/Java/jdk-8/bin"
 
 # This is the classpath to the msgexplorer jar
-declare CP_MSGEXPLORER=msgexplorer/target/msgexploer-0.0-SNAPSHOT.jar
+declare CP_MSGEXPLORER=msgexplorer/target/msgexplorer-0.0-SNAPSHOT.jar
 
 if [ "$OS" == "Windows_NT" ]
 then
