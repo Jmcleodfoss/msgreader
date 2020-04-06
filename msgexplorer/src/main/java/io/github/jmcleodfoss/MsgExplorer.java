@@ -6,11 +6,18 @@ import io.github.jmcleodfoss.msg.NotCFBFileException;
 import java.util.List;
 import javafx.application.Application;
 import javafx.application.Application.Parameters;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
 {
@@ -18,6 +25,10 @@ public class MsgExplorer extends javafx.application.Application
 	MSG msg;
 
 	LocalizedText localizer;
+
+	BorderPane mainPane;
+
+	MenuBar menuBar;
 
 	TabPane tabs;
 
@@ -46,6 +57,21 @@ public class MsgExplorer extends javafx.application.Application
 		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
 		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
+		MenuItem exit = new MenuItem("Exit");
+		exit.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				Platform.exit();
+			}
+		});
+		Menu fileMenu = new Menu("File", null, exit);
+		menuBar = new MenuBar(fileMenu);
+
+		// Add File menu
+
+		mainPane = new BorderPane();
+		mainPane.setTop(menuBar);
+		mainPane.setCenter(tabs);
+
 		Parameters parameters = getParameters();
 		List<String> args = parameters.getRaw();
 		if (args.size() > 0){
@@ -66,7 +92,7 @@ public class MsgExplorer extends javafx.application.Application
 			stage.setTitle("msg Viewer application");
 		}
 
-		AnchorPane ap = new AnchorPane(tabs);
+		AnchorPane ap = new AnchorPane(mainPane);
 		ap.setTopAnchor(tabs, 0.0);
 		ap.setBottomAnchor(tabs, 0.0);
 		ap.setLeftAnchor(tabs, 0.0);
@@ -91,5 +117,6 @@ public class MsgExplorer extends javafx.application.Application
 	static public void main(String[] args)
 	{
 		launch(MsgExplorer.class, args);
+		System.exit(0);
 	}
 }
