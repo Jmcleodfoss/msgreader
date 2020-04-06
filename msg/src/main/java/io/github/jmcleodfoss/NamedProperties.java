@@ -188,7 +188,7 @@ class NamedProperties
 			java.util.Iterator<Integer> iter = namedPropertiesMapping.strings.keySet().iterator();
 			while (iter.hasNext()){
 				int key = iter.next();
-				System.out.printf("%0x%04x: %s\n", key, namedPropertiesMapping.strings.get(key));
+				System.out.printf("0x%04x: %s\n", key, namedPropertiesMapping.strings.get(key));
 			}
 
 			System.out.println();
