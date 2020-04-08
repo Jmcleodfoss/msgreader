@@ -92,13 +92,7 @@ public class MsgExplorer extends javafx.application.Application
 			stage.setTitle("msg Viewer application");
 		}
 
-		AnchorPane ap = new AnchorPane(mainPane);
-		ap.setTopAnchor(tabs, 0.0);
-		ap.setBottomAnchor(tabs, 0.0);
-		ap.setLeftAnchor(tabs, 0.0);
-		ap.setRightAnchor(tabs, 0.0);
-
-		Scene scene = new Scene(ap, 800, 600);
+		Scene scene = new Scene(mainPane, 800, 600);
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();
