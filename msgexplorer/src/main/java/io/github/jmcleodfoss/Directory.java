@@ -156,8 +156,7 @@ class Directory extends Tab
 		contentTabs = new TabPane(descriptionTab, dataTab);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		fileContentsRaw = new ByteDataTable(true);
-		fileContentsRaw.setUnicodeVisible(false);
+		fileContentsRaw = new ByteDataTable(false);
 
 		fileContentsRawTab = new Tab("Raw");
 		fileContentsRawTab.setContent(fileContentsRaw);
