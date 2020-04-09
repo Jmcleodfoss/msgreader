@@ -86,7 +86,7 @@ class Sectors extends Tab
 				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 				updateInfoService.restart();
 
-				data = new ByteDataTable(false);
+				data = new ByteDataTable();
 				StackPane pane = new StackPane();
 				pane.getChildren().add(data);
 				return pane;

@@ -149,14 +149,14 @@ class Directory extends Tab
 			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_VALUE));
 		descriptionTab.update(MSG.getDirectoryEntryKeys(), localizer);
 
-		data = new ByteDataTable(false);
+		data = new ByteDataTable();
 		dataTab = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW));
 		dataTab.setContent(data);
 
 		contentTabs = new TabPane(descriptionTab, dataTab);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		fileContentsRaw = new ByteDataTable(false);
+		fileContentsRaw = new ByteDataTable();
 
 		fileContentsRawTab = new Tab("Raw");
 		fileContentsRawTab.setContent(fileContentsRaw);

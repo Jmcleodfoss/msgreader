@@ -15,9 +15,6 @@ import javafx.scene.text.Text;
 
 class ByteDataTable extends TableView<ByteDataTable.Row>
 {
-	// Unicode for CFB files is UTF-16.
-	static private final int UNICODE_BYTES = 2;
-
 	static private final Text WIDEST_BYTE_STRING = new Text(" 88");
 
 	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
@@ -64,36 +61,11 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		}
 	}
 
-	public class ASCIITableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
-	{
-		ASCIITableCell(String property, int index)
-		{
-			super(property, index);
-		}
-
-		@Override
-		public ObservableValue<String> call(TableColumn.CellDataFeatures<Row, String> param)
-		{
-			@SuppressWarnings("unchecked")
-			ReadOnlyObjectWrapper<ObservableList<Byte>> o = (ReadOnlyObjectWrapper)super.call(param);
-			ObservableList<Byte> ol = o.get();
-			int index = getIndex();
-			byte highByte = ol.get(index);
-			byte lowByte  = ol.get(index+1);
-			char codepoint = (char)(0xffff & (highByte << 8 | lowByte));
-			if (!java.lang.Character.isDefined(codepoint))
-				codepoint = 0;
-			return new ReadOnlyObjectWrapper<String>(String.format("%c", codepoint));
-		}
-	}
-
-	private boolean fHasUnicode;
 	private int nColumns;
 
-	ByteDataTable(boolean fHasUnicode)
+	ByteDataTable()
 	{
 		super();
-		this.fHasUnicode = fHasUnicode;
 
 		int dataLength = COLUMN_HEADINGS.length;
 		nColumns = dataLength;
@@ -106,30 +78,9 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			col.setPrefWidth(cellWidth);
 			columns.add(col);
   		}
-		if (fHasUnicode){
-			assert COLUMN_HEADINGS.length % UNICODE_BYTES == 0;
-
-			TableColumn<Row, String> unicodeData = new TableColumn<Row, String>("Unicode");
-			columns.add(unicodeData);
-			++nColumns;
-
-			for (int i = 0; i < COLUMN_HEADINGS.length / UNICODE_BYTES; ++i) {
-				TableColumn<Row, String> col = new TableColumn<Row, String>();
-			  	col.setCellValueFactory(new ASCIITableCell("columns", i));
-				col.setPrefWidth(cellWidth/2);
-				unicodeData.getColumns().add(col);
-			}
-		}
 
 		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		getColumns().setAll(columns);
-	}
-
-	void setUnicodeVisible(boolean fVisible)
-	{
-		if (!fHasUnicode)
-			return;
-		getColumns().get(nColumns-1).setVisible(false);
 	}
 
 	/** Clear the table's cells */

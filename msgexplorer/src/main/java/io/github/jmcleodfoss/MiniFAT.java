@@ -50,7 +50,7 @@ class MiniStream extends Tab
 		listPane.getChildren().add(list);
 
 		data = new ArrayList<byte[]>();
-		dataDisplay = new ByteDataTable(false);
+		dataDisplay = new ByteDataTable();
 		dataPane = new StackPane();
 		dataPane.getChildren().add(dataDisplay);
 
