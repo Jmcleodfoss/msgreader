@@ -42,6 +42,23 @@ public class MsgExplorer extends javafx.application.Application
 	{
 	}
 
+	public void openFile(String pathAndFileName, javafx.stage.Stage stage)
+	{
+		if (pathAndFileName != null) {
+			stage.setTitle(pathAndFileName);
+			try {
+				msg = new MSG(pathAndFileName);
+			} catch (Exception e){
+				msg = null;
+				filename = null;
+			}
+			if (msg != null)
+				update(msg);
+		} else {
+			stage.setTitle("msg Viewer application");
+		}
+	}
+
 	public void start(javafx.stage.Stage stage)
 	{
 		localizer = new LocalizedText();
@@ -77,19 +94,7 @@ public class MsgExplorer extends javafx.application.Application
 			filename = args.get(0);
 		}
 
-		if (filename != null) {
-			stage.setTitle(filename);
-			try {
-				msg = new MSG(filename);
-			} catch (Exception e){
-				msg = null;
-				filename = null;
-			}
-			if (msg != null)
-				update(msg);
-		} else {
-			stage.setTitle("msg Viewer application");
-		}
+		openFile(filename, stage);
 
 		Scene scene = new Scene(mainPane, 800, 600);
 		stage.setScene(scene);
