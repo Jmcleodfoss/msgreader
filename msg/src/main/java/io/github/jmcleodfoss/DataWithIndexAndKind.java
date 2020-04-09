@@ -2,6 +2,7 @@ package io.github.jmcleodfoss.msg;
 
 class DataWithIndexAndKind
 {
+	/** The type of object. */
 	static enum PropertyType {
 		NUMERICAL_NAMED_PROPERTY,
 		STRING_NAMED_PROPERTY
@@ -12,6 +13,9 @@ class DataWithIndexAndKind
 	final short guidIndex;
 	final PropertyType propertyType;
 
+	/** Create a DataWithIndexAndKind from a raw byte stream
+	*	@param	rawData	The byte stream to read this entry from.
+	*/
 	DataWithIndexAndKind(byte[] rawData)
 	{
 		java.nio.ByteBuffer bb = java.nio.ByteBuffer.wrap(rawData);
