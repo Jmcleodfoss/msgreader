@@ -3,6 +3,7 @@ package io.github.jmcleodfoss.msgexplorer;
 import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
 
+import java.io.File;
 import java.util.List;
 import javafx.application.Application;
 import javafx.application.Application.Parameters;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -20,6 +22,10 @@ import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
 {
+	private static final String PROPNAME_LOAD_FILE = "filechooser.title";
+	private static final String PROPNAME_ALL_FILES = "filechooser.all-files";
+	private static final String PROPNAME_MSG_FILES = "filechooser.msg-files";
+
 	String filename;
 	MSG msg;
 
@@ -28,6 +34,8 @@ public class MsgExplorer extends javafx.application.Application
 	BorderPane mainPane;
 
 	MenuBar menuBar;
+
+	FileChooser fileChooser;
 
 	TabPane tabs;
 
@@ -73,13 +81,30 @@ public class MsgExplorer extends javafx.application.Application
 		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
 		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
+		MenuItem open = new MenuItem("Open...");
+		fileChooser = new FileChooser();
+		open.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				fileChooser.setTitle(PROPNAME_LOAD_FILE);
+				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+				fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"),
+					new FileChooser.ExtensionFilter(PROPNAME_MSG_FILES, "*.msg")
+				);
+				File file = fileChooser.showOpenDialog(stage);
+				if (file != null){
+					openFile(file.getPath(), stage);
+				}
+			}
+		});
+
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				Platform.exit();
 			}
 		});
-		Menu fileMenu = new Menu("File", null, exit);
+		Menu fileMenu = new Menu("File", null, open, exit);
 		menuBar = new MenuBar(fileMenu);
 
 		// Add File menu
