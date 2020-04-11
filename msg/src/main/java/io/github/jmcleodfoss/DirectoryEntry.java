@@ -78,6 +78,14 @@ public class DirectoryEntry {
 		return NO_PROPERTY_ID;
 	}
 
+	/** Return the property type, if any.
+	*	@return	The property type. The default implementatation, suitable for all classes except StringStream, returns n/a
+	*/
+	String getPropertyType()
+	{
+		return "n/a";
+	}
+
 	boolean isTextData()
 	{
 		return false;
@@ -163,7 +171,16 @@ public class DirectoryEntry {
 	}
 
 	static class StringStream extends DirectoryEntry {
-		private static final int PROPERTY_TYPE_STRING = 0x001f;
+
+	private static final int PROPERTY_TYPE_STRING = 0x001f;
+	private static final int PROPERTY_TYPE_BINARY = 0x0102;
+
+	/** Known data type names stored by type ID */
+	private static final java.util.HashMap<Integer, String> dataTypeNames = new java.util.HashMap<Integer, String>();
+	static {
+		dataTypeNames.put(PROPERTY_TYPE_STRING, "String");
+		dataTypeNames.put(PROPERTY_TYPE_BINARY, "Binary");
+	}
 
 		int propertyId;
 		int propertyType;
@@ -198,6 +215,16 @@ public class DirectoryEntry {
 		int getPropertyId()
 		{
 			return this.propertyId;
+		}
+
+		/** Return the data type for this object. */
+		@Override
+		String getPropertyType()
+		{
+			if (!dataTypeNames.containsKey(propertyType))
+				return "Unknown property type";
+
+			return dataTypeNames.get(propertyType);
 		}
 
 		@Override
@@ -238,6 +265,7 @@ public class DirectoryEntry {
 	private static String nm_StreamSize = "StreamSize";
 	private static String nm_PropertyName = "PropertyName";
 	private static String nm_PropertyId = "PropertyId";
+	private static String nm_PropertyType = "PropertyType";
 
 	private static final DataDefinition[] fields = {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
@@ -302,6 +330,7 @@ public class DirectoryEntry {
 		} else {
 			l.add(nm_PropertyId, "n/a");
 		}
+		l.add(nm_PropertyType, getPropertyType());
 		l.add(nm_DirectoryEntryName, directoryEntryName);
 		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
 		l.add(nm_ObjectType, objectType.toString());
