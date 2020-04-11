@@ -236,7 +236,7 @@ public class DirectoryEntry {
 	private static String nm_ModifiedTime = "ModifiedTime";
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
 	private static String nm_StreamSize = "StreamSize";
-	private static String fldnm_PropertyName = "PropertyName";
+	private static String nm_PropertyName = "PropertyName";
 	private static String nm_PropertyId = "PropertyId";
 
 	private static final DataDefinition[] fields = {
@@ -295,7 +295,7 @@ public class DirectoryEntry {
 		} else {
 			propertyName = String.format("Unknown property 0x%04x", propertyId);
 		}
-		l.add(fldnm_PropertyName, propertyName);
+		l.add(nm_PropertyName, propertyName);
 
 		if (hasPropertyId){
 			l.add(nm_PropertyId, String.format("0x%04x", propertyId));
@@ -370,7 +370,7 @@ public class DirectoryEntry {
 	static KVPArray<String, String> keys()
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
-		l.add(fldnm_PropertyName, "");
+		l.add(nm_PropertyName, "");
 		l.add(nm_PropertyId, "");
 		l.add(nm_DirectoryEntryName, "");
 		l.add(nm_DirectoryEntryNameLength, "");
