@@ -208,7 +208,7 @@ public class DirectoryEntry {
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
 
-		/* Return the property Id.
+		/** Return the property Id.
 		*	@return	The property ID for this object.
 		*/
 		@Override
