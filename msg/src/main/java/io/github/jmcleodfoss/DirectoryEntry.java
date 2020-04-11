@@ -237,6 +237,7 @@ public class DirectoryEntry {
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
 	private static String nm_StreamSize = "StreamSize";
 	private static String fldnm_PropertyName = "PropertyName";
+	private static String nm_PropertyId = "PropertyId";
 
 	private static final DataDefinition[] fields = {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
@@ -265,12 +266,16 @@ public class DirectoryEntry {
 		KVPArray<String, String> l = new KVPArray<String, String>();
 
 		int propertyId = getPropertyId();
+		boolean hasPropertyId = true;
 		String propertyName;
 		if (directoryEntryName.equals(ROOT_ENTRY)){
+			hasPropertyId = false;
 			propertyName = "Root Entry";
 		} else if (directoryEntryName.equals(NAMEID)){
+			hasPropertyId = false;
 			propertyName = "Named Property Mapping Storage";
 		} else if (parents.get(directoryEntryName).equals(NAMEID)){
+			hasPropertyId = false;
 			if (propertyId == 0x0002) {
 				propertyName = "GUID Stream";
 			} else if (propertyId == 0x0003) {
@@ -292,6 +297,11 @@ public class DirectoryEntry {
 		}
 		l.add(fldnm_PropertyName, propertyName);
 
+		if (hasPropertyId){
+			l.add(nm_PropertyId, String.format("0x%04x", propertyId));
+		} else {
+			l.add(nm_PropertyId, "n/a");
+		}
 		l.add(nm_DirectoryEntryName, directoryEntryName);
 		l.add(nm_DirectoryEntryNameLength, Short.toString((Short)dc.get(nm_DirectoryEntryNameLength)));
 		l.add(nm_ObjectType, objectType.toString());
@@ -361,6 +371,7 @@ public class DirectoryEntry {
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(fldnm_PropertyName, "");
+		l.add(nm_PropertyId, "");
 		l.add(nm_DirectoryEntryName, "");
 		l.add(nm_DirectoryEntryNameLength, "");
 		l.add(nm_ObjectType, "");
