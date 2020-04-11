@@ -5,6 +5,8 @@ import io.github.jmcleodfoss.msg.MSG;
 
 import java.util.Iterator;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.property.IntegerProperty;
@@ -76,7 +78,7 @@ class Directory extends Tab
 
 			// Header points to the mini stream, so skip it.
 			if (de.entry != 0) {
-				updateInfoService.setEntryIndex(de.entry);
+				updateInfoService.setItem(newVal);
 				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 				updateInfoService.restart();
 			} else {
@@ -94,8 +96,10 @@ class Directory extends Tab
 			byte[] fileData = (byte[])t.getSource().getValue();
 			if (fileData != null) {
 				fileContentsRaw.update(fileData);
-				if (msg.isTextData(updateInfoService.getEntryIndex())) {
-					fileContentsText.setText(msg.convertFileToString(updateInfoService.getEntryIndex(), fileData));
+				TreeItem<DirectoryEntryData> treeItem = updateInfoService.getItem();
+				DirectoryEntryData de = treeItem.getValue();
+				if (msg.isTextData(de.entry)) {
+					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
 				} else {
 					fileContentsText.setText("");
 				}
@@ -108,25 +112,28 @@ class Directory extends Tab
 
 	private class UpdateInfoService extends Service<byte[]>
 	{
-		private IntegerProperty entryIndex = new SimpleIntegerProperty();
-		public IntegerProperty getEntryIndexProperty()
+		private ObjectProperty<TreeItem<DirectoryEntryData>> item;
+		ObjectProperty<TreeItem<DirectoryEntryData>> getItemProperty()
 		{
-			return entryIndex;
+			if (item == null)
+				item = new SimpleObjectProperty<TreeItem<DirectoryEntryData>>();
+			return item;
 		}
-		public void setEntryIndex(int entryIndex)
+		public TreeItem<DirectoryEntryData> getItem()
 		{
-			this.entryIndex.set(entryIndex);
+			return getItemProperty().get();
 		}
-		public int getEntryIndex()
+		public void setItem(TreeItem<DirectoryEntryData> entry)
 		{
-			return entryIndex.get();
+			getItemProperty().set(entry);
 		}
+
 		protected Task<byte[]> createTask()
 		{
 			return new Task<byte[]>() {
 				protected byte[] call()
 				{
-					return msg.getFile(getEntryIndex());
+					return msg.getFile(getItem().getValue().entry);
 				}
 			};
 		}
