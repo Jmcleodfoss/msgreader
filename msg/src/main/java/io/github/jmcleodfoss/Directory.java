@@ -9,6 +9,9 @@ class Directory {
 	/** The index to the named properties directory entry */
 	int namedPropertiesMappingIndex;
 
+	/** The parents of each entry */
+	java.util.HashMap<String, String> parents;
+
 	/** Construct a directory object.
 	*	@param	bytebuffer	The CFB file
 	*	@param	header		The CFB header
@@ -31,6 +34,9 @@ class Directory {
 					namedPropertiesMappingIndex = entries.indexOf(de);
 			}
 		}
+
+		parents = new java.util.HashMap<String,String>();
+		setParent(0);
 	}
 
 	/** Collect all siblings and self for the given childIndex.
@@ -65,6 +71,21 @@ class Directory {
 	java.util.Iterator<DirectoryEntry> iterator()
 	{
 		return entries.iterator();
+	}
+
+	/** Set the parent node for each child node
+	*	@param	parentIndex	The index of the parent node in entries
+	*/
+	void setParent(int parentIndex)
+	{
+		java.util.ArrayList<Integer> children = getChildren(parentIndex);
+		String parentName = entries.get(parentIndex).directoryEntryName;
+		for (java.util.Iterator<Integer> iter = children.iterator(); iter.hasNext(); ){
+			int i = iter.next();
+			DirectoryEntry de = entries.get(i);
+			parents.put(de.directoryEntryName, parentName);
+			setParent(i);
+		}
 	}
 
 	/** Test this class by printing out the directory and the list of children for each node.
