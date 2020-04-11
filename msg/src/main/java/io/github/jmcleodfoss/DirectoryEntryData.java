@@ -34,7 +34,7 @@ public class DirectoryEntryData {
 		size = (int)de.streamSize;
 		startingSector = de.startingSectorLocation;
 
-		kvps = de.data(namedProperties);
+		kvps = de.data(namedProperties, directory.parents);
 	}
 
 	/** Create a string representing this directory entry
