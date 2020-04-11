@@ -266,12 +266,10 @@ public class DirectoryEntry {
 
 		int propertyId = getPropertyId();
 		String propertyName;
-		if (propertyId == NO_PROPERTY_ID) {
-			if (directoryEntryName.equals(NAMEID)){
-				propertyName = "Named Property Mapping Storage";
-			} else {
-				propertyName = "n/a";
-			}
+		if (directoryEntryName.equals(ROOT_ENTRY)){
+			propertyName = "Root Entry";
+		} else if (directoryEntryName.equals(NAMEID)){
+			propertyName = "Named Property Mapping Storage";
 		} else if (parents.get(directoryEntryName).equals(NAMEID)){
 			if (propertyId == 0x0002) {
 				propertyName = "GUID Stream";
@@ -282,6 +280,8 @@ public class DirectoryEntry {
 			} else {
 				propertyName = "Property Name to Property ID Mapping Stream";
 			}
+		} else if (propertyId == NO_PROPERTY_ID) {
+			propertyName = "n/a";
 		} else if ((propertyId & 0x8000) != 0) {
 			int propertyIndex = propertyId & 0x7fff;
 			propertyName = namedProperties.getPropertyName(propertyIndex);
