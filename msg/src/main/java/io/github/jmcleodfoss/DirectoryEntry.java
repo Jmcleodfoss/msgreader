@@ -303,7 +303,6 @@ public class DirectoryEntry {
 			hasPropertyId = false;
 			propertyName = "Named Property Mapping Storage";
 		} else if (parents.get(directoryEntryName).equals(NAMEID)){
-			hasPropertyId = false;
 			if (propertyId == 0x0002) {
 				propertyName = "GUID Stream";
 			} else if (propertyId == 0x0003) {
@@ -314,6 +313,7 @@ public class DirectoryEntry {
 				propertyName = "Property Name to Property ID Mapping Stream";
 			}
 		} else if (propertyId == NO_PROPERTY_ID) {
+			hasPropertyId = false;
 			propertyName = "n/a";
 		} else if ((propertyId & 0x8000) != 0) {
 			int propertyIndex = propertyId & 0x7fff;
