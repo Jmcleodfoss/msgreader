@@ -7,7 +7,7 @@ class NamedProperties
 	private static final String GUID_STREAM_NAME = "__substg1.0_00020102";
 
 	/** The list of GUIDs */
-	private GUID[] guids;
+	GUID[] guids;
 
 	/** The entry name for the entry stream */
 	private static final String ENTRY_STREAM_NAME = "__substg1.0_00030102";
@@ -15,11 +15,17 @@ class NamedProperties
 	/** The list of entries */
 	private DataWithIndexAndKind[] entries;
 
+	/** The number of numeric named property entries */
+	private int numNumericalNamedProperties;
+
 	/** The entry name for the string stream */
 	private static final String STRING_STREAM_NAME = "__substg1.0_00040102";
 
-	/** The list of strings in the string stream */
-	private java.util.HashMap<Integer, String> strings;
+	/** The list of strings in the string stream, stored by stream offset */
+	java.util.HashMap<Integer, String> stringsByOffset;
+
+	/** The list of strings in the string stream, in order found. */
+	java.util.ArrayList<String> strings;
 
 	/** The property ID to name mapping array */
 	private DataWithIndexAndKind[] propertyNameMappings;
@@ -60,9 +66,26 @@ class NamedProperties
 				setStrings(de, data);
 			} else {
 				propertyNameMappings[pnmIndex] = new DataWithIndexAndKind(data);
+				if (propertyNameMappings[pnmIndex].propertyType == DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY)
+					++numNumericalNamedProperties;
 				++pnmIndex;
 			}
 		}
+	}
+
+	/** Get the numerical or string entry contents of the Entry Stream
+	*	@param	propertyType	The type of entry to return.
+	*	@return	An array of NamedPropertyEntry objects for the numerical named properties.
+	*/
+	java.util.ArrayList<NamedPropertyEntry> getEntryStreamEntries(DataWithIndexAndKind.PropertyType propertyType)
+	{
+		java.util.ArrayList<NamedPropertyEntry> npEntries = new java.util.ArrayList<NamedPropertyEntry>();
+		for (DataWithIndexAndKind item: entries){
+			if (item.propertyType != propertyType)
+				continue;
+			npEntries.add(new NamedPropertyEntry(item. nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
+		}
+		return npEntries;
 	}
 
 	/** Get the String name for the named given property index
@@ -76,12 +99,40 @@ class NamedProperties
 			return String.format("Out of bounds error (%d >= %d", propertyIndex, entries.length);
 
 		if (entries[propertyIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
-			return strings.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+			return stringsByOffset.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
 		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset))
 			return PropertyLIDs.lids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
 		return String.format("Not found: 0x%04x (%s)", entries[propertyIndex].nameIdentifierOrStringOffset, indexToGUID(entries[propertyIndex].guidIndex));
+	}
+
+	/** Get the Property ID to Property Name Mapping entry for the given index
+	*	@param	mappingIndex	The index of the Property Id to Property name Mapping entry to retrieve
+	*	@return	A KVPArray object containing information about the requested entry
+	*/
+	KVPArray<String, String> getPropertyIdToPropertyNameMapping(int mappingIndex)
+	{
+		KVPArray<String, String> mapping = new KVPArray<String, String>();
+		if (mappingIndex < 0 || mappingIndex > propertyNameMappings.length) {
+			return mapping;
+		}
+
+		String keyNameIdentifierOrStringOffset;
+		if (propertyNameMappings[mappingIndex].propertyType == DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY) {
+			keyNameIdentifierOrStringOffset = "NameIdentifier";
+		} else {
+			keyNameIdentifierOrStringOffset = "CRC-32 Checksum";
+		}
+
+		mapping.add(keyNameIdentifierOrStringOffset, Integer.toHexString(propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
+		mapping.add("PropertyIndex", Integer.toString(propertyNameMappings[mappingIndex].propertyIndex));
+		mapping.add("GUIDIndex", Integer.toString(propertyNameMappings[mappingIndex].guidIndex));
+		mapping.add("GUID", indexToGUID(propertyNameMappings[mappingIndex].guidIndex).toString());
+
+		if (propertyNameMappings[mappingIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
+			mapping.add("PropertyName", strings.get(propertyNameMappings[mappingIndex].propertyIndex - numNumericalNamedProperties));
+		return mapping;
 	}
 
 	/** Get the GUID from the GUID index
@@ -129,7 +180,8 @@ class NamedProperties
 	{
 		java.nio.ByteBuffer thisStream = java.nio.ByteBuffer.wrap(data);
 		thisStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
-		strings = new java.util.HashMap<Integer, String>();
+		stringsByOffset = new java.util.HashMap<Integer, String>();
+		strings = new java.util.ArrayList<String>();
 		int nRemaining = (int)de.streamSize;
 		while (nRemaining > 0) {
 			// Retrieving UTF-16 characters
@@ -139,7 +191,9 @@ class NamedProperties
 			byte[] stringData = new byte[stringLen];
 			thisStream.get(stringData);
 			nRemaining -= stringLen;
-			strings.put(position, DataType.createString(stringData));
+			String propertyName = DataType.createString(stringData);
+			strings.add(propertyName);
+			stringsByOffset.put(position, propertyName);
 			for (int i = 0; i < stringLen % 4 && nRemaining > 0; ++i){
 				thisStream.get();
 				--nRemaining;
@@ -185,10 +239,14 @@ class NamedProperties
 
 			System.out.println();
 			System.out.println("String stream");
-			java.util.Iterator<Integer> iter = namedPropertiesMapping.strings.keySet().iterator();
-			while (iter.hasNext()){
-				int key = iter.next();
-				System.out.printf("0x%04x: %s\n", key, namedPropertiesMapping.strings.get(key));
+			java.util.Iterator<String> iter_s = namedPropertiesMapping.strings.iterator();
+			while (iter_s.hasNext())
+				System.out.println(iter_s.next());
+			System.out.println();
+			java.util.Iterator<Integer> iter_i = namedPropertiesMapping.stringsByOffset.keySet().iterator();
+			while (iter_i.hasNext()){
+				int key = iter_i.next();
+				System.out.printf("0x%04x: %s\n", key, namedPropertiesMapping.stringsByOffset.get(key));
 			}
 
 			System.out.println();

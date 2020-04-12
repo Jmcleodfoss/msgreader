@@ -210,6 +210,7 @@ public class MSG
 		return l;
 	}
 
+	/** Is there a text representation of the "file" for a given directory,
 	/** Get the raw bytes for the requested directory entry
 	*	@param	entry	The entry to retreive data for
 	*	@return	An array of the bytes in the directory entry.
@@ -252,6 +253,55 @@ public class MSG
 	public boolean isTextData(int entry)
 	{
 		return directory.entries.get(entry).isTextData();
+	}
+
+	/** Get a Named Property entry
+	*	@param	mappingIndex	The index to the named property entry to retrieve
+	*	@return	A KVP array of the information for the requested entry
+	*/
+	public KVPArray<String, String> namedPropertyEntry(int mappingIndex)
+	{
+		return namedProperties.getPropertyIdToPropertyNameMapping(mappingIndex);
+	}
+
+	/** Get the list of Named Properties GUIDs
+	*	@return	The array of GUIDs as Strings
+	*/
+	public String[] namedPropertiesGUIDs()
+	{
+		String[] guidStrings = new String[namedProperties.guids.length];
+		for (int i = 0; i < namedProperties.guids.length; ++i)
+			guidStrings[i] = namedProperties.guids[i].toString();
+		return guidStrings;
+	}
+
+	/** Get the numeric named properties entries
+	*	@return	An ArrayList containing the named properties' numeric entries
+	*/
+	public java.util.ArrayList<NamedPropertyEntry> namedPropertiesNumericalEntries()
+	{
+		return namedProperties.getEntryStreamEntries(DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY);
+	}
+
+	/** Get the string named properties entries
+	*	@return	An ArrayList containing the named properties' string entries
+	*/
+	public java.util.ArrayList<NamedPropertyEntry> namedPropertiesStringEntries()
+	{
+		return namedProperties.getEntryStreamEntries(DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY);
+	}
+
+	/** Get the named properties string stream as an array of key-value pairs.
+	*	@return	A KVP array of the named property string stream entries as
+	*/
+	public KVPArray<Integer, String> namedPropertiesStrings()
+	{
+		KVPArray<Integer, String> a = new KVPArray<Integer, String>();
+		for (java.util.Iterator<java.util.Map.Entry<Integer, String>> iter = namedProperties.stringsByOffset.entrySet().iterator(); iter.hasNext(); ){
+			java.util.Map.Entry<Integer, String> entry = iter.next();
+			a.add(entry.getKey(), entry.getValue());
+		}
+		return a;
 	}
 
 	/** Get the number of sectors in the file
