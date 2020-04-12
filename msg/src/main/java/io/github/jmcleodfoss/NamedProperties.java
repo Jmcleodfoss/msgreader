@@ -118,14 +118,12 @@ class NamedProperties
 			return mapping;
 		}
 
-		String keyNameIdentifierOrStringOffset;
 		if (propertyNameMappings[mappingIndex].propertyType == DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY) {
-			keyNameIdentifierOrStringOffset = "NameIdentifier";
+			mapping.add("NameIdentifier", String.format("0x%04x", propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
 		} else {
-			keyNameIdentifierOrStringOffset = "CRC-32 Checksum";
+			mapping.add("CRC-32 Checksum", String.format("0x%08x", propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
 		}
 
-		mapping.add(keyNameIdentifierOrStringOffset, Integer.toHexString(propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
 		mapping.add("PropertyIndex", Integer.toString(propertyNameMappings[mappingIndex].propertyIndex));
 		mapping.add("GUIDIndex", Integer.toString(propertyNameMappings[mappingIndex].guidIndex));
 		mapping.add("GUID", indexToGUID(propertyNameMappings[mappingIndex].guidIndex).toString());
