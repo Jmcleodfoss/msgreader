@@ -52,11 +52,15 @@ class Directory extends Tab
 	private TabPane contentTabs;
 
 	private KVPTableTab<String, String> descriptionTab;
+
 	private Tab dataTab;
 	private ByteDataTable data;
+
 	private TabPane filePane;
+
 	private Tab fileContentsRawTab;
 	private ByteDataTable fileContentsRaw;
+
 	private Tab fileContentsTextTab;
 	private Text fileContentsText;
 
