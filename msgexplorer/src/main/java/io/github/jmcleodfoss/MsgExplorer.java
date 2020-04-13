@@ -128,9 +128,8 @@ public class MsgExplorer extends javafx.application.Application
 		List<String> args = parameters.getRaw();
 		if (args.size() > 0){
 			filename = args.get(0);
+			openFile(filename, stage);
 		}
-
-		openFile(filename, stage);
 
 		Scene scene = new Scene(mainPane, 800, 600);
 		stage.setScene(scene);
