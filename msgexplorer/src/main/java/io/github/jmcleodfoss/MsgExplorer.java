@@ -74,6 +74,7 @@ public class MsgExplorer extends javafx.application.Application
 	public void start(javafx.stage.Stage stage)
 	{
 		localizer = new LocalizedText();
+		stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
 
 		header = new Header(localizer);
 		difat = new DIFAT(localizer);
