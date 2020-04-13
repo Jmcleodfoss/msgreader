@@ -2,27 +2,40 @@ package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.MSG;
+import io.github.jmcleodfoss.msg.NamedPropertyEntry;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 class Directory extends Tab
 {
@@ -31,6 +44,27 @@ class Directory extends Tab
 	static private final String PROPNAME_DIRECTORY_CONTENTS_KEY = "Description";
 	static private final String PROPNAME_DIRECTORY_CONTENTS_VALUE = "DirContentValue";
 	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW = "DirContentRaw";
+
+	static private final String PROPNAME_GUIDS_INDEX_HEADER = "namedproperties.guids.index-header";
+	static private final String PROPNAME_GUIDS_GUID_HEADER = "namedproperties.guids.guid-header";
+
+	static private final String PROPNAME_NUMERICALENTRIES_LABEL = "namedproperties.numericalentries.label";
+	static private final String PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER = "namedproperties.numericalentries.name-id-header";
+	static private final String PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER = "namedproperties.snentries.property-index";
+	static private final String PROPNAME_SNENTRIES_GUID_INDEX_HEADER = "namedproperties.snentries.guid-index";
+
+	static private final String PROPNAME_STRINGENTRIES_LABEL = "namedproperties.stringentries.label";
+	static private final String PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER = "namedproperties.stringentries.string-offset-header";
+
+	static private final String PROPNAME_STRINGSTREAM_LABEL = "namedproperties.stringstream.label";
+	static private final String PROPNAME_STRINGSTREAM_OFFSET_HEADER = "namedproperties.stringstream.offset-header";
+	static private final String PROPNAME_STRINGSTREAM_STRING_HEADER = "namedproperties.stringstream.string-header";
+
+	static private final String PROPNAME_ENTRY_LABEL = "namedproperties.entries.label";
+	static private final String PROPNAME_ENTRY_KEY_HEADER = "namedproperties.entries.key-header";
+	static private final String PROPNAME_ENTRY_VALUE_HEADER = "namedproperties.entries.value-header";
+
+	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
 	/** The overall pane for all directory info. Left side is the directory
 	*   tree, and the right side is the information about the selected node
@@ -64,12 +98,147 @@ class Directory extends Tab
 	private Tab tabFileContentsText;
 	private Text fileContentsText;
 
+	private Tab tabNamedPropertyGuids;
+	private TableView<GUIDRow> namedPropertyGuids;
+
+	private Tab tabNumericalEntries;
+	private NamedPropertiesTable numericalEntries;
+
+	private Tab tabStringEntries;
+	private NamedPropertiesTable stringEntries;
+
+	private KVPTableTab<Integer, String> tabStringStream;
+
+	private KVPTableTab<String, String> tabNamedPropertyEntries;
+
 	private TreeView<DirectoryEntryData> tree;
 
 	private MSG msg;
 	private LocalizedText localizer;
 
 	private UpdateInfoService updateInfoService;
+
+	public class GUIDRow {
+		private StringProperty guid;
+		public StringProperty getGuidProperty()
+		{
+			if (guid == null) guid = new SimpleStringProperty(this, "guid");
+			return guid;
+		}
+		public String getGuid()
+		{
+			return getGuidProperty().get();
+		}
+		public void setGuid(String guid)
+		{
+			getGuidProperty().set(guid);
+		}
+
+		private IntegerProperty index;
+		public IntegerProperty getIndexProperty()
+		{
+			if (index == null) index = new SimpleIntegerProperty(this, "index");
+			return index;
+		}
+		public int getIndex()
+		{
+			return getIndexProperty().get();
+		}
+		public void setIndex(int index)
+		{
+			getIndexProperty().set(index);
+		}
+
+		GUIDRow(int index, String guid)
+		{
+			setGuid(guid);
+			setIndex(index);
+		}
+	}
+
+	public class NamedPropertyRow {
+		private IntegerProperty nameIdentifierOrStringOffset;
+		public IntegerProperty getNameIdentifierOrStringOffsetProperty()
+		{
+			if (nameIdentifierOrStringOffset == null) nameIdentifierOrStringOffset = new SimpleIntegerProperty(this, "index");
+			return nameIdentifierOrStringOffset;
+		}
+		public int getNameIdentifierOrStringOffset()
+		{
+			return getNameIdentifierOrStringOffsetProperty().get();
+		}
+		public void setNameIdentifierOrStringOffset(int nameIdentifierOrOffset)
+		{
+			getNameIdentifierOrStringOffsetProperty().set(nameIdentifierOrOffset);
+		}
+
+		private IntegerProperty propertyIndex;
+		public IntegerProperty getPropertyIndexProperty()
+		{
+			if (propertyIndex == null) propertyIndex = new SimpleIntegerProperty(this, "index");
+			return propertyIndex;
+		}
+		public int getPropertyIndex()
+		{
+			return getPropertyIndexProperty().get();
+		}
+		public void setPropertyIndex(int nameIdentifierOrOffset)
+		{
+			getPropertyIndexProperty().set(nameIdentifierOrOffset);
+		}
+
+		private IntegerProperty guidIndex;
+		public IntegerProperty getGuidIndexProperty()
+		{
+			if (guidIndex == null) guidIndex = new SimpleIntegerProperty(this, "index");
+			return guidIndex;
+		}
+		public int getGuidIndex()
+		{
+			return getGuidIndexProperty().get();
+		}
+		public void setGuidIndex(int nameIdentifierOrOffset)
+		{
+			getGuidIndexProperty().set(nameIdentifierOrOffset);
+		}
+
+		NamedPropertyRow(int nameIdentifierOrStringOffset, int propertyIndex, int guidIndex)
+		{
+			setNameIdentifierOrStringOffset(nameIdentifierOrStringOffset);
+			setPropertyIndex(propertyIndex);
+			setGuidIndex(guidIndex);
+		}
+	}
+
+	private class NamedPropertiesTable extends TableView<NamedPropertyRow>
+	{
+		NamedPropertiesTable(LocalizedText localizer, String propNameIdOrStringProperty)
+		{
+			super();
+
+			TableColumn<NamedPropertyRow, Integer> nameIdentifierOrStringOffsetPropertyColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(propNameIdOrStringProperty));
+			nameIdentifierOrStringOffsetPropertyColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("nameIdentifierOrStringOffset"));
+
+			TableColumn<NamedPropertyRow, Integer> propertyIndexColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
+			propertyIndexColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("propertyIndex"));
+
+			TableColumn<NamedPropertyRow, Integer> guidIndexColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
+			guidIndexColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("guidIndex"));
+
+			getColumns().setAll(nameIdentifierOrStringOffsetPropertyColumn, propertyIndexColumn, guidIndexColumn);
+			setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		}
+
+		void update(java.util.ArrayList<NamedPropertyEntry> al)
+		{
+			ObservableList<NamedPropertyRow> ol = FXCollections.observableArrayList();
+			for (java.util.Iterator<NamedPropertyEntry> iter = al.iterator(); iter.hasNext(); ){
+				NamedPropertyEntry item = iter.next();
+				ol.add(new NamedPropertyRow(item.nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
+			}
+			setItems(ol);
+		}
+	}
 
 	private class SelectionChangeListener implements ChangeListener<TreeItem<DirectoryEntryData>>
 	{
@@ -104,12 +273,40 @@ class Directory extends Tab
 				DirectoryEntryData de = treeItem.getValue();
 				if (msg.isTextData(de.entry)) {
 					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
+					updateTabs(tabFileContentsText);
 				} else {
-					fileContentsText.setText("");
+					if (isGuidStream(treeItem)) {
+						String[] guids = msg.namedPropertiesGUIDs();
+						ObservableList<GUIDRow> a1 = FXCollections.observableArrayList();
+						for (int i = 0; i < guids.length; ++i)
+							a1.add(new GUIDRow(i, guids[i]));
+						namedPropertyGuids.setItems(a1);
+						updateTabs(tabNamedPropertyGuids);
+					} else if (isEntryStream(treeItem)) {
+						numericalEntries.update(msg.namedPropertiesNumericalEntries());
+						stringEntries.update(msg.namedPropertiesStringEntries());
+						updateTabs(tabNumericalEntries, tabStringEntries);
+					} else if (isStringStream(treeItem)) {
+						tabStringStream.update(msg.namedPropertiesStrings(), localizer);
+						updateTabs(tabStringStream);
+					} else if (isNamedPropertyEntry(treeItem)) {
+						int i = 0;
+						TreeItem<DirectoryEntryData> item = treeItem.previousSibling();
+						while (item != null) {
+							item = item.previousSibling();
+							++i;
+						}
+						tabNamedPropertyEntries.update(msg.namedPropertyEntry(i-3), localizer);
+						updateTabs(tabNamedPropertyEntries);
+					} else {
+						fileContentsText.setText("");
+						updateTabs();
+					}
 				}
 			} else {
 				fileContentsRaw.clear();
 				fileContentsText.setText("");
+				updateTabs();
 			}
 		}
 	}
@@ -175,7 +372,42 @@ class Directory extends Tab
 		tabFileContentsText = new Tab("Text");
 		tabFileContentsText.setContent(fileContentsText);
 
-		filePane = new TabPane(tabFileContentsRaw, tabFileContentsText);
+		namedPropertyGuids = new TableView<GUIDRow>();
+		TableColumn<GUIDRow, Integer> indexColumn = new TableColumn<GUIDRow, Integer>(localizer.getText(PROPNAME_GUIDS_INDEX_HEADER));
+		indexColumn.setCellValueFactory(new PropertyValueFactory<GUIDRow, Integer>("index"));
+
+		TableColumn<GUIDRow, String> guidColumn = new TableColumn<GUIDRow, String>(localizer.getText(PROPNAME_GUIDS_GUID_HEADER));
+		guidColumn.setCellValueFactory(new PropertyValueFactory<GUIDRow, String>("guid"));
+		guidColumn.setPrefWidth(WIDEST_GUID_TEXT.getBoundsInLocal().getWidth());
+
+		namedPropertyGuids.getColumns().setAll(indexColumn, guidColumn);
+		namedPropertyGuids.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+		tabNamedPropertyGuids = new Tab(localizer.getText("GUIDS"));
+		tabNamedPropertyGuids.setContent(namedPropertyGuids);
+
+		numericalEntries = new NamedPropertiesTable(localizer, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER);
+		((TableColumn<NamedPropertyRow, Integer>)(numericalEntries.getColumns().get(0))).setCellFactory(new Callback<TableColumn<NamedPropertyRow, Integer>, TableCell<NamedPropertyRow, Integer>>(){
+			@Override public TableCell<NamedPropertyRow, Integer> call(TableColumn<NamedPropertyRow, Integer> column){
+				return new TableCell<NamedPropertyRow, Integer>(){
+					@Override protected void updateItem(Integer item, boolean empty){
+						super.updateItem(item, empty);
+						setText(item == null ? "" : String.format("0x%04x", item));
+					};
+				};
+			}
+		});
+		tabNumericalEntries = new Tab(localizer.getText(PROPNAME_NUMERICALENTRIES_LABEL));
+		tabNumericalEntries.setContent(numericalEntries);
+
+		stringEntries = new NamedPropertiesTable(localizer, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER);
+		tabStringEntries = new Tab(localizer.getText(PROPNAME_STRINGENTRIES_LABEL));
+		tabStringEntries.setContent(stringEntries);
+
+		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(PROPNAME_STRINGSTREAM_LABEL), localizer.getText(PROPNAME_STRINGSTREAM_OFFSET_HEADER), localizer.getText(PROPNAME_STRINGSTREAM_STRING_HEADER));
+		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(PROPNAME_ENTRY_LABEL), localizer.getText(PROPNAME_ENTRY_KEY_HEADER), localizer.getText(PROPNAME_ENTRY_VALUE_HEADER));
+
+		filePane = new TabPane(tabFileContentsRaw);
 		filePane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		infoPane = new SplitPane();
@@ -200,10 +432,49 @@ class Directory extends Tab
 		return node;
 	}
 
+	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isNamedPropertyEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
+	}
+
+	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isNamedPropertyEntry(item) && item.previousSibling() == null;
+	}
+
+	private boolean isNamedPropertyEntry(TreeItem<DirectoryEntryData> item)
+	{
+		if (item == null)
+			return false;
+		TreeItem<DirectoryEntryData> parent = item.getParent();
+		if (parent == null)
+			return false;
+		return parent.getParent() == tree.getRoot() && parent.previousSibling() == null;
+	}
+
+	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isNamedPropertyEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
+	}
+
 	void update(MSG msg, LocalizedText localizer)
 	{
 		tree.setRoot(addEntry(msg, 0));
 		tree.getTreeItem(0).setExpanded(true);
 		this.msg = msg;
+	}
+
+	void updateTabs(Tab... newTabs)
+	{
+		ArrayList<Tab> retain = new ArrayList<Tab>();
+		retain.add(filePane.getTabs().get(0));
+
+		for (Tab t: newTabs){
+			if (!filePane.getTabs().contains(t))
+				filePane.getTabs().add(t);
+			retain.add(t);
+		}
+
+		filePane.getTabs().retainAll(retain);
 	}
 }
