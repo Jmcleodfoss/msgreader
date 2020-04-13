@@ -168,12 +168,10 @@ class Directory extends Tab
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		fileContentsRaw = new ByteDataTable();
-
 		fileContentsRawTab = new Tab("Raw");
 		fileContentsRawTab.setContent(fileContentsRaw);
 
 		fileContentsText = new Text();
-
 		fileContentsTextTab = new Tab("Text");
 		fileContentsTextTab.setContent(fileContentsText);
 
