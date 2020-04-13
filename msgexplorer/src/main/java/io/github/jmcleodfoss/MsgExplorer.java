@@ -22,6 +22,10 @@ import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
 {
+	private static final String PROPNAME_APPLICATION_TITLE_DEFAULT = "application.title.default";
+	private static final String PROPNAME_MENU_FILE = "menu.file";
+	private static final String PROPNAME_MENU_FILE_OPEN = "menu.file.open";
+	private static final String PROPNAME_MENU_FILE_EXIT = "menu.fil.exite";
 	private static final String PROPNAME_LOAD_FILE = "filechooser.title";
 	private static final String PROPNAME_ALL_FILES = "filechooser.all-files";
 	private static final String PROPNAME_MSG_FILES = "filechooser.msg-files";
@@ -63,7 +67,7 @@ public class MsgExplorer extends javafx.application.Application
 			if (msg != null)
 				update(msg);
 		} else {
-			stage.setTitle("msg Viewer application");
+			stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
 		}
 	}
 
@@ -81,7 +85,7 @@ public class MsgExplorer extends javafx.application.Application
 		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
 		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		MenuItem open = new MenuItem("Open...");
+		MenuItem open = new MenuItem(localizer.getText("menu.file.open"));
 		fileChooser = new FileChooser();
 		open.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -98,13 +102,13 @@ public class MsgExplorer extends javafx.application.Application
 			}
 		});
 
-		MenuItem exit = new MenuItem("Exit");
+		MenuItem exit = new MenuItem(localizer.getText("menu.file.exit"));
 		exit.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				Platform.exit();
 			}
 		});
-		Menu fileMenu = new Menu("File", null, open, exit);
+		Menu fileMenu = new Menu(localizer.getText("menu.file"), null, open, exit);
 		menuBar = new MenuBar(fileMenu);
 
 		// Add File menu
