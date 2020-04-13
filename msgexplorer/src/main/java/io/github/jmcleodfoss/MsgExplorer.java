@@ -57,17 +57,19 @@ public class MsgExplorer extends javafx.application.Application
 	public void openFile(String pathAndFileName, javafx.stage.Stage stage)
 	{
 		if (pathAndFileName != null) {
-			stage.setTitle(pathAndFileName);
 			try {
 				msg = new MSG(pathAndFileName);
 			} catch (Exception e){
 				msg = null;
 				filename = null;
 			}
-			if (msg != null)
+
+			if (msg != null){
 				update(msg);
-		} else {
-			stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
+				stage.setTitle(pathAndFileName);
+			} else {
+				stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
+			}
 		}
 	}
 
