@@ -73,21 +73,8 @@ public class MsgExplorer extends javafx.application.Application
 		}
 	}
 
-	public void start(javafx.stage.Stage stage)
+	private MenuBar setupMenus(javafx.stage.Stage stage)
 	{
-		localizer = new LocalizedText();
-		stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
-
-		header = new Header(localizer);
-		difat = new DIFAT(localizer);
-		fat = new FAT(localizer);
-		sectors = new Sectors(localizer);
-		miniStream = new MiniStream(localizer);
-		directory = new Directory(localizer);
-		
-		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
-		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
 		MenuItem open = new MenuItem(localizer.getText("menu.file.open"));
 		fileChooser = new FileChooser();
 		open.setOnAction(new EventHandler<ActionEvent>(){
@@ -112,9 +99,26 @@ public class MsgExplorer extends javafx.application.Application
 			}
 		});
 		Menu fileMenu = new Menu(localizer.getText("menu.file"), null, open, exit);
-		menuBar = new MenuBar(fileMenu);
 
-		// Add File menu
+		return new MenuBar(fileMenu);
+	}
+
+	public void start(javafx.stage.Stage stage)
+	{
+		localizer = new LocalizedText();
+		stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
+
+		header = new Header(localizer);
+		difat = new DIFAT(localizer);
+		fat = new FAT(localizer);
+		sectors = new Sectors(localizer);
+		miniStream = new MiniStream(localizer);
+		directory = new Directory(localizer);
+
+		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
+		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+		menuBar = setupMenus(stage);
 
 		mainPane = new BorderPane();
 		mainPane.setTop(menuBar);
