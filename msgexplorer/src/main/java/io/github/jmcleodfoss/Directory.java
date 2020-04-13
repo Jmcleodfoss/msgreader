@@ -51,17 +51,17 @@ class Directory extends Tab
 	/** The tabbed pane showing the directory entry contents. */
 	private TabPane contentTabs;
 
-	private KVPTableTab<String, String> descriptionTab;
+	private KVPTableTab<String, String> tabDescription;
 
-	private Tab dataTab;
+	private Tab tabData;
 	private ByteDataTable data;
 
 	private TabPane filePane;
 
-	private Tab fileContentsRawTab;
+	private Tab tabFileContentsRaw;
 	private ByteDataTable fileContentsRaw;
 
-	private Tab fileContentsTextTab;
+	private Tab tabFileContentsText;
 	private Text fileContentsText;
 
 	private TreeView<DirectoryEntryData> tree;
@@ -77,7 +77,7 @@ class Directory extends Tab
 		public void changed(ObservableValue<? extends TreeItem<DirectoryEntryData>> observable, TreeItem<DirectoryEntryData> oldVal, TreeItem<DirectoryEntryData> newVal)
 		{
 			final DirectoryEntryData de = newVal.getValue();
-			descriptionTab.update(de.kvps, localizer);
+			tabDescription.update(de.kvps, localizer);
 			data.update(msg.getRawDirectoryEntry(de.entry));
 
 			// Header points to the mini stream, so skip it.
@@ -154,28 +154,28 @@ class Directory extends Tab
 		treePane = new StackPane();
 		treePane.getChildren().add(tree);
 
-		descriptionTab = new KVPTableTab<String, String>(
+		tabDescription = new KVPTableTab<String, String>(
 			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_READABLE),
 			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_KEY),
 			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_VALUE));
-		descriptionTab.update(MSG.getDirectoryEntryKeys(), localizer);
+		tabDescription.update(MSG.getDirectoryEntryKeys(), localizer);
 
 		data = new ByteDataTable();
-		dataTab = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW));
-		dataTab.setContent(data);
+		tabData = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW));
+		tabData.setContent(data);
 
-		contentTabs = new TabPane(descriptionTab, dataTab);
+		contentTabs = new TabPane(tabDescription, tabData);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		fileContentsRaw = new ByteDataTable();
-		fileContentsRawTab = new Tab("Raw");
-		fileContentsRawTab.setContent(fileContentsRaw);
+		tabFileContentsRaw = new Tab("Raw");
+		tabFileContentsRaw.setContent(fileContentsRaw);
 
 		fileContentsText = new Text();
-		fileContentsTextTab = new Tab("Text");
-		fileContentsTextTab.setContent(fileContentsText);
+		tabFileContentsText = new Tab("Text");
+		tabFileContentsText.setContent(fileContentsText);
 
-		filePane = new TabPane(fileContentsRawTab, fileContentsTextTab);
+		filePane = new TabPane(tabFileContentsRaw, tabFileContentsText);
 		filePane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		infoPane = new SplitPane();
