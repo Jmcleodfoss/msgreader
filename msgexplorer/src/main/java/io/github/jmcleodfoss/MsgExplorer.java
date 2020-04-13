@@ -18,6 +18,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
@@ -91,6 +94,7 @@ public class MsgExplorer extends javafx.application.Application
 				}
 			}
 		});
+		open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
 
 		MenuItem exit = new MenuItem(localizer.getText("menu.file.exit"));
 		exit.setOnAction(new EventHandler<ActionEvent>(){
@@ -98,6 +102,8 @@ public class MsgExplorer extends javafx.application.Application
 				Platform.exit();
 			}
 		});
+		exit.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+
 		Menu fileMenu = new Menu(localizer.getText("menu.file"), null, open, exit);
 
 		return new MenuBar(fileMenu);
