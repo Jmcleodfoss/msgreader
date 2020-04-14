@@ -172,15 +172,15 @@ public class DirectoryEntry {
 
 	static class StringStream extends DirectoryEntry {
 
-	private static final int PROPERTY_TYPE_STRING = 0x001f;
-	private static final int PROPERTY_TYPE_BINARY = 0x0102;
+		private static final int PROPERTY_TYPE_STRING = 0x001f;
+		private static final int PROPERTY_TYPE_BINARY = 0x0102;
 
-	/** Known data type names stored by type ID */
-	private static final java.util.HashMap<Integer, String> dataTypeNames = new java.util.HashMap<Integer, String>();
-	static {
-		dataTypeNames.put(PROPERTY_TYPE_STRING, "String");
-		dataTypeNames.put(PROPERTY_TYPE_BINARY, "Binary");
-	}
+		/** Known data type names stored by type ID */
+		private static final java.util.HashMap<Integer, String> dataTypeNames = new java.util.HashMap<Integer, String>();
+		static {
+			dataTypeNames.put(PROPERTY_TYPE_STRING, "String");
+			dataTypeNames.put(PROPERTY_TYPE_BINARY, "Binary");
+		}
 
 		int propertyId;
 		int propertyType;
