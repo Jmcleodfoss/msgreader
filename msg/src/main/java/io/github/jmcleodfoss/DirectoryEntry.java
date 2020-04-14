@@ -140,6 +140,14 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
+		@Override
+		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
+		{
+			if (streamSize < header.miniStreamCutoffSize)
+				return miniFAT.read(startingSectorLocation, streamSize, mbb);
+			return fat.read(startingSectorLocation, streamSize, mbb, header);
+		}
+
 		public String toString()
 		{
 			return String.format("Properties %s starting sector %d size %d", objectType.toString(), startingSectorLocation, streamSize);
