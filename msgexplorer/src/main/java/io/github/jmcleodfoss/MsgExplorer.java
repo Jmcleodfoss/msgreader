@@ -4,6 +4,8 @@ import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import javafx.application.Application;
 import javafx.application.Application.Parameters;
@@ -62,7 +64,16 @@ public class MsgExplorer extends javafx.application.Application
 		if (pathAndFileName != null) {
 			try {
 				msg = new MSG(pathAndFileName);
-			} catch (Exception e){
+			} catch (java.io.FileNotFoundException e) {
+				System.out.printf("Error: %s not found\n", pathAndFileName);
+				msg = null;
+				filename = null;
+			} catch (NotCFBFileException e) {
+				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
+				msg = null;
+				filename = null;
+			} catch (java.io.IOException e) {
+				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
 				msg = null;
 				filename = null;
 			}
