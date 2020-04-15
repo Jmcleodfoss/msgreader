@@ -245,6 +245,15 @@ public class MSG
 		return header.data();
 	}
 
+	/** Is the given entry a Property entry?
+	*	@param	entry	The directory entry to check the type of
+	*	@return	true if the entry is a Properties entry, false otherwise
+	*/
+	public boolean isProperty(int entry)
+	{
+		return directory.entries.get(entry).isPropertiesEntry();
+	}
+
 	/** Is there a text representation of the "file" for a given directory,
 	*   or is it binary?
 	*	@param	entry	The directory entry to check the data type of
