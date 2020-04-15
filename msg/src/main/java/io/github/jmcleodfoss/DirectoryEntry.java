@@ -86,6 +86,10 @@ public class DirectoryEntry {
 		return "n/a";
 	}
 
+	/** Does this entry have a text representation?
+	*	@return	false in the general case, true for StringStreams of type Text
+	*	@see StringStream.isTextData
+	*/
 	boolean isTextData()
 	{
 		return false;
