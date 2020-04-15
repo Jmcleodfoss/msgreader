@@ -86,17 +86,12 @@ public class DirectoryEntry {
 		return "n/a";
 	}
 
-	/** Is this entry a Property entry?
-	*	@return	true if the class type is Property, false otherwise. type Text
+	/** Is this entry a Properties entry?
+	*	@return	true if the class type is Properties, false otherwise. Base class version always returns false.
 	*/
 	boolean isPropertiesEntry()
 	{
-		try {
-			return getClass().equals(Class.forName("io.github.jmcleodfoss.msg.DirectoryEntry$Properties"));
-		} catch (ClassNotFoundException e) {
-			// The class is declared in this file. If it is not found, something has gone very wrong.
-			return false;
-		}
+		return false;
 	}
 
 	/** Does this entry have a text representation?
@@ -163,6 +158,14 @@ public class DirectoryEntry {
 			if (streamSize < header.miniStreamCutoffSize)
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
+		}
+
+		/** Is this entry a Properties entry?
+		*	@return	true for Properties class
+		*/
+		boolean isPropertiesEntry()
+		{
+			return true;
 		}
 
 		public String toString()
