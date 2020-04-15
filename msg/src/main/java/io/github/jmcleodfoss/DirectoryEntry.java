@@ -314,7 +314,7 @@ public class DirectoryEntry {
 	/** Make full directory information data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.HashMap<String, String> parents)
+	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.HashMap<String, DirectoryEntry> parents)
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 
@@ -327,7 +327,7 @@ public class DirectoryEntry {
 		} else if (directoryEntryName.equals(NAMEID)){
 			hasPropertyId = false;
 			propertyName = "Named Property Mapping Storage";
-		} else if (parents.get(directoryEntryName).equals(NAMEID)){
+		} else if (parents.get(directoryEntryName).directoryEntryName.equals(NAMEID)){
 			if (propertyId == 0x0002) {
 				propertyName = "GUID Stream";
 			} else if (propertyId == 0x0003) {
