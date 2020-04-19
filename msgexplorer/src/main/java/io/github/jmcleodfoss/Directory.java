@@ -3,7 +3,6 @@ package io.github.jmcleodfoss.msgexplorer;
 import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.KVPArray;
 import io.github.jmcleodfoss.msg.MSG;
-import io.github.jmcleodfoss.msg.NamedPropertyEntry;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +23,6 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
