@@ -10,7 +10,7 @@ class Directory {
 	int namedPropertiesMappingIndex;
 
 	/** The parents of each entry */
-	java.util.HashMap<String, DirectoryEntry> parents;
+	java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
 	/** Construct a directory object.
 	*	@param	bytebuffer	The CFB file
@@ -35,7 +35,7 @@ class Directory {
 			}
 		}
 
-		parents = new java.util.HashMap<String, DirectoryEntry>();
+		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(0);
 	}
 
@@ -83,7 +83,7 @@ class Directory {
 		for (java.util.Iterator<Integer> iter = children.iterator(); iter.hasNext(); ){
 			int i = iter.next();
 			DirectoryEntry de = entries.get(i);
-			parents.put(de.directoryEntryName, parent);
+			parents.put(de, parent);
 			setParent(i);
 		}
 	}
