@@ -77,16 +77,16 @@ class NamedPropertiesTableTab extends Tab
 		{
 			super();
 
-			TableColumn<NamedPropertyRow, Integer> nameIdentifierOrStringOffsetPropertyColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(propNameIdOrStringProperty));
-			nameIdentifierOrStringOffsetPropertyColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("nameIdentifierOrStringOffset"));
+			TableColumn<NamedPropertyRow, Integer> colNameIdOrStringOffset = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(propNameIdOrStringProperty));
+			colNameIdOrStringOffset.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("nameIdentifierOrStringOffset"));
 
-			TableColumn<NamedPropertyRow, Integer> propertyIndexColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
-			propertyIndexColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("propertyIndex"));
+			TableColumn<NamedPropertyRow, Integer> colPropertyIndex = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
+			colPropertyIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("propertyIndex"));
 
-			TableColumn<NamedPropertyRow, Integer> guidIndexColumn = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
-			guidIndexColumn.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("guidIndex"));
+			TableColumn<NamedPropertyRow, Integer> colGuidIndex = new TableColumn<NamedPropertyRow, Integer>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
+			colGuidIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, Integer>("guidIndex"));
 
-			getColumns().setAll(nameIdentifierOrStringOffsetPropertyColumn, propertyIndexColumn, guidIndexColumn);
+			getColumns().setAll(colNameIdOrStringOffset, colPropertyIndex, colGuidIndex);
 			setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		}
 	}
