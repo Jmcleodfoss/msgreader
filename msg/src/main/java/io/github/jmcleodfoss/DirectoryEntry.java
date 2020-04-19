@@ -343,11 +343,11 @@ public class DirectoryEntry {
 		} else if (propertyId == NO_PROPERTY_ID) {
 			hasPropertyId = false;
 			propertyName = "n/a";
+		} else if (PropertyTags.tags.keySet().contains(propertyId)) {
+			propertyName = PropertyTags.tags.get(propertyId);
 		} else if ((propertyId & 0x8000) != 0) {
 			int propertyIndex = propertyId & 0x7fff;
 			propertyName = namedProperties.getPropertyName(propertyIndex);
-		} else if (PropertyTags.tags.keySet().contains(propertyId)) {
-			propertyName = PropertyTags.tags.get(propertyId);
 		} else {
 			propertyName = String.format("Unknown property 0x%04x", propertyId);
 		}
