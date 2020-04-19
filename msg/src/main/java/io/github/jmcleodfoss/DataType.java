@@ -329,7 +329,7 @@ abstract class DataType {
 	*	@see	"[MS-OXDATA] Data Structures v20101026, Section 2.11.1"
 	*	@see	<a href="http://msdn.microsoft.com/en-us/library/ee157583.aspx">Property Data Types (MSDN)</a>
 	*/
-	private static class Time extends DataType {
+	static class Time extends DataType {
 
 		/** The base for MS time, which is measured in hundreds of nanosecondss since January 1, 1601. */
 		private static final java.util.Date PST_BASE_TIME = initBaseTime();
