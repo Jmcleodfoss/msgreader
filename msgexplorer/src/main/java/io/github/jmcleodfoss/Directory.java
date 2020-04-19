@@ -34,7 +34,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 class Directory extends Tab
 {
@@ -318,19 +317,8 @@ class Directory extends Tab
 		tabNamedPropertyGuids = new Tab(localizer.getText("GUIDS"));
 		tabNamedPropertyGuids.setContent(namedPropertyGuids);
 
-		tabNumericalEntries = new NamedPropertiesTableTab(localizer.getText(PROPNAME_NUMERICALENTRIES_LABEL), localizer, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER);
-		((TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer>)(tabNumericalEntries.table.getColumns().get(0))).setCellFactory(new Callback<TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer>, TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer>>(){
-			@Override public TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer> call(TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer> column){
-				return new TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer>(){
-					@Override protected void updateItem(Integer item, boolean empty){
-						super.updateItem(item, empty);
-						setText(item == null ? "" : String.format("0x%04x", item));
-					};
-				};
-			}
-		});
-
-		tabStringEntries = new NamedPropertiesTableTab(localizer.getText(PROPNAME_STRINGENTRIES_LABEL), localizer, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER);
+		tabNumericalEntries = NamedPropertiesTableTab.numericalNamedPropertyEntriesTableTabFactory(localizer);
+		tabStringEntries = NamedPropertiesTableTab.stringNamedPropertyEntriesTableTabFactory(localizer);
 
 		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(PROPNAME_STRINGSTREAM_LABEL), localizer.getText(PROPNAME_STRINGSTREAM_OFFSET_HEADER), localizer.getText(PROPNAME_STRINGSTREAM_STRING_HEADER));
 		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(PROPNAME_ENTRY_LABEL), localizer.getText(PROPNAME_ENTRY_KEY_HEADER), localizer.getText(PROPNAME_ENTRY_VALUE_HEADER));

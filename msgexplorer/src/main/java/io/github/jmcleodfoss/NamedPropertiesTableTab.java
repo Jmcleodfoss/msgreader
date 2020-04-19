@@ -11,9 +11,16 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 class NamedPropertiesTableTab extends Tab
 {
+	static private final String PROPNAME_NUMERICALENTRIES_LABEL = "namedproperties.numericalentries.label";
+	static private final String PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER = "namedproperties.numericalentries.name-id-header";
+
+	static private final String PROPNAME_STRINGENTRIES_LABEL = "namedproperties.stringentries.label";
+	static private final String PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER = "namedproperties.stringentries.string-offset-header";
+
 	static private final String PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER = "namedproperties.snentries.property-index";
 	static private final String PROPNAME_SNENTRIES_GUID_INDEX_HEADER = "namedproperties.snentries.guid-index";
 
@@ -71,7 +78,7 @@ class NamedPropertiesTableTab extends Tab
 		}
 	}
 
-	class NamedPropertiesTable extends TableView<NamedPropertyRow>
+	private class NamedPropertiesTable extends TableView<NamedPropertyRow>
 	{
 		NamedPropertiesTable(LocalizedText localizer, String propNameIdOrStringProperty)
 		{
@@ -91,7 +98,7 @@ class NamedPropertiesTableTab extends Tab
 		}
 	}
 
-	NamedPropertiesTable table;
+	private NamedPropertiesTable table;
 
 	NamedPropertiesTableTab(String tabName, LocalizedText localizer, String propNameIdOrStringProperty)
 	{
@@ -108,5 +115,27 @@ class NamedPropertiesTableTab extends Tab
 			ol.add(new NamedPropertyRow(item.nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
 		}
 		table.setItems(ol);
+	}
+
+	static NamedPropertiesTableTab numericalNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
+	{
+		NamedPropertiesTableTab tab = new NamedPropertiesTableTab(localizer.getText(PROPNAME_NUMERICALENTRIES_LABEL), localizer, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER);
+		((TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer>)(tab.table.getColumns().get(0))).setCellFactory(new Callback<TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer>, TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer>>(){
+			@Override public TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer> call(TableColumn<NamedPropertiesTableTab.NamedPropertyRow, Integer> column){
+				return new TableCell<NamedPropertiesTableTab.NamedPropertyRow, Integer>(){
+					@Override protected void updateItem(Integer item, boolean empty){
+						super.updateItem(item, empty);
+						setText(item == null ? "" : String.format("0x%04x", item));
+					};
+				};
+			}
+		});
+
+		return tab;
+	}
+
+	static NamedPropertiesTableTab stringNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
+	{
+		return new NamedPropertiesTableTab(localizer.getText(PROPNAME_STRINGENTRIES_LABEL), localizer, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER);
 	}
 }
