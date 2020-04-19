@@ -14,6 +14,12 @@ public class DirectoryEntry {
 	private static final java.util.regex.Pattern ATTACH_PATTERN = java.util.regex.Pattern.compile("__attach_version1.0_#\\p{XDigit}{8}");
 	private static final String UNALLOCATED = "";
 
+	/** KVP keys for property headers */
+	private static final String NEXT_RECIPIENT_ID = "next-recipient-id";
+	private static final String NEXT_ATTACHMENT_ID = "next-attachment-id";
+	private static final String RECIPIENT_COUNT = "recipient-count";
+	private static final String ATTACHMENT_COUNT = "recipient-count";
+
 	/** Property IDs are only defined for string stream entries; 0x0000 is
 	*   never used as a property ID, so we use it as a sentinel value to
 	*   indicate no property ID exists for other classes
@@ -61,9 +67,61 @@ public class DirectoryEntry {
 		return ByteUtil.createHexByteString(data);
 	}
 
+	/** Get the properties from a Properties object. Return an empty array for any other kind of
+	*    entry.
+	*	@param	data	The bytes in the entry
+	*	@param	parents	The mapping of entries to parents
+	*	@param	namedProperties	The file's named properties object
+	*	@return	An array of FixedWithProperties containing the property data defined in	the Properties entry.
+	*/
+	java.util.ArrayList<Property> properties(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+	{
+		return new java.util.ArrayList<Property>();
+	}
+
+	/** Get the Property header information. The header is different for children of the
+	*	Root, included e-mails, and Recipient/Attachment objects.
+	*	@param	data	The bytes in the Properties object.
+	*	@return	A KVPArray of the properties header data. For most classes this is empty.
+	*/
+	KVPArray<String, Integer> getChildPropertiesHeader(byte[] data)
+	{
+		return new KVPArray<String, Integer>();
+	}
+
+	/** Get the size of the Property header information. The size of the header is 32 for the Properties
+ 	*   storage under Root, 24 for embedded  message storages, and 8 for Attachment and Recipient objects.
+	*	@return	The size of the Properties header
+	*/
+	int getChildPropertiesHeaderSize()
+	{
+		return 0;
+	}
+
 	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
 		return null;
+	}
+
+	/** Get the header data for primary msg object (if it is a child of the root object) or for an embedded
+	*   message
+	*	@param	data	The contents of the Properties stream
+	*	@return	An array of KVPs contianing the header information
+	*/
+	private KVPArray<String, Integer> getMessageProperties(byte[] data)
+	{
+		java.nio.ByteBuffer headerStream = java.nio.ByteBuffer.wrap(data);
+		headerStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+
+		KVPArray<String, Integer> header = new KVPArray<String, Integer>();
+		// Bytes 1-8: reserved
+		headerStream.position(8);
+		header.add(NEXT_RECIPIENT_ID, headerStream.getInt());
+		header.add(NEXT_ATTACHMENT_ID, headerStream.getInt());
+		header.add(RECIPIENT_COUNT, headerStream.getInt());
+		header.add(ATTACHMENT_COUNT, headerStream.getInt());
+
+		return header;
 	}
 
 	/** Return the property ID, if any.
@@ -126,6 +184,15 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
+		/** Get the size of the Property header information for Attachment objects.
+		*	@return	The size of the Properties header for Attachment object
+		*/
+		@Override
+		int getChildPropertiesHeaderSize()
+		{
+			return 8;
+		}
+
 		public String toString()
 		{
 			return String.format("Attachment %s child Id 0x%04x", objectType.toString(), childId);
@@ -150,6 +217,30 @@ public class DirectoryEntry {
 		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		/** Get the properties from a Properties object. Return an empty array for any other kind of
+		*    entry.
+		*	@param	data	The bytes in the entry
+		*	@param	parents	The mapping of entries to parents
+		*	@param	namedProperties	The file's named properties object
+		*	@return	An array of KVPs giving the property name and value for the properties defined in
+		*		the Properties entry.
+		*/
+		@Override
+		java.util.ArrayList<Property> properties(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+		{
+			java.util.ArrayList<Property> properties = super.properties(data, parent, namedProperties);
+
+			java.nio.ByteBuffer propertyStream = java.nio.ByteBuffer.wrap(data);
+			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+			propertyStream.position(parent.getChildPropertiesHeaderSize());
+			while (propertyStream.hasRemaining()){
+				Property p = Property.factory(propertyStream, namedProperties);
+				if (p != null)
+					properties.add(p);
+			}
+			return properties;
 		}
 
 		@Override
@@ -180,6 +271,15 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
+		/** Get the size of the Property header information for Recipient objects.
+		*	@return	The size of the Properties header for Recipient object
+		*/
+		@Override
+		int getChildPropertiesHeaderSize()
+		{
+			return 8;
+		}
+
 		public String toString()
 		{
 			return String.format("Recipient %s child Id 0x%04x", objectType.toString(), childId);
@@ -190,6 +290,25 @@ public class DirectoryEntry {
 		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		/** Get the Property header information. The header is different for children of the Root, included e-mails, and Recipient/Attachment objects.
+		*	@param	data	The bytes in the Properties object.
+		*	@return	A KVPArray of the properties header data
+		*/
+		@Override
+		KVPArray<String, Integer> getChildPropertiesHeader(byte[] data)
+		{
+			return super.getMessageProperties(data);
+		}
+
+		/** Get the size of the Property header information for the Root object.
+		*	@return	The size of the Properties header for the root object
+		*/
+		@Override
+		int getChildPropertiesHeaderSize()
+		{
+			return 32;
 		}
 
 		public String toString()
@@ -226,6 +345,26 @@ public class DirectoryEntry {
 			if (data != null && isTextData())
 				return DataType.createString(data);
 			return super.createString(data);
+		}
+
+		/** Get the Property header information. The header is different for children of the Root, included e-mails, and Recipient/Attachment objects.
+		*	@param	data	The bytes in the Properties object.
+		*	@return	A KVPArray of the properties header data
+		*/
+		@Override
+		KVPArray<String, Integer> getChildPropertiesHeader(byte[] data)
+		{
+			return super.getMessageProperties(data);
+		}
+
+		/** Get the size of the Property header information for embedded messages
+		*	@return	The size of the Properties header for embedded messages.
+		*	@see StringStream.getChildPropertiesHeader
+		*/
+		@Override
+		int getChildPropertiesHeaderSize()
+		{
+			return 28;
 		}
 
 		@Override

@@ -148,6 +148,17 @@ public class MSG
 		return new DirectoryEntryData(directory, entry, namedProperties);
 	}
 
+	public KVPArray<String, Integer> getPropertiesHeader(int entry, byte[] data)
+	{
+		return directory.parents.get(directory.entries.get(entry)).getChildPropertiesHeader(data);
+	}
+
+	public java.util.ArrayList<Property> getProperties(int entry, byte[] data)
+	{
+		DirectoryEntry de = directory.entries.get(entry);
+		return de.properties(data, directory.parents.get(de), namedProperties);
+	}
+
 	/** Get the directory entry keys (this allows a table for display to
 	*   be set up with the correct number of entries before we have any data)
 	*	@return	A list of keys and values in the same order as
