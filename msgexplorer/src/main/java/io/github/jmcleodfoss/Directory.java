@@ -1,6 +1,7 @@
 package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.DirectoryEntryData;
+import io.github.jmcleodfoss.msg.KVPArray;
 import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NamedPropertyEntry;
 
@@ -64,6 +65,12 @@ class Directory extends Tab
 	static private final String PROPNAME_ENTRY_KEY_HEADER = "namedproperties.entries.key-header";
 	static private final String PROPNAME_ENTRY_VALUE_HEADER = "namedproperties.entries.value-header";
 
+	static private final String PROPNAME_PROPERTIES_HEADER_LABEL = "properties.header.label";
+	static private final String PROPNAME_PROPERTIES_HEADER_KEY_HEADER = "properties.header.key-header";
+	static private final String PROPNAME_PROPERTIES_HEADER_VALUE_HEADER = "properties.header.value-header";
+
+	static private final String PROPNAME_PROPERTIES_FIXEDWIDTH = "properties.entries.label";
+
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
 	/** The overall pane for all directory info. Left side is the directory
@@ -110,6 +117,11 @@ class Directory extends Tab
 	private KVPTableTab<Integer, String> tabStringStream;
 
 	private KVPTableTab<String, String> tabNamedPropertyEntries;
+
+	private KVPTableTab<String, Integer> tabPropertiesHeader;
+
+	private Tab tabProperties;
+	private PropertyTable properties;
 
 	private TreeView<DirectoryEntryData> tree;
 
@@ -245,6 +257,13 @@ class Directory extends Tab
 		@Override
 		public void changed(ObservableValue<? extends TreeItem<DirectoryEntryData>> observable, TreeItem<DirectoryEntryData> oldVal, TreeItem<DirectoryEntryData> newVal)
 		{
+			if (newVal == null) {
+				// Probably loading a new file. No need to take any action, but clean up the display.
+				fileContentsRaw.clear();
+				fileContentsText.setText("");
+				return;
+			}
+
 			final DirectoryEntryData de = newVal.getValue();
 			tabDescription.update(de.kvps, localizer);
 			data.update(msg.getRawDirectoryEntry(de.entry));
@@ -271,7 +290,13 @@ class Directory extends Tab
 				fileContentsRaw.update(fileData);
 				TreeItem<DirectoryEntryData> treeItem = updateInfoService.getItem();
 				DirectoryEntryData de = treeItem.getValue();
-				if (msg.isTextData(de.entry)) {
+				if (msg.isProperty(de.entry)) {
+					KVPArray<String, Integer> header = msg.getPropertiesHeader(de.entry, fileData);
+					if (header.size() > 0)
+						tabPropertiesHeader.update(header, localizer);
+					properties.update(msg.getProperties(de.entry, fileData), localizer);
+					updateTabs(tabPropertiesHeader, tabProperties);
+				} else if (msg.isTextData(de.entry)) {
 					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
 					updateTabs(tabFileContentsText);
 				} else {
@@ -406,6 +431,12 @@ class Directory extends Tab
 
 		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(PROPNAME_STRINGSTREAM_LABEL), localizer.getText(PROPNAME_STRINGSTREAM_OFFSET_HEADER), localizer.getText(PROPNAME_STRINGSTREAM_STRING_HEADER));
 		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(PROPNAME_ENTRY_LABEL), localizer.getText(PROPNAME_ENTRY_KEY_HEADER), localizer.getText(PROPNAME_ENTRY_VALUE_HEADER));
+
+		tabPropertiesHeader = new KVPTableTab<String, Integer>(localizer.getText(PROPNAME_PROPERTIES_HEADER_LABEL), localizer.getText(PROPNAME_PROPERTIES_HEADER_KEY_HEADER), localizer.getText(PROPNAME_PROPERTIES_HEADER_VALUE_HEADER));
+
+		properties = new PropertyTable(localizer);
+		tabProperties = new Tab(localizer.getText(PROPNAME_PROPERTIES_FIXEDWIDTH));
+		tabProperties.setContent(properties);
 
 		filePane = new TabPane(tabFileContentsRaw);
 		filePane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
