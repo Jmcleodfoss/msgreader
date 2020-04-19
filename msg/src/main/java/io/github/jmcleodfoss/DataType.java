@@ -3,6 +3,15 @@ package io.github.jmcleodfoss.msg;
 /** The DataType class represents data types within a PST file as well as PST file properties.
 */
 abstract class DataType {
+
+	/** Property types */
+	final static int TIME = 0x0040;
+	final static int INTEGER_32 = 0x0003;
+	final static int BOOLEAN = 0x000b;
+	final static int INTEGER_64 = 0x0014;
+	final static int STRING = 0x001f;
+	final static int BINARY = 0x0102;
+
 	/** The number of bytes in an integer. */
 	static final int SIZEOF_INT = Integer.SIZE / Byte.SIZE;
 
