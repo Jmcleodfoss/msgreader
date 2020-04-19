@@ -69,8 +69,6 @@ class Directory extends Tab
 	static private final String PROPNAME_PROPERTIES_HEADER_KEY_HEADER = "properties.header.key-header";
 	static private final String PROPNAME_PROPERTIES_HEADER_VALUE_HEADER = "properties.header.value-header";
 
-	static private final String PROPNAME_PROPERTIES_FIXEDWIDTH = "properties.entries.label";
-
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
 	/** The overall pane for all directory info. Left side is the directory
@@ -120,8 +118,7 @@ class Directory extends Tab
 
 	private KVPTableTab<String, Integer> tabPropertiesHeader;
 
-	private Tab tabProperties;
-	private PropertyTable properties;
+	private PropertyTableTab tabProperties;
 
 	private TreeView<DirectoryEntryData> tree;
 
@@ -294,7 +291,7 @@ class Directory extends Tab
 					KVPArray<String, Integer> header = msg.getPropertiesHeader(de.entry, fileData);
 					if (header.size() > 0)
 						tabPropertiesHeader.update(header, localizer);
-					properties.update(msg.getProperties(de.entry, fileData), localizer);
+					tabProperties.update(msg.getProperties(de.entry, fileData), localizer);
 					updateTabs(tabPropertiesHeader, tabProperties);
 				} else if (msg.isTextData(de.entry)) {
 					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
@@ -434,9 +431,7 @@ class Directory extends Tab
 
 		tabPropertiesHeader = new KVPTableTab<String, Integer>(localizer.getText(PROPNAME_PROPERTIES_HEADER_LABEL), localizer.getText(PROPNAME_PROPERTIES_HEADER_KEY_HEADER), localizer.getText(PROPNAME_PROPERTIES_HEADER_VALUE_HEADER));
 
-		properties = new PropertyTable(localizer);
-		tabProperties = new Tab(localizer.getText(PROPNAME_PROPERTIES_FIXEDWIDTH));
-		tabProperties.setContent(properties);
+		tabProperties = new PropertyTableTab(localizer);
 
 		filePane = new TabPane(tabFileContentsRaw);
 		filePane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

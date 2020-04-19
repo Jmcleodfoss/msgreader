@@ -7,14 +7,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-class PropertyTable extends TableView<PropertyTable.PropertyRow>
+class PropertyTableTab extends Tab
 {
+	static private final String PROPNAME_PROPERTIES_LABEL = "properties.entries.label";
+
 	static private final String PROPNAME_PROPERTY_ID_HEADER = "properties.values.id-header";
 	static private final String PROPNAME_PROPERTY_TYPE_HEADER = "properties.values.type-header";
 	static private final String PROPNAME_PROPERTY_NAME_HEADER = "properties.values.name-header";
@@ -45,9 +48,11 @@ class PropertyTable extends TableView<PropertyTable.PropertyRow>
 		}
 	}
 
-	PropertyTable(LocalizedText localizer)
+	TableView<PropertyRow> table;
+
+	PropertyTableTab(LocalizedText localizer)
 	{
-		super();
+		super(localizer.getText(PROPNAME_PROPERTIES_LABEL));
 
 		TableColumn<PropertyRow, Property> colPropertyId = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_ID_HEADER));
 		colPropertyId.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
@@ -114,8 +119,10 @@ class PropertyTable extends TableView<PropertyTable.PropertyRow>
 			}
 		});
 
-		getColumns().setAll(colPropertyId, colPropertyName, colPropertyType, colPropertyFlags, colValue);
-		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		table = new TableView<PropertyRow>();
+		table.getColumns().setAll(colPropertyId, colPropertyName, colPropertyType, colPropertyFlags, colValue);
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		setContent(table);
 	}
 
 	void update (ArrayList<Property> properties, LocalizedText localizer)
@@ -123,6 +130,6 @@ class PropertyTable extends TableView<PropertyTable.PropertyRow>
 		ObservableList<PropertyRow> ol = FXCollections.observableArrayList();
 		for (Property p : properties)
 			ol.add(new PropertyRow(p));
-		setItems(ol);
+		table.setItems(ol);
 	}
 }
