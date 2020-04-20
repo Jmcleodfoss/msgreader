@@ -140,7 +140,10 @@ class Directory extends Tab
 					if (header.size() > 0)
 						tabPropertiesHeader.update(header, localizer);
 					tabProperties.update(msg.getProperties(de.entry, fileData), localizer);
-					updateTabs(tabPropertiesHeader, tabProperties);
+					if (header.size() > 0)
+						updateTabs(tabPropertiesHeader, tabProperties);
+					else
+						updateTabs(tabProperties);
 				} else if (msg.isTextData(de.entry)) {
 					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
 					updateTabs(tabFileContentsText);
@@ -308,15 +311,12 @@ class Directory extends Tab
 
 	void updateTabs(Tab... newTabs)
 	{
-		ArrayList<Tab> retain = new ArrayList<Tab>();
-		retain.add(filePane.getTabs().get(0));
+		filePane.getTabs().retainAll(filePane.getTabs().get(0));
 
 		for (Tab t: newTabs){
 			if (!filePane.getTabs().contains(t))
 				filePane.getTabs().add(t);
-			retain.add(t);
 		}
 
-		filePane.getTabs().retainAll(retain);
 	}
 }
