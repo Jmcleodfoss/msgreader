@@ -25,7 +25,6 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TabPane;
@@ -45,12 +44,6 @@ class Directory extends Tab
 
 	static private final String PROPNAME_GUIDS_INDEX_HEADER = "namedproperties.guids.index-header";
 	static private final String PROPNAME_GUIDS_GUID_HEADER = "namedproperties.guids.guid-header";
-
-	static private final String PROPNAME_NUMERICALENTRIES_LABEL = "namedproperties.numericalentries.label";
-	static private final String PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER = "namedproperties.numericalentries.name-id-header";
-
-	static private final String PROPNAME_STRINGENTRIES_LABEL = "namedproperties.stringentries.label";
-	static private final String PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER = "namedproperties.stringentries.string-offset-header";
 
 	static private final String PROPNAME_STRINGSTREAM_LABEL = "namedproperties.stringstream.label";
 	static private final String PROPNAME_STRINGSTREAM_OFFSET_HEADER = "namedproperties.stringstream.offset-header";
