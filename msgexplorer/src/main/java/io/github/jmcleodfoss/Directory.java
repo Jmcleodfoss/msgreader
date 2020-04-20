@@ -83,17 +83,11 @@ class Directory extends Tab
 	private Text fileContentsText;
 
 	private GUIDTableTab tabNamedPropertyGuids;
-
 	private NamedPropertiesTableTab tabNumericalEntries;
-
 	private NamedPropertiesTableTab tabStringEntries;
-
 	private KVPTableTab<Integer, String> tabStringStream;
-
 	private KVPTableTab<String, String> tabNamedPropertyEntries;
-
 	private KVPTableTab<String, Integer> tabPropertiesHeader;
-
 	private PropertyTableTab tabProperties;
 
 	private TreeView<DirectoryEntryData> tree;
@@ -245,13 +239,10 @@ class Directory extends Tab
 		tabFileContentsText.setContent(fileContentsText);
 
 		tabNamedPropertyGuids = new GUIDTableTab(localizer);
-
 		tabNumericalEntries = NamedPropertiesTableTab.numericalNamedPropertyEntriesTableTabFactory(localizer);
 		tabStringEntries = NamedPropertiesTableTab.stringNamedPropertyEntriesTableTabFactory(localizer);
-
 		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(PROPNAME_STRINGSTREAM_LABEL), localizer.getText(PROPNAME_STRINGSTREAM_OFFSET_HEADER), localizer.getText(PROPNAME_STRINGSTREAM_STRING_HEADER));
 		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(PROPNAME_ENTRY_LABEL), localizer.getText(PROPNAME_ENTRY_KEY_HEADER), localizer.getText(PROPNAME_ENTRY_VALUE_HEADER));
-
 		tabPropertiesHeader = new KVPTableTab<String, Integer>(localizer.getText(PROPNAME_PROPERTIES_HEADER_LABEL), localizer.getText(PROPNAME_PROPERTIES_HEADER_KEY_HEADER), localizer.getText(PROPNAME_PROPERTIES_HEADER_VALUE_HEADER));
 
 		tabProperties = new PropertyTableTab(localizer);
