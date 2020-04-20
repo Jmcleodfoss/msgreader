@@ -20,10 +20,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 class Directory extends Tab
 {
@@ -80,7 +80,7 @@ class Directory extends Tab
 	private ByteDataTable fileContentsRaw;
 
 	private Tab tabFileContentsText;
-	private Text fileContentsText;
+	private TextArea fileContentsText;
 
 	private GUIDTableTab tabNamedPropertyGuids;
 	private NamedPropertiesTableTab tabNumericalEntries;
@@ -234,7 +234,9 @@ class Directory extends Tab
 		tabFileContentsRaw = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE));
 		tabFileContentsRaw.setContent(fileContentsRaw);
 
-		fileContentsText = new Text();
+		fileContentsText = new TextArea();
+		fileContentsText.setEditable(false);
+
 		tabFileContentsText = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE));
 		tabFileContentsText.setContent(fileContentsText);
 
