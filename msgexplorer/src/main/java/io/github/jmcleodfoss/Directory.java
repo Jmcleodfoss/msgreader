@@ -33,6 +33,9 @@ class Directory extends Tab
 	static private final String PROPNAME_DIRECTORY_CONTENTS_VALUE = "DirContentValue";
 	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW = "DirContentRaw";
 
+	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE = "entry.raw.title";
+	static private final String PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE = "entry.text.title";
+
 	static private final String PROPNAME_STRINGSTREAM_LABEL = "namedproperties.stringstream.label";
 	static private final String PROPNAME_STRINGSTREAM_OFFSET_HEADER = "namedproperties.stringstream.offset-header";
 	static private final String PROPNAME_STRINGSTREAM_STRING_HEADER = "namedproperties.stringstream.string-header";
@@ -232,11 +235,11 @@ class Directory extends Tab
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		fileContentsRaw = new ByteDataTable();
-		tabFileContentsRaw = new Tab("Raw");
+		tabFileContentsRaw = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE));
 		tabFileContentsRaw.setContent(fileContentsRaw);
 
 		fileContentsText = new Text();
-		tabFileContentsText = new Tab("Text");
+		tabFileContentsText = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE));
 		tabFileContentsText.setContent(fileContentsText);
 
 		tabNamedPropertyGuids = new GUIDTableTab(localizer);
