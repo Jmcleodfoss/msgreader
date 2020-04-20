@@ -28,10 +28,12 @@ import javafx.scene.text.Text;
 class Directory extends Tab
 {
 	static private final String PROPNAME_DIRECTORY_TAB_TITLE = "Directory";
-	static private final String PROPNAME_DIRECTORY_CONTENTS_READABLE = "HumanReadable";
-	static private final String PROPNAME_DIRECTORY_CONTENTS_KEY = "Description";
-	static private final String PROPNAME_DIRECTORY_CONTENTS_VALUE = "DirContentValue";
-	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW = "DirContentRaw";
+
+	static private final String PROPNAME_HEADER_FIELDS_TITLE= "entry.header-fields.title";
+	static private final String PROPNAME_HEADER_FIELDS_KEY = "entry.header-fields.key";
+	static private final String PROPNAME_HEADER_FIELDS_VALUE = "entry.header-fields.value";
+
+	static private final String PROPNAME_HEADER_RAW_TITLE = "entry.header-raw.title";
 
 	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE = "entry.raw.title";
 	static private final String PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE = "entry.text.title";
@@ -222,13 +224,13 @@ class Directory extends Tab
 		treePane.getChildren().add(tree);
 
 		tabDescription = new KVPTableTab<String, String>(
-			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_READABLE),
-			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_KEY),
-			localizer.getText(PROPNAME_DIRECTORY_CONTENTS_VALUE));
+			localizer.getText(PROPNAME_HEADER_FIELDS_TITLE),
+			localizer.getText(PROPNAME_HEADER_FIELDS_KEY),
+			localizer.getText(PROPNAME_HEADER_FIELDS_VALUE));
 		tabDescription.update(MSG.getDirectoryEntryKeys(), localizer);
 
 		data = new ByteDataTable();
-		tabData = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW));
+		tabData = new Tab(localizer.getText(PROPNAME_HEADER_RAW_TITLE));
 		tabData.setContent(data);
 
 		contentTabs = new TabPane(tabDescription, tabData);
