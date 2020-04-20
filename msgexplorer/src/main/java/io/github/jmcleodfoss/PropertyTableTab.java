@@ -16,7 +16,7 @@ import javafx.util.Callback;
 
 class PropertyTableTab extends Tab
 {
-	static private final String PROPNAME_PROPERTIES_LABEL = "properties.entries.label";
+	static private final String PROPNAME_PROPERTIES_LABEL = "properties.values.label";
 
 	static private final String PROPNAME_PROPERTY_ID_HEADER = "properties.values.id-header";
 	static private final String PROPNAME_PROPERTY_TYPE_HEADER = "properties.values.type-header";
