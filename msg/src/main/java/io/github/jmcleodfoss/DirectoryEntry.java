@@ -568,6 +568,7 @@ public class DirectoryEntry {
 		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(nm_PropertyName, "");
 		l.add(nm_PropertyId, "");
+		l.add(nm_PropertyType, "");
 		l.add(nm_DirectoryEntryName, "");
 		l.add(nm_DirectoryEntryNameLength, "");
 		l.add(nm_ObjectType, "");
