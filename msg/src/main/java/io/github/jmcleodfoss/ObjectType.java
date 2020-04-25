@@ -1,13 +1,25 @@
 package io.github.jmcleodfoss.msg;
 
+/* The ObjectType class represents a CFB entry object type; it can be any of { Unknown, Storage, Stream, Root Storage. }
+ * @see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
+ */
 class ObjectType {
+	/** The object type for Unknown or Unallocated entries. */
 	static final byte UNKNOWN = 0x00;
+
+	/** The object type for Storage Objects */
 	static final byte STORAGE = 0x01;
+
+	/** The object type for Stream Objects */
 	static final byte STREAM = 0x02;
+
+	/** The object type for Root Storage Objects */
 	static final byte ROOT_STORAGE = 0x05;
 
+	/** The actual object type. */
 	private final byte type;
 
+	/* Construct an ObjectType from the given byte read out of a directory entry block. */
 	ObjectType(byte type)
 	{
 		if (type != UNKNOWN && type != STORAGE && type != STREAM && type != ROOT_STORAGE)
@@ -40,6 +52,9 @@ class ObjectType {
 		return type == STREAM;
 	}
 
+	/** Create a String value describing this object type.
+	*	@return	A String containing a description of this object type.
+	*/
 	public String toString()
 	{
 		switch (type){
