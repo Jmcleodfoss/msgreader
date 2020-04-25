@@ -16,6 +16,30 @@ class ObjectType {
 		this.type = type;
 	}
 
+	/** Is the a Root Storage Object?
+	*	@return	true if this is a Root Storage Object, false otherwise.
+	*/
+	boolean isRootStorage()
+	{
+		return type == ROOT_STORAGE;
+	}
+
+	/** Is the a Storage Object?
+	*	@return	true if this is a Storage Object, false otherwise.
+	*/
+	boolean isStorage()
+	{
+		return type == STORAGE;
+	}
+
+	/** Is the a Stream Object?
+	*	@return	true if this is a Stream Object, false otherwise.
+	*/
+	boolean isStream()
+	{
+		return type == STREAM;
+	}
+
 	public String toString()
 	{
 		switch (type){

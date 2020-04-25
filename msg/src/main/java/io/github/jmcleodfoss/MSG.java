@@ -159,6 +159,33 @@ public class MSG
 		return de.properties(data, directory.parents.get(de), namedProperties);
 	}
 
+	/** Is the directory entry for the given index a Root Storage Object?
+	*	@param	The directory entry index.
+	*	@return	true if this entry is a Root Storage Object, false otherwise.
+	*/
+	public boolean isRootStorageObject(int index)
+	{
+		return directory.entries.get(index).objectType.isRootStorage();
+	}
+
+	/** Is the directory entry for the given index a Storage Object?
+	*	@param	The directory entry index.
+	*	@return	true if this entry is a Storage Object, false otherwise.
+	*/
+	public boolean isStorageObject(int index)
+	{
+		return directory.entries.get(index).objectType.isStorage();
+	}
+
+	/** Is the directory entry for the given index a Stream Object?
+	*	@param	The directory entry index.
+	*	@return	true if this entry is a Stream Object, false otherwise.
+	*/
+	public boolean isStreamObject(int index)
+	{
+		return directory.entries.get(index).objectType.isStream();
+	}
+
 	/** Get the directory entry keys (this allows a table for display to
 	*   be set up with the correct number of entries before we have any data)
 	*	@return	A list of keys and values in the same order as
