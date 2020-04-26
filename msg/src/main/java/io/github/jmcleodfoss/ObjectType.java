@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/* The ObjectType class represents a CFB entry object type; it can be any of { Unknown, Storage, Stream, Root Storage. }
+/** The ObjectType class represents a CFB entry object type; it can be any of { Unknown, Storage, Stream, Root Storage. }
  * @see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
  */
 class ObjectType {
