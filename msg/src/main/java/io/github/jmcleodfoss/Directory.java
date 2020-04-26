@@ -1,6 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
-/** The directory structure in the CFB. */
+/** The directory structure in the CFB.
+ *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
+ */
 class Directory {
 
 	/** The directory entries. */
