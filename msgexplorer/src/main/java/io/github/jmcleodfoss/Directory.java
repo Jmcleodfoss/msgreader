@@ -4,9 +4,14 @@ import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.KVPArray;
 import io.github.jmcleodfoss.msg.MSG;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -14,16 +19,24 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 class Directory extends Tab
 {
@@ -49,6 +62,17 @@ class Directory extends Tab
 	static private final String PROPNAME_PROPERTIES_HEADER_LABEL = "properties.header.label";
 	static private final String PROPNAME_PROPERTIES_HEADER_KEY_HEADER = "properties.header.key-header";
 	static private final String PROPNAME_PROPERTIES_HEADER_VALUE_HEADER = "properties.header.value-header";
+
+	static private final String PROPNAME_MENUITEM_EXPORT = "tree.contextmenu.export";
+	static private final String PROPNAME_MENUITEM_SAVE_ATTACHMENT = "tree.contextmenu.save-attachment";
+
+	static private final String PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE = "export.filechooser.title-text";
+	static private final String PROPNAME_EXPORT_FILECHOOSER_BINARY_TITLE = "export.filechooser.title-bin";
+	static private final String PROPNAME_SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE = "save.directorychooser.title";
+
+	static private final String PROPNAME_ALL_FILES = "export.filechooser.all-files";
+	static private final String PROPNAME_BIN_FILES = "export.filechooser.bin-files";
+	static private final String PROPNAME_TXT_FILES = "export.filechooser.txt-files";
 
 	/** The overall pane for all directory info. Left side is the directory
 	*   tree, and the right side is the information about the selected node
@@ -264,7 +288,98 @@ class Directory extends Tab
 		containingPane.getItems().addAll(treePane, infoPane);
 		containingPane.setDividerPositions(0.4f);
 
+		/* Export saves the stream object's contents, defaulting to using the entry's name. */
+		MenuItem export = new MenuItem(localizer.getText(PROPNAME_MENUITEM_EXPORT));
+		export.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e)
+			{
+				DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
+
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"));
+				if (msg.isTextData(de.entry)) {
+					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_TXT_FILES, "*.txt"));
+					fileChooser.setInitialFileName(de.name + ".txt");
+				} else {
+					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_BINARY_TITLE));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_BIN_FILES, "*.bin"));
+					fileChooser.setInitialFileName(de.name + ".bin");
+				}
+				File file = fileChooser.showSaveDialog(tree.getScene().getWindow());
+				if (file != null)
+					save(file, de);
+			}
+		});
+
+		MenuItem saveAttachment = new MenuItem(localizer.getText(PROPNAME_MENUITEM_SAVE_ATTACHMENT));
+		saveAttachment.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e)
+			{
+				DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
+				String filename = msg.getAttachmentName(de);
+
+				DirectoryChooser directoryChooser = new DirectoryChooser();
+				directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+				directoryChooser.setTitle(localizer.getText(PROPNAME_SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE));
+				File directory = directoryChooser.showDialog(tree.getScene().getWindow());
+				if (directory == null)
+					return;
+
+				File file = new File(directory, filename);
+				if (file.exists()){
+					String absPath = file.getAbsolutePath();
+					int extensionIndex = absPath.lastIndexOf('.');
+					String baseName = absPath.substring(0, extensionIndex);
+					String extension = absPath.substring(extensionIndex);
+
+					int i = 0;
+					do {
+						file = new File(String.format("%s (%d)%s", baseName, i++, extension));
+					} while (file.exists());
+				}
+
+				save(file, de);
+			}
+		});
+
+		final ContextMenu contextMenu = new ContextMenu();
+		contextMenu.getItems().addAll(export, saveAttachment);
+		tree.setContextMenu(contextMenu);
+
+		tree.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, new EventHandler<ContextMenuEvent>(){
+			@Override
+			public void handle(ContextMenuEvent e){
+				final DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
+				if (!msg.isStreamObject(de.entry))
+					e.consume();
+				saveAttachment.setVisible(de.name.equals("__substg1.0_37010102"));
+			}
+		});
+
 		setContent(containingPane);
+	}
+
+	void save(File file, DirectoryEntryData de)
+	{
+		try {
+			FileChannel fc = new FileOutputStream(file).getChannel();
+			fc.write(ByteBuffer.wrap(msg.getFile(de.entry)));
+			fc.close();
+		} catch (FileNotFoundException ex){
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setHeaderText("File not found");
+			alert.setContentText(String.format("File \"%s\" was not found", file.getAbsolutePath()));
+			alert.showAndWait();
+		} catch (IOException ex){
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setHeaderText("I/O Error");
+			alert.setContentText(String.format("An I/O error was encountered when trying to write \"%s\"", file.getAbsolutePath()));
+			alert.showAndWait();
+		}
 	}
 
 	private TreeItem<DirectoryEntryData> addEntry(MSG msg, int entry)
