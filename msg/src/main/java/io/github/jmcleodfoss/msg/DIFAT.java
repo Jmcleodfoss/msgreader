@@ -117,10 +117,6 @@ class DIFAT {
 			System.exit(1);
 		}
 		try {
-			java.util.logging.Level logLevel = args.length >= 2 ? Debug.getLogLevel(args[1]) : java.util.logging.Level.OFF;
-			java.util.logging.Logger logger = java.util.logging.Logger.getLogger("io.github.jmcleodfoss.msg");
-			logger.setLevel(logLevel);
-
 			java.io.File file = new java.io.File(args[0]);
 			java.io.FileInputStream stream = new java.io.FileInputStream(file);
 			java.nio.channels.FileChannel fc = stream.getChannel();

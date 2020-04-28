@@ -3,9 +3,6 @@ package io.github.jmcleodfoss.msg;
 /** The DataDefinition class encapsulates definitions used for reading values from a data stream. */
 class DataDefinition {
 
-	/** Logger for data reading */
-	private static java.util.logging.Logger logger = Debug.getLogger("io.github.jmcleodfoss.msg.DataDefinition");
-
 	/** The name under which the data for this field is to be stored. */
 	final String name;
 
@@ -46,11 +43,8 @@ class DataDefinition {
 	throws
 		java.io.IOException
 	{
-		final boolean f_debug = logger.isLoggable(java.util.logging.Level.FINER);
-		if (description.fSave || f_debug) {
-			logger.log(java.util.logging.Level.FINEST, (description.fSave ? "read" : "skip") + " " + description);
+		if (description.fSave) {
 			final Object value = description.description.read(byteBuffer);
-			logger.log(java.util.logging.Level.FINER, (description.fSave ? "read" : "skip") + " " + description.name + ": " + description.description.makeString(value));
 			if (description.fSave)
 				data.put(description.name, value);
 		} else {
