@@ -68,18 +68,6 @@ public class ByteUtil {
 		return makeLongLE(rawData, LONG_BYTES);
 	}
 
-	/** Create a String representing a single byte in hexadecimal.
-	*	@param	b	The byte to convert to a hexadecimal string.
-	*	@return	The hexadecimal String corresponding to the given byte.
-	*/
-	public static String toHexString(final byte b)
-	{
-		StringBuilder s = new StringBuilder (2);
-		s.append(HEX_DIGIT[(b & 0xff)/16]);
-		s.append(HEX_DIGIT[(b & 0xff)%16]);
-		return s.toString();
-	}
-
 	/** This is a simplistic test for some of the functions in this class.
 	*	@param	args	The command line arguments passed to the test application (ignored).
 	*/
@@ -100,7 +88,7 @@ public class ByteUtil {
 
 		for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; ++i) {
 			byte[] ba = { (byte)i };
-			System.out.printf("%d: 0x%02x %s %s\n", i, i & 0xff, ByteUtil.toHexString((byte)i), ByteUtil.createHexByteString(ba));
+			System.out.printf("%d: 0x%02x %s %s\n", i, i & 0xff, Integer.toHexString(i), ByteUtil.createHexByteString(ba));
 		}
 	}
 }
