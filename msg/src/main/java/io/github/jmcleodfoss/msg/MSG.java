@@ -52,7 +52,7 @@ public class MSG
 		header = new Header(mbb, fc.size());
 		difat = new DIFAT(mbb, header);
 		fat = new FAT(mbb, header, difat);
-		directory = new Directory(mbb, header, fat);	
+		directory = new Directory(mbb, header, fat);
 		miniFAT = new MiniFAT(mbb, header, fat, directory);
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}

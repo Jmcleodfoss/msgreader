@@ -528,9 +528,9 @@ public class DirectoryEntry {
 		int directoryEntryNameLength = (Short)dc.get(nm_DirectoryEntryNameLength) - 1;
 		String directoryEntryName = ((String)dc.get(nm_DirectoryEntryName)).substring(0, directoryEntryNameLength/2);
 		ObjectType objectType = new ObjectType((Byte)dc.get(nm_ObjectType));
-		int leftSiblingId = (Integer)dc.get(nm_LeftSiblingId);	
-		int rightSiblingId = (Integer)dc.get(nm_RightSiblingId);	
-		int childId = (Integer)dc.get(nm_ChildId);	
+		int leftSiblingId = (Integer)dc.get(nm_LeftSiblingId);
+		int rightSiblingId = (Integer)dc.get(nm_RightSiblingId);
+		int childId = (Integer)dc.get(nm_ChildId);
 		GUID clsid = (GUID)dc.get(nm_CLSID);
 		java.util.Date creationTime = (java.util.Date)dc.get(nm_CreationTime);
 		java.util.Date modifiedTime = (java.util.Date)dc.get(nm_ModifiedTime);
@@ -539,19 +539,19 @@ public class DirectoryEntry {
 
 		java.util.regex.Matcher matcher;
 		if (ROOT_ENTRY.equals(directoryEntryName)){
-			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (NAMEID.equals(directoryEntryName)){
-			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
-			return new StringStream(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc); 
+			return new StringStream(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
 		} else if (PROPERTIES.equals(directoryEntryName)){
-			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (RECIP_PATTERN.matcher(directoryEntryName).matches()){
-			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (ATTACH_PATTERN.matcher(directoryEntryName).matches()){
-			return new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (UNALLOCATED.equals(directoryEntryName)){
-			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc); 
+			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else {
 			System.out.println(directoryEntryName);
 			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);

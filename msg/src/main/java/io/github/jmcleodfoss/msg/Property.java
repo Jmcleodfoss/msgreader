@@ -139,7 +139,7 @@ public abstract class Property
 			case DataType.BINARY:
 				return new VariableWidth(propertyTag, propertyName, "Binary", flags, bb);
 
-			case DataType.BOOLEAN: 
+			case DataType.BOOLEAN:
 				return new Boolean(propertyTag, propertyName, "Boolean", flags, bb);
 
 			case DataType.INTEGER_32:
@@ -151,7 +151,7 @@ public abstract class Property
 			case DataType.STRING:
 				return new VariableWidth(propertyTag, propertyName, "String", flags, bb);
 
-			case DataType.TIME: 
+			case DataType.TIME:
 				return new Time(propertyTag, propertyName, "Time", flags, bb);
 
 			default:

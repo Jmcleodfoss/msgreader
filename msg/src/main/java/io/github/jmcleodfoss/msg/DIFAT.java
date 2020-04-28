@@ -49,7 +49,7 @@ class DIFAT {
 	/** Create the list of DIFAT entries
 	*   @param	mbb	The data stream
 	*   @param	header	The CBF header structur
-	*/ 
+	*/
 	DIFAT(java.nio.MappedByteBuffer mbb, Header header)
 	{
 		// First index in a DIFAT sector is the DIFAT signature

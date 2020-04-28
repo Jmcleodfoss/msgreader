@@ -222,7 +222,7 @@ class NamedProperties
 			Header header = new Header(mbb, fc.size());
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);	
+			Directory directory = new Directory(mbb, header, fat);
 			MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
 			NamedProperties namedPropertiesMapping = new NamedProperties(mbb, header, fat, directory, miniFAT);
 
@@ -250,7 +250,7 @@ class NamedProperties
 			System.out.println();
 			System.out.println("Entries");
 			for (int i = 0; i < namedPropertiesMapping.propertyNameMappings.length; ++i)
-				System.out.printf("%s GUID %s\n", 
+				System.out.printf("%s GUID %s\n",
 					namedPropertiesMapping.propertyNameMappings[i],
 					namedPropertiesMapping.indexToGUID(namedPropertiesMapping.propertyNameMappings[i].guidIndex)
 					);

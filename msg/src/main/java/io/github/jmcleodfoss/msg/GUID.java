@@ -155,7 +155,7 @@ class GUID {
 	@Override
 	public String toString()
 	{
-		final int[] blockOffsets = {4, 6, 8, 10, SIZE}; 
+		final int[] blockOffsets = {4, 6, 8, 10, SIZE};
 		String s = new String("");
 
 		int i = 0;
@@ -163,7 +163,7 @@ class GUID {
 			if (b > 0)
 				s += "-";
 
-			for (; i < blockOffsets[b]; ++i) 
+			for (; i < blockOffsets[b]; ++i)
 				s += String.format("%02x", guid[i] & 0xff);
 		}
 

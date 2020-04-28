@@ -84,7 +84,7 @@ class FAT {
 	* 	@param	mbb	The data stream
 	* 	@param	header	The CBF header structure
 	* 	@param	difat	The double-indirect file allocation table structure.
-	*/ 
+	*/
 	FAT(java.nio.MappedByteBuffer mbb, Header header, DIFAT difat)
 	{
 		// First index in a FAT sector is the FAT signature

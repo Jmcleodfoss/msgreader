@@ -40,7 +40,7 @@ class DataWithIndexAndKind
 			pt = "String named property";
 		else
 			pt = "Unknown named property";
-		return String.format("0x%08x property index 0x%04x GUID index 0x%04x %s", 
+		return String.format("0x%08x property index 0x%04x GUID index 0x%04x %s",
 			nameIdentifierOrStringOffset, propertyIndex, guidIndex, pt);
 	}
 }

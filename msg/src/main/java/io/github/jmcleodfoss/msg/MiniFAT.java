@@ -59,7 +59,7 @@ class MiniFAT {
 	* 	@param	header	The CBF header structure
 	* 	@param	fat	The file allocation table structure
 	* 	@param	directory	The directory for this file
-	*/ 
+	*/
 	MiniFAT(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory)
 	{
 		sectorSize = header.sectorSize;

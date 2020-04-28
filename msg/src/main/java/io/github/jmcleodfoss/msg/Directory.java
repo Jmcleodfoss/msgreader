@@ -131,7 +131,7 @@ class Directory {
 			Header header = new Header(mbb, fc.size());
 			DIFAT difat = new DIFAT(mbb, header);
 			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);	
+			Directory directory = new Directory(mbb, header, fat);
 
 			java.util.Iterator<DirectoryEntry> iterator = directory.iterator();
 			int i = 0;
