@@ -69,6 +69,7 @@ public class MSG
 
 	/** Create a string representation of the given bytes, assumed to be
 	*   file content
+	*	@param	entry	The index of the entry to convert the data for.
 	*	@param	data	The file contents
 	*	@return	A string showing the file contents. This will be hex
 	*		bytes if the field is not text.
@@ -173,7 +174,7 @@ public class MSG
 	}
 
 	/** Is the directory entry for the given index a Root Storage Object?
-	*	@param	The directory entry index.
+	*	@param	index	The directory entry index.
 	*	@return	true if this entry is a Root Storage Object, false otherwise.
 	*/
 	public boolean isRootStorageObject(int index)
@@ -182,7 +183,7 @@ public class MSG
 	}
 
 	/** Is the directory entry for the given index a Storage Object?
-	*	@param	The directory entry index.
+	*	@param	index	The directory entry index.
 	*	@return	true if this entry is a Storage Object, false otherwise.
 	*/
 	public boolean isStorageObject(int index)
@@ -191,7 +192,7 @@ public class MSG
 	}
 
 	/** Is the directory entry for the given index a Stream Object?
-	*	@param	The directory entry index.
+	*	@param	index	The directory entry index.
 	*	@return	true if this entry is a Stream Object, false otherwise.
 	*/
 	public boolean isStreamObject(int index)
