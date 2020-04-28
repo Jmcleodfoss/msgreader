@@ -1,8 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/** Expose data from DataWithIndexAndKind objects to client applications
- *
- */
+/** Expose data from DataWithIndexAndKind objects to client applications */
 public class NamedPropertyEntry {
 	public final int nameIdentifierOrStringOffset;
 	public final short propertyIndex;

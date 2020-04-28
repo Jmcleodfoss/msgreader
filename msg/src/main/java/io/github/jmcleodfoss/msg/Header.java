@@ -1,7 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Header object is the CFB header.
-*
 * 	MS-CFB Section 2.2, Compound File Header
 */
 class Header {

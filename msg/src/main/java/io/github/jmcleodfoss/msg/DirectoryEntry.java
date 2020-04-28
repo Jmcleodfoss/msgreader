@@ -1,7 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Directory Entry object contains a Compound File Directory Sector
-*
 * 	MS-CFB Section 2.6, Compound File Directory Sectors
 */
 public class DirectoryEntry {

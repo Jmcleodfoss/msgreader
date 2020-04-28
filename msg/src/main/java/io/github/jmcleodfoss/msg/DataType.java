@@ -1,7 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/** The DataType class represents data types within a PST file as well as PST file properties.
-*/
+/** The DataType class represents data types within a PST file as well as PST file properties. */
 abstract class DataType {
 
 	/** Property types */

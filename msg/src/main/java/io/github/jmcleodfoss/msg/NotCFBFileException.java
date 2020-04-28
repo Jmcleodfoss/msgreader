@@ -1,7 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/**	The NotCFBFileException is thrown when the first eight bytes of the file are not the CFB file signature bytes.
-*/
+/** The NotCFBFileException is thrown when the first eight bytes of the file are not the CFB file signature bytes.  */
 public class NotCFBFileException extends Exception {
 
 	/**	The serialVersionUID is required because the base class is serializable. */
