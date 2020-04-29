@@ -1,16 +1,22 @@
 package io.github.jmcleodfoss.msg;
 
-/** The Double-Indirect File Allocation Table */
+/** The Double-Indirect File Allocation Table
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/0afa4e43-b18f-432a-9917-4f276eca7a73">MS-CFB Section 2.5: Compound File DIFAT Sectors</a>
+*/
 class DIFAT {
 
-	/** Offset of DIFAT entries in the header (in terms of ints). */
+	/** Offset of DIFAT entries in the header (in terms of ints).
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	private static final int HEADER_DIFAT_OFFSET = 0x004c / DataType.SIZEOF_INT;
 
-	/** The number of DIFAT entries in the header. */
+	/** The number of DIFAT entries in the header.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	private static final int HEADER_DIFAT_ENTRIES = 109;
 
 	/** The number of DIFAT sectors (from the header)
-	*	@see	Header.numberOfDIFATSectors
+	*	@see	Header#numberOfDIFATSectors
 	*/
 	private final int numEntries;
 
@@ -101,7 +107,9 @@ class DIFAT {
 		return l;
 	}
 
-	/** Get an iterator for this DIFAT */
+	/** Get an iterator for this DIFAT
+	*	@return	An iterator through the DIFAT entries.
+	*/
 	java.util.Iterator<Integer> iterator()
 	{
 		return new Iterator();
