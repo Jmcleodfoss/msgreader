@@ -1,11 +1,13 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Header object is the CFB header.
-* 	MS-CFB Section 2.2, Compound File Header
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 */
 class Header {
 
-	/* The keys used to retrieve data from the DataContainer */
+	/* The keys used to retrieve data from the DataContainer
+	*	@see DataContainer
+	*/
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
 	private static final String nm_MinorVersion = "MinorVersion";
@@ -23,7 +25,14 @@ class Header {
 	private static final String nm_FirstDIFATSectorLocation = "FirstDIFATSectorLocation";
 	private static final String nm_NumberOfDIFATSectors = "NumberOfDIFATSectors";
 
-	/** The fields in a CFB header object. */
+	/** The fields in a CFB header object.
+	*	@see DataDefinition
+	*	@see DataType#classIdReader
+	*	@see DataType#integer16Reader
+	*	@see DataType#integer32Reader
+	*	@see DataType#integer64Reader
+	*	@see DataType.SizedByteArray
+	*/
 	private static final DataDefinition[] header_fields = {
 		new DataDefinition(nm_qwHeaderSignature, DataType.integer64Reader, true),
 		new DataDefinition(nm_HeaderCLSID, DataType.classIdReader, true),
@@ -87,6 +96,7 @@ class Header {
 
 	/** Read in the header data and save the fields we need for later.
 	*	@param	byteBuffer	The data stream from which to read the PST header.
+	*	@param	fileSize	The length of the file
 	*	@throws	NotCFBFileException	This is not a cfb file.
 	*	@throws	java.io.IOException	An I/O error was encountered when reading the msg header.
 	*/
@@ -116,6 +126,7 @@ class Header {
 
 	/** Make header data available to client applications
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
+	*	@see KVPArray
 	*/
 	KVPArray<String, String> data()
 	{
