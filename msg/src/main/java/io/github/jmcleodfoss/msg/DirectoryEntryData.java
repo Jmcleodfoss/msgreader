@@ -1,6 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
-/** This class is used to publish directory entry info to a client application */
+/** This class is used to publish directory entry info to a client application
+*	@see DirectoryEntry
+*/
 public class DirectoryEntryData {
 
 	/** The directory entry index */
@@ -18,12 +20,13 @@ public class DirectoryEntryData {
 	/** The entry's starting sector */
 	public final int startingSector;
 
-	/** All directory information */
+	/** All directory information for this entry */
 	public final KVPArray<String, String> kvps;
 
 	/** Create the external data object for the given directory entry
 	*	@param	directory	The Directory object the entry is from
 	*	@param	entry	The index of the directory entry to retreive
+	*	@param	namedProperties	The file's NamedProperties object to look up non-standard properties
 	*/
 	DirectoryEntryData(Directory directory, int entry, NamedProperties namedProperties)
 	{
