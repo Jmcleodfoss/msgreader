@@ -16,11 +16,6 @@ public abstract class Property
 		this.flags = flags;
 	}
 
-	public String type()
-	{
-		return propertyType;
-	}
-
 	public abstract String value();
 
 	private static class Boolean extends Property
