@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/* An entry from the Entry Stream, used in the entry stream of the property ID to property name mapping, and the property name to property ID mapping streams.
+/** An entry from the Entry Stream, used in the entry stream of the property ID to property name mapping, and the property name to property ID mapping streams.
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/81159dd0-649e-4491-b216-877008b23f65">MS-OXMSG Section 2.2.3.1.2: Entry Stream</a>
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/a84c08f9-c93b-4620-9c96-5314c6fa3ccc">MS-OXMSG Section 2.2.3.2.4: Obtaining Stream Data</a>
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/abdc1a7d-5a44-4bb2-aa35-b241e4a3f0d9">MS-OXMSG Section 2.2.3.1.2.1: Index and Kind Information</a>
