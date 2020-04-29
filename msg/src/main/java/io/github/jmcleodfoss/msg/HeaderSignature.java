@@ -18,8 +18,6 @@ class HeaderSignature {
 		NotCFBFileException
 	{
 		if (signature != SIGNATURE){
-			java.util.logging.Logger logger = java.util.logging.Logger.getLogger("io.github.jmcleodfoss.msg");
-			logger.log(java.util.logging.Level.SEVERE, String.format("file signature expected %x found %x\n", SIGNATURE, signature));
 			throw new NotCFBFileException();
 		}
 	}
