@@ -23,6 +23,10 @@ public class EntryStreamEntryData {
 	*/
 	public final short guidIndex;
 
+	/** Create an EntryStreamEntryData object from the corresponding entry.
+	*	@param	entry	The EntryStreamEntry object to expose
+	*	@see EntryStreamEntry
+	*/
 	EntryStreamEntryData(EntryStreamEntry entry)
 	{
 		this.nameIdentifierOrStringOffset = entry.nameIdentifierOrStringOffset;
