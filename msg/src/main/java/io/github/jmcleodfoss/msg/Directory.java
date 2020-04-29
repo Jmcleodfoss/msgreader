@@ -45,7 +45,7 @@ class Directory {
 	*	@param	siblings	The list of children of childIndex's parent
 	*	@param	childIndex	The given child for the parent we are collecting the children of.
 	*/
-	void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
+	private void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
 	{
 		DirectoryEntry child = entries.get(childIndex);
 		if (child.leftSiblingId != Sector.FREESECT)
