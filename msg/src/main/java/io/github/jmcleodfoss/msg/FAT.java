@@ -1,9 +1,11 @@
 package io.github.jmcleodfoss.msg;
 
-/** The File Allocation Table */
+/** The File Allocation Table (FAT)
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/30e1013a-a0ff-4404-9ccf-d75d835ff404">MS-CFB Section 2,3: Compound File FAT Sectors</a>
+*/
 class FAT {
 	/** The number of FAT entries
-	*	@see	Header.numberOfFATSectors
+	*	@see	Header#numberOfFATSectors
 	*/
 	final private int numEntries;
 
@@ -19,7 +21,9 @@ class FAT {
 		/** The next entry to be returned. */
 		private int entry;
 
-		/** Initialize the iterator through the FAT sector chains */
+		/** Initialize the iterator through the FAT sector chains
+		*	@param	firstSector	The first sector for the file's FAT
+		*/
 		ChainIterator(int firstSector)
 		{
 			entry = firstSector;
@@ -116,13 +120,18 @@ class FAT {
 		}
 	}
 
-	/** Get an iterator for this FAT */
+	/** Get an iterator for this file's FAT
+	*	@param	firstSector	The first sector for the file's FAT
+	*	@return	An Iterator through the FAT sectors
+	*/
 	java.util.Iterator<Integer> chainIterator(int firstSector)
 	{
 		return new ChainIterator(firstSector);
 	}
 
-	/** Get an iterator for free sectors in this FAT */
+	/** Get an iterator for free sectors in this file's FAT
+	*	@return	An iterator through the free sectors in this file's FAT
+	*/
 	java.util.Iterator<Integer> freeSectorIterator()
 	{
 		return new FreeSectorIterator();
@@ -165,8 +174,8 @@ class FAT {
 		return chains;
 	}
 
-	/** Get a String representation of all the sector chains in the FAT,
-	*   one chain per line.
+	/** Get a String representation of all the sector chains in the FAT, one chain per line.
+	*	@return	A string listing all the chains in the FAT
 	*/
 	public String getChains()
 	{
