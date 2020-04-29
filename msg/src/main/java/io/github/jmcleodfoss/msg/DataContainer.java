@@ -31,19 +31,6 @@ class DataContainer extends java.util.IdentityHashMap<String, Object> {
 			DataDefinition.read(d, byteBuffer, this);
 	}
 
-	/** Read in all descriptions from the given data stream.
-	*	@param	byteBuffer	The input stream from which to read the data.
-	*	@param	description	The list of descriptions of data to be read.
-	*	@throws	java.io.IOException	An I/O problem was encountered while reading in the requested data.
-	*/
-	void read(java.nio.ByteBuffer byteBuffer, final DataDefinition[]... description)
-	throws
-		java.io.IOException
-	{
-		for (DataDefinition[] d : description)
-			read(byteBuffer, d);
-	}
-
 	/** Format and return a human-readable representation of this
 	*   DataContainer with the property names and hex byte strings for each.
 	*	@return	A String showing the contents of this DataContainer object.
