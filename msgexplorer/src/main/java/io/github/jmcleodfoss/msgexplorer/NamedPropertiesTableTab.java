@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msgexplorer;
 
-import io.github.jmcleodfoss.msg.NamedPropertyEntry;
+import io.github.jmcleodfoss.msg.EntryStreamEntryData;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -25,25 +25,25 @@ class NamedPropertiesTableTab extends Tab
 	static private final String PROPNAME_SNENTRIES_GUID_INDEX_HEADER = "namedproperties.snentries.guid-index";
 
 	public class NamedPropertyRow {
-		private ObjectProperty<NamedPropertyEntry> namedPropertyEntry;
-		public ObjectProperty<NamedPropertyEntry> getNamedPropertyEntryProperty()
+		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
+		public ObjectProperty<EntryStreamEntryData> getEntryStreamEntryDataProperty()
 		{
 			if (namedPropertyEntry == null)
-				namedPropertyEntry = new SimpleObjectProperty<NamedPropertyEntry>(this, "namedPropertyEntry");
+				namedPropertyEntry = new SimpleObjectProperty<EntryStreamEntryData>(this, "namedPropertyEntry");
 			return namedPropertyEntry;
 		}
-		public NamedPropertyEntry getNamedPropertyEntry()
+		public EntryStreamEntryData getEntryStreamEntryData()
 		{
-			return getNamedPropertyEntryProperty().get();
+			return getEntryStreamEntryDataProperty().get();
 		}
-		public void setNamedPropertyEntry(NamedPropertyEntry namedPropertyEntry)
+		public void setEntryStreamEntryData(EntryStreamEntryData namedPropertyEntry)
 		{
-			getNamedPropertyEntryProperty().set(namedPropertyEntry);
+			getEntryStreamEntryDataProperty().set(namedPropertyEntry);
 		}
 
-		NamedPropertyRow(NamedPropertyEntry namedPropertyEntry)
+		NamedPropertyRow(EntryStreamEntryData namedPropertyEntry)
 		{
-			setNamedPropertyEntry(namedPropertyEntry);
+			setEntryStreamEntryData(namedPropertyEntry);
 		}
 	}
 
@@ -53,12 +53,12 @@ class NamedPropertiesTableTab extends Tab
 		{
 			super();
 
-			TableColumn<NamedPropertyRow, NamedPropertyEntry> colNameIdOrStringOffset = new TableColumn<NamedPropertyRow, NamedPropertyEntry>(localizer.getText(propColHeaderNameIdOrStringOffset));
-			colNameIdOrStringOffset.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, NamedPropertyEntry>("namedPropertyEntry"));
-			colNameIdOrStringOffset.setCellFactory(new Callback<TableColumn<NamedPropertyRow, NamedPropertyEntry>, TableCell<NamedPropertyRow, NamedPropertyEntry>>(){
-				@Override public TableCell<NamedPropertyRow, NamedPropertyEntry> call(TableColumn<NamedPropertyRow, NamedPropertyEntry> column){
-					return new TableCell<NamedPropertyRow, NamedPropertyEntry>(){
-						@Override protected void updateItem(NamedPropertyEntry item, boolean empty){
+			TableColumn<NamedPropertyRow, EntryStreamEntryData> colNameIdOrStringOffset = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(propColHeaderNameIdOrStringOffset));
+			colNameIdOrStringOffset.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, EntryStreamEntryData>("namedPropertyEntry"));
+			colNameIdOrStringOffset.setCellFactory(new Callback<TableColumn<NamedPropertyRow, EntryStreamEntryData>, TableCell<NamedPropertyRow, EntryStreamEntryData>>(){
+				@Override public TableCell<NamedPropertyRow, EntryStreamEntryData> call(TableColumn<NamedPropertyRow, EntryStreamEntryData> column){
+					return new TableCell<NamedPropertyRow, EntryStreamEntryData>(){
+						@Override protected void updateItem(EntryStreamEntryData item, boolean empty){
 							super.updateItem(item, empty);
 							setText(item == null ? "" : String.format(fmtNameIdOrStringOffset, item.nameIdentifierOrStringOffset));
 						}
@@ -66,12 +66,12 @@ class NamedPropertiesTableTab extends Tab
 				}
 			});
 
-			TableColumn<NamedPropertyRow, NamedPropertyEntry> colPropertyIndex = new TableColumn<NamedPropertyRow, NamedPropertyEntry>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
-			colPropertyIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, NamedPropertyEntry>("namedPropertyEntry"));
-			colPropertyIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, NamedPropertyEntry>, TableCell<NamedPropertyRow, NamedPropertyEntry>>(){
-				@Override public TableCell<NamedPropertyRow, NamedPropertyEntry> call(TableColumn<NamedPropertyRow, NamedPropertyEntry> column){
-					return new TableCell<NamedPropertyRow, NamedPropertyEntry>(){
-						@Override protected void updateItem(NamedPropertyEntry item, boolean empty){
+			TableColumn<NamedPropertyRow, EntryStreamEntryData> colPropertyIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
+			colPropertyIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, EntryStreamEntryData>("namedPropertyEntry"));
+			colPropertyIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, EntryStreamEntryData>, TableCell<NamedPropertyRow, EntryStreamEntryData>>(){
+				@Override public TableCell<NamedPropertyRow, EntryStreamEntryData> call(TableColumn<NamedPropertyRow, EntryStreamEntryData> column){
+					return new TableCell<NamedPropertyRow, EntryStreamEntryData>(){
+						@Override protected void updateItem(EntryStreamEntryData item, boolean empty){
 							super.updateItem(item, empty);
 							setText(item == null ? "" : Integer.toString(item.propertyIndex));
 						}
@@ -79,12 +79,12 @@ class NamedPropertiesTableTab extends Tab
 				}
 			});
 
-			TableColumn<NamedPropertyRow, NamedPropertyEntry> colGuidIndex = new TableColumn<NamedPropertyRow, NamedPropertyEntry>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
-			colGuidIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, NamedPropertyEntry>("namedPropertyEntry"));
-			colGuidIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, NamedPropertyEntry>, TableCell<NamedPropertyRow, NamedPropertyEntry>>(){
-				@Override public TableCell<NamedPropertyRow, NamedPropertyEntry> call(TableColumn<NamedPropertyRow, NamedPropertyEntry> column){
-					return new TableCell<NamedPropertyRow, NamedPropertyEntry>(){
-						@Override protected void updateItem(NamedPropertyEntry item, boolean empty){
+			TableColumn<NamedPropertyRow, EntryStreamEntryData> colGuidIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
+			colGuidIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, EntryStreamEntryData>("namedPropertyEntry"));
+			colGuidIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, EntryStreamEntryData>, TableCell<NamedPropertyRow, EntryStreamEntryData>>(){
+				@Override public TableCell<NamedPropertyRow, EntryStreamEntryData> call(TableColumn<NamedPropertyRow, EntryStreamEntryData> column){
+					return new TableCell<NamedPropertyRow, EntryStreamEntryData>(){
+						@Override protected void updateItem(EntryStreamEntryData item, boolean empty){
 							super.updateItem(item, empty);
 							setText(item == null ? "" : Integer.toString(item.guidIndex));
 						}
@@ -106,11 +106,11 @@ class NamedPropertiesTableTab extends Tab
 		setContent(table);
 	}
 
-	void update(java.util.ArrayList<NamedPropertyEntry> al)
+	void update(java.util.ArrayList<EntryStreamEntryData> al)
 	{
 		ObservableList<NamedPropertyRow> ol = FXCollections.observableArrayList();
-		for (java.util.Iterator<NamedPropertyEntry> iter = al.iterator(); iter.hasNext(); ){
-			NamedPropertyEntry item = iter.next();
+		for (java.util.Iterator<EntryStreamEntryData> iter = al.iterator(); iter.hasNext(); ){
+			EntryStreamEntryData item = iter.next();
 			ol.add(new NamedPropertyRow(item));
 		}
 		table.setItems(ol);

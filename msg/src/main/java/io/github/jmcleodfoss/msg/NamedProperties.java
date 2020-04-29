@@ -75,15 +75,15 @@ class NamedProperties
 
 	/** Get the numerical or string entry contents of the Entry Stream
 	*	@param	propertyType	The type of entry to return.
-	*	@return	An array of NamedPropertyEntry objects for the numerical named properties.
+	*	@return	An array of EntryStreamEntryData objects for the numerical named properties.
 	*/
-	java.util.ArrayList<NamedPropertyEntry> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
+	java.util.ArrayList<EntryStreamEntryData> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
 	{
-		java.util.ArrayList<NamedPropertyEntry> npEntries = new java.util.ArrayList<NamedPropertyEntry>();
+		java.util.ArrayList<EntryStreamEntryData> npEntries = new java.util.ArrayList<EntryStreamEntryData>();
 		for (EntryStreamEntry item: entries){
 			if (item.propertyType != propertyType)
 				continue;
-			npEntries.add(new NamedPropertyEntry(item. nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
+			npEntries.add(new EntryStreamEntryData(item. nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
 		}
 		return npEntries;
 	}

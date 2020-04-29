@@ -182,7 +182,7 @@ class Directory extends Tab
 					} else if (isStringStream(treeItem)) {
 						tabStringStream.update(msg.namedPropertiesStrings(), localizer);
 						updateTabs(tabStringStream);
-					} else if (isNamedPropertyEntry(treeItem)) {
+					} else if (isEntryStreamEntryData(treeItem)) {
 						int i = 0;
 						TreeItem<DirectoryEntryData> item = treeItem.previousSibling();
 						while (item != null) {
@@ -394,15 +394,15 @@ class Directory extends Tab
 
 	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isNamedPropertyEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
+		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
 	}
 
 	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isNamedPropertyEntry(item) && item.previousSibling() == null;
+		return isEntryStreamEntryData(item) && item.previousSibling() == null;
 	}
 
-	private boolean isNamedPropertyEntry(TreeItem<DirectoryEntryData> item)
+	private boolean isEntryStreamEntryData(TreeItem<DirectoryEntryData> item)
 	{
 		if (item == null)
 			return false;
@@ -414,7 +414,7 @@ class Directory extends Tab
 
 	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isNamedPropertyEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
+		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
 	}
 
 	void update(MSG msg, LocalizedText localizer)
