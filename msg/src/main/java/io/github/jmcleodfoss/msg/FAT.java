@@ -16,7 +16,7 @@ class FAT {
 	final private int[] fat;
 
 	/** Iterator for FAT index entry chains */
-	class ChainIterator implements java.util.Iterator<Integer> {
+	private class ChainIterator implements java.util.Iterator<Integer> {
 
 		/** The next entry to be returned. */
 		private int entry;
@@ -24,7 +24,7 @@ class FAT {
 		/** Initialize the iterator through the FAT sector chains
 		*	@param	firstSector	The first sector for the file's FAT
 		*/
-		ChainIterator(int firstSector)
+		private ChainIterator(int firstSector)
 		{
 			entry = firstSector;
 		}
@@ -50,13 +50,13 @@ class FAT {
 	}
 
 	/** Iterator for free FAT entries */
-	class FreeSectorIterator implements java.util.Iterator<Integer> {
+	private class FreeSectorIterator implements java.util.Iterator<Integer> {
 
 		/** The next entry to be returned. */
 		private int entry;
 
 		/** Create an iterator over the free sectors */
-		FreeSectorIterator()
+		private FreeSectorIterator()
 		{
 			while (entry < numSectors && fat[entry] != Sector.FREESECT)
 				entry++;
