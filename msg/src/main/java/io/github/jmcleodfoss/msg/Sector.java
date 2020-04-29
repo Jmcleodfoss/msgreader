@@ -1,37 +1,37 @@
 package io.github.jmcleodfoss.msg;
 
 /** Constants and classes for dealing with sectors
-*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 */
 class Sector {
 
 	/** The maximum regular sector index
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	private static final int MAXREGSEC = 0xfffffffa;
 
 	/** A reserved sector
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	private static final int RESERVED = 0xfffffffb;
 
 	/** A DIFAT (Double Indirect File Allocation Table) sector
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	static final int DIFSECT = 0xfffffffc;
 
 	/** A FAT (File Allocation Table) sector
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	static final int FATSECT = 0xfffffffd;
 
 	/** The end of a chain of sectors
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	static final int ENDOFCHAIN = 0xfffffffe;
 
 	/** A free (unused) sector
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2,1: Compound Sector Numbers and Types</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 	*/
 	static final int FREESECT = 0xffffffff;
 
