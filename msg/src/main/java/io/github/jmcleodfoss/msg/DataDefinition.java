@@ -4,10 +4,10 @@ package io.github.jmcleodfoss.msg;
 class DataDefinition {
 
 	/** The name under which the data for this field is to be stored. */
-	final String name;
+	private final String name;
 
 	/** An object describing how to read and display the data for this field. */
-	final DataType description;
+	private final DataType description;
 
 	/** Whether the data should be saved or discarded. */
 	private final boolean fSave;
@@ -56,7 +56,7 @@ class DataDefinition {
 	*	@param	data	The list of data definitions describing the data for which to return the size.
 	*	@return	The size, in bytes, of the data described by the given data description array.
 	*/
-	public static int size(final DataDefinition[] data)
+	static int size(final DataDefinition[] data)
 	{
 		int s = 0;
 		for (final DataDefinition d : data)
