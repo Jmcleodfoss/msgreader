@@ -15,9 +15,9 @@ class Directory {
 	java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
 	/** Construct a directory object.
-	*	@param	bytebuffer	The CFB file
+	*	@param	byteBuffer	The CFB file
 	*	@param	header		The CFB header
-	*	@param	FAT		The CFB file allocation table
+	*	@param	fat		The CFB file allocation table
 	*	@throws	java.io.IOException	An error was encountered reading the directory structure.
 	*/
 	Directory(java.nio.ByteBuffer byteBuffer, Header header, FAT fat)
@@ -57,7 +57,7 @@ class Directory {
 
 	/** Get the sibling of the given entry index which has the specified property.
 	*	@param	entry		The entry to find the sibling of
-	*	@param	siblingProperty	The property ID of the sibling to look for
+	*	@param	filename	The name of the sibling to look for
 	*	@return	The requested sibling, if found. null if the sibling was not found.
 	*/
 	DirectoryEntry getSiblingByName(DirectoryEntry entry, String filename)
@@ -87,7 +87,9 @@ class Directory {
 		return children;
 	}
 
-	/** Get an iterator through the directory entries. */
+	/** Get an iterator through the directory entries.
+	*	@return	An iterator through the directory entries
+	*/
 	java.util.Iterator<DirectoryEntry> iterator()
 	{
 		return entries.iterator();
