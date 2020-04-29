@@ -13,7 +13,7 @@ class NamedProperties
 	private static final String ENTRY_STREAM_NAME = "__substg1.0_00030102";
 
 	/** The list of entries */
-	private DataWithIndexAndKind[] entries;
+	private EntryStreamEntry[] entries;
 
 	/** The number of numeric named property entries */
 	private int numNumericalNamedProperties;
@@ -28,7 +28,7 @@ class NamedProperties
 	java.util.ArrayList<String> strings;
 
 	/** The property ID to name mapping array */
-	private DataWithIndexAndKind[] propertyNameMappings;
+	private EntryStreamEntry[] propertyNameMappings;
 
 	/** Read in the named properties information
 	*	@param	mbb	The CFB file to read from
@@ -45,7 +45,7 @@ class NamedProperties
 		// After accounting for the GUID, Entry, and String streams, the
 		// remaining entries are for the property name / property ID mappings.
 		int numPropertyNameMappings = children.size() - 3;
-		propertyNameMappings = new DataWithIndexAndKind[numPropertyNameMappings];
+		propertyNameMappings = new EntryStreamEntry[numPropertyNameMappings];
 		int pnmIndex = 0;
 
 		while(iter.hasNext()){
@@ -65,8 +65,8 @@ class NamedProperties
 			} else if (STRING_STREAM_NAME.equals(de.directoryEntryName)){
 				setStrings(de, data);
 			} else {
-				propertyNameMappings[pnmIndex] = new DataWithIndexAndKind(data);
-				if (propertyNameMappings[pnmIndex].propertyType == DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY)
+				propertyNameMappings[pnmIndex] = new EntryStreamEntry(data);
+				if (propertyNameMappings[pnmIndex].propertyType == EntryStreamEntry.PropertyType.NUMERICAL_NAMED_PROPERTY)
 					++numNumericalNamedProperties;
 				++pnmIndex;
 			}
@@ -77,10 +77,10 @@ class NamedProperties
 	*	@param	propertyType	The type of entry to return.
 	*	@return	An array of NamedPropertyEntry objects for the numerical named properties.
 	*/
-	java.util.ArrayList<NamedPropertyEntry> getEntryStreamEntries(DataWithIndexAndKind.PropertyType propertyType)
+	java.util.ArrayList<NamedPropertyEntry> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
 	{
 		java.util.ArrayList<NamedPropertyEntry> npEntries = new java.util.ArrayList<NamedPropertyEntry>();
-		for (DataWithIndexAndKind item: entries){
+		for (EntryStreamEntry item: entries){
 			if (item.propertyType != propertyType)
 				continue;
 			npEntries.add(new NamedPropertyEntry(item. nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
@@ -98,7 +98,7 @@ class NamedProperties
 		if (propertyIndex >= entries.length)
 			return String.format("Out of bounds error (%d >= %d", propertyIndex, entries.length);
 
-		if (entries[propertyIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
+		if (entries[propertyIndex].propertyType == EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY)
 			return stringsByOffset.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
 		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset))
@@ -118,7 +118,7 @@ class NamedProperties
 			return mapping;
 		}
 
-		if (propertyNameMappings[mappingIndex].propertyType == DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY) {
+		if (propertyNameMappings[mappingIndex].propertyType == EntryStreamEntry.PropertyType.NUMERICAL_NAMED_PROPERTY) {
 			mapping.add("NameIdentifier", String.format("0x%04x", propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
 		} else {
 			mapping.add("CRC-32 Checksum", String.format("0x%08x", propertyNameMappings[mappingIndex].nameIdentifierOrStringOffset));
@@ -128,7 +128,7 @@ class NamedProperties
 		mapping.add("GUIDIndex", Integer.toString(propertyNameMappings[mappingIndex].guidIndex));
 		mapping.add("GUID", indexToGUID(propertyNameMappings[mappingIndex].guidIndex).toString());
 
-		if (propertyNameMappings[mappingIndex].propertyType == DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY)
+		if (propertyNameMappings[mappingIndex].propertyType == EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY)
 			mapping.add("PropertyName", strings.get(propertyNameMappings[mappingIndex].propertyIndex - numNumericalNamedProperties));
 		return mapping;
 	}
@@ -153,9 +153,9 @@ class NamedProperties
 	private void setEntries(DirectoryEntry.StringStream de, byte[] data)
 	{
 		int numEntries = (int)de.streamSize / DataType.SIZEOF_LONG;
-		entries = new DataWithIndexAndKind[numEntries];
+		entries = new EntryStreamEntry[numEntries];
 		for (int i = 0; i < numEntries; ++i)
-			entries[i] = new DataWithIndexAndKind(java.util.Arrays.copyOfRange(data, i*DataType.SIZEOF_LONG, (i+1)*DataType.SIZEOF_LONG));
+			entries[i] = new EntryStreamEntry(java.util.Arrays.copyOfRange(data, i*DataType.SIZEOF_LONG, (i+1)*DataType.SIZEOF_LONG));
 	}
 
 	/** Set the GUIDs from the GUID stream

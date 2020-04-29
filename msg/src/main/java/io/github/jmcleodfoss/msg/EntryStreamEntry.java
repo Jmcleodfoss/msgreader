@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-class DataWithIndexAndKind
+class EntryStreamEntry
 {
 	/** The type of object. */
 	static enum PropertyType {
@@ -13,10 +13,10 @@ class DataWithIndexAndKind
 	final short guidIndex;
 	final PropertyType propertyType;
 
-	/** Create a DataWithIndexAndKind from a raw byte stream
+	/** Create a EntryStreamEntry from a raw byte stream
 	*	@param	rawData	The byte stream to read this entry from.
 	*/
-	DataWithIndexAndKind(byte[] rawData)
+	EntryStreamEntry(byte[] rawData)
 	{
 		java.nio.ByteBuffer bb = java.nio.ByteBuffer.wrap(rawData);
 		bb.order(java.nio.ByteOrder.LITTLE_ENDIAN);

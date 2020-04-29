@@ -341,7 +341,7 @@ public class MSG
 	*/
 	public java.util.ArrayList<NamedPropertyEntry> namedPropertiesNumericalEntries()
 	{
-		return namedProperties.getEntryStreamEntries(DataWithIndexAndKind.PropertyType.NUMERICAL_NAMED_PROPERTY);
+		return namedProperties.getEntryStreamEntries(EntryStreamEntry.PropertyType.NUMERICAL_NAMED_PROPERTY);
 	}
 
 	/** Get the string named properties entries
@@ -349,7 +349,7 @@ public class MSG
 	*/
 	public java.util.ArrayList<NamedPropertyEntry> namedPropertiesStringEntries()
 	{
-		return namedProperties.getEntryStreamEntries(DataWithIndexAndKind.PropertyType.STRING_NAMED_PROPERTY);
+		return namedProperties.getEntryStreamEntries(EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY);
 	}
 
 	/** Get the named properties string stream as an array of key-value pairs.
