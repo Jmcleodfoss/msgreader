@@ -24,13 +24,14 @@ class DIFAT {
 	private int[] difat;
 
 	/** Iterator for DIFAT index entries */
-	class Iterator implements java.util.Iterator<Integer> {
+	private class Iterator implements java.util.Iterator<Integer> {
 
 		/** The next entry to be returned. */
 		private int entry;
 
 		/** Initialize the DIFAT iterator */
-		Iterator(){
+		private Iterator()
+		{
 			entry = 0;
 		}
 
