@@ -8,7 +8,7 @@ public abstract class Property
 	public final String propertyName;
 	public final String propertyType;
 
-	Property(int propertyTag, String propertyName, String propertyType, int flags)
+	private Property(int propertyTag, String propertyName, String propertyType, int flags)
 	{
 		this.propertyTag = propertyTag;
 		this.propertyName = propertyName;
@@ -20,9 +20,9 @@ public abstract class Property
 
 	private static class Boolean extends Property
 	{
-		boolean property;
+		private boolean property;
 
-		Boolean(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Boolean(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
 			super(propertyTag, propertyName, propertyType, flags);
 			this.property = bb.get() != 0;
@@ -40,9 +40,9 @@ public abstract class Property
 
 	private static class Integer32 extends Property
 	{
-		int property;
+		private int property;
 
-		Integer32(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Integer32(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
 			super(propertyTag, propertyName, propertyType, flags);
 			this.property = bb.getInt();
@@ -60,9 +60,9 @@ public abstract class Property
 
 	private static class Integer64 extends Property
 	{
-		long property;
+		private long property;
 
-		Integer64(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Integer64(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
 			super(propertyTag, propertyName, propertyType, flags);
 			this.property = bb.getLong();
@@ -77,9 +77,9 @@ public abstract class Property
 
 	private static class Time extends Property
 	{
-		java.util.Date time;
+		private java.util.Date time;
 
-		Time(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Time(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
 			super(propertyTag, propertyName, propertyType, flags);
 			time = (java.util.Date)DataType.timeReader.read(bb);
@@ -94,10 +94,10 @@ public abstract class Property
 
 	private static class VariableWidth extends Property
 	{
-		int length;
-		int attachmentTypeFlag;
+		private int length;
+		private int attachmentTypeFlag;
 
-		VariableWidth(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private VariableWidth(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
 			super(propertyTag, propertyName, propertyType, flags);
 			length = bb.getInt();
