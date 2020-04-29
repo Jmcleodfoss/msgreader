@@ -69,7 +69,7 @@ public class DirectoryEntry {
 	/** Get the properties from a Properties object. Return an empty array for any other kind of
 	*    entry.
 	*	@param	data	The bytes in the entry
-	*	@param	parents	The mapping of entries to parents
+	*	@param	parent	The mapping of child nodes to their parents
 	*	@param	namedProperties	The file's named properties object
 	*	@return	An array of FixedWithProperties containing the property data defined in	the Properties entry.
 	*/
@@ -153,7 +153,7 @@ public class DirectoryEntry {
 
 	/** Does this entry have a text representation?
 	*	@return	false in the general case, true for StringStreams of type Text
-	*	@see StringStream.isTextData
+	*	@see StringStream#isTextData
 	*/
 	boolean isTextData()
 	{
@@ -221,7 +221,7 @@ public class DirectoryEntry {
 		/** Get the properties from a Properties object. Return an empty array for any other kind of
 		*    entry.
 		*	@param	data	The bytes in the entry
-		*	@param	parents	The mapping of entries to parents
+		*	@param	parent	The mapping of child nodes to their parents
 		*	@param	namedProperties	The file's named properties object
 		*	@return	An array of KVPs giving the property name and value for the properties defined in
 		*		the Properties entry.
@@ -358,7 +358,7 @@ public class DirectoryEntry {
 
 		/** Get the size of the Property header information for embedded messages
 		*	@return	The size of the Properties header for embedded messages.
-		*	@see StringStream.getChildPropertiesHeader
+		*	@see StringStream#getChildPropertiesHeader
 		*/
 		@Override
 		int getChildPropertiesHeaderSize()
@@ -453,6 +453,8 @@ public class DirectoryEntry {
 	static final int SIZE = DataDefinition.size(fields);
 
 	/** Make full directory information data available to client applications
+	*	@param	namedProperties	The file's named properties object
+	*	@param	parents		The mapping of child nodes to their parents
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
 	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents)
@@ -514,7 +516,9 @@ public class DirectoryEntry {
 	}
 
 	/** Create a directory entry of the required type based on the directory entry name.
-	*	@param	byteBuffer	The data stream for the msg file.
+	*	@param	byteBuffer	The data stream for the msg file
+	*	@return	The DirectoryEntry object read from the byteBuffer
+	*	@throws	java.io.IOException	If the file could not be read
 	*/
 	static DirectoryEntry factory(java.nio.ByteBuffer byteBuffer)
 	throws
