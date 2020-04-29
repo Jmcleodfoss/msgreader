@@ -23,10 +23,10 @@ public class EntryStreamEntryData {
 	*/
 	public final short guidIndex;
 
-	EntryStreamEntryData(int nameIdentifierOrStringOffset, short propertyIndex, short guidIndex)
+	EntryStreamEntryData(EntryStreamEntry entry)
 	{
-		this.nameIdentifierOrStringOffset = nameIdentifierOrStringOffset;
-		this.propertyIndex = propertyIndex;
-		this.guidIndex = guidIndex;
+		this.nameIdentifierOrStringOffset = entry.nameIdentifierOrStringOffset;
+		this.propertyIndex = entry.propertyIndex;
+		this.guidIndex = entry.guidIndex;
 	}
 }

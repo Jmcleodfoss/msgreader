@@ -80,10 +80,10 @@ class NamedProperties
 	java.util.ArrayList<EntryStreamEntryData> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
 	{
 		java.util.ArrayList<EntryStreamEntryData> npEntries = new java.util.ArrayList<EntryStreamEntryData>();
-		for (EntryStreamEntry item: entries){
-			if (item.propertyType != propertyType)
+		for (EntryStreamEntry entry: entries){
+			if (entry.propertyType != propertyType)
 				continue;
-			npEntries.add(new EntryStreamEntryData(item. nameIdentifierOrStringOffset, item.propertyIndex, item.guidIndex));
+			npEntries.add(new EntryStreamEntryData(entry));
 		}
 		return npEntries;
 	}
