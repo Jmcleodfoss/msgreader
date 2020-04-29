@@ -87,7 +87,7 @@ class PropertyTableTab extends Tab
 				return new TableCell<PropertyRow, Property>(){
 					@Override protected void updateItem(Property item, boolean empty){
 						super.updateItem(item, empty);
-						setText(item == null ? "" : item.type());
+						setText(item == null ? "" : item.propertyType);
 					};
 				};
 			}
