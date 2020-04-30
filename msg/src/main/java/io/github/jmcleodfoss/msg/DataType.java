@@ -1,14 +1,36 @@
 package io.github.jmcleodfoss.msg;
 
-/** The DataType class represents data types within a PST file as well as PST file properties. */
+/** The DataType class represents data types within a MSG file */
 abstract class DataType {
 
-	/** Property types */
+	/** PTypInteger32, 32-bit integer
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int INTEGER_32 = 0x0003;
+
+	/** PTypBoolean, a 1-bit value restricted to 1 or 0
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int BOOLEAN = 0x000b;
+
+	/** PTypInteger64, 64-bit integer
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int INTEGER_64 = 0x0014;
+
+	/** PTypString, variable-sized Unicode character string represented in UTF-16LE (Little Endian)
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int STRING = 0x001f;
+
+	/** PTypTime, 64-bit integer representing the number of 100-nanosecond intervals since January 1, 1601
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int TIME = 0x0040;
+
+	/** PTypBinary, variable-sized, starting with a 2 or 4 byte count of bytes making up the variable
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	final static int BINARY = 0x0102;
 
 	/** The number of bytes in an integer. */
@@ -62,7 +84,7 @@ abstract class DataType {
 		/** The size of this object read in. */
 		protected final int size;
 
-		/** Construct foundation for a manipulator of an object with known size.
+		/** Base class constructor for dealing with objects of known size.
 		*	@param	size	The number of bytes in this object.
 		*/
 		protected SizedObject(final int size)
@@ -71,8 +93,8 @@ abstract class DataType {
 			this.size = size;
 		}
 
-		/** Obtain the size of this object in the PST file.
-		*	@return	The size of this object in the PST file, in bytes.
+		/** Obtain the size of this object
+		*	@return	The size of this object in the file, in bytes.
 		*/
 		int size()
 		{
@@ -80,19 +102,23 @@ abstract class DataType {
 		}
 	}
 
-	/** Datatype for GUID class. */
+	/** The GUID class describes how to read, display, and return the size of a GUID
+	*	@see GUID
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/cc9d955b-1492-47de-9dce-5bdea80a3323">MS-OXPROPS Section 1.3.2: Commonly Used Property Sets</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	private static class GUID extends DataType {
 
 		/** The size of a GUID. */
 		static final int SIZE = io.github.jmcleodfoss.msg.GUID.SIZE;
 
-		/** Create a reader / display object for GUIDs. */
+		/** Create a reader / display object for a GUID value */
 		GUID()
 		{
 			super();
 		}
 
-		/** Create a String describing the GUID
+		/** Create a String describing the passed GUID value
 		*	@param	o	The GUID to display.
 		*	@return	A String showing the GUID.
 		*/
@@ -102,8 +128,9 @@ abstract class DataType {
 		}
 
 		/** Read in GUID
-		*	@param	byteBuffer	The incoming data stream to read from.
+		*	@param	byteBuffer	The incoming data stream to read the GUID from.
 		*	@return	The GUID read in from the incoming data stream.
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
@@ -122,19 +149,21 @@ abstract class DataType {
 		}
 	}
 
-	/** A reader/display manipulation object for GUIDs. */
+	/** A reader/display object for GUIDs. */
 	static final GUID classIdReader = new GUID();
 
-	/** The Integer8 data type describes how to manipulate an 8-bit integer. */
+	/** The Integer8 class describes how to read, display, and return the size of an 8-bit integer.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	private static class Integer8 extends DataType {
 
-		/** Construct a manipulator for an 8-bit integer. */
+		/** Create a reader / display object for a PTypeInteger8 value */
 		private Integer8()
 		{
 			super();
 		}
 
-		/** Create a String from the passed Byte object.
+		/** Create a String from the passed Byte value
 		*	@param	o	The Byte object to display.
 		*	@return	A String representation of the Byte object (in hexadecimal).
 		*/
@@ -146,14 +175,15 @@ abstract class DataType {
 		/** Read in an 8-bit integer from the data stream.
 		*	@param	byteBuffer	The incoming data stream from which to read the 8-bit integer.
 		*	@return	A Byte object corresponding to the 8-bit integer read in from the data stream.
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Byte)byteBuffer.get();
 		}
 
-		/** Obtain the size of an 8-bit integer in a PST file.
-		*	@return	The size of an 8-bit integer in the PST file, in bytes.
+		/** Obtain the size of an 8-bit integer
+		*	@return	The size of an 8-bit integer, in bytes.
 		*/
 		int size()
 		{
@@ -161,19 +191,21 @@ abstract class DataType {
 		}
 	}
 
-	/** The manipulator for reading and displaying 8-bit integers. */
+	/** The reader/displau object for 8-bit integers. */
 	static final Integer8 integer8Reader = new Integer8();
 
-	/** The Integer16 data type describes how to read and display a 16-bit integer. */
+	/** The Integer16 class describes how to read, display, and get the size of a 16-bit integer.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	private static class Integer16 extends DataType {
 
-		/** Construct a manipulator for an PST PtypInteger32 data type. */
+		/** Create a reader / display object for a PtypInteger16 value */
 		private Integer16()
 		{
 			super();
 		}
 
-		/** Create a String from the passed Short object.
+		/** Create a String from the passed Short value.
 		*	@param	o	The Short object to display.
 		*	@return	A String representation of the Short object (in hexadecimal).
 		*/
@@ -185,6 +217,7 @@ abstract class DataType {
 		/** Read in a 16-bit integer from the data stream.
 		*	@param	byteBuffer	The incoming data stream from which to read the 16-bit integer.
 		*	@return	A Short object corresponding to the 16-bit integer read in from the data stream.
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
@@ -192,7 +225,7 @@ abstract class DataType {
 		}
 
 		/** Obtain the size of a 16-bit integer.
-		*	@return	The size of a 16-bit integer in the PST file, in bytes.
+		*	@return	The size of a 16-bit integer in bytes.
 		*/
 		int size()
 		{
@@ -200,19 +233,21 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/display manipulator for 16-bit integers in the PST file. */
+	/** The reader/display object for 16-bit. */
 	static final Integer16 integer16Reader = new Integer16();
 
-	/** The Integer32 data type describes a 32-bit integer. */
+	/** The Integer32 class describes how to read, display, and get the size of a 32-bit integer.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	private static class Integer32 extends DataType {
 
-		/** Construct a manipulator for an PST PtypInteger32 data type. */
+		/** Create a reader / display object for a PtypInteger32 value */
 		Integer32()
 		{
 			super();
 		}
 
-		/** Create a String from the passed Integer object.
+		/** Create a String from the passed Integer value
 		*	@param	o	The Integer object to display.
 		*	@return	A String representation of the Integer object (in hexadecimal).
 		*/
@@ -230,8 +265,8 @@ abstract class DataType {
 			return (Integer)byteBuffer.getInt();
 		}
 
-		/** Obtain the size of a 32-bit integer in a PST file.
-		*	@return	The size of a 32-bit integer in the PST file, in bytes.
+		/** Obtain the size of a 32-bit integer
+		*	@return	The size of a 32-bit integer in the
 		*/
 		int size()
 		{
@@ -239,19 +274,21 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/display manipulator for 32-bit integers in the PST file. */
+	/** The reader/display object for 32-bit integers. */
 	static final Integer32 integer32Reader = new Integer32();
 
-	/** The Integer64 data type described a 64-bit integer. */
+	/** The Integer64 class describes how to read, display, and get the size of a 64-bit integer.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	private static class Integer64 extends DataType {
 
-		/** Construct a manipulator for an PST PtypInteger32 data type. */
+		/** Create a reader / display object for a PtypInteger64 value */
 		private Integer64()
 		{
 			super();
 		}
 
-		/** Create a String from the passed Long object.
+		/** Create a String from the passed Long value
 		*	@param	o	The Long object to display.
 		*	@return	A String representation of the Long object (in hexadecimal).
 		*/
@@ -263,14 +300,15 @@ abstract class DataType {
 		/** Read in a 64-bit integer from the data stream.
 		*	@param	byteBuffer	The incoming data stream from which to read the 64-bit integer.
 		*	@return	A Long object corresponding to the 64-bit integer read in from the data stream.
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Long)byteBuffer.getLong();
 		}
 
-		/** Obtain the size of a 64-bit integer in a PST file.
-		*	@return	The size of a 64-bit integer in the PST file, in bytes.
+		/** Obtain the size of a 64-bit integer
+		*	@return	The size of a 64-bit integer in bytes.
 		*/
 		int size()
 		{
@@ -278,13 +316,15 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/display manipulator for 64-bit integers. */
+	/** The reader/display object for 64-bit integers. */
 	static final Integer64 integer64Reader = new Integer64();
 
-	/** The SizedByteArray class is used to read in and display an array of bytes whose size is known. */
+	/** The SizedByteArray class describes how to read, display, and get the size of an array of bytes of known size
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	static class SizedByteArray extends SizedObject {
 
-		/** Create a reader/display manipulator for an array of bytes of known size.
+		/** Create a reader/display object for an array of bytes of known size.
 		*	@param	size	The number of bytes in the array.
 		*/
 		SizedByteArray(final int size)
@@ -292,7 +332,7 @@ abstract class DataType {
 			super(size);
 		}
 
-		/** Create a String describing a array of bytes.
+		/** Create a String describing the passed array of bytes.
 		*	@param	o	The array of bytes to display.
 		*	@return	A String showing the bytes in the array in hexadecimal.
 		*/
@@ -324,9 +364,8 @@ abstract class DataType {
 		}
 	}
 
-	/** The Time class represents an MS Time object. It is converted on input to a standard Java Date object.
-	*	@see	"[MS-OXDATA] Data Structures v20101026, Section 2.11.1"
-	*	@see	<a href="http://msdn.microsoft.com/en-us/library/ee157583.aspx">Property Data Types (MSDN)</a>
+	/** The Time class describes how to read, display, and get the size of an MS Time object. It is converted on input to a standard Java Date object.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
 	static class Time extends DataType {
 
@@ -336,14 +375,15 @@ abstract class DataType {
 		/** The format to use when converting time objects to strings. */
 		private static final java.text.SimpleDateFormat OUTPUT_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
 
-		/** Create a time reader/display manipulation object. */
+		/** Create a reader/display object for a PTypTime value */
 		private Time()
 		{
 			super();
 		}
 
 		/** Initialize the base time; exit on exception.
-		*	@return	A Date object for the base time used by PST files.
+		*	@return	A Date object for the base time
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
 		private static java.util.Date initBaseTime()
 		{
@@ -357,7 +397,7 @@ abstract class DataType {
 			return new java.util.Date();
 		}
 
-		/** Create a String representation of a Date.
+		/** Create a String representation of the passed Date value
 		*	@param	o	The Date to display.
 		*	@return	A String representation of the given object, formatted according to {@link #OUTPUT_FORMAT}.
 		*	@see	#OUTPUT_FORMAT
@@ -379,8 +419,8 @@ abstract class DataType {
 			return new java.util.Date(ms);
 		}
 
-		/** Obtain the size in bytes of an MS time object in a PST file.
-		*	@return	The size of an MS time object in a PST file.
+		/** Obtain the size in bytes of an MS time object
+		*	@return	The size of an MS time object
 		*/
 		int size()
 		{
@@ -388,12 +428,14 @@ abstract class DataType {
 		}
 	}
 
-	/** A reader/display manipulation object for times in PST files. */
+	/** A reader/display object for time values */
 	static final Time timeReader = new Time();
 
-	/** The UnicodeString class reads in a UTF-16 string of a given size. */
+	/** The UnicodeString class describes how to read, display, and get the size of a UTF-16 string of known size.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+	*/
 	static class UnicodeString extends SizedObject {
-		/** Construct an manipulator for a UTF-16 String.
+		/** Create a reader/display object for a PTypString object of known size
 		*	@param	size	The number of bytes in the UTF-16 string.
 		*/
 		UnicodeString(final int size)
@@ -401,7 +443,7 @@ abstract class DataType {
 			super(size);
 		}
 
-		/** Create a String representation of a String (to be consistent with other data types).
+		/** Create a String representation of a String (to be consistent with other data types); this implementation is trivial.
 		*	@param	o	The String to display.
 		*	@return	The given String.
 		*/
