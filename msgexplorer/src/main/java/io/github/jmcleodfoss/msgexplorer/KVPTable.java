@@ -30,6 +30,16 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		/** The key / name / description, the first column. */
 		private StringProperty key;
 
+		/** Set up the variable "key" as a SimpleStringProperty, if
+		*   needed, and return it.
+		*/
+		private StringProperty keyProperty()
+		{
+			if (key == null)
+				key = new SimpleStringProperty(this, "key");
+			return key;
+		}
+
 		/** Set the key
 		*	@param	key	The new description
 		*/
@@ -46,18 +56,18 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 			return keyProperty().get();
 		}
 
-		/** Set up the variable "key" as a SimpleStringProperty, if
-		*   needed, and return it.
-		*/
-		public StringProperty keyProperty()
-		{
-			if (key == null)
-				key = new SimpleStringProperty(this, "key");
-			return key;
-		}
-
 		/** The value / data, the second column. */
 		private StringProperty value;
+
+		/** Set up the variable "value" as a SimpleStringProperty, if
+		*   needed, and return it.
+		*/
+		public StringProperty valueProperty()
+		{
+			if (value == null)
+				value = new SimpleStringProperty(this, "value");
+			return value;
+		}
 
 		/** Set the value
 		*	@param	value	The new value
@@ -73,16 +83,6 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		public String getValue()
 		{
 			return valueProperty().get();
-		}
-
-		/** Set up the variable "value" as a SimpleStringProperty, if
-		*   needed, and return it.
-		*/
-		public StringProperty valueProperty()
-		{
-			if (value == null)
-				value = new SimpleStringProperty(this, "value");
-			return value;
 		}
 
 		/** Construct a row of the table
