@@ -1,7 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 /** The ByteUtil class contains utility functions for dealing with bytes. */
-public class ByteUtil {
+class ByteUtil {
 
 	/** The number of 8-bit bytes in a long. */
 	private static final int LONG_BYTES = Long.SIZE/Byte.SIZE;
