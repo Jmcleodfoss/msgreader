@@ -191,7 +191,7 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/displau object for 8-bit integers. */
+	/** The reader/display object for 8-bit integers. */
 	static final Integer8 integer8Reader = new Integer8();
 
 	/** The Integer16 class describes how to read, display, and get the size of a 16-bit integer.
@@ -369,7 +369,7 @@ abstract class DataType {
 	*/
 	static class Time extends DataType {
 
-		/** The base for MS time, which is measured in hundreds of nanosecondss since January 1, 1601. */
+		/** The base for MS time, which is measured in hundreds of nanoseconds since January 1, 1601. */
 		private static final java.util.Date PST_BASE_TIME = initBaseTime();
 
 		/** The format to use when converting time objects to strings. */
