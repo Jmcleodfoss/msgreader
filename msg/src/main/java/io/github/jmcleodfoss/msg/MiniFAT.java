@@ -6,7 +6,7 @@ package io.github.jmcleodfoss.msg;
 class MiniFAT {
 
 	/** Iterator for Mini FAT index entry chains. This returns the offset of the next mini sector to read. */
-	class ChainIterator implements java.util.Iterator<Integer> {
+	private class ChainIterator implements java.util.Iterator<Integer> {
 
 		/** The next entry to be returned. */
 		private int entry;
@@ -14,7 +14,7 @@ class MiniFAT {
 		/** Initialize the mini chain iterator
 		*	@param	firstMiniSector	The first sector in the mini chain
 		*/
-		ChainIterator(int firstMiniSector)
+		private ChainIterator(int firstMiniSector)
 		{
 			entry = firstMiniSector;
 		}
@@ -39,7 +39,7 @@ class MiniFAT {
 	}
 
 	/** The number of bytes in a mini sector. */
-	static final int MINI_SECTOR_SIZE = 64;
+	private static final int MINI_SECTOR_SIZE = 64;
 
 	/** The sector size (from the file header */
 	private final int sectorSize;
