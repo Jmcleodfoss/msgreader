@@ -16,7 +16,7 @@ public class DirectoryEntryData {
 	public final String name;
 
 	/** The directory entry indexes of this entry's children
-	*	@see Directory.getChildren
+	*	@see Directory#getChildren
 	*/
 	public final java.util.ArrayList<Integer> children;
 
@@ -49,7 +49,7 @@ public class DirectoryEntryData {
 	*	@see DirectoryEntry#nm_PropertyName
 	*	@see DirectoryEntry#nm_PropertyId
 	*	@see DirectoryEntry#nm_PropertyType
-	*	@see DirectoryEntry.Data
+	*	@see DirectoryEntry#data
 	*/
 	public final KVPArray<String, String> kvps;
 

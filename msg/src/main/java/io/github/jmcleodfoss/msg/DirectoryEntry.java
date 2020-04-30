@@ -37,7 +37,7 @@ public class DirectoryEntry {
 	private static final java.util.regex.Pattern ATTACH_PATTERN = java.util.regex.Pattern.compile("__attach_version1.0_#\\p{XDigit}{8}");
 
 	/** Unallocated directory entries
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e>MS-CFG Section 2.6.3: Other Directory Entries</a>
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e">MS-CFG Section 2.6.3: Other Directory Entries</a>
 	private static final String UNALLOCATED = "";
 
 	/** KVP keys for property headers */
