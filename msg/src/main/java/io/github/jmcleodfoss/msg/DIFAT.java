@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/** The Double-Indirect File Allocation Table
+/** The Double-Indirect File Allocation Table (DIFAT)
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/0afa4e43-b18f-432a-9917-4f276eca7a73">MS-CFB Section 2.5: Compound File DIFAT Sectors</a>
 */
 class DIFAT {
