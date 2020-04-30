@@ -43,7 +43,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 
 		/** The value / data, the second column. */
 		private StringProperty value;
-		public StringProperty valueProperty()
+		private StringProperty valueProperty()
 		{
 			if (value == null)
 				value = new SimpleStringProperty(this, "value");
