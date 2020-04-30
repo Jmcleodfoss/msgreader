@@ -154,7 +154,7 @@ public class MSG
 	}
 
 	/** Get information for the requested directory entry
-	*	@param	entry	The entry to retreive data for
+	*	@param	entry	The entry to retrieve data for
 	*	@return	A DirectoryEntryData structure providing information about this entry
 	*/
 	public DirectoryEntryData getDirectoryEntryData(int entry)
