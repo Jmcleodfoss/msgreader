@@ -57,7 +57,7 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
-	/**	Close the file.
+	/** Close the file.
 	* 	@throws	java.io.IOException	There was a problem closing the file.
 	*/
 	public void close()
@@ -162,11 +162,21 @@ public class MSG
 		return new DirectoryEntryData(directory, entry, namedProperties);
 	}
 
+	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
+	*	@param	entry	The index of the directory entry to retrieve the header from
+	*	@param	data	The bytes to read the header from
+	*	@return	A KVPArray of header property field names and values, which will be empty for recipient objects and all attachment objects except embedded msg files.
+	*/
 	public KVPArray<String, Integer> getPropertiesHeader(int entry, byte[] data)
 	{
 		return directory.parents.get(directory.entries.get(entry)).getChildPropertiesHeader(data);
 	}
 
+	/** Get the data for a property entry.
+	*	@param	entry	The index of the entry to retrieve the data from
+	*	@param	data	The bytes to read the data from
+	*	@return	An ArrayList of {@link Property property values} read from the entry.
+	*/
 	public java.util.ArrayList<Property> getProperties(int entry, byte[] data)
 	{
 		DirectoryEntry de = directory.entries.get(entry);
