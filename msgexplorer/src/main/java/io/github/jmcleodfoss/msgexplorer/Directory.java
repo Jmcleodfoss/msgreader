@@ -207,7 +207,7 @@ class Directory extends Tab
 	private class UpdateInfoService extends Service<byte[]>
 	{
 		private ObjectProperty<TreeItem<DirectoryEntryData>> item;
-		ObjectProperty<TreeItem<DirectoryEntryData>> getItemProperty()
+		private ObjectProperty<TreeItem<DirectoryEntryData>> itemProperty()
 		{
 			if (item == null)
 				item = new SimpleObjectProperty<TreeItem<DirectoryEntryData>>();
@@ -215,11 +215,11 @@ class Directory extends Tab
 		}
 		public TreeItem<DirectoryEntryData> getItem()
 		{
-			return getItemProperty().get();
+			return itemProperty().get();
 		}
 		public void setItem(TreeItem<DirectoryEntryData> entry)
 		{
-			getItemProperty().set(entry);
+			itemProperty().set(entry);
 		}
 
 		protected Task<byte[]> createTask()

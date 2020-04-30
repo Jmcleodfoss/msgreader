@@ -27,7 +27,7 @@ class PropertyTableTab extends Tab
 	public class PropertyRow
 	{
 		private ObjectProperty<Property> property;
-		public ObjectProperty<Property> getPropertyProperty()
+		private ObjectProperty<Property> propertyProperty()
 		{
 			if (property == null)
 				property = new SimpleObjectProperty<Property>(this, "property");
@@ -35,14 +35,14 @@ class PropertyTableTab extends Tab
 		}
 		public Property getProperty()
 		{
-			return getPropertyProperty().get();
+			return propertyProperty().get();
 		}
 		public void setProperty(Property property)
 		{
-			getPropertyProperty().set(property);
+			propertyProperty().set(property);
 		}
 
-		PropertyRow(Property property)
+		private PropertyRow(Property property)
 		{
 			setProperty(property);
 		}

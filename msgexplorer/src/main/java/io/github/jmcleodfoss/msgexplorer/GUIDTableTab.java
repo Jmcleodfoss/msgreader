@@ -25,36 +25,38 @@ class GUIDTableTab extends Tab
 
 	public class GUIDRow {
 		private StringProperty guid;
-		public StringProperty getGuidProperty()
+		private StringProperty guidProperty()
 		{
-			if (guid == null) guid = new SimpleStringProperty(this, "guid");
+			if (guid == null)
+				guid = new SimpleStringProperty(this, "guid");
 			return guid;
 		}
 		public String getGuid()
 		{
-			return getGuidProperty().get();
+			return guidProperty().get();
 		}
 		public void setGuid(String guid)
 		{
-			getGuidProperty().set(guid);
+			guidProperty().set(guid);
 		}
 
 		private IntegerProperty index;
-		public IntegerProperty getIndexProperty()
+		private IntegerProperty indexProperty()
 		{
-			if (index == null) index = new SimpleIntegerProperty(this, "index");
+			if (index == null)
+				index = new SimpleIntegerProperty(this, "index");
 			return index;
 		}
 		public int getIndex()
 		{
-			return getIndexProperty().get();
+			return indexProperty().get();
 		}
 		public void setIndex(int index)
 		{
-			getIndexProperty().set(index);
+			indexProperty().set(index);
 		}
 
-		GUIDRow(int index, String guid)
+		private GUIDRow(int index, String guid)
 		{
 			setGuid(guid);
 			setIndex(index);

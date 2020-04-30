@@ -41,21 +41,20 @@ class Sectors extends Tab
 
 	private class UpdateInfoService extends Service<byte[]>
 	{
-		private IntegerProperty pageIndex = new SimpleIntegerProperty();
-
-		public IntegerProperty getPageIndexProperty()
+		private IntegerProperty pageIndex;
+		private IntegerProperty pageIndexProperty()
 		{
+			if (pageIndex == null)
+				pageIndex = new SimpleIntegerProperty();
 			return pageIndex;
 		}
-
 		public void setPageIndex(int pageIndex)
 		{
-			this.pageIndex.set(pageIndex);
+			pageIndexProperty().set(pageIndex);
 		}
-
 		public int getPageIndex()
 		{
-			return pageIndex.get();
+			return pageIndexProperty().get();
 		}
 
 		protected Task<byte[]> createTask()
