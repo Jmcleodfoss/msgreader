@@ -26,24 +26,24 @@ class NamedPropertiesTableTab extends Tab
 
 	public class NamedPropertyRow {
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
-		public ObjectProperty<EntryStreamEntryData> getEntryStreamEntryDataProperty()
+		public ObjectProperty<EntryStreamEntryData> getNamedPropertyEntryProperty()
 		{
 			if (namedPropertyEntry == null)
 				namedPropertyEntry = new SimpleObjectProperty<EntryStreamEntryData>(this, "namedPropertyEntry");
 			return namedPropertyEntry;
 		}
-		public EntryStreamEntryData getEntryStreamEntryData()
+		public EntryStreamEntryData getNamedPropertyEntry()
 		{
-			return getEntryStreamEntryDataProperty().get();
+			return getNamedPropertyEntryProperty().get();
 		}
-		public void setEntryStreamEntryData(EntryStreamEntryData namedPropertyEntry)
+		public void setNamedPropertyEntry(EntryStreamEntryData namedPropertyEntry)
 		{
-			getEntryStreamEntryDataProperty().set(namedPropertyEntry);
+			getNamedPropertyEntryProperty().set(namedPropertyEntry);
 		}
 
 		NamedPropertyRow(EntryStreamEntryData namedPropertyEntry)
 		{
-			setEntryStreamEntryData(namedPropertyEntry);
+			setNamedPropertyEntry(namedPropertyEntry);
 		}
 	}
 
