@@ -38,6 +38,7 @@ public class DirectoryEntry {
 
 	/** Unallocated directory entries
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e">MS-CFG Section 2.6.3: Other Directory Entries</a>
+	*/
 	private static final String UNALLOCATED = "";
 
 	/** KVP keys for property headers */
@@ -49,7 +50,7 @@ public class DirectoryEntry {
 	/** Property IDs are only defined for string stream entries; 0x0000 is
 	*   never used as a property ID, so we use it as a sentinel value to
 	*   indicate no property ID exists for other classes
-	*	@see getPropertyId()
+	*	@see #getPropertyId
 	*/
 	private static final int NO_PROPERTY_ID = 0x0000;
 
@@ -106,7 +107,7 @@ public class DirectoryEntry {
 	}
 
 	/** Get the Property header information. The header is different for children of the
-	*	Root, included e-mails, and Recipient/Attachment objects.
+	*	Root, included emails, and Recipient/Attachment objects.
 	*	@param	data	The bytes in the Properties object.
 	*	@return	A KVPArray of the properties header data. For most classes this is empty.
 	*/
@@ -318,7 +319,7 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
-		/** Get the Property header information. The header is different for children of the Root, included e-mails, and Recipient/Attachment objects.
+		/** Get the Property header information. The header is different for children of the Root, included emails, and Recipient/Attachment objects.
 		*	@param	data	The bytes in the Properties object.
 		*	@return	A KVPArray of the properties header data
 		*/
@@ -373,7 +374,7 @@ public class DirectoryEntry {
 			return super.createString(data);
 		}
 
-		/** Get the Property header information. The header is different for children of the Root, included e-mails, and Recipient/Attachment objects.
+		/** Get the Property header information. The header is different for children of the Root, included emails, and Recipient/Attachment objects.
 		*	@param	data	The bytes in the Properties object.
 		*	@return	A KVPArray of the properties header data
 		*/
