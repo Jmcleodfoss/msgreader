@@ -22,19 +22,19 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	/** Convenience class for displaying byte arrays in a TableView */
 	static public class Row {
 		private ListProperty<Byte> columns;
-
-		public ListProperty<Byte> getColumnsProperty()
+		private ListProperty<Byte> columnsProperty()
 		{
-			if (columns == null) columns = new SimpleListProperty<Byte>(this, "columns");
+			if (columns == null)
+				columns = new SimpleListProperty<Byte>(this, "columns");
 			return columns;
 		}
 		public ObservableList<Byte> getColumns()
 		{
-			return getColumnsProperty().get();
+			return columnsProperty().get();
 		}
 		public void setColumns(ObservableList<Byte> value)
 		{
-			getColumnsProperty().set(value);
+			columnsProperty().set(value);
 		}
 
 		Row(byte[] data)
@@ -43,7 +43,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			for(byte b: data)
 				al.add(b);
 			ObservableList<Byte> ol = FXCollections.observableArrayList(al);
-			columns = new SimpleListProperty<Byte>(ol);
+			setColumns(new SimpleListProperty<Byte>(ol));
 		}
 	}
 
