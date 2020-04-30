@@ -37,7 +37,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			columnsProperty().set(value);
 		}
 
-		Row(byte[] data)
+		private Row(byte[] data)
 		{
 			ArrayList<Byte> al = new ArrayList<Byte>(data.length);
 			for(byte b: data)
@@ -49,7 +49,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 
 	public class HexTableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
 	{
-		HexTableCell(String property, int index)
+		private HexTableCell(String property, int index)
 		{
 			super(property, index);
 		}
