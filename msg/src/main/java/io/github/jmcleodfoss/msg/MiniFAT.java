@@ -1,6 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
-/** The Mini File Allocation Table */
+/** The Mini File Allocation Table
+*	@see <a href=https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/c5d235f7-b73c-4ec5-bf8d-5c08306cd023">MS-CFB Section 2.4: Compound File Mini FAT Sectors</a>
+*/
 class MiniFAT {
 
 	/** Iterator for Mini FAT index entry chains. This returns the offset of the next mini sector to read. */
