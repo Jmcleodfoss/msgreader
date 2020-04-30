@@ -23,34 +23,19 @@ import javafx.util.Callback;
 
 class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 {
-	/** Convenience class for displaying KVP-type values in a TableView
-	*   in a Tab
-	*/
+	/** Convenience class for displaying KVP-type values in a TableView in a Tab */
 	public class TableData {
-		/** The key / name / description, the first column. */
 		private StringProperty key;
-
-		/** Set up the variable "key" as a SimpleStringProperty, if
-		*   needed, and return it.
-		*/
 		private StringProperty keyProperty()
 		{
 			if (key == null)
 				key = new SimpleStringProperty(this, "key");
 			return key;
 		}
-
-		/** Set the key
-		*	@param	key	The new description
-		*/
 		public void setKey(String key)
 		{
 			keyProperty().set(key);
 		}
-
-		/** Retrieve the key
-		*	@return	The current key
-		*/
 		public String getKey()
 		{
 			return keyProperty().get();
@@ -58,28 +43,16 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 
 		/** The value / data, the second column. */
 		private StringProperty value;
-
-		/** Set up the variable "value" as a SimpleStringProperty, if
-		*   needed, and return it.
-		*/
 		public StringProperty valueProperty()
 		{
 			if (value == null)
 				value = new SimpleStringProperty(this, "value");
 			return value;
 		}
-
-		/** Set the value
-		*	@param	value	The new value
-		*/
 		public void setValue(String value)
 		{
 			valueProperty().set(value);
 		}
-
-		/** Retrieve the value
-		*	@return	The current value
-		*/
 		public String getValue()
 		{
 			return valueProperty().get();
