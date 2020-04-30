@@ -4,11 +4,11 @@ package io.github.jmcleodfoss.msg;
 abstract class DataType {
 
 	/** Property types */
-	final static int TIME = 0x0040;
 	final static int INTEGER_32 = 0x0003;
 	final static int BOOLEAN = 0x000b;
 	final static int INTEGER_64 = 0x0014;
 	final static int STRING = 0x001f;
+	final static int TIME = 0x0040;
 	final static int BINARY = 0x0102;
 
 	/** The number of bytes in an integer. */
