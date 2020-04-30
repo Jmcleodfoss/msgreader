@@ -1,7 +1,7 @@
 package io.github.jmcleodfoss.msg;
 
 /** The File Allocation Table (FAT)
-*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/30e1013a-a0ff-4404-9ccf-d75d835ff404">MS-CFB Section 2,3: Compound File FAT Sectors</a>
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/30e1013a-a0ff-4404-9ccf-d75d835ff404">MS-CFB Section 2.3: Compound File FAT Sectors</a>
 */
 class FAT {
 	/** The number of FAT entries
