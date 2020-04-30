@@ -117,7 +117,6 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		getColumns().setAll(keyColumn, valueColumn);
 	}
 
-	/* This was out of control as an inline class. */
 	private class wideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
 		private double getTableUsedWidth()
