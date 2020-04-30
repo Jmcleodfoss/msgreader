@@ -1,16 +1,43 @@
 package io.github.jmcleodfoss.msg;
 
 /** The Directory Entry object contains a Compound File Directory Sector
-* 	MS-CFB Section 2.6, Compound File Directory Sectors
+* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/1a69e000-f391-4c03-9d43-32d5f554bca7">MS-OXMSG Section 2.3: Top Level Structure</a>
 */
 public class DirectoryEntry {
 
+	/** The directory top-level entry
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/026fde6e-143d-41bf-a7da-c08b2130d50e">MS-CFB Section 2.6.2: Root Directory Entry</a>
+	*/
 	private static final String ROOT_ENTRY = "Root Entry";
+
+	/** The Named Property Mapping Storage
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/193c169b-0628-4392-aa51-83009be7d71f">MS-OXMSG Section 2.2.3: Named Property Mapping Storage</a>
+	*/
 	private static final String NAMEID = "__nameid_version1.0";
+
+	/** String Stream entry name template
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/08185828-e9e9-4ef2-bcd2-f6e69c00891b">MS-OXMSG Section 2.1.3: Variable Length Properties</a>
+	*/
 	private static final java.util.regex.Pattern STRING_STREAM_PATTERN = java.util.regex.Pattern.compile("__substg1.0_(\\p{XDigit}{4})(\\p{XDigit}{4})");
+
+	/** Property Stream entries (One under the Root Entry, and one under each Recipient and each Attachment)
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/20c1125f-043d-42d9-b1dc-cb9b7e5198ef">MS-OXMSG Section 2.4: Property Stream</a>
+	*/
 	private static final String PROPERTIES = "__properties_version1.0";
+
+	/** Recipient Object Storage entry name template
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/38a5cb3c-4454-48ba-b113-6de75321b67f">MS-OXMSG Section 2.2.1: Recipient Object Storage</a>
+	*/
 	private static final java.util.regex.Pattern RECIP_PATTERN = java.util.regex.Pattern.compile("__recip_version1.0_#\\p{XDigit}{8}");
+
+	/** Attachment Object Storage entry name template
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/8590d60d-4173-4ca8-9cb2-190aae006fbd">MS-OXMSG Section 2.2.2: Attachment Object Storage</a>
+	*/
 	private static final java.util.regex.Pattern ATTACH_PATTERN = java.util.regex.Pattern.compile("__attach_version1.0_#\\p{XDigit}{8}");
+
+	/** Unallocated directory entries
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e>MS-CFG Section 2.6.3: Other Directory Entries</a>
 	private static final String UNALLOCATED = "";
 
 	/** KVP keys for property headers */
