@@ -30,7 +30,7 @@ public class ByteUtil {
 	*	@param	bytes	The bytes to convert to a String of hexadecimal values.
 	*	@return	The String containing the hexadecimal representation of the given bytes.
 	*/
-	public static String createHexByteString(final byte[] bytes)
+	static String createHexByteString(final byte[] bytes)
 	{
 		StringBuilder s = new StringBuilder (3*bytes.length);
 		for (int i = 0; i < bytes.length; ++i) {
@@ -47,7 +47,7 @@ public class ByteUtil {
 	*	@param	n	The number of bytes to use (n must be less than or equal to 8, the number of bytes in a long value).
 	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
 	*/
-	public static long makeLongLE(byte[] rawData, int n)
+	static long makeLongLE(byte[] rawData, int n)
 	{
 		n = Math.min(n, rawData.length);
 		if (n > LONG_BYTES)
@@ -63,7 +63,7 @@ public class ByteUtil {
 	*	@param	rawData	The bytes to make the long value from.
 	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
 	*/
-	public static long makeLongLE(byte[] rawData)
+	static long makeLongLE(byte[] rawData)
 	{
 		return makeLongLE(rawData, LONG_BYTES);
 	}
