@@ -69,14 +69,14 @@ public class MSG
 
 	/** Create a string representation of the given bytes, assumed to be
 	*   file content
-	*	@param	entry	The index of the entry to convert the data for.
+	*	@param	ded	The entry to convert the data for.
 	*	@param	data	The file contents
 	*	@return	A string showing the file contents. This will be hex
 	*		bytes if the field is not text.
 	*/
-	public String convertFileToString(int entry, byte[] data)
+	public String convertFileToString(DirectoryEntryData ded, byte[] data)
 	{
-		return directory.entries.get(entry).createString(data);
+		return directory.entries.get(ded.entry).createString(data);
 	}
 
 	/** Get the data from the DIFAT, as an array of key-value pairs.
@@ -163,23 +163,23 @@ public class MSG
 	}
 
 	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
-	*	@param	entry	The index of the directory entry to retrieve the header from
+	*	@param	ded	The directory entry to retrieve the header from
 	*	@param	data	The bytes to read the header from
 	*	@return	A KVPArray of header property field names and values, which will be empty for recipient objects and all attachment objects except embedded msg files.
 	*/
-	public KVPArray<String, Integer> getPropertiesHeader(int entry, byte[] data)
+	public KVPArray<String, Integer> getPropertiesHeader(DirectoryEntryData ded, byte[] data)
 	{
-		return directory.parents.get(directory.entries.get(entry)).getChildPropertiesHeader(data);
+		return directory.parents.get(directory.entries.get(ded.entry)).getChildPropertiesHeader(data);
 	}
 
 	/** Get the data for a property entry.
-	*	@param	entry	The index of the entry to retrieve the data from
+	*	@param	ded	The entry to retrieve the data from
 	*	@param	data	The bytes to read the data from
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getProperties(int entry, byte[] data)
+	public java.util.ArrayList<Property> getProperties(DirectoryEntryData ded, byte[] data)
 	{
-		DirectoryEntry de = directory.entries.get(entry);
+		DirectoryEntry de = directory.entries.get(ded.entry);
 		return de.properties(data, directory.parents.get(de), namedProperties);
 	}
 
@@ -202,12 +202,12 @@ public class MSG
 	}
 
 	/** Is the directory entry for the given index a Stream Object?
-	*	@param	index	The directory entry index.
+	*	@param	ded	The directory entry to check.
 	*	@return	true if this entry is a Stream Object, false otherwise.
 	*/
-	public boolean isStreamObject(int index)
+	public boolean isStreamObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(index).objectType.isStream();
+		return directory.entries.get(ded.entry).objectType.isStream();
 	}
 
 	/** Get the directory entry keys (this allows a table for display to
@@ -237,12 +237,12 @@ public class MSG
 	}
 
 	/** Get the file pointed to by the given directory entry index
-	*	@param	entry	The entry to retrieve the file for
+	*	@param	ded	The entry to retrieve the file for
 	*	@return	An array of the bytes in the file.
 	*/
-	public byte[] getFile(int entry)
+	public byte[] getFile(DirectoryEntryData ded)
 	{
-		return directory.entries.get(entry).getContent(mbb, header, fat, miniFAT);
+		return directory.entries.get(ded.entry).getContent(mbb, header, fat, miniFAT);
 	}
 
 	/** Get the mini FAT data as a table consisting of the mini FAT sectors
@@ -274,12 +274,12 @@ public class MSG
 
 	/** Is there a text representation of the "file" for a given directory,
 	/** Get the raw bytes for the requested directory entry
-	*	@param	entry	The entry to retreive data for
+	*	@param	ded	The entry to retrieve data for
 	*	@return	An array of the bytes in the directory entry.
 	*/
-	public byte[] getRawDirectoryEntry(int entry)
+	public byte[] getRawDirectoryEntry(DirectoryEntryData ded)
 	{
-		mbb.position(directory.entries.get(entry).directoryEntryPosition);
+		mbb.position(directory.entries.get(ded.entry).directoryEntryPosition);
 		byte[] data = new byte[DirectoryEntry.SIZE];
 		mbb.get(data);
 		return data;
@@ -308,22 +308,22 @@ public class MSG
 	}
 
 	/** Is the given entry a Property entry?
-	*	@param	entry	The directory entry to check the type of
+	*	@param	ded	The directory entry to check the type of
 	*	@return	true if the entry is a Properties entry, false otherwise
 	*/
-	public boolean isProperty(int entry)
+	public boolean isProperty(DirectoryEntryData ded)
 	{
-		return directory.entries.get(entry).isPropertiesEntry();
+		return directory.entries.get(ded.entry).isPropertiesEntry();
 	}
 
 	/** Is there a text representation of the "file" for a given directory,
 	*   or is it binary?
-	*	@param	entry	The directory entry to check the data type of
+	*	@param	ded	The directory entry to check the data type of
 	*	@return	true if the file is text, false if it is binary
 	*/
-	public boolean isTextData(int entry)
+	public boolean isTextData(DirectoryEntryData ded)
 	{
-		return directory.entries.get(entry).isTextData();
+		return directory.entries.get(ded.entry).isTextData();
 	}
 
 	/** Get a Named Property entry

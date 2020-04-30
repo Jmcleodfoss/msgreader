@@ -135,10 +135,10 @@ class Directory extends Tab
 
 			final DirectoryEntryData de = newVal.getValue();
 			tabDescription.update(de.kvps, localizer);
-			data.update(msg.getRawDirectoryEntry(de.entry));
+			data.update(msg.getRawDirectoryEntry(de));
 
 			// Header points to the mini stream, so skip it.
-			if (de.entry != 0) {
+			if (!de.isHeader()) {
 				updateInfoService.setItem(newVal);
 				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 				updateInfoService.restart();
@@ -159,17 +159,17 @@ class Directory extends Tab
 				fileContentsRaw.update(fileData);
 				TreeItem<DirectoryEntryData> treeItem = updateInfoService.getItem();
 				DirectoryEntryData de = treeItem.getValue();
-				if (msg.isProperty(de.entry)) {
-					KVPArray<String, Integer> header = msg.getPropertiesHeader(de.entry, fileData);
+				if (msg.isProperty(de)) {
+					KVPArray<String, Integer> header = msg.getPropertiesHeader(de, fileData);
 					if (header.size() > 0)
 						tabPropertiesHeader.update(header, localizer);
-					tabProperties.update(msg.getProperties(de.entry, fileData), localizer);
+					tabProperties.update(msg.getProperties(de, fileData), localizer);
 					if (header.size() > 0)
 						updateTabs(tabPropertiesHeader, tabProperties);
 					else
 						updateTabs(tabProperties);
-				} else if (msg.isTextData(de.entry)) {
-					fileContentsText.setText(msg.convertFileToString(de.entry, fileData));
+				} else if (msg.isTextData(de)) {
+					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
 				} else {
 					if (isGuidStream(treeItem)) {
@@ -227,7 +227,7 @@ class Directory extends Tab
 			return new Task<byte[]>() {
 				protected byte[] call()
 				{
-					return msg.getFile(getItem().getValue().entry);
+					return msg.getFile(getItem().getValue());
 				}
 			};
 		}
@@ -299,7 +299,7 @@ class Directory extends Tab
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"));
-				if (msg.isTextData(de.entry)) {
+				if (msg.isTextData(de)) {
 					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE));
 					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_TXT_FILES, "*.txt"));
 					fileChooser.setInitialFileName(de.name + ".txt");
@@ -354,7 +354,7 @@ class Directory extends Tab
 			@Override
 			public void handle(ContextMenuEvent e){
 				final DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
-				if (!msg.isStreamObject(de.entry))
+				if (!msg.isStreamObject(de))
 					e.consume();
 				saveAttachment.setVisible(de.name.equals("__substg1.0_37010102"));
 			}
@@ -367,7 +367,7 @@ class Directory extends Tab
 	{
 		try {
 			FileChannel fc = new FileOutputStream(file).getChannel();
-			fc.write(ByteBuffer.wrap(msg.getFile(de.entry)));
+			fc.write(ByteBuffer.wrap(msg.getFile(de)));
 			fc.close();
 		} catch (FileNotFoundException ex){
 			Alert alert = new Alert(AlertType.WARNING);

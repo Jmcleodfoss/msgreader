@@ -7,7 +7,7 @@ package io.github.jmcleodfoss.msg;
 public class DirectoryEntryData {
 
 	/** The directory entry index */
-	public final int entry;
+	final int entry;
 
 	/** The directory entry name
 	*	@see DirectoryEntry#directoryEntryName
@@ -69,6 +69,14 @@ public class DirectoryEntryData {
 		startingSector = de.startingSectorLocation;
 
 		kvps = de.data(namedProperties, directory.parents);
+	}
+
+	/** Is this entry the Header entry, which points to the MiniFAT?
+	*	@return	true if this entry is the header entry, false otherwise
+	*/
+	public boolean isHeader()
+	{
+		return entry == 0;
 	}
 
 	/** Create a string representing this directory entry
