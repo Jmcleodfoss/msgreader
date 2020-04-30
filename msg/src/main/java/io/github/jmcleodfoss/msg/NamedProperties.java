@@ -1,24 +1,32 @@
 package io.github.jmcleodfoss.msg;
 
-/** The named properties from an MSG file */
+/** The named properties in a msg file
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/193c169b-0628-4392-aa51-83009be7d71f">MS-OXMSG Section 2.2.3: Named Property Mapping Storage</a>
+*/
 class NamedProperties
 {
-	/** The entry name for the GUID stream */
+	/** The entry name for the GUID stream
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/e910b8f0-ab70-410b-bb3a-0fa236a55bfb">MS-OXMSG Section 2.2.3.1.1: GUID Stream</a>
+	*/
 	private static final String GUID_STREAM_NAME = "__substg1.0_00020102";
 
 	/** The list of GUIDs */
 	GUID[] guids;
 
-	/** The entry name for the entry stream */
+	/** The entry name for the entry stream
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/81159dd0-649e-4491-b216-877008b23f65">MS-OXMSG Section 2.2.3.1.2: Entry Stream</a>
+	*/
 	private static final String ENTRY_STREAM_NAME = "__substg1.0_00030102";
 
-	/** The list of entries */
+	/** The list of entries from the Entry Stream */
 	private EntryStreamEntry[] entries;
 
 	/** The number of numeric named property entries */
 	private int numNumericalNamedProperties;
 
-	/** The entry name for the string stream */
+	/** The entry name for the string stream
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/14dd4e27-58e1-4d6c-b4c2-7a1fd19d819c">MS=OXMSG Section 2.2.3.1.3: String Stream</a>
+	*/
 	private static final String STRING_STREAM_NAME = "__substg1.0_00040102";
 
 	/** The list of strings in the string stream, stored by stream offset */
