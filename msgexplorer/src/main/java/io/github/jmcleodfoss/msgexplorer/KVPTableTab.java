@@ -5,8 +5,6 @@ import io.github.jmcleodfoss.msg.KVPEntry;
 
 import java.util.Iterator;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
