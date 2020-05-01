@@ -198,14 +198,6 @@ class Header {
 		return (sectorNumber + 1) * sectorSize;
 	}
 
-	/** Calculate the size of the header block.
-	*	@return	The size of the header for this file.
-	*/
-	private int size()
-	{
-		return SIZE;
-	}
-
 	/** Provide a summary of the header in String form. This is typically used for debugging.
 	*	@return	A description of the header.
 	*/
