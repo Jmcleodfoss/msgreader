@@ -6,6 +6,7 @@ package io.github.jmcleodfoss.msg;
 class FAT {
 	/** The number of FAT entries
 	*	@see	Header#numberOfFATSectors
+	*	@see	Header#numberOfFATEntries
 	*/
 	final private int numEntries;
 
@@ -98,7 +99,7 @@ class FAT {
 		// than the number of sectors in the file, since the number in
 		// the FAT list is rounded up to fill an integral number of sectors.
 		// Normally, a file will not end with a bunch of free sectors.
-		numEntries = header.numberOfFATSectors * header.intsPerSector();
+		numEntries = header.numberOfFATEntries();
 		fat = new int[numEntries];
 
 		numSectors = header.numberOfSectors();

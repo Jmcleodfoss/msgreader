@@ -188,6 +188,14 @@ class Header {
 		return streamSize < miniStreamCutoffSize;
 	}
 
+	/** The number of FAT entries
+	*	@return	The number of FAT entries
+	*/
+	int numberOfFATEntries()
+	{
+		return numberOfFATSectors * intsPerSector();
+	}
+
 	/** The number of sectors in this file
 	*	@return	The number of sectors (based on the sector size)
 	*/
