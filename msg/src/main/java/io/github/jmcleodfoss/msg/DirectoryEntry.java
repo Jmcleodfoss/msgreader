@@ -273,7 +273,7 @@ public class DirectoryEntry {
 		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
-			if (streamSize < header.miniStreamCutoffSize)
+			if (header.isInMiniStream(streamSize))
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
@@ -397,7 +397,7 @@ public class DirectoryEntry {
 		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
-			if (streamSize < header.miniStreamCutoffSize)
+			if (header.isInMiniStream(streamSize))
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}

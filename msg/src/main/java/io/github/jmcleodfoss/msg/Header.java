@@ -92,7 +92,7 @@ class Header {
 	/** The cut-off between storage in the Mini FAT stream or the regular one.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 	*/
-	final int miniStreamCutoffSize;
+	private final int miniStreamCutoffSize;
 
 	/** The first mini FAT sector location
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
@@ -177,6 +177,15 @@ class Header {
 	int intsPerSector()
 	{
 		return sectorSize / DataType.SIZEOF_INT;
+	}
+
+	/** Is the given stream in the mini stream?
+	*	@param	streamSize	the size of the stream
+	*	@return	true if the stream is small enough to be stored in the mini stream, false otherwise.
+	*/
+	boolean isInMiniStream(long streamSize)
+	{
+		return streamSize < miniStreamCutoffSize;
 	}
 
 	/** The number of sectors in this file
