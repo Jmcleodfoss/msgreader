@@ -146,8 +146,8 @@ class MiniFAT {
 		return new ChainIterator(firstSector);
 	}
 
-	/** Get the chains of mini sectors defined in the mini FAT.
-	*   @return	A string containing all the chains in the mini FAT, one per line.
+	/** Get a description of the chains of mini sectors defined in the mini FAT.
+	*   @return	A String containing all the chains in the mini FAT, one per line.
 	*/
 	String getChains()
 	{
