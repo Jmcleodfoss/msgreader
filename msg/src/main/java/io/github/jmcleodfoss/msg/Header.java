@@ -64,34 +64,54 @@ class Header {
 	/** The file size */
 	final long fileSize;
 
-	/** The sector shift. */
+	/** The sector shift.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int sectorSize;
 
-	/** The mini sector shift */
+	/** The mini sector shift
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int miniSectorSize;
 
-	/** The number of directory sectors */
+	/** The number of directory sectors
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	private final int numberOfDirectorySectors;
 
-	/** The number of FAT sectors */
+	/** The number of FAT sectors
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int numberOfFATSectors;
 
-	/** The first directory sector location */
+	/** The first directory sector location
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int firstDirectorySectorLocation;
 
-	/** The cut-off between storage in the Mini FAT stream or the regular one. */
+	/** The cut-off between storage in the Mini FAT stream or the regular one.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int miniStreamCutoffSize;
 
-	/** The first mini FAT sector location */
+	/** The first mini FAT sector location
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int firstMiniFATSectorLocation;
 
-	/** The number of mini FAT sectors */
+	/** The number of mini FAT sectors
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int numberOfMiniFATSectors;
 
-	/** The first DIFAT (Double Indirect File Allocation Table) sector location */
+	/** The first DIFAT (Double Indirect File Allocation Table) sector location
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int firstDIFATSectorLocation;
 
-	/** The number of DIFAT sectors */
+	/** The number of DIFAT sectors
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	final int numberOfDIFATSectors;
 
 	/** Read in the header data and save the fields we need for later.
@@ -99,6 +119,7 @@ class Header {
 	*	@param	fileSize	The length of the file
 	*	@throws	NotCFBFileException	This is not a cfb file.
 	*	@throws	java.io.IOException	An I/O error was encountered when reading the msg header.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 	*/
 	Header(java.nio.ByteBuffer byteBuffer, long fileSize)
 	throws
