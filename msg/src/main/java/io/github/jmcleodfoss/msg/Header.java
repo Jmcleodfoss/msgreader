@@ -62,7 +62,7 @@ class Header {
 	private final DataContainer dc;
 
 	/** The file size */
-	final long fileSize;
+	private final long fileSize;
 
 	/** The sector shift.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
@@ -201,7 +201,7 @@ class Header {
 	/** Calculate the size of the header block.
 	*	@return	The size of the header for this file.
 	*/
-	int size()
+	private int size()
 	{
 		return SIZE;
 	}
