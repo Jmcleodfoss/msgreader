@@ -177,7 +177,7 @@ class FAT {
 	/** Get a String representation of all the sector chains in the FAT, one chain per line.
 	*	@return	A string listing all the chains in the FAT
 	*/
-	public String getChains()
+	private String getChainsAsString()
 	{
 		java.util.Iterator<java.util.ArrayList<Integer>> chainsIterator = getAllChains().iterator();
 
@@ -247,7 +247,7 @@ class FAT {
 				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
 
 			System.out.println("\nFAT sector chains");
-			System.out.println(fat.getChains());
+			System.out.println(fat.getChainsAsString());
 
 			System.out.println("\nFAT free sectors");
 			StringBuilder s = new StringBuilder();
