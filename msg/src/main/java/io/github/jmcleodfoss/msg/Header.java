@@ -102,7 +102,7 @@ class Header {
 	/** The number of mini FAT sectors
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 	*/
-	final int numberOfMiniFATSectors;
+	private final int numberOfMiniFATSectors;
 
 	/** The first DIFAT (Double Indirect File Allocation Table) sector location
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
