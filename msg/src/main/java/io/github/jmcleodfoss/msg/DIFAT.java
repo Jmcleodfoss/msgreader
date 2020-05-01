@@ -62,7 +62,7 @@ class DIFAT {
 		// First index in a DIFAT sector is the DIFAT signature
 		// and the last is either the index to the next sector, or the empty sector flag, 0xffffffff
 		final int entriesPerSector = header.intsPerSector() - 2;
-		numEntries = HEADER_DIFAT_ENTRIES + header.numberOfDIFATSectors * entriesPerSector;
+		numEntries = HEADER_DIFAT_ENTRIES + header.numberOfDIFATEntries();
 		difat = new int[numEntries];
 
 		mbb.rewind();

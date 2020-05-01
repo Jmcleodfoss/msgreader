@@ -112,7 +112,7 @@ class Header {
 	/** The number of DIFAT sectors
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 	*/
-	final int numberOfDIFATSectors;
+	private final int numberOfDIFATSectors;
 
 	/** Read in the header data and save the fields we need for later.
 	*	@param	byteBuffer	The data stream from which to read the PST header.
@@ -186,6 +186,16 @@ class Header {
 	boolean isInMiniStream(long streamSize)
 	{
 		return streamSize < miniStreamCutoffSize;
+	}
+
+	/** The number of DIFAT entries
+	*	@return	The number of DIFAT entries
+	*/
+	int numberOfDIFATEntries()
+	{
+		// First index in a DIFAT sector is the DIFAT signature
+		// and the last is either the index to the next sector, or the empty sector flag, 0xffffffff
+		return numberOfDIFATSectors * (intsPerSector() - 2);
 	}
 
 	/** The number of FAT entries
