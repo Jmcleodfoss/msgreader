@@ -44,7 +44,7 @@ class MiniFAT {
 	private static final int MINI_SECTOR_SIZE = 64;
 
 	/** The sector size (from the file header)
-	*	@see Header#sectorSize;
+	*	@see Header#sectorSize
 	*/
 	private final int sectorSize;
 
