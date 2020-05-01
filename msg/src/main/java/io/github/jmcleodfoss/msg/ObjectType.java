@@ -5,16 +5,16 @@ package io.github.jmcleodfoss.msg;
  */
 class ObjectType {
 	/** The object type for Unknown or Unallocated entries. */
-	static final byte UNKNOWN = 0x00;
+	private static final byte UNKNOWN = 0x00;
 
 	/** The object type for Storage Objects */
-	static final byte STORAGE = 0x01;
+	private static final byte STORAGE = 0x01;
 
 	/** The object type for Stream Objects */
-	static final byte STREAM = 0x02;
+	private static final byte STREAM = 0x02;
 
 	/** The object type for Root Storage Objects */
-	static final byte ROOT_STORAGE = 0x05;
+	private static final byte ROOT_STORAGE = 0x05;
 
 	/** The actual object type. */
 	private final byte type;
