@@ -71,8 +71,7 @@ public class MSG
 	*   file content
 	*	@param	ded	The entry to convert the data for.
 	*	@param	data	The file contents
-	*	@return	A string showing the file contents. This will be hex
-	*		bytes if the field is not text.
+	*	@return	A string showing the file contents. This will be hex bytes if the field is not text.
 	*/
 	public String convertFileToString(DirectoryEntryData ded, byte[] data)
 	{
@@ -80,8 +79,7 @@ public class MSG
 	}
 
 	/** Get the data from the DIFAT, as an array of key-value pairs.
-	*	@return	A KVP array of the DIFAT entries, with the DIFAT index
-	*		as the key and the corresponding FAT sector as the value
+	*	@return	A KVP array of the DIFAT entries, with the DIFAT indexas the key and the corresponding FAT sector as the value
 	*/
 	public KVPArray<Integer, Integer> difatData()
 	{
@@ -210,8 +208,7 @@ public class MSG
 		return directory.entries.get(ded.entry).objectType.isStream();
 	}
 
-	/** Get the directory entry keys (this allows a table for display to
-	*   be set up with the correct number of entries before we have any data)
+	/** Get the directory entry keys (this allows a table for display to be set up with the correct number of entries before we have any data)
 	*	@return	A list of keys and values in the same order as
 	*		getDirectoryEntryData but with empty strings for the values
 	*/
@@ -245,8 +242,7 @@ public class MSG
 		return directory.entries.get(ded.entry).getContent(mbb, header, fat, miniFAT);
 	}
 
-	/** Get the mini FAT data as a table consisting of the mini FAT sectors
-	*   in the first column, and the data in the second.
+	/** Get the mini FAT data as a table consisting of the mini FAT sectors in the first column, and the data in the second.
 	*	@return	An array of the mini FAT chains and data
 	*/
 	public KVPArray<java.util.ArrayList<Integer>, byte[]> miniFATData()
@@ -271,7 +267,6 @@ public class MSG
 		return l;
 	}
 
-	/** Is there a text representation of the "file" for a given directory,
 	/** Get the raw bytes for the requested directory entry
 	*	@param	ded	The entry to retrieve data for
 	*	@return	An array of the bytes in the directory entry.
@@ -285,9 +280,7 @@ public class MSG
 	}
 
 	/** Retrieve the contents of the requested sector.
-	*	@param	i	The 0-based sector to retrieve. Note that this
-	*			is not a sector number (sector #0 is physical
-	*			sector 1, etc).
+	*	@param	i	The 0-based sector to retrieve. Note that this is not a sector number (sector #0 is physical sector 1, etc).
 	*	@return	An array of bytes holding the stream contents
 	*/
 	public byte[] getSector(int i)
@@ -315,8 +308,7 @@ public class MSG
 		return directory.entries.get(ded.entry).isPropertiesEntry();
 	}
 
-	/** Is there a text representation of the "file" for a given directory,
-	*   or is it binary?
+	/** Is there a text representation of the "file" for a given directory, or is it binary?
 	*	@param	ded	The directory entry to check the data type of
 	*	@return	true if the file is text, false if it is binary
 	*/
