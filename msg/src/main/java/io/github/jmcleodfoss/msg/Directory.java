@@ -102,7 +102,7 @@ class Directory {
 	/** Set the parent node for each child node
 	*	@param	parentIndex	The index of the parent node in entries
 	*/
-	void setParent(int parentIndex)
+	private void setParent(int parentIndex)
 	{
 		java.util.ArrayList<Integer> children = getChildren(parentIndex);
 		DirectoryEntry parent = entries.get(parentIndex);
