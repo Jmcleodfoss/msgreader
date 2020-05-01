@@ -72,7 +72,7 @@ class MiniFAT {
 	{
 		sectorSize = header.sectorSize;
 		miniSectorsPerFullSector = sectorSize / MINI_SECTOR_SIZE;
-		numEntries = header.getNumberOfMiniFATEntries();
+		numEntries = header.numberOfMiniFATEntries();
 		miniFATSectors = new int[numEntries];
 		java.util.Iterator<Integer> iter = fat.chainIterator(header.firstMiniFATSectorLocation);
 		int destIndex = 0;

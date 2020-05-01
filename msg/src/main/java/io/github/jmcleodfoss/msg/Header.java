@@ -209,7 +209,7 @@ class Header {
 	/** The number of MiniFAT entries
 	*	@return	The number of MiniFAT entries
 	*/
-	int getNumberOfMiniFATEntries()
+	int numberOfMiniFATEntries()
 	{
 		return numberOfMiniFATSectors * sectorSize / DataType.SIZEOF_INT;
 	}
