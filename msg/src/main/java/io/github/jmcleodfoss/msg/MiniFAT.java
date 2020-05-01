@@ -38,13 +38,19 @@ class MiniFAT {
 		}
 	}
 
-	/** The number of bytes in a mini sector. */
+	/** The number of bytes in a mini sector. This can be calculated using the Mini Sector Shift value in the header, but it's always the same.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	private static final int MINI_SECTOR_SIZE = 64;
 
-	/** The sector size (from the file header */
+	/** The sector size (from the file header)
+	*	@see Header#sectorSize;
+	*/
 	private final int sectorSize;
 
-	/** The number of mini sectors in a full sector */
+	/** The number of mini sectors in a full sector. The size of a full sector is different for Version 3 and Version 4 files.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
 	private final int miniSectorsPerFullSector;
 
 	/** The number of mini FAT sectors */
