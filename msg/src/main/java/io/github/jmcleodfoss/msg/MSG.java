@@ -268,7 +268,6 @@ public class MSG
 			l.add(new KVPEntry<java.util.ArrayList<Integer>, byte[]>(chain, data));
 		}
 
-		//l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
 		return l;
 	}
 
