@@ -149,7 +149,7 @@ class MiniFAT {
 	/** Get a description of the chains of mini sectors defined in the mini FAT.
 	*   @return	A String containing all the chains in the mini FAT, one per line.
 	*/
-	String getChains()
+	private String getChains()
 	{
 		java.util.Iterator<java.util.ArrayList<Integer>> chainsIterator = getAllChains().iterator();
 
