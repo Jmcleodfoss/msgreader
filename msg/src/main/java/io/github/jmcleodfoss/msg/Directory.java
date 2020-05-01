@@ -6,13 +6,13 @@ package io.github.jmcleodfoss.msg;
 class Directory {
 
 	/** The directory entries. */
-	java.util.ArrayList<DirectoryEntry> entries;
+	final java.util.ArrayList<DirectoryEntry> entries;
 
 	/** The index to the named properties directory entry */
-	int namedPropertiesMappingIndex;
+	final int namedPropertiesMappingIndex;
 
 	/** The parents of each entry */
-	java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
+	final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
 	/** Construct a directory object.
 	*	@param	byteBuffer	The CFB file
@@ -26,6 +26,7 @@ class Directory {
 	{
 		entries = new java.util.ArrayList<DirectoryEntry>();
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
+		int namedPropertiesMappingIndex = -1;
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position(header.offset(dirSector));
@@ -36,7 +37,7 @@ class Directory {
 					namedPropertiesMappingIndex = entries.indexOf(de);
 			}
 		}
-
+		this.namedPropertiesMappingIndex = namedPropertiesMappingIndex;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(0);
 	}
