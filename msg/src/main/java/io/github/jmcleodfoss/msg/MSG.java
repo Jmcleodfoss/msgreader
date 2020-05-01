@@ -1,6 +1,6 @@
 package io.github.jmcleodfoss.msg;
 
-/** Consolidated interface for reading MSG files (this will work for other CFB
+/** Consolidated public interface for reading MSG files (this will probably work for other CFB
 *   files but has special handling for some information found only in MSG files).
 */
 public class MSG
