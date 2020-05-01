@@ -19,6 +19,7 @@ class Directory {
 	*	@param	header		The CFB header
 	*	@param	fat		The CFB file allocation table
 	*	@throws	java.io.IOException	An error was encountered reading the directory structure.
+	*	@see DirectoryEntry#factory
 	*/
 	Directory(java.nio.ByteBuffer byteBuffer, Header header, FAT fat)
 	throws
@@ -45,6 +46,7 @@ class Directory {
 	/** Collect all siblings and self for the given childIndex.
 	*	@param	siblings	The list of children of childIndex's parent
 	*	@param	childIndex	The given child for the parent we are collecting the children of.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
 	private void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
 	{
@@ -77,6 +79,7 @@ class Directory {
 	/** Get the children for a given node.
 	*	@param	parentIndex	The directory entry index of the parent we want to find the children of, if any.
 	*	@return	The (possibly empty) list of children of the directory entry for parentIndex.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
 	java.util.ArrayList<Integer> getChildren(int parentIndex)
 	{
