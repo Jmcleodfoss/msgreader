@@ -14,6 +14,12 @@ class Directory {
 	/** The parents of each entry */
 	final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
+	/** Ad hoc utility class to collect information from DirectoryEntry construction for use in final variables in Directory */
+	class ConstructorData {
+		/** The entry containing the Named Properties info */
+		DirectoryEntry namedPropertiesMappingEntry;
+	}
+
 	/** Construct a directory object.
 	*	@param	byteBuffer	The CFB file
 	*	@param	header		The CFB header
@@ -27,18 +33,14 @@ class Directory {
 	{
 		entries = new java.util.ArrayList<DirectoryEntry>();
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
-		DirectoryEntry namedPropertiesMappingEntry = null;
+		ConstructorData cd = new ConstructorData();
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position(header.offset(dirSector));
-			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i) {
-				DirectoryEntry de = DirectoryEntry.factory(byteBuffer);
-				entries.add(de);
-				if (de.isNamedPropertiesEntry())
-					namedPropertiesMappingEntry = de;
-			}
+			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i)
+				entries.add(DirectoryEntry.factory(byteBuffer, cd));
 		}
-		this.namedPropertiesMappingEntry = namedPropertiesMappingEntry;
+		namedPropertiesMappingEntry = cd.namedPropertiesMappingEntry;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(entries.get(0));
 	}

@@ -209,14 +209,6 @@ public class DirectoryEntry {
 		return "n/a";
 	}
 
-	/** Is this entry a Named Properties entry?
-	*	@return	true if the class type is NamedProperties, false otherwise. Base class version always returns false.
-	*/
-	boolean isNamedPropertiesEntry()
-	{
-		return false;
-	}
-
 	/** Is this entry a Properties entry?
 	*	@return	true if the class type is Properties, false otherwise. Base class version always returns false.
 	*/
@@ -282,14 +274,6 @@ public class DirectoryEntry {
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		/** Is this entry a Named Properties entry?
-		*	@return	true if the class type is NamedProperties, false otherwise. Base class version always returns false.
-		*/
-		boolean isNamedPropertiesEntry()
-		{
-			return true;
 		}
 
 		public String toString()
@@ -582,11 +566,12 @@ public class DirectoryEntry {
 
 	/** Create a directory entry of the required type based on the directory entry name.
 	*	@param	byteBuffer	The data stream for the msg file
+	*	@param	cd		The holder for information used to build the {link @Directory#Directory Directory constructor} after all entries have been read.
 	*	@return	The DirectoryEntry object read from the byteBuffer
 	*	@throws	java.io.IOException	If the file could not be read
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
-	static DirectoryEntry factory(java.nio.ByteBuffer byteBuffer)
+	static DirectoryEntry factory(java.nio.ByteBuffer byteBuffer, Directory.ConstructorData cd)
 	throws
 		java.io.IOException
 	{
@@ -609,7 +594,9 @@ public class DirectoryEntry {
 
 		java.util.regex.Matcher matcher;
 		if (ROOT_ENTRY.equals(directoryEntryName)){
-			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			DirectoryEntry de = new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			cd.namedPropertiesMappingEntry = de;
+			return de;
 		} else if (NAMEID.equals(directoryEntryName)){
 			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
