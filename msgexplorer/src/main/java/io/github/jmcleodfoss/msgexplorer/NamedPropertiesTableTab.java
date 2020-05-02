@@ -118,11 +118,11 @@ class NamedPropertiesTableTab extends Tab
 
 	static NamedPropertiesTableTab numericalNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
-		return new NamedPropertiesTableTab(localizer, PROPNAME_NUMERICALENTRIES_LABEL, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER, "0x04x");
+		return new NamedPropertiesTableTab(localizer, PROPNAME_NUMERICALENTRIES_LABEL, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER, "0x%04x");
 	}
 
 	static NamedPropertiesTableTab stringNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
-		return new NamedPropertiesTableTab(localizer, PROPNAME_STRINGENTRIES_LABEL, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER, "0x04x");
+		return new NamedPropertiesTableTab(localizer, PROPNAME_STRINGENTRIES_LABEL, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER, "0x%04x");
 	}
 }
