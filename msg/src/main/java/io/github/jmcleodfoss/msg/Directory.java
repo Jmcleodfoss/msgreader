@@ -34,7 +34,7 @@ class Directory {
 			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i) {
 				DirectoryEntry de = DirectoryEntry.factory(byteBuffer);
 				entries.add(de);
-				if (de instanceof DirectoryEntry.NamedPropertiesMapping)
+				if (de.isNamedPropertiesEntry())
 					namedPropertiesMappingIndex = entries.indexOf(de);
 			}
 		}

@@ -171,6 +171,14 @@ public class DirectoryEntry {
 		return "n/a";
 	}
 
+	/** Is this entry a Named Properties entry?
+	*	@return	true if the class type is NamedProperties, false otherwise. Base class version always returns false.
+	*/
+	boolean isNamedPropertiesEntry()
+	{
+		return false;
+	}
+
 	/** Is this entry a Properties entry?
 	*	@return	true if the class type is Properties, false otherwise. Base class version always returns false.
 	*/
@@ -231,6 +239,14 @@ public class DirectoryEntry {
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		}
+
+		/** Is this entry a Named Properties entry?
+		*	@return	true if the class type is NamedProperties, false otherwise. Base class version always returns false.
+		*/
+		boolean isNamedPropertiesEntry()
+		{
+			return true;
 		}
 
 		public String toString()
