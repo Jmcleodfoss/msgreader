@@ -163,7 +163,7 @@ public class DirectoryEntry {
 
 	/** Return the property ID, if any.
 	*	@return	The property ID. The default implementation, suitable
-	*		for all classes except StringStream, returns
+	*		for all classes except Substorage, returns
 	*		NO_PROPERTY_ID, a sentinel value indicating that there
 	*		is no property related to this object type.
 	*	@see	NO_PROPERTY_ID
@@ -174,7 +174,7 @@ public class DirectoryEntry {
 	}
 
 	/** Return the property type, if any.
-	*	@return	The property type. The default implementatation, suitable for all classes except StringStream, returns n/a
+	*	@return	The property type. The default implementatation, suitable for all classes except Substorage, returns n/a
 	*/
 	String getPropertyType()
 	{
@@ -198,8 +198,8 @@ public class DirectoryEntry {
 	}
 
 	/** Does this entry have a text representation?
-	*	@return	false in the general case, true for StringStreams of type Text
-	*	@see StringStream#isTextData
+	*	@return	false in the general case, true for Substorages of type Text
+	*	@see Substorage#isTextData
 	*/
 	boolean isTextData()
 	{
@@ -386,7 +386,7 @@ public class DirectoryEntry {
 	/** A storage stream, containing a property value for a variable-length or large fixed-width (&gt; 8 bytes) property
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/08185828-e9e9-4ef2-bcd2-f6e69c00891b">MS-OXMSG Section 2.1.3: Variable Length Properties</a>
 	*/
-	private static class StringStream extends DirectoryEntry {
+	private static class Substorage extends DirectoryEntry {
 
 		private static final int PROPERTY_TYPE_STRING = 0x001f;
 		private static final int PROPERTY_TYPE_BINARY = 0x0102;
@@ -401,7 +401,7 @@ public class DirectoryEntry {
 		int propertyId;
 		int propertyType;
 
-		private StringStream(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType, DataContainer dc)
+		private Substorage(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 			this.propertyId = Integer.decode("0x"+ propertyId);
@@ -428,7 +428,7 @@ public class DirectoryEntry {
 
 		/** Get the size of the Property header information for embedded messages
 		*	@return	The size of the Properties header for embedded messages.
-		*	@see StringStream#getChildPropertiesHeader
+		*	@see Substorage#getChildPropertiesHeader
 		*/
 		@Override
 		int getChildPropertiesHeaderSize()
@@ -621,7 +621,7 @@ public class DirectoryEntry {
 		} else if (NAMEID.equals(directoryEntryName)){
 			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
-			return new StringStream(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
+			return new Substorage(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
 		} else if (PROPERTIES.equals(directoryEntryName)){
 			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (RECIP_PATTERN.matcher(directoryEntryName).matches()){
