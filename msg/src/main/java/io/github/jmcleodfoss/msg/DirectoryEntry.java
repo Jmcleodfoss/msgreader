@@ -163,7 +163,7 @@ public class DirectoryEntry {
 
 	/** Return the property ID, if any.
 	*	@return	The property ID. The default implementation, suitable
-	*		for all classes except StringStrem, returns
+	*		for all classes except StringStream, returns
 	*		NO_PROPERTY_ID, a sentinel value indicating that there
 	*		is no property related to this object type.
 	*	@see	NO_PROPERTY_ID
