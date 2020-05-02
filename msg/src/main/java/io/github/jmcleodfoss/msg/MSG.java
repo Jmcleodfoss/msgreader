@@ -199,7 +199,7 @@ public class MSG
 		return directory.entries.get(index).objectType.isStorage();
 	}
 
-	/** Is the directory entry for the given index a Stream Object?
+	/** Is the given directory entry a Stream Object?
 	*	@param	ded	The directory entry to check.
 	*	@return	true if this entry is a Stream Object, false otherwise.
 	*/
