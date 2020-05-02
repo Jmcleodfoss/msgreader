@@ -590,9 +590,13 @@ public class DirectoryEntry {
 			cd.propertyEntries.add(de);
 			return de;
 		} else if (RECIP_PATTERN.matcher(directoryEntryName).matches()){
-			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			DirectoryEntry de = new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			cd.recipientEntries.add(de);
+			return de;
 		} else if (ATTACH_PATTERN.matcher(directoryEntryName).matches()){
-			return new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			DirectoryEntry de = new Attachment(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			cd.attachmentEntries.add(de);
+			return de;
 		} else if (UNALLOCATED.equals(directoryEntryName)){
 			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else {

@@ -57,6 +57,16 @@ public class MSG
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 	}
 
+	/** Get an iterator through all attachments in the msg file
+	*	@return	An iterator through the attachments found when reading in the directory
+	*	@see	Directory#attachmentEntries
+	*	@see	DirectoryEntryDataIterator
+	*/
+	java.util.Iterator<DirectoryEntryData> attachments()
+	{
+		return new DirectoryEntryDataIterator(directory.attachmentEntries.iterator(), directory, namedProperties);
+	}
+
 	/** Close the file.
 	* 	@throws	java.io.IOException	There was a problem closing the file.
 	*/
@@ -380,5 +390,15 @@ public class MSG
 	public int numberOfSectors()
 	{
 		return header.numberOfSectors();
+	}
+
+	/** Get an iterator through all recipients in the msg file
+	*	@return	An iterator through the recipients found when reading in the directory
+	*	@see	Directory#recipientEntries
+	*	@see	DirectoryEntryDataIterator
+	*/
+	java.util.Iterator<DirectoryEntryData> recipients()
+	{
+		return new DirectoryEntryDataIterator(directory.recipientEntries.iterator(), directory, namedProperties);
 	}
 }

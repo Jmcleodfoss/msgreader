@@ -14,6 +14,12 @@ class Directory {
 	/** The properties entries in the directory (including both the main message properties and those in any attachments and recipients */
 	final java.util.ArrayList<DirectoryEntry> propertyEntries;
 
+	/** The attachment entries in the directory (including both those in the main message and any in attached message objects */
+	final java.util.ArrayList<DirectoryEntry> attachmentEntries;
+
+	/** The recipient entries in the directory (including both those in the main message and any in attached message objects */
+	final java.util.ArrayList<DirectoryEntry> recipientEntries;
+
 	/** The parents of each entry */
 	final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
@@ -21,6 +27,11 @@ class Directory {
 	*	@see Directory#Directory
 	*/
 	class ConstructorData {
+		/** The attachment entries in the directory (including both those in the main message and any in attached message objects
+		*	@see Directory.attachmentEntries
+		*/
+		java.util.ArrayList<DirectoryEntry> attachmentEntries;
+
 		/** The entry containing the Named Properties info
 		*	@see Directory#namedPropertiesMappingEntry
 		*/
@@ -31,10 +42,17 @@ class Directory {
 		*/
 		java.util.ArrayList<DirectoryEntry> propertyEntries;
 
+		/** The recipient entries in the directory (including both those in the main message and any in attached message objects
+		*	@see Directory.recipientEntries
+		*/
+		java.util.ArrayList<DirectoryEntry> recipientEntries;
+
 		/** Construct an object by initializing its constituent ArrayLists */
 		ConstructorData()
 		{
+			attachmentEntries = new java.util.ArrayList<DirectoryEntry>();
 			propertyEntries = new java.util.ArrayList<DirectoryEntry>();
+			recipientEntries = new java.util.ArrayList<DirectoryEntry>();
 		}
 	}
 
@@ -59,7 +77,9 @@ class Directory {
 				entries.add(DirectoryEntry.factory(byteBuffer, cd));
 		}
 		namedPropertiesMappingEntry = cd.namedPropertiesMappingEntry;
+		attachmentEntries = cd.attachmentEntries;
 		propertyEntries = cd.propertyEntries;
+		recipientEntries = cd.recipientEntries;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(entries.get(0));
 	}
