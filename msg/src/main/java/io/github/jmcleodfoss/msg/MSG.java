@@ -313,7 +313,7 @@ public class MSG
 	*/
 	public boolean isProperty(DirectoryEntryData ded)
 	{
-		return ded.entry.isPropertiesEntry();
+		return directory.propertyEntries.contains(ded.entry);
 	}
 
 	/** Is there a text representation of the "file" for a given directory, or is it binary?

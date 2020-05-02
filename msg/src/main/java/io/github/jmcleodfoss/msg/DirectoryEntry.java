@@ -209,14 +209,6 @@ public class DirectoryEntry {
 		return "n/a";
 	}
 
-	/** Is this entry a Properties entry?
-	*	@return	true if the class type is Properties, false otherwise. Base class version always returns false.
-	*/
-	boolean isPropertiesEntry()
-	{
-		return false;
-	}
-
 	/** Does this entry have a text representation?
 	*	@return	false in the general case, true for Substorages of type Text
 	*	@see Substorage#isTextData
@@ -320,14 +312,6 @@ public class DirectoryEntry {
 			if (header.isInMiniStream(streamSize))
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
-		}
-
-		/** Is this entry a Properties entry?
-		*	@return	true for Properties class
-		*/
-		boolean isPropertiesEntry()
-		{
-			return true;
 		}
 
 		public String toString()
@@ -602,7 +586,9 @@ public class DirectoryEntry {
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
 			return new Substorage(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
 		} else if (PROPERTIES.equals(directoryEntryName)){
-			return new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			DirectoryEntry de = new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			cd.propertyEntries.add(de);
+			return de;
 		} else if (RECIP_PATTERN.matcher(directoryEntryName).matches()){
 			return new Recipient(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if (ATTACH_PATTERN.matcher(directoryEntryName).matches()){

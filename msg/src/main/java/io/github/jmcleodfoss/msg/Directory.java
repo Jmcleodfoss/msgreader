@@ -11,13 +11,31 @@ class Directory {
 	/** The index to the named properties directory entry */
 	final DirectoryEntry namedPropertiesMappingEntry;
 
+	/** The properties entries in the directory (including both the main message properties and those in any attachments and recipients */
+	final java.util.ArrayList<DirectoryEntry> propertyEntries;
+
 	/** The parents of each entry */
 	final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
 
-	/** Ad hoc utility class to collect information from DirectoryEntry construction for use in final variables in Directory */
+	/** Ad hoc utility class to collect information from DirectoryEntry construction for use in final variables in Directory.
+	*	@see Directory#Directory
+	*/
 	class ConstructorData {
-		/** The entry containing the Named Properties info */
+		/** The entry containing the Named Properties info
+		*	@see Directory#namedPropertiesMappingEntry
+		*/
 		DirectoryEntry namedPropertiesMappingEntry;
+
+		/** The properties entries in the directory (including both the main message properties and those in any attachments and recipients
+		*	@see Directory#propertyEntries
+		*/
+		java.util.ArrayList<DirectoryEntry> propertyEntries;
+
+		/** Construct an object by initializing its constituent ArrayLists */
+		ConstructorData()
+		{
+			propertyEntries = new java.util.ArrayList<DirectoryEntry>();
+		}
 	}
 
 	/** Construct a directory object.
@@ -41,6 +59,7 @@ class Directory {
 				entries.add(DirectoryEntry.factory(byteBuffer, cd));
 		}
 		namedPropertiesMappingEntry = cd.namedPropertiesMappingEntry;
+		propertyEntries = cd.propertyEntries;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(entries.get(0));
 	}
