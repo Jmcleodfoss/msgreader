@@ -71,14 +71,6 @@ public class DirectoryEntryData {
 		kvps = de.data(namedProperties, directory.parents);
 	}
 
-	/** Is this entry the Header entry, which points to the MiniFAT?
-	*	@return	true if this entry is the header entry, false otherwise
-	*/
-	public boolean isHeader()
-	{
-		return entry == 0;
-	}
-
 	/** Create a string representing this directory entry
 	*	@return	The name of the entry
 	*/
