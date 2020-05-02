@@ -213,6 +213,9 @@ public class DirectoryEntry {
 		);
 	}
 
+	/** Attachment object storage
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/8590d60d-4173-4ca8-9cb2-190aae006fbd">MS-OXMSG Section 2.2.2: Attachment Object Storage</a>
+	*/
 	static class Attachment extends DirectoryEntry {
 		private Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -234,7 +237,9 @@ public class DirectoryEntry {
 		}
 	}
 
-	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs. */
+	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs.i
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/193c169b-0628-4392-aa51-83009be7d71f">MS-OXMSG Section 2.2.3: Named Property Mapping Storage</a>
+	*/
 	static class NamedPropertiesMapping extends DirectoryEntry {
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -255,7 +260,9 @@ public class DirectoryEntry {
 		}
 	}
 
-	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object. */
+	/** Properties have no siblings or children; Class ID and dates are always null, and Object Type is always Stream Object.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/20c1125f-043d-42d9-b1dc-cb9b7e5198ef">MS-OXMSG Section 2.4: Property Stream</a>
+	*/
 	static class Properties extends DirectoryEntry {
 		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -308,6 +315,9 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** Recipient Object Storage
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/38a5cb3c-4454-48ba-b113-6de75321b67f">MS-OXMSG Section 2.2.1: Recipient Object Storage</a>
+	*/
 	static class Recipient extends DirectoryEntry {
 		private Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -329,6 +339,9 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** The root entry
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/026fde6e-143d-41bf-a7da-c08b2130d50e">MS-CFB Section 2.6.2: Root Directory Entry</a>
+	*/
 	static class RootEntry extends DirectoryEntry {
 		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -360,6 +373,9 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** A storage stream, containing a property value for a variable-length or large fixed-width (&gt; 8 bytes) property
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/08185828-e9e9-4ef2-bcd2-f6e69c00891b">MS-OXMSG Section 2.1.3: Variable Length Properties</a>
+	*/
 	static class StringStream extends DirectoryEntry {
 
 		private static final int PROPERTY_TYPE_STRING = 0x001f;
@@ -449,6 +465,9 @@ public class DirectoryEntry {
 		}
 	}
 
+	/** An unallocated entry
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e">MS-CFG Section 2.6.3: Other Directory Entries</a>
+	*/
 	static class Unallocated extends DirectoryEntry {
 		private Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -563,6 +582,7 @@ public class DirectoryEntry {
 	*	@param	byteBuffer	The data stream for the msg file
 	*	@return	The DirectoryEntry object read from the byteBuffer
 	*	@throws	java.io.IOException	If the file could not be read
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	static DirectoryEntry factory(java.nio.ByteBuffer byteBuffer)
 	throws
