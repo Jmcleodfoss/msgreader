@@ -41,10 +41,20 @@ public class DirectoryEntry {
 	*/
 	private static final String UNALLOCATED = "";
 
-	/** KVP keys for property headers */
+	/** KVP key for next recipient ID entry to use in a property header for a message object (either the root message or an embedded message)
+	*/
 	private static final String NEXT_RECIPIENT_ID = "next-recipient-id";
+
+	/** KVP key for next attachment ID entry to use in a property header for a message object (either the root message or an embedded message)
+	*/
 	private static final String NEXT_ATTACHMENT_ID = "next-attachment-id";
+
+	/** KVP key for the number of recipient entries in a property header for a message object (either the root message or an embedded message)
+	*/
 	private static final String RECIPIENT_COUNT = "recipient-count";
+
+	/** KVP key for next attachment ID entry to use in a property headers for a message object (either the root message or an embedded message)
+	*/
 	private static final String ATTACHMENT_COUNT = "recipient-count";
 
 	/** Property IDs are only defined for string stream entries; 0x0000 is
