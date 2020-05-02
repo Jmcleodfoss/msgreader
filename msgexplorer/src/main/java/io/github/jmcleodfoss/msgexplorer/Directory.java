@@ -138,7 +138,7 @@ class Directory extends Tab
 			data.update(msg.getRawDirectoryEntry(de));
 
 			// Header points to the mini stream, so skip it.
-			if (!de.isHeader()) {
+			if (!msg.isRootStorageObject(de)) {
 				updateInfoService.setItem(newVal);
 				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 				updateInfoService.restart();
