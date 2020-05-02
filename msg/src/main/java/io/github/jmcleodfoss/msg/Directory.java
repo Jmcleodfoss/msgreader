@@ -27,7 +27,7 @@ class Directory {
 	{
 		entries = new java.util.ArrayList<DirectoryEntry>();
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
-		DirectoryEntry namedPropertiesMappingIndex = null;
+		DirectoryEntry namedPropertiesMappingEntry = null;
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position(header.offset(dirSector));
