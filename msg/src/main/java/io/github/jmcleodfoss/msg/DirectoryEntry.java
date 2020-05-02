@@ -594,11 +594,11 @@ public class DirectoryEntry {
 
 		java.util.regex.Matcher matcher;
 		if (ROOT_ENTRY.equals(directoryEntryName)){
-			DirectoryEntry de = new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+			return new RootEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
+		} else if (NAMEID.equals(directoryEntryName)){
+			DirectoryEntry de = new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 			cd.namedPropertiesMappingEntry = de;
 			return de;
-		} else if (NAMEID.equals(directoryEntryName)){
-			return new NamedPropertiesMapping(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
 			return new Substorage(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
 		} else if (PROPERTIES.equals(directoryEntryName)){
