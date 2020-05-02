@@ -7,10 +7,10 @@ class DirectoryEntryDataIterator implements java.util.Iterator<DirectoryEntryDat
 	private java.util.Iterator<DirectoryEntry> iterator;
 
 	/** The directory the entries in the iterator belong to. */
-	private Directory directory;
+	private final Directory directory;
 
 	/** The named properties list associated with the entries in the iterator. */
-	private NamedProperties namedProperties;
+	private final NamedProperties namedProperties;
 
 	/** Create an iterator through the entry's children by setting up the local iterator to shadow. */
 	DirectoryEntryDataIterator(java.util.Iterator<DirectoryEntry> iterator, Directory directory, NamedProperties namedProperties)
