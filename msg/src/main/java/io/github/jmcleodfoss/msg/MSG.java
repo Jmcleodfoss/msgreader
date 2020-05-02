@@ -181,22 +181,22 @@ public class MSG
 		return de.properties(data, directory.parents.get(de), namedProperties);
 	}
 
-	/** Is the directory entry for the given index a Root Storage Object?
-	*	@param	index	The directory entry index.
+	/** Is the given directory entry a Root Storage Object?
+	*	@param	ded	The directory entry
 	*	@return	true if this entry is a Root Storage Object, false otherwise.
 	*/
-	public boolean isRootStorageObject(int index)
+	public boolean isRootStorageObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(index).objectType.isRootStorage();
+		return directory.entries.get(ded.entry).objectType.isRootStorage();
 	}
 
-	/** Is the directory entry for the given index a Storage Object?
-	*	@param	index	The directory entry index.
+	/** Is the given directory entry a Storage Object?
+	*	@param	ded	The directory entry
 	*	@return	true if this entry is a Storage Object, false otherwise.
 	*/
-	public boolean isStorageObject(int index)
+	public boolean isStorageObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(index).objectType.isStorage();
+		return directory.entries.get(ded.entry).objectType.isStorage();
 	}
 
 	/** Is the given directory entry a Stream Object?
