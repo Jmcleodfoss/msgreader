@@ -57,7 +57,7 @@ class NamedProperties
 		int pnmIndex = 0;
 
 		while(iter.hasNext()){
-			DirectoryEntry.StringStream de = (DirectoryEntry.StringStream)directory.entries.get(iter.next());
+			DirectoryEntry de = directory.entries.get(iter.next());
 
 			// Read in all the data at once. This is overkill for the simple
 			// case where all the data fits into one mini sector, but makes
@@ -158,7 +158,7 @@ class NamedProperties
 	*	@param	de	The String Stream containing the entries
 	*	@param	data	The data for this entrym
 	*/
-	private void setEntries(DirectoryEntry.StringStream de, byte[] data)
+	private void setEntries(DirectoryEntry de, byte[] data)
 	{
 		int numEntries = (int)de.streamSize / DataType.SIZEOF_LONG;
 		entries = new EntryStreamEntry[numEntries];
@@ -170,7 +170,7 @@ class NamedProperties
 	*	@param	de	The String Stream containing the GUIDs.
 	*	@param	data	The data for this entrym
 	*/
-	private void setGUIDS(DirectoryEntry.StringStream de, byte[] data)
+	private void setGUIDS(DirectoryEntry de, byte[] data)
 	{
 		int numGUIDS = (int)de.streamSize / GUID.SIZE;
 		guids = new GUID[numGUIDS];
@@ -182,7 +182,7 @@ class NamedProperties
 	*	@param	de	The String Stream containing the entries
 	*	@param	data	The data for this entry
 	*/
-	private void setStrings(DirectoryEntry.StringStream de, byte[] data)
+	private void setStrings(DirectoryEntry de, byte[] data)
 	{
 		java.nio.ByteBuffer thisStream = java.nio.ByteBuffer.wrap(data);
 		thisStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
