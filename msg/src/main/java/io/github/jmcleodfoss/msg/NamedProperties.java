@@ -47,7 +47,7 @@ class NamedProperties
 	*/
 	NamedProperties(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory, MiniFAT miniFAT)
 	{
-		java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(directory.namedPropertiesMappingIndex));
+		java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.namedPropertiesMappingEntry);
 		java.util.Iterator<DirectoryEntry> iter = children.iterator();
 
 		// After accounting for the GUID, Entry, and String streams, the

@@ -9,7 +9,7 @@ class Directory {
 	final java.util.ArrayList<DirectoryEntry> entries;
 
 	/** The index to the named properties directory entry */
-	final int namedPropertiesMappingIndex;
+	final DirectoryEntry namedPropertiesMappingEntry;
 
 	/** The parents of each entry */
 	final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents;
@@ -27,7 +27,7 @@ class Directory {
 	{
 		entries = new java.util.ArrayList<DirectoryEntry>();
 		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
-		int namedPropertiesMappingIndex = -1;
+		DirectoryEntry namedPropertiesMappingIndex = null;
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position(header.offset(dirSector));
@@ -35,10 +35,10 @@ class Directory {
 				DirectoryEntry de = DirectoryEntry.factory(byteBuffer);
 				entries.add(de);
 				if (de.isNamedPropertiesEntry())
-					namedPropertiesMappingIndex = entries.indexOf(de);
+					namedPropertiesMappingEntry = de;
 			}
 		}
-		this.namedPropertiesMappingIndex = namedPropertiesMappingIndex;
+		this.namedPropertiesMappingEntry = namedPropertiesMappingEntry;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(entries.get(0));
 	}
