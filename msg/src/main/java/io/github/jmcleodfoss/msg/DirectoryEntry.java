@@ -130,13 +130,6 @@ public class DirectoryEntry {
 		this.dc = dc;
 	}
 
-	String createString(byte[] data)
-	{
-		if (data == null)
-			return "Empty";
-		return ByteUtil.createHexByteString(data);
-	}
-
 	/** Get the properties from a Properties object. Return an empty array for any other kind of entry.
 	*	@param	data	The bytes in the entry
 	*	@param	parent	The mapping of child nodes to their parents
@@ -169,6 +162,21 @@ public class DirectoryEntry {
 	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
 		return null;
+	}
+
+	/** Return a String representation of the data bytes
+	*	@param	data	The data to return a text representation of
+	*	@return	A text representation of the data, or "Empty" if data is null. The representation is either Unicode or a string of bytes
+	*/
+	String getDataAsText(byte[] data)
+	{
+		if (data == null)
+			return "Empty";
+
+		if (hasTextData())
+			return DataType.createString(data);
+
+		return ByteUtil.createHexByteString(data);
 	}
 
 	/** Get the header data for primary msg object (if it is a child of the root object) or for an embedded message
@@ -211,7 +219,7 @@ public class DirectoryEntry {
 
 	/** Does this entry have a text representation?
 	*	@return	false in the general case, true for Substorages of type Text
-	*	@see Substorage#createString
+	*	@see #getDataAsText
 	*	@see Substorage#hasTextData
 	*/
 	boolean hasTextData()
@@ -402,14 +410,6 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 			this.propertyId = Integer.decode("0x"+ propertyId);
 			this.propertyType = Integer.decode("0x"+ propertyType);
-		}
-
-		@Override
-		String createString(byte[] data)
-		{
-			if (data != null && hasTextData())
-				return DataType.createString(data);
-			return super.createString(data);
 		}
 
 		/** Get the Property header information. The header is different for children of the Root, included emails, and Recipient/Attachment objects.
@@ -658,7 +658,7 @@ public class DirectoryEntry {
 					i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
 				byte[] data = de.getContent(mbb, header, fat, miniFAT);
 				if (data != null)
-					System.out.println(de.createString(data));
+					System.out.println(de.getDataAsText(data));
 				System.out.println();
 				++i;
 			}

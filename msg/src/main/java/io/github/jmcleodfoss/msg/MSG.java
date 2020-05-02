@@ -85,7 +85,7 @@ public class MSG
 	*/
 	public String convertFileToString(DirectoryEntryData ded, byte[] data)
 	{
-		return ded.entry.createString(data);
+		return ded.getDataAsText(data);
 	}
 
 	/** Get the data from the DIFAT, as an array of key-value pairs.
