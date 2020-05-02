@@ -57,8 +57,7 @@ public class DirectoryEntry {
 	*/
 	private static final String ATTACHMENT_COUNT = "recipient-count";
 
-	/** Property IDs are only defined for string stream entries; 0x0000 is
-	*   never used as a property ID, so we use it as a sentinel value to
+	/** Property IDs are only defined for string stream entries; 0x0000 is never used as a property ID, so we use it as a sentinel value to
 	*   indicate no property ID exists for other classes
 	*	@see #getPropertyId
 	*/
@@ -112,9 +111,7 @@ public class DirectoryEntry {
 	final int startingSectorLocation;
 	final long streamSize;
 
-	/** The data repository (preserved after constructor since we don't
-	*   read everything from it that we might want to display).
-	*/
+	/** The data repository (preserved after constructor since we don't read everything from it that we might want to display). */
 	private final DataContainer dc;
 
 	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
@@ -140,8 +137,7 @@ public class DirectoryEntry {
 		return ByteUtil.createHexByteString(data);
 	}
 
-	/** Get the properties from a Properties object. Return an empty array for any other kind of
-	*    entry.
+	/** Get the properties from a Properties object. Return an empty array for any other kind of entry.
 	*	@param	data	The bytes in the entry
 	*	@param	parent	The mapping of child nodes to their parents
 	*	@param	namedProperties	The file's named properties object
@@ -152,8 +148,7 @@ public class DirectoryEntry {
 		return new java.util.ArrayList<Property>();
 	}
 
-	/** Get the Property header information. The header is different for children of the
-	*	Root, included emails, and Recipient/Attachment objects.
+	/** Get the Property header information. The header is different for children of the Root, included emails, and Recipient/Attachment objects.
 	*	@param	data	The bytes in the Properties object.
 	*	@return	A KVPArray of the properties header data. For most classes this is empty.
 	*/
@@ -176,8 +171,7 @@ public class DirectoryEntry {
 		return null;
 	}
 
-	/** Get the header data for primary msg object (if it is a child of the root object) or for an embedded
-	*   message
+	/** Get the header data for primary msg object (if it is a child of the root object) or for an embedded message
 	*	@param	data	The contents of the Properties stream
 	*	@return	An array of KVPs contianing the header information
 	*/
@@ -198,10 +192,8 @@ public class DirectoryEntry {
 	}
 
 	/** Return the property ID, if any.
-	*	@return	The property ID. The default implementation, suitable
-	*		for all classes except Substorage, returns
-	*		NO_PROPERTY_ID, a sentinel value indicating that there
-	*		is no property related to this object type.
+	*	@return	The property ID. The default implementation, suitable for all classes except Substorage, returns
+	*		NO_PROPERTY_ID, a sentinel value indicating that there is no property related to this object type.
 	*	@see	NO_PROPERTY_ID
 	*/
 	int getPropertyId()
@@ -315,8 +307,7 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
-		/** Get the properties from a Properties object. Return an empty array for any other kind of
-		*    entry.
+		/** Get the properties from a Properties object. Return an empty array for any other kind of entry.
 		*	@param	data	The bytes in the entry
 		*	@param	parent	The mapping of child nodes to their parents
 		*	@param	namedProperties	The file's named properties object
@@ -637,8 +628,7 @@ public class DirectoryEntry {
 		}
 	}
 
-	/** Provide keys (with empty values) to allow tables to be set up with
-	*   the correct length before we have any data.
+	/** Provide keys (with empty values) to allow tables to be set up with the correct length before we have any data.
 	*	@return	An array of key-value pairs consisting of a description of the data and an empty string.
 	*/
 	static KVPArray<String, String> keys()
