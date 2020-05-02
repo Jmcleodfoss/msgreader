@@ -48,44 +48,6 @@ public class DirectoryEntryData {
 	*/
 	public final KVPArray<String, String> kvps;
 
-	/** An iterator through this entry's children, returning the children as DirectoryEntryData objects. */
-	private class ChildIterator implements java.util.Iterator<DirectoryEntryData>
-	{
-		/** The iterator through the entry's children */
-		private java.util.Iterator<DirectoryEntry> childIterator;
-
-		/** The directory this entry is in */
-		private Directory directory;
-
-		/** The file's named properties list */
-		NamedProperties namedProperties;
-
-		/** Create an iterator through the entry's children by setting up the local iterator to shadow. */
-		private ChildIterator(Directory directory, NamedProperties namedProperties)
-		{
-			this.directory = directory;
-			this.namedProperties = namedProperties;
-			childIterator = directory.getChildren(entry).iterator();
-		}
-
-		/** Is there another entry in the list of children?
-		*	@return	true if there is another entry, false otherwise
-		*/
-		public boolean hasNext()
-		{
-			return childIterator.hasNext();
-		}
-
-		/** Get the next child object.
-		*	@return	A DirectoryEntryData object for the next child.
-		*/
-		public DirectoryEntryData next()
-		{
-			return new DirectoryEntryData(childIterator.next(), directory, namedProperties);
-		}
-
-	}
-
 	/** Create the external data object for the given directory entry
 	*	@param	de		The directory entry to shadow
 	*	@param	directory	The Directory object the entry is from
@@ -109,7 +71,7 @@ public class DirectoryEntryData {
 	*/
 	java.util.Iterator<DirectoryEntryData> childIterator(Directory directory, NamedProperties namedProperties)
 	{
-		return new ChildIterator(directory, namedProperties);
+		return new DirectoryEntryDataIterator(directory.getChildren(entry).iterator(), directory, namedProperties);
 	}
 
 	/** Create a string representing this directory entry
