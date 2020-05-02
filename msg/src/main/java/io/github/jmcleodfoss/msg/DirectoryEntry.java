@@ -650,7 +650,7 @@ public class DirectoryEntry {
 			Directory directory = new Directory(mbb, header, fat);
 			MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
 
-			java.util.Iterator<DirectoryEntry> iterator = directory.iterator();
+			java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
 			int i = 0;
 			while (iterator.hasNext()){
 				DirectoryEntry de = iterator.next();

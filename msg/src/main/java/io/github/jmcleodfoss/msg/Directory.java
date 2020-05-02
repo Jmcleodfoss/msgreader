@@ -129,14 +129,6 @@ class Directory {
 		return children;
 	}
 
-	/** Get an iterator through the directory entries.
-	*	@return	An iterator through the directory entries
-	*/
-	java.util.Iterator<DirectoryEntry> iterator()
-	{
-		return entries.iterator();
-	}
-
 	/** Set the parent node for each child node
 	*	@param	parent	The parent node
 	*/
@@ -171,7 +163,7 @@ class Directory {
 			FAT fat = new FAT(mbb, header, difat);
 			Directory directory = new Directory(mbb, header, fat);
 
-			java.util.Iterator<DirectoryEntry> iterator = directory.iterator();
+			java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
 			int i = 0;
 			while (iterator.hasNext())
 				System.out.printf("0x%02x: %s\n", i++, iterator.next().toString());
