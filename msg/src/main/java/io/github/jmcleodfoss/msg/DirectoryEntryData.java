@@ -54,12 +54,12 @@ public class DirectoryEntryData {
 	public final KVPArray<String, String> kvps;
 
 	/** Create the external data object for the given directory entry
-	*	@param	directory	The Directory object the entry is from
 	*	@param	entry		The index of the directory entry to retreive
+	*	@param	directory	The Directory object the entry is from
 	*	@param	namedProperties	The file's NamedProperties object to look up non-standard properties
 	*	@see DirectoryEntry
 	*/
-	DirectoryEntryData(Directory directory, int entry, NamedProperties namedProperties)
+	DirectoryEntryData(int entry, Directory directory, NamedProperties namedProperties)
 	{
 		this.entry = entry;
 		final DirectoryEntry de = directory.entries.get(entry);

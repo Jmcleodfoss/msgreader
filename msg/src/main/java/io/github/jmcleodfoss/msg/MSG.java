@@ -157,7 +157,7 @@ public class MSG
 	*/
 	public DirectoryEntryData getDirectoryEntryData(int entry)
 	{
-		return new DirectoryEntryData(directory, entry, namedProperties);
+		return new DirectoryEntryData(entry, directory, namedProperties);
 	}
 
 	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
