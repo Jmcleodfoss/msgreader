@@ -15,11 +15,6 @@ public class DirectoryEntryData {
 	*/
 	public final String name;
 
-	/** The directory entry indexes of this entry's children
-	*	@see Directory#getChildren
-	*/
-	final java.util.ArrayList<DirectoryEntry> children;
-
 	/** The entry's size
 	*	@see DirectoryEntry#streamSize
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
@@ -70,7 +65,7 @@ public class DirectoryEntryData {
 		{
 			this.directory = directory;
 			this.namedProperties = namedProperties;
-			childIterator = children.iterator();
+			childIterator = directory.getChildren(entry).iterator();
 		}
 
 		/** Is there another entry in the list of children?
@@ -101,7 +96,6 @@ public class DirectoryEntryData {
 	{
 		entry = de;
 		name = de.directoryEntryName;
-		children = directory.getChildren(de);
 		size = (int)de.streamSize;
 		startingSector = de.startingSectorLocation;
 
