@@ -7,7 +7,7 @@ package io.github.jmcleodfoss.msg;
 public class DirectoryEntryData {
 
 	/** The directory entry index */
-	final int entry;
+	final DirectoryEntry entry;
 
 	/** The directory entry name
 	*	@see DirectoryEntry#directoryEntryName
@@ -18,7 +18,7 @@ public class DirectoryEntryData {
 	/** The directory entry indexes of this entry's children
 	*	@see Directory#getChildren
 	*/
-	public final java.util.ArrayList<Integer> children;
+	final java.util.ArrayList<DirectoryEntry> children;
 
 	/** The entry's size
 	*	@see DirectoryEntry#streamSize
@@ -53,22 +53,69 @@ public class DirectoryEntryData {
 	*/
 	public final KVPArray<String, String> kvps;
 
+	/** An iterator through this entry's children, returning the children as DirectoryEntryData objects. */
+	private class ChildIterator implements java.util.Iterator<DirectoryEntryData>
+	{
+		/** The iterator through the entry's children */
+		private java.util.Iterator<DirectoryEntry> childIterator;
+
+		/** The directory this entry is in */
+		private Directory directory;
+
+		/** The file's named properties list */
+		NamedProperties namedProperties;
+
+		/** Create an iterator through the entry's children by setting up the local iterator to shadow. */
+		private ChildIterator(Directory directory, NamedProperties namedProperties)
+		{
+			this.directory = directory;
+			this.namedProperties = namedProperties;
+			childIterator = children.iterator();
+		}
+
+		/** Is there another entry in the list of children?
+		*	@return	true if there is another entry, false otherwise
+		*/
+		public boolean hasNext()
+		{
+			return childIterator.hasNext();
+		}
+
+		/** Get the next child object.
+		*	@return	A DirectoryEntryData object for the next child.
+		*/
+		public DirectoryEntryData next()
+		{
+			return new DirectoryEntryData(childIterator.next(), directory, namedProperties);
+		}
+
+	}
+
 	/** Create the external data object for the given directory entry
-	*	@param	entry		The index of the directory entry to retreive
+	*	@param	de		The directory entry to shadow
 	*	@param	directory	The Directory object the entry is from
 	*	@param	namedProperties	The file's NamedProperties object to look up non-standard properties
 	*	@see DirectoryEntry
 	*/
-	DirectoryEntryData(int entry, Directory directory, NamedProperties namedProperties)
+	DirectoryEntryData(DirectoryEntry de, Directory directory, NamedProperties namedProperties)
 	{
-		this.entry = entry;
-		final DirectoryEntry de = directory.entries.get(entry);
+		entry = de;
 		name = de.directoryEntryName;
-		children = directory.getChildren(entry);
+		children = directory.getChildren(de);
 		size = (int)de.streamSize;
 		startingSector = de.startingSectorLocation;
 
 		kvps = de.data(namedProperties, directory.parents);
+	}
+
+	/** Create an iterator through this entry's children
+	* 	@param	directory	The directory this entry is in
+	*	@param	namedProperties	The file's named properties list
+	*	@return	An iterator through the entry's children as DirectoryEntryData objects
+	*/
+	java.util.Iterator<DirectoryEntryData> childIterator(Directory directory, NamedProperties namedProperties)
+	{
+		return new ChildIterator(directory, namedProperties);
 	}
 
 	/** Create a string representing this directory entry

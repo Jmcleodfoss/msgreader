@@ -47,8 +47,8 @@ class NamedProperties
 	*/
 	NamedProperties(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory, MiniFAT miniFAT)
 	{
-		java.util.ArrayList<Integer> children = directory.getChildren(directory.namedPropertiesMappingIndex);
-		java.util.Iterator<Integer> iter = children.iterator();
+		java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(directory.namedPropertiesMappingIndex));
+		java.util.Iterator<DirectoryEntry> iter = children.iterator();
 
 		// After accounting for the GUID, Entry, and String streams, the
 		// remaining entries are for the property name / property ID mappings.
@@ -57,7 +57,7 @@ class NamedProperties
 		int pnmIndex = 0;
 
 		while(iter.hasNext()){
-			DirectoryEntry de = directory.entries.get(iter.next());
+			DirectoryEntry de = iter.next();
 
 			// Read in all the data at once. This is overkill for the simple
 			// case where all the data fits into one mini sector, but makes

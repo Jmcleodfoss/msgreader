@@ -75,7 +75,7 @@ public class MSG
 	*/
 	public String convertFileToString(DirectoryEntryData ded, byte[] data)
 	{
-		return directory.entries.get(ded.entry).createString(data);
+		return ded.entry.createString(data);
 	}
 
 	/** Get the data from the DIFAT, as an array of key-value pairs.
@@ -145,10 +145,19 @@ public class MSG
 	public String getAttachmentName(DirectoryEntryData ded)
 	{
 		// Return the long name.
-		DirectoryEntry sibling = directory.getSiblingByName(directory.entries.get(ded.entry), "__substg1.0_3707001F");
+		DirectoryEntry sibling = directory.getSiblingByName(ded.entry, "__substg1.0_3707001F");
 		if (sibling == null)
 			return null;
 		return DataType.createString(sibling.getContent(mbb, header, fat, miniFAT));
+	}
+
+	/** Get an iterator through a DirectoryEntry's children via the proxy DirectoryEntryData object, and returning an iteratory through DirectoryEntryData objects.
+	*	@param	ded	The entry to get the child iterator for
+	*	@return	An iterator through the entry's children, returning objects of type DirectoryEntryData for consumption by client applicaitons
+	*/
+	public java.util.Iterator<DirectoryEntryData> getChildIterator(DirectoryEntryData ded)
+	{
+		return ded.childIterator(directory, namedProperties);
 	}
 
 	/** Get information for the requested directory entry
@@ -157,7 +166,7 @@ public class MSG
 	*/
 	public DirectoryEntryData getDirectoryEntryData(int entry)
 	{
-		return new DirectoryEntryData(entry, directory, namedProperties);
+		return new DirectoryEntryData(directory.entries.get(entry), directory, namedProperties);
 	}
 
 	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
@@ -167,7 +176,7 @@ public class MSG
 	*/
 	public KVPArray<String, Integer> getPropertiesHeader(DirectoryEntryData ded, byte[] data)
 	{
-		return directory.parents.get(directory.entries.get(ded.entry)).getChildPropertiesHeader(data);
+		return directory.parents.get(ded.entry).getChildPropertiesHeader(data);
 	}
 
 	/** Get the data for a property entry.
@@ -177,8 +186,7 @@ public class MSG
 	*/
 	public java.util.ArrayList<Property> getProperties(DirectoryEntryData ded, byte[] data)
 	{
-		DirectoryEntry de = directory.entries.get(ded.entry);
-		return de.properties(data, directory.parents.get(de), namedProperties);
+		return ded.entry.properties(data, directory.parents.get(ded.entry), namedProperties);
 	}
 
 	/** Is the given directory entry a Root Storage Object?
@@ -187,7 +195,7 @@ public class MSG
 	*/
 	public boolean isRootStorageObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).objectType.isRootStorage();
+		return ded.entry.objectType.isRootStorage();
 	}
 
 	/** Is the given directory entry a Storage Object?
@@ -196,7 +204,7 @@ public class MSG
 	*/
 	public boolean isStorageObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).objectType.isStorage();
+		return ded.entry.objectType.isStorage();
 	}
 
 	/** Is the given directory entry a Stream Object?
@@ -205,7 +213,7 @@ public class MSG
 	*/
 	public boolean isStreamObject(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).objectType.isStream();
+		return ded.entry.objectType.isStream();
 	}
 
 	/** Get the directory entry keys (this allows a table for display to be set up with the correct number of entries before we have any data)
@@ -239,7 +247,7 @@ public class MSG
 	*/
 	public byte[] getFile(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).getContent(mbb, header, fat, miniFAT);
+		return ded.entry.getContent(mbb, header, fat, miniFAT);
 	}
 
 	/** Get the mini FAT data as a table consisting of the mini FAT sectors in the first column, and the data in the second.
@@ -273,7 +281,7 @@ public class MSG
 	*/
 	public byte[] getRawDirectoryEntry(DirectoryEntryData ded)
 	{
-		mbb.position(directory.entries.get(ded.entry).directoryEntryPosition);
+		mbb.position(ded.entry.directoryEntryPosition);
 		byte[] data = new byte[DirectoryEntry.SIZE];
 		mbb.get(data);
 		return data;
@@ -305,7 +313,7 @@ public class MSG
 	*/
 	public boolean isProperty(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).isPropertiesEntry();
+		return ded.entry.isPropertiesEntry();
 	}
 
 	/** Is there a text representation of the "file" for a given directory, or is it binary?
@@ -314,7 +322,7 @@ public class MSG
 	*/
 	public boolean isTextData(DirectoryEntryData ded)
 	{
-		return directory.entries.get(ded.entry).isTextData();
+		return ded.entry.isTextData();
 	}
 
 	/** Get a Named Property entry

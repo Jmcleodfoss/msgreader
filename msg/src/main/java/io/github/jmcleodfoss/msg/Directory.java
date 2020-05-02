@@ -40,22 +40,21 @@ class Directory {
 		}
 		this.namedPropertiesMappingIndex = namedPropertiesMappingIndex;
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
-		setParent(0);
+		setParent(entries.get(0));
 	}
 
 	/** Collect all siblings and self for the given childIndex.
 	*	@param	siblings	The list of children of childIndex's parent
-	*	@param	childIndex	The given child for the parent we are collecting the children of.
+	*	@param	child		The given child for the parent we are collecting the children of.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
-	private void addSiblings(java.util.ArrayList<Integer> siblings, int childIndex)
+	private void addSiblings(java.util.ArrayList<DirectoryEntry> siblings, DirectoryEntry child)
 	{
-		DirectoryEntry child = entries.get(childIndex);
 		if (child.leftSiblingId != Sector.FREESECT)
-			addSiblings(siblings, child.leftSiblingId);
-		siblings.add(childIndex);
+			addSiblings(siblings, entries.get(child.leftSiblingId));
+		siblings.add(child);
 		if (child.rightSiblingId != Sector.FREESECT)
-			addSiblings(siblings, child.rightSiblingId);
+			addSiblings(siblings, entries.get(child.rightSiblingId));
 	}
 
 	/** Get the sibling of the given entry index which has the specified property.
@@ -68,26 +67,24 @@ class Directory {
 		DirectoryEntry parent = parents.get(entry);
 		if (parent == null)
 			return null;
-		java.util.ArrayList<Integer> children = getChildren(entries.indexOf(parent));
-		for (int i : children) {
-			if (entries.get(i).directoryEntryName.equals(filename))
-				return entries.get(i);
+		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
+		for (DirectoryEntry child : children) {
+			if (child.directoryEntryName.equals(filename))
+				return child;
 		}
 		return null;
 	}
 
-	/** Get the children for a given node.
-	*	@param	parentIndex	The directory entry index of the parent we want to find the children of, if any.
+	/** Get the first generation child nodes for a given node.
+	*	@param	parent	The directory entry of the parent we want to find the children of, if any.
 	*	@return	The (possibly empty) list of children of the directory entry for parentIndex.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
-	java.util.ArrayList<Integer> getChildren(int parentIndex)
+	java.util.ArrayList<DirectoryEntry> getChildren(DirectoryEntry parent)
 	{
-		java.util.ArrayList<Integer> children = new java.util.ArrayList<Integer>();
-		int childIndex = entries.get(parentIndex).childId;
-		if (childIndex != Sector.FREESECT){
-			addSiblings(children, childIndex);
-		}
+		java.util.ArrayList<DirectoryEntry> children = new java.util.ArrayList<DirectoryEntry>();
+		if (parent.childId != Sector.FREESECT)
+			addSiblings(children, entries.get(parent.childId));
 		return children;
 	}
 
@@ -100,17 +97,15 @@ class Directory {
 	}
 
 	/** Set the parent node for each child node
-	*	@param	parentIndex	The index of the parent node in entries
+	*	@param	parent	The parent node
 	*/
-	private void setParent(int parentIndex)
+	private void setParent(DirectoryEntry parent)
 	{
-		java.util.ArrayList<Integer> children = getChildren(parentIndex);
-		DirectoryEntry parent = entries.get(parentIndex);
-		for (java.util.Iterator<Integer> iter = children.iterator(); iter.hasNext(); ){
-			int i = iter.next();
-			DirectoryEntry de = entries.get(i);
+		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
+		for (java.util.Iterator<DirectoryEntry> iter = children.iterator(); iter.hasNext(); ){
+			DirectoryEntry de = iter.next();
 			parents.put(de, parent);
-			setParent(i);
+			setParent(de);
 		}
 	}
 
@@ -142,10 +137,10 @@ class Directory {
 
 			System.out.println("\n");
 			for (i = 0; i < directory.entries.size(); ++i){
-				java.util.ArrayList<Integer> children = directory.getChildren(i);
+				java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
 				if (children.size() > 0){
 					System.out.printf("Children of 0x%02x:\n", i);
-					java.util.Iterator<Integer> childIterator = children.iterator();
+					java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
 					while (childIterator.hasNext())
 						System.out.println("\t" + childIterator.next());
 				}

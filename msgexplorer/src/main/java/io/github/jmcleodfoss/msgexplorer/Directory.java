@@ -382,11 +382,10 @@ class Directory extends Tab
 		}
 	}
 
-	private TreeItem<DirectoryEntryData> addEntry(MSG msg, int entry)
+	private TreeItem<DirectoryEntryData> addEntry(MSG msg, DirectoryEntryData ded)
 	{
-		DirectoryEntryData ded = msg.getDirectoryEntryData(entry);
 		TreeItem<DirectoryEntryData> node = new TreeItem<DirectoryEntryData>(ded);
-		java.util.Iterator<Integer> iter = ded.children.iterator();
+		java.util.Iterator<DirectoryEntryData> iter = msg.getChildIterator(ded);
 		while (iter.hasNext())
 			node.getChildren().add(addEntry(msg, iter.next()));
 		return node;
@@ -419,7 +418,7 @@ class Directory extends Tab
 
 	void update(MSG msg, LocalizedText localizer)
 	{
-		tree.setRoot(addEntry(msg, 0));
+		tree.setRoot(addEntry(msg, msg.getDirectoryEntryData(0)));
 		tree.getTreeItem(0).setExpanded(true);
 		this.msg = msg;
 	}
