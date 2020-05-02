@@ -64,6 +64,42 @@ public class DirectoryEntry {
 	*/
 	private static final int NO_PROPERTY_ID = 0x0000;
 
+	private static String nm_DirectoryEntryName = "DirectoryEntryName";
+	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
+	private static String nm_ObjectType = "ObjectType";
+	private static String nm_ColorFlag = "ColorFlag";
+	private static String nm_LeftSiblingId = "LeftSiblingId";
+	private static String nm_RightSiblingId = "RightSiblingId";
+	private static String nm_ChildId = "ChildId";
+	private static String nm_CLSID = "CLSID";
+	private static String nm_StateBits = "StateBits";
+	private static String nm_CreationTime = "CreationTime";
+	private static String nm_ModifiedTime = "ModifiedTime";
+	private static String nm_StartingSectorLocation = "StartingSectorLocation";
+	private static String nm_StreamSize = "StreamSize";
+	private static String nm_PropertyName = "PropertyName";
+	private static String nm_PropertyId = "PropertyId";
+	private static String nm_PropertyType = "PropertyType";
+
+	private static final DataDefinition[] fields = {
+		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
+		new DataDefinition(nm_DirectoryEntryNameLength, DataType.integer16Reader, true),
+		new DataDefinition(nm_ObjectType, DataType.integer8Reader, true),
+		new DataDefinition(nm_ColorFlag, DataType.integer8Reader, true),
+		new DataDefinition(nm_LeftSiblingId, DataType.integer32Reader, true),
+		new DataDefinition(nm_RightSiblingId, DataType.integer32Reader, true),
+		new DataDefinition(nm_ChildId, DataType.integer32Reader, true),
+		new DataDefinition(nm_CLSID, DataType.classIdReader, true),
+		new DataDefinition(nm_StateBits, DataType.integer32Reader, true),
+		new DataDefinition(nm_CreationTime, DataType.timeReader, true),
+		new DataDefinition(nm_ModifiedTime, DataType.timeReader, true),
+		new DataDefinition(nm_StartingSectorLocation, DataType.integer32Reader, true),
+		new DataDefinition(nm_StreamSize, DataType.integer64Reader, true)
+	};
+
+	/** Size of the directory entry */
+	static final int SIZE = DataDefinition.size(fields);
+
 	final String directoryEntryName;
 	final int directoryEntryPosition;
 	final ObjectType objectType;
@@ -489,41 +525,6 @@ public class DirectoryEntry {
 			return String.format("Unallocated %s", objectType.toString());
 		}
 	}
-	private static String nm_DirectoryEntryName = "DirectoryEntryName";
-	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
-	private static String nm_ObjectType = "ObjectType";
-	private static String nm_ColorFlag = "ColorFlag";
-	private static String nm_LeftSiblingId = "LeftSiblingId";
-	private static String nm_RightSiblingId = "RightSiblingId";
-	private static String nm_ChildId = "ChildId";
-	private static String nm_CLSID = "CLSID";
-	private static String nm_StateBits = "StateBits";
-	private static String nm_CreationTime = "CreationTime";
-	private static String nm_ModifiedTime = "ModifiedTime";
-	private static String nm_StartingSectorLocation = "StartingSectorLocation";
-	private static String nm_StreamSize = "StreamSize";
-	private static String nm_PropertyName = "PropertyName";
-	private static String nm_PropertyId = "PropertyId";
-	private static String nm_PropertyType = "PropertyType";
-
-	private static final DataDefinition[] fields = {
-		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
-		new DataDefinition(nm_DirectoryEntryNameLength, DataType.integer16Reader, true),
-		new DataDefinition(nm_ObjectType, DataType.integer8Reader, true),
-		new DataDefinition(nm_ColorFlag, DataType.integer8Reader, true),
-		new DataDefinition(nm_LeftSiblingId, DataType.integer32Reader, true),
-		new DataDefinition(nm_RightSiblingId, DataType.integer32Reader, true),
-		new DataDefinition(nm_ChildId, DataType.integer32Reader, true),
-		new DataDefinition(nm_CLSID, DataType.classIdReader, true),
-		new DataDefinition(nm_StateBits, DataType.integer32Reader, true),
-		new DataDefinition(nm_CreationTime, DataType.timeReader, true),
-		new DataDefinition(nm_ModifiedTime, DataType.timeReader, true),
-		new DataDefinition(nm_StartingSectorLocation, DataType.integer32Reader, true),
-		new DataDefinition(nm_StreamSize, DataType.integer64Reader, true)
-	};
-
-	/** Size of the directory entry */
-	static final int SIZE = DataDefinition.size(fields);
 
 	/** Make full directory information data available to client applications
 	*	@param	namedProperties	The file's named properties object
