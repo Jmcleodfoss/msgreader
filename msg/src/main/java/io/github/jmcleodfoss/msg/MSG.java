@@ -330,9 +330,9 @@ public class MSG
 	*	@param	ded	The directory entry to check the data type of
 	*	@return	true if the file is text, false if it is binary
 	*/
-	public boolean isTextData(DirectoryEntryData ded)
+	public boolean hasTextData(DirectoryEntryData ded)
 	{
-		return ded.entry.isTextData();
+		return ded.entry.hasTextData();
 	}
 
 	/** Get a Named Property entry

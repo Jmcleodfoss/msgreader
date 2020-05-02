@@ -211,9 +211,10 @@ public class DirectoryEntry {
 
 	/** Does this entry have a text representation?
 	*	@return	false in the general case, true for Substorages of type Text
-	*	@see Substorage#isTextData
+	*	@see Substorage#createString
+	*	@see Substorage#hasTextData
 	*/
-	boolean isTextData()
+	boolean hasTextData()
 	{
 		return false;
 	}
@@ -406,7 +407,7 @@ public class DirectoryEntry {
 		@Override
 		String createString(byte[] data)
 		{
-			if (data != null && isTextData())
+			if (data != null && hasTextData())
 				return DataType.createString(data);
 			return super.createString(data);
 		}
@@ -459,7 +460,7 @@ public class DirectoryEntry {
 		}
 
 		@Override
-		boolean isTextData()
+		boolean hasTextData()
 		{
 			return propertyType == PROPERTY_TYPE_STRING;
 		}

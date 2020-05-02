@@ -168,7 +168,7 @@ class Directory extends Tab
 						updateTabs(tabPropertiesHeader, tabProperties);
 					else
 						updateTabs(tabProperties);
-				} else if (msg.isTextData(de)) {
+				} else if (msg.hasTextData(de)) {
 					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
 				} else {
@@ -299,7 +299,7 @@ class Directory extends Tab
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"));
-				if (msg.isTextData(de)) {
+				if (msg.hasTextData(de)) {
 					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE));
 					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_TXT_FILES, "*.txt"));
 					fileChooser.setInitialFileName(de.name + ".txt");
