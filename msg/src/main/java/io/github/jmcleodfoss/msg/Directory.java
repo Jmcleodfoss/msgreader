@@ -27,6 +27,7 @@ class Directory {
 	*	@see Directory#Directory
 	*/
 	class ConstructorData {
+
 		/** The attachment entries in the directory (including both those in the main message and any in attached message objects
 		*	@see Directory.attachmentEntries
 		*/
@@ -67,19 +68,22 @@ class Directory {
 	throws
 		java.io.IOException
 	{
-		entries = new java.util.ArrayList<DirectoryEntry>();
-		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
 		ConstructorData cd = new ConstructorData();
+		entries = new java.util.ArrayList<DirectoryEntry>();
+
+		java.util.Iterator<Integer> chain = fat.chainIterator(header.firstDirectorySectorLocation);
 		while(chain.hasNext()){
 			int dirSector = chain.next();
 			byteBuffer.position(header.offset(dirSector));
 			for (int i = 0; i < header.sectorSize / DirectoryEntry.SIZE; ++i)
 				entries.add(DirectoryEntry.factory(byteBuffer, cd));
 		}
+
 		namedPropertiesMappingEntry = cd.namedPropertiesMappingEntry;
 		attachmentEntries = cd.attachmentEntries;
 		propertyEntries = cd.propertyEntries;
 		recipientEntries = cd.recipientEntries;
+
 		parents = new java.util.HashMap<DirectoryEntry, DirectoryEntry>();
 		setParent(entries.get(0));
 	}
@@ -93,7 +97,9 @@ class Directory {
 	{
 		if (child.leftSiblingId != Sector.FREESECT)
 			addSiblings(siblings, entries.get(child.leftSiblingId));
+
 		siblings.add(child);
+
 		if (child.rightSiblingId != Sector.FREESECT)
 			addSiblings(siblings, entries.get(child.rightSiblingId));
 	}
@@ -108,11 +114,13 @@ class Directory {
 		DirectoryEntry parent = parents.get(entry);
 		if (parent == null)
 			return null;
+
 		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
 		for (DirectoryEntry child : children) {
 			if (child.directoryEntryName.equals(filename))
 				return child;
 		}
+
 		return null;
 	}
 
