@@ -261,11 +261,6 @@ public class DirectoryEntry {
 		{
 			return 8;
 		}
-
-		public String toString()
-		{
-			return String.format("Attachment %s child Id 0x%04x", objectType.toString(), childId);
-		}
 	}
 
 	/** NamedPropertiesMapping entries have no siblings and no storage and null Class IDs.i
@@ -275,11 +270,6 @@ public class DirectoryEntry {
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		public String toString()
-		{
-			return String.format("Named Properties Mapping %s child ID 0x%08x, created %s modified %s",  objectType.toString(), childId, creationTime.toString(), modifiedTime.toString());
 		}
 	}
 
@@ -322,11 +312,6 @@ public class DirectoryEntry {
 				return miniFAT.read(startingSectorLocation, streamSize, mbb);
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
-
-		public String toString()
-		{
-			return String.format("Properties %s starting sector %d size %d", objectType.toString(), startingSectorLocation, streamSize);
-		}
 	}
 
 	/** Recipient Object Storage
@@ -345,11 +330,6 @@ public class DirectoryEntry {
 		int getChildPropertiesHeaderSize()
 		{
 			return 8;
-		}
-
-		public String toString()
-		{
-			return String.format("Recipient %s child Id 0x%04x", objectType.toString(), childId);
 		}
 	}
 
@@ -379,11 +359,6 @@ public class DirectoryEntry {
 		int getChildPropertiesHeaderSize()
 		{
 			return 32;
-		}
-
-		public String toString()
-		{
-			return String.format("%s %s %s child ID 0x%08x modified %s mini sector index %d size %d", directoryEntryName, objectType.toString(), clsid, childId, modifiedTime.toString(), startingSectorLocation, streamSize);
 		}
 	}
 
@@ -464,11 +439,6 @@ public class DirectoryEntry {
 		{
 			return propertyType == PROPERTY_TYPE_STRING;
 		}
-
-		public String toString()
-		{
-			return String.format("String Stream %s 0x%04x 0x%04x starting sector %d size %d", objectType.toString(), propertyId, propertyType, startingSectorLocation, streamSize);
-		}
 	}
 
 	/** An unallocated entry
@@ -478,11 +448,6 @@ public class DirectoryEntry {
 		private Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-		}
-
-		public String toString()
-		{
-			return String.format("Unallocated %s", objectType.toString());
 		}
 	}
 
