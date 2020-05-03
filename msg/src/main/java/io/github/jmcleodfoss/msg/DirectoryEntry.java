@@ -223,7 +223,7 @@ public class DirectoryEntry {
 
 	/** Return the property ID, if any.
 	*	@return	The property ID. The default implementation, suitable for all classes except Substorage, returns
-	*		{@link NO_PROPERTY_ID,} a sentinel value indicating that there is no property related to this object type.
+	*		{@link #NO_PROPERTY_ID}, a sentinel value indicating that there is no property related to this object type.
 	*/
 	int getPropertyId()
 	{
