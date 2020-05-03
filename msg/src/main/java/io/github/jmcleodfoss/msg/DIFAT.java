@@ -55,7 +55,7 @@ class DIFAT {
 
 	/** Create the list of DIFAT entries
 	*   @param	mbb	The data stream
-	*   @param	header	The CBF header structur
+	*   @param	header	The CFB header structur
 	*/
 	DIFAT(java.nio.MappedByteBuffer mbb, Header header)
 	{

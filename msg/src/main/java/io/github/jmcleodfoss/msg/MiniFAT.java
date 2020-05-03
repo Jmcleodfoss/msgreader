@@ -64,7 +64,7 @@ class MiniFAT {
 
 	/** Read the Mini FAT
 	* 	@param	mbb	The data stream
-	* 	@param	header	The CBF header structure
+	* 	@param	header	The CFB header structure
 	* 	@param	fat	The file allocation table structure
 	* 	@param	directory	The directory for this file
 	*/
