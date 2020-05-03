@@ -384,6 +384,14 @@ public class DirectoryEntry {
 		return NO_PROPERTY_ID;
 	}
 
+	/** Get the property tag (ID and type code), if any.
+	*	@return	The property tag for a Substorage object, 0 for other types.
+	*/
+	int getPropertyTag()
+	{
+		return 0;
+	}
+
 	/** Return the property type, if any.
 	*	@return	The property type. The default implementatation, suitable for all classes except Substorage, returns n/a
 	*/
@@ -710,6 +718,15 @@ public class DirectoryEntry {
 		int getPropertyId()
 		{
 			return this.propertyId;
+		}
+
+		/** Get the property tag (ID and type code), if any.
+		*	@return	The property tag
+		*/
+		@Override
+		int getPropertyTag()
+		{
+			return propertyId << 16 | propertyType;
 		}
 
 		/** Return a description of the data type for this object.

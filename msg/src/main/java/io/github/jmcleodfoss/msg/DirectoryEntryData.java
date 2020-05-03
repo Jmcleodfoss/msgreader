@@ -15,6 +15,9 @@ public class DirectoryEntryData {
 	*/
 	public final String name;
 
+	/** The Property Tag, if any. */
+	public final int propertyTag;
+
 	/** All directory information for this entry
 	*	@see DirectoryEntry#nm_DirectoryEntryName
 	*	@see DirectoryEntry#nm_DirectoryEntryNameLength
@@ -46,7 +49,7 @@ public class DirectoryEntryData {
 	{
 		entry = de;
 		name = de.directoryEntryName;
-
+		propertyTag = de.getPropertyTag();
 		kvps = de.data(namedProperties, directory.parents);
 	}
 
