@@ -473,14 +473,11 @@ public class DirectoryEntry {
 	*/
 	private static class Substorage extends DirectoryEntry {
 
-		private static final int PROPERTY_TYPE_STRING = 0x001f;
-		private static final int PROPERTY_TYPE_BINARY = 0x0102;
-
 		/** Known data type names stored by type ID */
 		private static final java.util.HashMap<Integer, String> dataTypeNames = new java.util.HashMap<Integer, String>();
 		static {
-			dataTypeNames.put(PROPERTY_TYPE_STRING, "String");
-			dataTypeNames.put(PROPERTY_TYPE_BINARY, "Binary");
+			dataTypeNames.put(DataType.STRING, "String");
+			dataTypeNames.put(DataType.BINARY, "Binary");
 		}
 
 		/** The property ID
@@ -574,7 +571,7 @@ public class DirectoryEntry {
 		@Override
 		boolean hasTextData()
 		{
-			return propertyType == PROPERTY_TYPE_STRING;
+			return propertyType == DataType.STRING;
 		}
 	}
 
