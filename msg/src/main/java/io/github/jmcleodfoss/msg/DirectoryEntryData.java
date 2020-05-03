@@ -15,18 +15,6 @@ public class DirectoryEntryData {
 	*/
 	public final String name;
 
-	/** The entry's size
-	*	@see DirectoryEntry#streamSize
-	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
-	*/
-	public final int size;
-
-	/** The entry's starting sector
-	*	@see DirectoryEntry#startingSectorLocation
-	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
-	*/
-	public final int startingSector;
-
 	/** All directory information for this entry
 	*	@see DirectoryEntry#nm_DirectoryEntryName
 	*	@see DirectoryEntry#nm_DirectoryEntryNameLength
@@ -58,8 +46,6 @@ public class DirectoryEntryData {
 	{
 		entry = de;
 		name = de.directoryEntryName;
-		size = (int)de.streamSize;
-		startingSector = de.startingSectorLocation;
 
 		kvps = de.data(namedProperties, directory.parents);
 	}
