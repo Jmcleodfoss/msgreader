@@ -63,23 +63,90 @@ public class DirectoryEntry {
 	*/
 	private static final int NO_PROPERTY_ID = 0x0000;
 
+	/** KVP key for the {@link #directoryEntryName}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_DirectoryEntryName = "DirectoryEntryName";
+
+	/** KVP key for the {@link #directoryEntryNameLength}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
+
+	/** KVP key for the {@link #objectType}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_ObjectType = "ObjectType";
+
+	/** KVP key for the color flag, which is not stored directly as a member variable but could be retrieved from {@link #dc} 
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_ColorFlag = "ColorFlag";
+
+	/** KVP key for the {@link #leftSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_LeftSiblingId = "LeftSiblingId";
+
+	/** KVP key for the {@link #rightSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_RightSiblingId = "RightSiblingId";
+
+	/** KVP key for the {@link #childId}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_ChildId = "ChildId";
+
+	/** KVP key for the {@link #clsid}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_CLSID = "CLSID";
+
+	/** KVP key for the state bits, which is not stored directly as a member variable but could be retrieved from {@link dc}
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_StateBits = "StateBits";
+
+	/** KVP key for the {@link #creationTime}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_CreationTime = "CreationTime";
+
+	/** KVP key for the {@link #modifiedTime}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_ModifiedTime = "ModifiedTime";
+
+	/** KVP key for the {@link #startingSectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
+
+	/** KVP key for the {@link #streamSize}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_StreamSize = "StreamSize";
+
+	/** KVP key for the {@link #propertyName}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_PropertyName = "PropertyName";
+
+	/** KVP key for the {@link #propertyId}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_PropertyId = "PropertyId";
+
+	/** KVP key for the {@link #propertyType}. The intention is that client applications will use this to look up a localized description if needed.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	private static String nm_PropertyType = "PropertyType";
 
+	/** The data definition describing each directory entry.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*	@see DataContainer
+	*/
 	private static final DataDefinition[] fields = {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
 		new DataDefinition(nm_DirectoryEntryNameLength, DataType.integer16Reader, true),
@@ -99,16 +166,59 @@ public class DirectoryEntry {
 	/** Size of the directory entry */
 	static final int SIZE = DataDefinition.size(fields);
 
+	/** The Directory Entry Name (64 bytes)
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final String directoryEntryName;
+
+	/** The Directory Entry Name Length (2 bytes)
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final int directoryEntryPosition;
+
+	/** The Object Type (1 byte). See also {@link ObjectType}
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final ObjectType objectType;
+
+	/** The index of the left sibling, if any (4 bytes). {@link Sector#FREESECT} if there is no left sibling.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final int leftSiblingId;
+
+	/** The index of the right sibling, if any (4 bytes). {@link Sector#FREESECT} if there is no right sibling.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final int rightSiblingId;
+
+	/** The index of a child node, if there are any. The other children must be found by traversing the left and right siblings. {@link Sector#FREESECT} if there are no child nodes.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final int childId;
+
+	/** The object GUID.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	protected final GUID clsid;
+
+	/** The creation time of the storage object, or all 0's if the creation time was not recorded
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	protected final java.util.Date creationTime;
+
+	/** The modification time of the storage object, or all 0's if the creation time was not recorded
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	protected final java.util.Date modifiedTime;
+
+	/** The first sector of a stream object, or, for the root storage entry only, the first sector of the mini stream.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final int startingSectorLocation;
+
+	/** The size of the stream.
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	*/
 	final long streamSize;
 
 	/** The data repository (preserved after constructor since we don't read everything from it that we might want to display). */
@@ -558,7 +668,9 @@ public class DirectoryEntry {
 			return this.propertyId;
 		}
 
-		/** Return the data type for this object. */
+		/** Return a description of the data type for this object.
+		*	@return	A description of the property type for display by client applications"
+		*/
 		@Override
 		String getPropertyType()
 		{
@@ -568,6 +680,10 @@ public class DirectoryEntry {
 			return dataTypeNames.get(propertyType);
 		}
 
+		/** Does this entry have a text representation?
+		*	@return	true if the property stored in this entry is a text type, false otherwise
+		*	@see #getDataAsText
+		*/
 		@Override
 		boolean hasTextData()
 		{
