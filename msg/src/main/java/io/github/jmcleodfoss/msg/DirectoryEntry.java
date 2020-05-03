@@ -63,82 +63,125 @@ public class DirectoryEntry {
 	*/
 	private static final int NO_PROPERTY_ID = 0x0000;
 
-	/** KVP key for the {@link #directoryEntryName}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #directoryEntryName}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_DirectoryEntryName = "DirectoryEntryName";
 
-	/** KVP key for the {@link #directoryEntryNameLength}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the directory entry name length. This value is not stored as a member in this class. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
 
-	/** KVP key for the {@link #objectType}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data defintion key and KVP key for the {@link #objectType}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_ObjectType = "ObjectType";
 
-	/** KVP key for the color flag, which is not stored directly as a member variable but could be retrieved from {@link #dc} 
+	/** Data definition key and KVP key for the color flag, which is not stored directly as a member variable but could be retrieved from {@link #dc} 
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_ColorFlag = "ColorFlag";
 
-	/** KVP key for the {@link #leftSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #leftSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_LeftSiblingId = "LeftSiblingId";
 
-	/** KVP key for the {@link #rightSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #rightSiblingId}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_RightSiblingId = "RightSiblingId";
 
-	/** KVP key for the {@link #childId}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #childId}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_ChildId = "ChildId";
 
-	/** KVP key for the {@link #clsid}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #clsid}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_CLSID = "CLSID";
 
-	/** KVP key for the state bits, which is not stored directly as a member variable but could be retrieved from {@link dc}
+	/** Data definition key and KVP key for the state bits, which is not stored directly as a member variable but could be retrieved from {@link dc}
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_StateBits = "StateBits";
 
-	/** KVP key for the {@link #creationTime}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #creationTime}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_CreationTime = "CreationTime";
 
-	/** KVP key for the {@link #modifiedTime}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #modifiedTime}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_ModifiedTime = "ModifiedTime";
 
-	/** KVP key for the {@link #startingSectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Date definition key and KVP key for the {@link #startingSectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_StartingSectorLocation = "StartingSectorLocation";
 
-	/** KVP key for the {@link #streamSize}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #streamSize}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
+	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_StreamSize = "StreamSize";
 
-	/** KVP key for the {@link #propertyName}. The intention is that client applications will use this to look up a localized description if needed.
-	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	/** KVP key for the property name. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
 	*/
 	private static String nm_PropertyName = "PropertyName";
 
-	/** KVP key for the {@link #propertyId}. The intention is that client applications will use this to look up a localized description if needed.
-	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
+	/** KVP key for the Property Id. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
 	*/
 	private static String nm_PropertyId = "PropertyId";
 
-	/** KVP key for the {@link #propertyType}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the property type. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see #data
+	*	@see #keys
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static String nm_PropertyType = "PropertyType";
@@ -146,6 +189,7 @@ public class DirectoryEntry {
 	/** The data definition describing each directory entry.
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	private static final DataDefinition[] fields = {
 		new DataDefinition(nm_DirectoryEntryName, new DataType.UnicodeString(64), true),
