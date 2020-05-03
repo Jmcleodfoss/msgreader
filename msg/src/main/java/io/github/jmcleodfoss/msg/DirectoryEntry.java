@@ -114,6 +114,21 @@ public class DirectoryEntry {
 	/** The data repository (preserved after constructor since we don't read everything from it that we might want to display). */
 	private final DataContainer dc;
 
+	/** Base class constructor. Set member variables.
+	*	@param	directoryEntryName	The name of the directory entry
+	*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+	*	@param	objectType		The {@link ObjectType} of the entry
+	*	@param	leftSiblingId		The index of the entry's left sibling
+	*	@param	rightSiblingId		The index of the entry's right sibling
+	*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+	*	@param	clsid			The {@link GUID} for the entry
+	*	@param	creationTime		The entry's creation time
+	*	@param	modifiedTime		The time of the entry's latest modification
+	*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+	*	@param	streamSize		The size of the data
+	*	@param	dc			The data container all the information was read from
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-OXCFB Section 2.6.1: Compound File Directory Entry</a>
+	*/
 	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 	{
 		this.directoryEntryName = directoryEntryName;
@@ -159,6 +174,13 @@ public class DirectoryEntry {
 		return 0;
 	}
 
+	/** Get the entry's contents, if any.
+	*	@param	mbb	The ByteBuffer to read the data from
+	*	@param	header	The file's Header object
+	*	@param	fat	The file's FAT
+	*	@param	miniFAT	The file's Mini FAT
+	*	@return	The bytes in the entry.
+	*/
 	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
 		return null;
@@ -226,6 +248,9 @@ public class DirectoryEntry {
 		return false;
 	}
 
+	/** Return a String for this entry
+	*	@return	A String representation of this entry.
+	*/
 	public String toString()
 	{
 		return String.format("name %s\n" +
@@ -247,6 +272,21 @@ public class DirectoryEntry {
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/8590d60d-4173-4ca8-9cb2-190aae006fbd">MS-OXMSG Section 2.2.2: Attachment Object Storage</a>
 	*/
 	private static class Attachment extends DirectoryEntry {
+
+		/** Construct an Attachment directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -266,6 +306,21 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/193c169b-0628-4392-aa51-83009be7d71f">MS-OXMSG Section 2.2.3: Named Property Mapping Storage</a>
 	*/
 	private static class NamedPropertiesMapping extends DirectoryEntry {
+
+		/** Construct a NamedPropertiesMapping directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -276,6 +331,21 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/20c1125f-043d-42d9-b1dc-cb9b7e5198ef">MS-OXMSG Section 2.4: Property Stream</a>
 	*/
 	private static class Properties extends DirectoryEntry {
+
+		/** Construct a Properties directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -304,6 +374,13 @@ public class DirectoryEntry {
 			return properties;
 		}
 
+		/** Get the entry's contents, if any.
+		*	@param	mbb	{@inheritDoc}
+		*	@param	header	{@inheritDoc}
+		*	@param	fat	{@inheritDoc}
+		*	@param	miniFAT	{@inheritDoc}
+		*	@return	{@inheritDoc}
+		*/
 		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
@@ -317,6 +394,21 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/38a5cb3c-4454-48ba-b113-6de75321b67f">MS-OXMSG Section 2.2.1: Recipient Object Storage</a>
 	*/
 	private static class Recipient extends DirectoryEntry {
+
+		/** Construct a Recipient directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -336,6 +428,21 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/026fde6e-143d-41bf-a7da-c08b2130d50e">MS-CFB Section 2.6.2: Root Directory Entry</a>
 	*/
 	private static class RootEntry extends DirectoryEntry {
+
+		/** Construct a RootEntry directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -376,9 +483,33 @@ public class DirectoryEntry {
 			dataTypeNames.put(PROPERTY_TYPE_BINARY, "Binary");
 		}
 
+		/** The property ID
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/41bd4284-1064-4464-bcfa-10de3356daff">MS-OXMSG Section 2.1.1: Properties of a .msg File &amp; ff</a>
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/e6c44513-5f40-49d0-8611-99aa15e2817b">MS-OXMSG Section 2.2.1: Message Object Properties &amp; ff</a>
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/386ec4e1-87e5-4f7e-96b1-7dfc1cd23fc3">MS-OXMSG Section 2.2.2: Attachment Object Properties</a>
+		*/
 		int propertyId;
+
+		/** The property type
+		*
+		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
+		*/
 		int propertyType;
 
+		/** Construct a Substorage directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private Substorage(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -406,6 +537,13 @@ public class DirectoryEntry {
 			return 28;
 		}
 
+		/** Get the entry's contents, if any.
+		*	@param	mbb	{@inheritDoc}
+		*	@param	header	{@inheritDoc}
+		*	@param	fat	{@inheritDoc}
+		*	@param	miniFAT	{@inheritDoc}
+		*	@return	{@inheritDoc}
+		*/
 		@Override
 		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 		{
@@ -444,6 +582,21 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/b37413bb-f3ef-4adc-b18e-29bddd62c26e">MS-CFG Section 2.6.3: Other Directory Entries</a>
 	*/
 	private static class Unallocated extends DirectoryEntry {
+
+		/** Construct an Unallocated directory entry from the directory entry data
+		*	@param	directoryEntryName	{@inheritDoc}
+		*	@param	directoryEntryPosition	{@inheritDoc}
+		*	@param	objectType		{@inheritDoc}
+		*	@param	leftSiblingId		{@inheritDoc}
+		*	@param	rightSiblingId		{@inheritDoc}
+		*	@param	childId			{@inheritDoc}
+		*	@param	clsid			{@inheritDoc}
+		*	@param	creationTime		{@inheritDoc}
+		*	@param	modifiedTime		{@inheritDoc}
+		*	@param	startingSectorLocation	{@inheritDoc}
+		*	@param	streamSize		{@inheritDoc}
+		*	@param	dc			{@inheritDoc}
+		*/
 		private Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
@@ -595,6 +748,9 @@ public class DirectoryEntry {
 		return l;
 	}
 
+	/** Test this class by printing out the directory entries
+	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
+	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
