@@ -5,24 +5,102 @@ package io.github.jmcleodfoss.msg;
 */
 class Header {
 
-	/* The keys used to retrieve data from the DataContainer
+	/** KVP key for the {@link HeaderSignature}. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
 	*/
 	private static final String nm_qwHeaderSignature = "HeaderSignature";
+
+	/** KVP key for the header CLSID. This value is not stored as a member variable in this class.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_HeaderCLSID = "HeaderCLSID";
+
+	/** KVP key for the minor version number. This value is not stored as a member variable in this class.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_MinorVersion = "MinorVersion";
+
+	/** KVP key for the major version number. This value is not stored as a member variable in this class.  The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_MajorVersion = "MajorVersion";
+
+	/** KVP key for the byte order flag. This value is not stored as a member variable in this class. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_ByteOrder = "ByteOrder";
+
+	/** KVP key for the sector shift, used to calculate the {@link #sectorSize}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	*	@see Sector#sectorSize
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_SectorShift = "SectorShift";
+
+	/** KVP key for the mini sector shift, used to calculate the {@link #miniSectorSize}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	*	@see Sector#sectorSize
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_MiniSectorShift = "MiniSectorShift";
+
+	/** KVP key for the {@link #numberOfDirectorySectors}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_NumberOfDirectorySectors = "NumberOfDirectorySectors";
+
+	/** KVP key for the {@link #numberOfFATSectors}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_NumberOfFATSectors = "NumberOfFATSectors";
+
+	/** KVP key for the {@link #firstDirectorySectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_FirstDirectorySectorLocation = "FirstDirectorySectorLocation";
+
+	/** KVP key for the transactioni signaturei number. This value is not stored as a member variable in this class. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_TransactionSignatureNumber = "TransactionSignatureNumber";
+
+	/** KVP key for the {@link #miniStreamCutoffSize}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_MiniStreamCutoffSize = "MiniStreamCutoffSize";
+
+	/** KVP key for the {@link #firstMiniFATSectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_FirstMiniFATSectorLocation = "FirstMiniFATSectorLocation";
+
+	/** KVP key for the {@link #numberOfMiniFATSectors}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_NumberOfMiniFATSectors = "NumberOfMiniFATSectors";
+
+	/** KVP key for the {@link #firstDIFATSectorLocation}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_FirstDIFATSectorLocation = "FirstDIFATSectorLocation";
+
+	/** KVP key for the {@link #numberOfDIFATSectors}. The intention is that client applications will use this to look up a localized description if needed.
+	*	@see DataContainer
+	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
+	*/
 	private static final String nm_NumberOfDIFATSectors = "NumberOfDIFATSectors";
 
 	/** The fields in a CFB header object.
