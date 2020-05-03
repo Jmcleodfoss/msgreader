@@ -29,7 +29,7 @@ class Directory {
 	class ConstructorData {
 
 		/** The attachment entries in the directory (including both those in the main message and any in attached message objects
-		*	@see Directory.attachmentEntries
+		*	@see Directory#attachmentEntries
 		*/
 		java.util.ArrayList<DirectoryEntry> attachmentEntries;
 
@@ -44,7 +44,7 @@ class Directory {
 		java.util.ArrayList<DirectoryEntry> propertyEntries;
 
 		/** The recipient entries in the directory (including both those in the main message and any in attached message objects
-		*	@see Directory.recipientEntries
+		*	@see Directory#recipientEntries
 		*/
 		java.util.ArrayList<DirectoryEntry> recipientEntries;
 
