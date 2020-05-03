@@ -161,7 +161,7 @@ public class MSG
 		return DataType.createString(sibling.getContent(mbb, header, fat, miniFAT));
 	}
 
-	/** Get an iterator through a DirectoryEntry's children via the proxy DirectoryEntryData object, and returning an iteratory through DirectoryEntryData objects.
+	/** Get an iterator through a DirectoryEntry's children via the proxy DirectoryEntryData object, and returning an iterator through DirectoryEntryData objects.
 	*	@param	ded	The entry to get the child iterator for
 	*	@return	An iterator through the entry's children, returning objects of type DirectoryEntryData for consumption by client applicaitons
 	*/
