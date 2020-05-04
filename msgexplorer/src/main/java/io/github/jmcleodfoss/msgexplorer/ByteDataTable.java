@@ -22,6 +22,9 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	/** The column headers are the byte numbers from 0 to 15 in hexadecimal. */
 	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
 
+	/** The number of columns. */
+	static private final int NUM_COLUMNS = COLUMN_HEADINGS.length;
+
 	/** Class for table row data, which is stored as a ListProperty<Byte> object. */
 	static public class Row {
 		private ListProperty<Byte> columns;
@@ -72,19 +75,14 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		}
 	}
 
-	private int nColumns;
-
 	/** Create a ByteDataTable object to be displayed in a pane. */
 	ByteDataTable()
 	{
 		super();
 
-		int dataLength = COLUMN_HEADINGS.length;
-		nColumns = dataLength;
-
 		double cellWidth = WIDEST_BYTE_STRING.getBoundsInLocal().getWidth();
 		ArrayList<TableColumn<Row, String>> columns = new ArrayList<TableColumn<Row, String>>();
-		for (int i = 0; i < dataLength; ++i) {
+		for (int i = 0; i < NUM_COLUMNS; ++i) {
 			TableColumn<Row, String> col = new TableColumn<Row, String>(COLUMN_HEADINGS[i]);
 		  	col.setCellValueFactory(new HexTableCell("columns", i));
 			col.setPrefWidth(cellWidth);
@@ -110,9 +108,9 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 
 		int srcIndex = 0;
 		while (srcIndex < data.length){
-			byte[] rowBytes = Arrays.copyOfRange(data, srcIndex, srcIndex + nColumns);
+			byte[] rowBytes = Arrays.copyOfRange(data, srcIndex, srcIndex + NUM_COLUMNS);
 			a.add(new Row(rowBytes));
-			srcIndex += nColumns;
+			srcIndex += NUM_COLUMNS;
 		}
 		setItems(a);
 	}
