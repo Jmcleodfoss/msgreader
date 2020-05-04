@@ -19,7 +19,7 @@ public class DirectoryEntry {
 	/** String Stream entry name template
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/08185828-e9e9-4ef2-bcd2-f6e69c00891b">MS-OXMSG Section 2.1.3: Variable Length Properties</a>
 	*/
-	private static final java.util.regex.Pattern STRING_STREAM_PATTERN = java.util.regex.Pattern.compile("__substg1.0_(\\p{XDigit}{4})(\\p{XDigit}{4})");
+	private static final java.util.regex.Pattern STRING_STREAM_PATTERN = java.util.regex.Pattern.compile("__substg1.0_(\\p{XDigit}{8})");
 
 	/** Property Stream entries (One under the Root Entry, and one under each Recipient and each Attachment)
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/20c1125f-043d-42d9-b1dc-cb9b7e5198ef">MS-OXMSG Section 2.4: Property Stream</a>
@@ -57,11 +57,14 @@ public class DirectoryEntry {
 	*/
 	private static final String ATTACHMENT_COUNT = "recipient-count";
 
-	/** Property IDs are only defined for string stream entries; 0x0000 is never used as a property ID, so we use it as a sentinel value to
+	/** Property tags are only defined for string stream entries; 0x0000 is never used as a property tag, so we use it as a sentinel value to
 	*   indicate no property ID exists for other classes
-	*	@see #getPropertyId
+	*	@see #getPropertyTag
 	*/
-	private static final int NO_PROPERTY_ID = 0x0000;
+	private static final int NO_PROPERTY_TAG = 0x0000;
+
+	/** The mask for getting the property type from the tag. */
+	private static final int PROPERTY_TYPE_MASK = 0xffff;
 
 	/** Data definition key and KVP key for the {@link #directoryEntryName}. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see #data
@@ -173,11 +176,11 @@ public class DirectoryEntry {
 	*/
 	private static String nm_PropertyName = "PropertyName";
 
-	/** KVP key for the Property Id. The intention is that client applications will use this to look up a localized description if needed.
+	/** KVP key for the property tag. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see #data
 	*	@see #keys
 	*/
-	private static String nm_PropertyId = "PropertyId";
+	private static String nm_PropertyTag = "PropertyTag";
 
 	/** Data definition key and KVP key for the property type. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see #data
@@ -375,21 +378,13 @@ public class DirectoryEntry {
 		return header;
 	}
 
-	/** Return the property ID, if any.
-	*	@return	The property ID. The default implementation, suitable for all classes except Substorage, returns
-	*		{@link #NO_PROPERTY_ID}, a sentinel value indicating that there is no property related to this object type.
-	*/
-	int getPropertyId()
-	{
-		return NO_PROPERTY_ID;
-	}
-
 	/** Get the property tag (ID and type code), if any.
-	*	@return	The property tag for a Substorage object, 0 for other types.
+	*	@return	The property tag. The default implementation, suitable for all classes except Substorage, returns
+	*		{@link #NO_PROPERTY_TAG}, a sentinel value indicating that there is no property related to this object type.
 	*/
 	int getPropertyTag()
 	{
-		return 0;
+		return NO_PROPERTY_TAG;
 	}
 
 	/** Return the property type, if any.
@@ -642,18 +637,12 @@ public class DirectoryEntry {
 			dataTypeNames.put(DataType.BINARY, "Binary");
 		}
 
-		/** The property ID
+		/** The property Tag
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/41bd4284-1064-4464-bcfa-10de3356daff">MS-OXMSG Section 2.1.1: Properties of a .msg File &amp; ff</a>
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/e6c44513-5f40-49d0-8611-99aa15e2817b">MS-OXMSG Section 2.2.1: Message Object Properties &amp; ff</a>
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/386ec4e1-87e5-4f7e-96b1-7dfc1cd23fc3">MS-OXMSG Section 2.2.2: Attachment Object Properties</a>
 		*/
-		int propertyId;
-
-		/** The property type
-		*
-		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
-		*/
-		int propertyType;
+		int propertyTag;
 
 		/** Construct a Substorage directory entry from the directory entry data
 		*	@param	directoryEntryName	{@inheritDoc}
@@ -667,13 +656,13 @@ public class DirectoryEntry {
 		*	@param	modifiedTime		{@inheritDoc}
 		*	@param	startingSectorLocation	{@inheritDoc}
 		*	@param	streamSize		{@inheritDoc}
+		*	@param	propertyTag		The property tag, as a String
 		*	@param	dc			{@inheritDoc}
 		*/
-		private Substorage(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyId, String propertyType, DataContainer dc)
+		private Substorage(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyTag, DataContainer dc)
 		{
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
-			this.propertyId = Integer.decode("0x"+ propertyId);
-			this.propertyType = Integer.decode("0x"+ propertyType);
+			this.propertyTag = (int)Long.parseLong(propertyTag, 16);
 		}
 
 		/** Get the Property header information. The header is different for children of the Root, included emails, and Recipient/Attachment objects.
@@ -711,22 +700,13 @@ public class DirectoryEntry {
 			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
 
-		/** Return the property Id.
-		*	@return	The property ID for this object.
-		*/
-		@Override
-		int getPropertyId()
-		{
-			return this.propertyId;
-		}
-
 		/** Get the property tag (ID and type code), if any.
 		*	@return	The property tag
 		*/
 		@Override
 		int getPropertyTag()
 		{
-			return propertyId << 16 | propertyType;
+			return propertyTag;
 		}
 
 		/** Return a description of the data type for this object.
@@ -735,6 +715,7 @@ public class DirectoryEntry {
 		@Override
 		String getPropertyType()
 		{
+			int propertyType = propertyTag & PROPERTY_TYPE_MASK;
 			if (!dataTypeNames.containsKey(propertyType))
 				return "Unknown property type";
 
@@ -748,7 +729,7 @@ public class DirectoryEntry {
 		@Override
 		boolean hasTextData()
 		{
-			return propertyType == DataType.STRING;
+			return (propertyTag & PROPERTY_TYPE_MASK) == DataType.STRING;
 		}
 	}
 
@@ -786,42 +767,42 @@ public class DirectoryEntry {
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 
-		int propertyId = getPropertyId();
-		boolean hasPropertyId = true;
+		int propertyTag = getPropertyTag();
+		boolean hasPropertyTag = true;
 		String propertyName;
 		if (directoryEntryName.equals(ROOT_ENTRY)){
-			hasPropertyId = false;
+			hasPropertyTag = false;
 			propertyName = "Root Entry";
 		} else if (directoryEntryName.equals(NAMEID)){
-			hasPropertyId = false;
+			hasPropertyTag = false;
 			propertyName = "Named Property Mapping Storage";
 		} else if (parents.get(this).directoryEntryName.equals(NAMEID)){
-			if (propertyId == 0x0002) {
+			if (propertyTag == 0x00020102) {
 				propertyName = "GUID Stream";
-			} else if (propertyId == 0x0003) {
+			} else if (propertyTag == 0x00030102) {
 				propertyName = "Entry Stream";
-			} else if (propertyId == 0x0004) {
+			} else if (propertyTag == 0x00040102) {
 				propertyName = "String Stream";
 			} else {
 				propertyName = "Property Name to Property ID Mapping Stream";
 			}
-		} else if (propertyId == NO_PROPERTY_ID) {
-			hasPropertyId = false;
+		} else if (propertyTag == NO_PROPERTY_TAG) {
+			hasPropertyTag= false;
 			propertyName = "n/a";
-		} else if (PropertyTags.tags.keySet().contains(propertyId)) {
-			propertyName = PropertyTags.tags.get(propertyId);
-		} else if ((propertyId & 0x8000) != 0) {
-			int propertyIndex = propertyId & 0x7fff;
+		} else if (PropertyTags.tags.keySet().contains(propertyTag)) {
+			propertyName = PropertyTags.tags.get(propertyTag);
+		} else if ((propertyTag & 0x80000000) != 0) {
+			int propertyIndex = (propertyTag >> 16) & 0x7fff;
 			propertyName = namedProperties.getPropertyName(propertyIndex);
 		} else {
-			propertyName = String.format("Unknown property 0x%04x", propertyId);
+			propertyName = String.format("Unknown property 0x%08x", propertyTag);
 		}
 		l.add(nm_PropertyName, propertyName);
 
-		if (hasPropertyId){
-			l.add(nm_PropertyId, String.format("0x%04x", propertyId));
+		if (hasPropertyTag){
+			l.add(nm_PropertyTag, String.format("0x%08x", propertyTag));
 		} else {
-			l.add(nm_PropertyId, "n/a");
+			l.add(nm_PropertyTag, "n/a");
 		}
 		l.add(nm_PropertyType, getPropertyType());
 		l.add(nm_DirectoryEntryName, directoryEntryName);
@@ -876,7 +857,7 @@ public class DirectoryEntry {
 			cd.namedPropertiesMappingEntry = de;
 			return de;
 		} else if ((matcher = STRING_STREAM_PATTERN.matcher(directoryEntryName)).matches()){
-			return new Substorage(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), matcher.group(2), dc);
+			return new Substorage(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, matcher.group(1), dc);
 		} else if (PROPERTIES.equals(directoryEntryName)){
 			DirectoryEntry de = new Properties(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 			cd.propertyEntries.add(de);
@@ -892,7 +873,7 @@ public class DirectoryEntry {
 		} else if (UNALLOCATED.equals(directoryEntryName)){
 			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else {
-			System.out.println(directoryEntryName);
+			System.out.println("Imcrecogmozed directory entry name or template " + directoryEntryName);
 			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 	}
@@ -904,7 +885,7 @@ public class DirectoryEntry {
 	{
 		KVPArray<String, String> l = new KVPArray<String, String>();
 		l.add(nm_PropertyName, "");
-		l.add(nm_PropertyId, "");
+		l.add(nm_PropertyTag, "");
 		l.add(nm_PropertyType, "");
 		l.add(nm_DirectoryEntryName, "");
 		l.add(nm_DirectoryEntryNameLength, "");

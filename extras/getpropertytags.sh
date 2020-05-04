@@ -18,7 +18,7 @@ class PropertyTags
 	static {
 END_HEADER
 curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/properties.csv | sort -t , -k 2 | sed '
-	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),\(.*\)$/s//\	\	tags.put(\2, "\1");/
+	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\(.*\)\r$/s//\	\	tags.put(\2\4, "\1");/
 	/n\/a/d
 	/^PidLid/d
 	' >> PropertyTags.java
