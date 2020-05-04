@@ -13,13 +13,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
+/** Class for displaying raw bytes as an n x 16 table of hexadecimal values */
 class ByteDataTable extends TableView<ByteDataTable.Row>
 {
+	/** Set all columns to be able to display the width of this text without wrapping. */
 	static private final Text WIDEST_BYTE_STRING = new Text(" 88");
 
+	/** The column headers are the byte numbers from 0 to 15 in hexadecimal. *
 	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
 
-	/** Convenience class for displaying byte arrays in a TableView */
+	/** Class for table row data, which is stored as a ListProperty<Byte> object. */
 	static public class Row {
 		private ListProperty<Byte> columns;
 		private ListProperty<Byte> columnsProperty()
@@ -37,6 +40,9 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 			columnsProperty().set(value);
 		}
 
+		/** Construct a row object to be displayed in the table.
+		*	@param	data	A 16-byte-long array of bytes to be displayed in this row of the table.
+		*/
 		private Row(byte[] data)
 		{
 			ArrayList<Byte> al = new ArrayList<Byte>(data.length);
@@ -47,8 +53,13 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		}
 	}
 
+	/** Renderer for Bytes as text. */
 	public class HexTableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
 	{
+		/** Constructor for Byte-renderer.
+		*	@param	property	The name of the list property member variable in the table row object (Row) 
+		*	@param	index		The index into the list to display in the column this renderer is associated with
+		*/
 		private HexTableCell(String property, int index)
 		{
 			super(property, index);
@@ -63,6 +74,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 
 	private int nColumns;
 
+	/** Create a ByteDataTable object to be displayed in a pane. */
 	ByteDataTable()
 	{
 		super();
@@ -83,7 +95,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 		getColumns().setAll(columns);
 	}
 
-	/** Clear the table's cells */
+	/** Remove all items from the table */
 	void clear()
 	{
 		getItems().clear();
