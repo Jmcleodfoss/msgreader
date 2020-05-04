@@ -418,7 +418,7 @@ class Directory extends Tab
 
 	void update(MSG msg, LocalizedText localizer)
 	{
-		tree.setRoot(addEntry(msg, msg.getDirectoryEntryData(0)));
+		tree.setRoot(addEntry(msg, msg.getDirectoryTree()));
 		tree.getTreeItem(0).setExpanded(true);
 		this.msg = msg;
 	}

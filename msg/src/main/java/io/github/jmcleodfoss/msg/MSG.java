@@ -170,13 +170,12 @@ public class MSG
 		return ded.childIterator(directory, namedProperties);
 	}
 
-	/** Get information for the requested directory entry
-	*	@param	entry	The entry to retrieve data for
-	*	@return	A DirectoryEntryData structure providing information about this entry
+	/** Get the directory tree
+	*	@return	A DirectoryEntryData structure for the root entry which links to its children
 	*/
-	public DirectoryEntryData getDirectoryEntryData(int entry)
+	public DirectoryEntryData getDirectoryTree()
 	{
-		return new DirectoryEntryData(directory.entries.get(entry), directory, namedProperties);
+		return new DirectoryEntryData(directory.entries.get(0), directory, namedProperties);
 	}
 
 	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
