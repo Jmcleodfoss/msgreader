@@ -17,10 +17,7 @@ class FAT extends KVPTableTab<String, String>
 	*/
 	FAT(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_FAT_TAB_TITLE),
-			localizer.getText(PROPNAME_FAT_COL1_HEADING),
-			localizer.getText(PROPNAME_FAT_COL2_HEADING),
-			true);
+		super(localizer.getText(PROPNAME_FAT_TAB_TITLE), localizer.getText(PROPNAME_FAT_COL1_HEADING), localizer.getText(PROPNAME_FAT_COL2_HEADING), true);
 	}
 
 	/** Update the FAT display.
