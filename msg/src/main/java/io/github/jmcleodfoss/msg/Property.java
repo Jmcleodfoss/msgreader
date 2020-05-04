@@ -45,6 +45,14 @@ public abstract class Property
 		this.flags = flags;
 	}
 
+	/** Create a String representation of the property.
+	*	@return	A String with the format "roperty tag (property name): value"
+	*/
+	public String toString()
+	{
+		return String.format("0x%08x (%s): %s", propertyTag, propertyName, value());
+	}
+
 	/** Return a String representation of the property's value.
 	*	@return	A String which represents the property's value.
 	*/
