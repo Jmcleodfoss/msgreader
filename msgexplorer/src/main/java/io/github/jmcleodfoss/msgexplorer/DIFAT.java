@@ -17,9 +17,7 @@ class DIFAT extends KVPTableTab<Integer, Integer>
 	*/
 	DIFAT(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_DIFAT_TAB_TITLE),
-			localizer.getText(PROPNAME_DIFAT_COL1_HEADING),
-			localizer.getText(PROPNAME_DIFAT_COL2_HEADING));
+		super(localizer.getText(PROPNAME_DIFAT_TAB_TITLE), localizer.getText(PROPNAME_DIFAT_COL1_HEADING), localizer.getText(PROPNAME_DIFAT_COL2_HEADING));
 	}
 
 	/** Update the DIFAT display.
