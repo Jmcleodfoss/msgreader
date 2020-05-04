@@ -2,7 +2,7 @@ package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.MSG;
 
-/** Tab displaying the double-indirect file access table (DIFAT).
+/** Tab displaying the double-indirect file allocation table (DIFAT).
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/0afa4e43-b18f-432a-9917-4f276eca7a73">MS-CFB Section 2.5: Compound File DIFAT Sectors</a>
 */
 class DIFAT extends KVPTableTab<Integer, Integer>
