@@ -19,7 +19,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	/** Set all columns to be able to display the width of this text without wrapping. */
 	static private final Text WIDEST_BYTE_STRING = new Text(" 88");
 
-	/** The column headers are the byte numbers from 0 to 15 in hexadecimal. *
+	/** The column headers are the byte numbers from 0 to 15 in hexadecimal. */
 	static private final String[] COLUMN_HEADINGS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
 
 	/** Class for table row data, which is stored as a ListProperty<Byte> object. */
