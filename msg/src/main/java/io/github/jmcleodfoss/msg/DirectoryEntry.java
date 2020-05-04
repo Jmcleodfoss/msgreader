@@ -765,6 +765,11 @@ public class DirectoryEntry {
 	*/
 	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents)
 	{
+		/* See MS-OXMSG Section 2.2.3: Named Property Storage */
+		final int GUID_STREAM_PROPERTY_TAG = 0x00020102;
+		final int ENTRY_STREAM_PROPERTY_TAG = 0x00030102;
+		final int STRING_STREAM_PROPERTY_TAG = 0x00040102;
+
 		KVPArray<String, String> l = new KVPArray<String, String>();
 
 		int propertyTag = getPropertyTag();
@@ -777,11 +782,11 @@ public class DirectoryEntry {
 			hasPropertyTag = false;
 			propertyName = "Named Property Mapping Storage";
 		} else if (parents.get(this).directoryEntryName.equals(NAMEID)){
-			if (propertyTag == 0x00020102) {
+			if (propertyTag == GUID_STREAM_PROPERTY_TAG) {
 				propertyName = "GUID Stream";
-			} else if (propertyTag == 0x00030102) {
+			} else if (propertyTag == ENTRY_STREAM_PROPERTY_TAG) {
 				propertyName = "Entry Stream";
-			} else if (propertyTag == 0x00040102) {
+			} else if (propertyTag == STRING_STREAM_PROPERTY_TAG) {
 				propertyName = "String Stream";
 			} else {
 				propertyName = "Property Name to Property ID Mapping Stream";
