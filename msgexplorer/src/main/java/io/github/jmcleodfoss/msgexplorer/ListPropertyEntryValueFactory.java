@@ -101,12 +101,4 @@ class ListPropertyEntryValueFactory<R, S, T> extends PropertyValueFactory<S, T>
 		ReadOnlyObjectWrapper<ObservableList<R>> o = (ReadOnlyObjectWrapper<ObservableList<R>>)super.call(param);
 		return o.get().get(index);
 	}
-
-	/** Get the index into the property list for this object.
-	*	@return	The index into the property list saved in the constructor
-	*/
-	public final int getIndex()
-	{
-		return index;
-	}
 }
