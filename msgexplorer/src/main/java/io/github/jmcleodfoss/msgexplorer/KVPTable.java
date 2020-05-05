@@ -76,7 +76,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 	}
 
 	/** Cell factory class to support wide value cells */
-	private class wideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
+	private class WideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
 		/** Create a wide TableCell with its wrapping width set to allow the other column to display without wrapping
 		*	@param	param	The value to display
@@ -155,7 +155,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		TableColumn<TableData, String> valueColumn = new TableColumn<TableData, String>(valueColumnName);
 		valueColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("value"));
 		if (fWideData)
-			valueColumn.setCellFactory(new wideCellFactoryCallback());
+			valueColumn.setCellFactory(new WideCellFactoryCallback());
 
 		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		getColumns().setAll(keyColumn, valueColumn);
