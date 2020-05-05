@@ -75,11 +75,24 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 	}
 
-	/** Cell factory class to support wide value cells */
+	/** Cell factory class to support wide cells */
 	private class WideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
+		/** The column whose width to preserve */
+		private int columnToPreserveWidthOf;
+
+		/** The column to set the wrapping width of to preserve the width of the other column */
+		private int columnToWrap;
+
+		/** Initialize class members based on the index of the column whose width we want to preserve */
+		WideCellFactoryCallback(int columnToPreserveWidthOf)
+		{
+			this.columnToPreserveWidthOf  = columnToPreserveWidthOf;
+			this.columnToWrap = columnToPreserveWidthOf == 0 ? 1 : 0;
+		}
+
 		/** Create a wide TableCell with its wrapping width set to allow the other column to display without wrapping
-		*	@param	param	The value to display
+		*	@param	param	The data to display
 		*	@return	A TableCell ready to display
 		*/
 		@Override
@@ -93,7 +106,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 						text = new Text(item);
 						double newWidth = KVPTable.this.getWidth() - getTableUsedWidth();
 						text.setWrappingWidth(newWidth);
-						getColumns().get(1).setPrefWidth(newWidth);
+						getColumns().get(columnToWrap).setPrefWidth(newWidth);
 						setGraphic(text);
 					}
 				}
@@ -102,11 +115,11 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 
 		/** Find the width of the table data display area without any vertical scroll bars
-		*	@return	The width of the first (key) column plus twice the scrollbar width (regardless of whetehr the scrollbar is visible)
+		*	@return	The width of the column we want to preserve the width of plus 2 x the scrollbar width (regardless of whether the scrollbar is visible)
 		*/
 		private double getTableUsedWidth()
 		{
-			double col1Width = getColumns().get(0).getWidth();
+			double preservedColumnWidth = getColumns().get(columnToPreserveWidthOf).getWidth();
 
 			/* Find the width of the vertical scrollbar (include it even if it won't be shown) */
 			Iterator<Node> iter = getChildrenUnmodifiable().iterator();
@@ -123,11 +136,11 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 					if (sb.getOrientation() == Orientation.VERTICAL){
 						// It's a little more aesthetically pleasing to not
 						// go right up to the scrollbar.
-						return col1Width + 2*sb.getWidth();
+						return preservedColumnWidth + 2*sb.getWidth();
 					}
 				}
 			}
-			return col1Width;
+			return preservedColumnWidth;
 		}
 	}
 
@@ -155,7 +168,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		TableColumn<TableData, String> valueColumn = new TableColumn<TableData, String>(valueColumnName);
 		valueColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("value"));
 		if (fWideData)
-			valueColumn.setCellFactory(new WideCellFactoryCallback());
+			valueColumn.setCellFactory(new WideCellFactoryCallback(0));
 
 		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		getColumns().setAll(keyColumn, valueColumn);
