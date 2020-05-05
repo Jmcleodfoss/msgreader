@@ -152,7 +152,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		this(keyColumnName, valueColumnName, false);
 	}
 
-	/** Create an empty table.
+	/** Create an empty table where the key column has a fixed width and the data column wraps to display the key names correctly
 	*	@param	keyColumnName	The heading for the first column which displays the keys
 	*	@param	valueColumnName	The heading for the second column, which displays the values
 	*	@param	fWideData	Flag indicating whether to increase the width of the key column to prevent the displayed data from wrapping
