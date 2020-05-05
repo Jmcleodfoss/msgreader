@@ -134,8 +134,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 						continue;
 					ScrollBar sb = (ScrollBar)n2;
 					if (sb.getOrientation() == Orientation.VERTICAL){
-						// It's a little more aesthetically pleasing to not
-						// go right up to the scrollbar.
+						// It's a little more aesthetically pleasing to not go right up to the scrollbar.
 						return preservedColumnWidth + 2*sb.getWidth();
 					}
 				}
