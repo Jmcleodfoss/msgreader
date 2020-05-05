@@ -25,7 +25,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	/** The number of columns. */
 	static private final int NUM_COLUMNS = COLUMN_HEADINGS.length;
 
-	/** Class for table row data, which is stored as a ListProperty<Byte> object. */
+	/** Table row data, which is stored as a ListProperty&lt;Byte&gt; object. */
 	static public class Row {
 		private ListProperty<Byte> columns;
 		private ListProperty<Byte> columnsProperty()
