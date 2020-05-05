@@ -102,7 +102,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 
 		/** Find the width of the table data display area without any vertical scroll bars
-		*	@return	The width of the table data display area less twice the scrollbar width (regardless of whetehr the scrollbar is visible)
+		*	@return	The width of the first (key) column plus twice the scrollbar width (regardless of whetehr the scrollbar is visible)
 		*/
 		private double getTableUsedWidth()
 		{
