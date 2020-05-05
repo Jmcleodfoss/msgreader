@@ -21,9 +21,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+/** A table of key-value pairs.
+*	@param	<K>	The data type for the key entries of the key-value pairs
+*	@param	<V>	The data type for the value entries of the key-value pairs
+*	Two flavours are supported, based on a boolean constructor parameter
+*	* A table where both columns are the same width, for use when no value text is likely to wrap when the screen real estate is split between the two columns
+*	* A "wide" variant which adjusts the width of the data column so that it doesn't wrap (if possible), at the expense of the key column's width
+*	There is a convenience constructor for the version with equiwidth columns.
+*/
 class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 {
-	/** Convenience class for displaying KVP-type values in a TableView in a Tab */
+	/** Table row data, stored as to Strings to allow for localization by the calling function. */
 	public class TableData {
 		private StringProperty key;
 		private StringProperty keyProperty()
@@ -41,7 +49,6 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 			return keyProperty().get();
 		}
 
-		/** The value / data, the second column. */
 		private StringProperty value;
 		private StringProperty valueProperty()
 		{
@@ -69,11 +76,20 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 	}
 
+	/** Create an empty table for data which is not likely to wrap anywhere when all columns are the same width.
+	*	@param	keyColumnName	The heading for the first column which displays the keys
+	*	@param	valueColumnName	The heading for the second column, which displays the values
+	*/
 	KVPTable(String keyColumnName, String valueColumnName)
 	{
 		this(keyColumnName, valueColumnName, false);
 	}
 
+	/** Create an empty table.
+	*	@param	keyColumnName	The heading for the first column which displays the keys
+	*	@param	valueColumnName	The heading for the second column, which displays the values
+	*	@param	fWideData	Flag indicating whether to increase the width of the key column to prevent the displayed data from wrapping
+	*/
 	KVPTable(String keyColumnName, String valueColumnName, boolean fWideData)
 	{
 		super();
@@ -90,8 +106,12 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		getColumns().setAll(keyColumn, valueColumn);
 	}
 
+	/** Cell factory class to support wide value cells */
 	private class wideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
+		/** Find the width of the table data display area without any vertical scroll bars
+		*	@return	The width of the table data display area less twice the scrollbar width (regardless of whetehr the scrollbar is visible)
+		*/
 		private double getTableUsedWidth()
 		{
 			double col1Width = getColumns().get(0).getWidth();
@@ -118,6 +138,10 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 			return col1Width;
 		}
 
+		/** Create a wide TableCell.
+		*	@param	param	The value to display
+		*	@return	A TableCell ready to display
+		*/
 		@Override
 		public TableCell<TableData, String> call(TableColumn<TableData, String> param){
 			final TableCell<TableData, String> cell = new TableCell<TableData, String>() {
@@ -138,6 +162,10 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 	}
 
+	/** Update the table with new data.
+	*	@param	data		The data to display
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	void update(KVPArray<K, V> data, LocalizedText localizer)
 	{
 		ObservableList<TableData> a = FXCollections.observableArrayList();
