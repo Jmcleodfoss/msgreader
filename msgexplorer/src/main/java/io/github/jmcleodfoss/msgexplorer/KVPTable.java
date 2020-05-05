@@ -25,7 +25,7 @@ import javafx.util.Callback;
 *	@param	<V>	The data type for the value entries of the key-value pairs
 *	Two flavours are supported, based on a boolean constructor parameter
 *	* A table where both columns are the same width, for use when no value text is likely to wrap when the screen real estate is split between the two columns
-*	* A "wide" variant which adjusts the width of the data column so that it doesn't wrap (if possible), at the expense of the key column's width
+*	* A "wide" variant which adjusts the width of the key column so that it doesn't wrap, at the expense of the key column's width.
 *	There is a convenience constructor for the version with equiwidth columns.
 */
 class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
@@ -78,7 +78,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 	/** Cell factory class to support wide value cells */
 	private class wideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
-		/** Create a wide TableCell.
+		/** Create a wide TableCell with its wrapping width set to allow the other column to display without wrapping
 		*	@param	param	The value to display
 		*	@return	A TableCell ready to display
 		*/
