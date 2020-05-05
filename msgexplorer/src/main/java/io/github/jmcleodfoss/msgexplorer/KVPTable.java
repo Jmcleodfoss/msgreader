@@ -92,11 +92,11 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 
 		/** Create a wide TableCell with its wrapping width set to allow the other column to display without wrapping
-		*	@param	param	The data to display
+		*	@param	col	The column this table is displayed in
 		*	@return	A TableCell ready to display
 		*/
 		@Override
-		public TableCell<TableData, String> call(TableColumn<TableData, String> param){
+		public TableCell<TableData, String> call(TableColumn<TableData, String> col){
 			final TableCell<TableData, String> cell = new TableCell<TableData, String>() {
 				private Text text;
 				@Override
