@@ -75,39 +75,32 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		}
 	}
 
-	/** Create an empty table for data which is not likely to wrap anywhere when all columns are the same width.
-	*	@param	keyColumnName	The heading for the first column which displays the keys
-	*	@param	valueColumnName	The heading for the second column, which displays the values
-	*/
-	KVPTable(String keyColumnName, String valueColumnName)
-	{
-		this(keyColumnName, valueColumnName, false);
-	}
-
-	/** Create an empty table.
-	*	@param	keyColumnName	The heading for the first column which displays the keys
-	*	@param	valueColumnName	The heading for the second column, which displays the values
-	*	@param	fWideData	Flag indicating whether to increase the width of the key column to prevent the displayed data from wrapping
-	*/
-	KVPTable(String keyColumnName, String valueColumnName, boolean fWideData)
-	{
-		super();
-
-		TableColumn<TableData, String> keyColumn = new TableColumn<TableData, String>(keyColumnName);
-		keyColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("key"));
-
-		TableColumn<TableData, String> valueColumn = new TableColumn<TableData, String>(valueColumnName);
-		valueColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("value"));
-		if (fWideData)
-			valueColumn.setCellFactory(new wideCellFactoryCallback());
-
-		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		getColumns().setAll(keyColumn, valueColumn);
-	}
-
 	/** Cell factory class to support wide value cells */
 	private class wideCellFactoryCallback implements Callback<TableColumn<TableData, String>, TableCell<TableData, String>>
 	{
+		/** Create a wide TableCell.
+		*	@param	param	The value to display
+		*	@return	A TableCell ready to display
+		*/
+		@Override
+		public TableCell<TableData, String> call(TableColumn<TableData, String> param){
+			final TableCell<TableData, String> cell = new TableCell<TableData, String>() {
+				private Text text;
+				@Override
+				public void updateItem(String item, boolean empty){
+					super.updateItem(item, empty);
+					if (!isEmpty()){
+						text = new Text(item);
+						double newWidth = KVPTable.this.getWidth() - getTableUsedWidth();
+						text.setWrappingWidth(newWidth);
+						getColumns().get(1).setPrefWidth(newWidth);
+						setGraphic(text);
+					}
+				}
+			};
+			return cell;
+		}
+
 		/** Find the width of the table data display area without any vertical scroll bars
 		*	@return	The width of the table data display area less twice the scrollbar width (regardless of whetehr the scrollbar is visible)
 		*/
@@ -136,29 +129,36 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 			}
 			return col1Width;
 		}
+	}
 
-		/** Create a wide TableCell.
-		*	@param	param	The value to display
-		*	@return	A TableCell ready to display
-		*/
-		@Override
-		public TableCell<TableData, String> call(TableColumn<TableData, String> param){
-			final TableCell<TableData, String> cell = new TableCell<TableData, String>() {
-				private Text text;
-				@Override
-				public void updateItem(String item, boolean empty){
-					super.updateItem(item, empty);
-					if (!isEmpty()){
-						text = new Text(item);
-						double newWidth = KVPTable.this.getWidth() - getTableUsedWidth();
-						text.setWrappingWidth(newWidth);
-						getColumns().get(1).setPrefWidth(newWidth);
-						setGraphic(text);
-					}
-				}
-			};
-			return cell;
-		}
+	/** Create an empty table for data which is not likely to wrap anywhere when all columns are the same width.
+	*	@param	keyColumnName	The heading for the first column which displays the keys
+	*	@param	valueColumnName	The heading for the second column, which displays the values
+	*/
+	KVPTable(String keyColumnName, String valueColumnName)
+	{
+		this(keyColumnName, valueColumnName, false);
+	}
+
+	/** Create an empty table.
+	*	@param	keyColumnName	The heading for the first column which displays the keys
+	*	@param	valueColumnName	The heading for the second column, which displays the values
+	*	@param	fWideData	Flag indicating whether to increase the width of the key column to prevent the displayed data from wrapping
+	*/
+	KVPTable(String keyColumnName, String valueColumnName, boolean fWideData)
+	{
+		super();
+
+		TableColumn<TableData, String> keyColumn = new TableColumn<TableData, String>(keyColumnName);
+		keyColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("key"));
+
+		TableColumn<TableData, String> valueColumn = new TableColumn<TableData, String>(valueColumnName);
+		valueColumn.setCellValueFactory(new PropertyValueFactory<TableData, String>("value"));
+		if (fWideData)
+			valueColumn.setCellFactory(new wideCellFactoryCallback());
+
+		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		getColumns().setAll(keyColumn, valueColumn);
 	}
 
 	/** Update the table with new data.
