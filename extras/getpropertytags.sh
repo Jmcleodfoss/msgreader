@@ -12,19 +12,32 @@ package io.github.jmcleodfoss.msg;
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/f6ab1613-aefe-447d-a49c-18217230b148">MS-OXPROPS</a>
 */
 
-class PropertyTags
+public class PropertyTags
 {
-	static final java.util.HashMap<Integer, String> tags = new java.util.HashMap<Integer, String>();
-	static {
 END_HEADER
 curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/properties.csv | sort -t , -k 2 | sed '
-	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\(.*\)\r$/s//\	\	tags.put(\2\4, "\1");/
+	${
+		i\
+
+		i\
+	static final java.util.HashMap<Integer, String> tags = new java.util.HashMap<Integer, String>();
+		i\
+	static {
+		g
+		a\
+	}
+	}
+	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\(.*\)\r$/s//\	static final public int \1 = \2\4;/
+	/^.*static final int \([^ ]*\).*$/{
+		s//\	\	tags.put(\1, "\1");/
+		H
+		d
+	}
 	/n\/a/d
 	/^PidLid/d
 	' >> PropertyTags.java
 
 cat << END_FOOTER >> PropertyTags.java
-	}
 
 	public static void main(String[] args)
 	{
