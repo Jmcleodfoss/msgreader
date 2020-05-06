@@ -106,10 +106,10 @@ class Directory {
 
 	/** Get the sibling of the given entry index which has the specified property.
 	*	@param	entry		The entry to find the sibling of
-	*	@param	filename	The name of the sibling to look for
+	*	@param	propertyTag	The propertu tag the sibling to look for
 	*	@return	The requested sibling, if found. null if the sibling was not found.
 	*/
-	DirectoryEntry getSiblingByName(DirectoryEntry entry, String filename)
+	DirectoryEntry getSibling(DirectoryEntry entry, int propertyTag)
 	{
 		DirectoryEntry parent = parents.get(entry);
 		if (parent == null)
@@ -117,7 +117,7 @@ class Directory {
 
 		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
 		for (DirectoryEntry child : children) {
-			if (child.directoryEntryName.equals(filename))
+			if (child.getPropertyTag() == propertyTag)
 				return child;
 		}
 

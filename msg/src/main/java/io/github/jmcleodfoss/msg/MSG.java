@@ -155,7 +155,7 @@ public class MSG
 	public String getAttachmentName(DirectoryEntryData ded)
 	{
 		// Return the long name.
-		DirectoryEntry sibling = directory.getSiblingByName(ded.entry, "__substg1.0_3707001F");
+		DirectoryEntry sibling = directory.getSibling(ded.entry, 0x3707001F);
 		if (sibling == null)
 			return null;
 		return DataType.createString(sibling.getContent(mbb, header, fat, miniFAT));
