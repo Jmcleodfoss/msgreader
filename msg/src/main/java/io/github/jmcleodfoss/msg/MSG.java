@@ -198,6 +198,43 @@ public class MSG
 		return ded.entry.properties(data, directory.parents.get(ded.entry), namedProperties);
 	}
 
+	/** Get the properties for a given Root Storage, Attachment, or Recipient entry
+	*	@param	ded	The entry to retrieve the properties for.
+	*	@return	An ArrayList of {@link Property property values} read from the entry.
+	*/
+	public java.util.ArrayList<Property> getPropertiesForParent(DirectoryEntryData parent)
+	{
+		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
+		while (iter.hasNext())
+		{
+			DirectoryEntry propertiesEntry = iter.next();
+			if (directory.parents.get(propertiesEntry).equals(parent.entry)) {
+				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
+				return propertiesEntry.properties(data, parent.entry, namedProperties);
+			}
+		}
+		return new java.util.ArrayList<Property>();
+	}
+
+	/** Retrieve the value for a property
+	*	@param	property	The property to retrieve the value of
+	*/
+	public String getPropertyValue(Property property)
+	{
+		if (property.storedInProperty)
+			return property.value();
+
+		java.util.Iterator<DirectoryEntry> iter = directory.getChildren(property.parent).iterator();
+		while (iter.hasNext()) {
+			DirectoryEntry de = iter.next();
+			if (de.getPropertyTag() == property.propertyTag) {
+				byte[] data = de.getContent(mbb, header, fat, miniFAT);
+				return de.getDataAsText(data);
+			}
+		}
+		return null;
+	}
+
 	/** Is the given directory entry a Root Storage Object?
 	*	@param	ded	The directory entry
 	*	@return	true if this entry is a Root Storage Object, false otherwise.
