@@ -229,8 +229,8 @@ public abstract class Property
 		int propertyId = propertyTag >>> 16;
 
 		String propertyName;
-		if (PropertyTags.tags.keySet().contains(propertyId)) {
-			propertyName = PropertyTags.tags.get(propertyId);
+		if (PropertyTags.tags.keySet().contains(propertyTag)) {
+			propertyName = PropertyTags.tags.get(propertyTag);
 //		} else if (PropertyLIDs.lids.keySet().contains(propertyId)) {
 //			propertyName = PropertyLIDs.lids.get(propertyId);
 		} else if ((propertyId & 0x8000) != 0) {
