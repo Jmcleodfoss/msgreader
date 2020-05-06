@@ -25,5 +25,14 @@ curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/prope
 
 cat << END_FOOTER >> PropertyLIDs.java
 	}
+
+	public static void main(String[] args)
+	{
+		java.util.Iterator<Integer> iter = PropertyLIDs.lids.keySet().iterator();
+		while (iter.hasNext()) {
+			Integer t = iter.next();
+			System.out.printf("0x%08x: %s\n", t, PropertyLIDs.lids.get(t));
+		}
+	}
 }
 END_FOOTER
