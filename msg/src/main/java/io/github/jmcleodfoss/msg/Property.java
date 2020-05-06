@@ -34,20 +34,25 @@ public abstract class Property
 	/** Is the property stored in the object, or is it stored in a separate entry? */
 	public final boolean storedInProperty;
 
+	/** The Property entry's parent entry */
+	private final DirectoryEntry parent;
+
 	/** Construct a Property object.
 	*	@param	propertyTag	The property tag. @see propertyTag
 	*	@param	propertyName	The property's name. @see propertyName
 	*	@param	propertyType	The property's type. @see propertyType
 	*	@param	storedInProperty	Is the property stored in the object, or in separate entry?
 	*	@param	flags	The property flags. @see flags
+	*	@param	parent	The Property directory entry's parent entry
 	*/
-	private Property(int propertyTag, String propertyName, String propertyType, boolean storedInProperty, int flags)
+	private Property(int propertyTag, String propertyName, String propertyType, boolean storedInProperty, int flags, DirectoryEntry parent)
 	{
 		this.propertyTag = propertyTag;
 		this.propertyName = propertyName;
 		this.propertyType = propertyType;
 		this.storedInProperty = storedInProperty;
 		this.flags = flags;
+		this.parent = parent;
 	}
 
 	/** Create a String representation of the property.
@@ -73,11 +78,12 @@ public abstract class Property
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
+		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Boolean(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
+		private Boolean(int propertyTag, String propertyName, int flags, DirectoryEntry parent, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, "Boolean", true, flags);
+			super(propertyTag, propertyName, "Boolean", true, flags, parent);
 			this.property = bb.get() != 0;
 
 			// Skip remaining bytes for this entry
@@ -104,11 +110,12 @@ public abstract class Property
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
+		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Integer32(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
+		private Integer32(int propertyTag, String propertyName, int flags, DirectoryEntry parent, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, "32-bit Integer", true, flags);
+			super(propertyTag, propertyName, "32-bit Integer", true, flags, parent);
 			this.property = bb.getInt();
 
 			// Skip remaining bytes for this entry
@@ -136,11 +143,12 @@ public abstract class Property
 		*	@param	propertyName	{@inheritDoc}
 		*	@param	propertyType	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
+		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Integer64(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Integer64(int propertyTag, String propertyName, String propertyType, int flags, DirectoryEntry parent, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, true, flags);
+			super(propertyTag, propertyName, propertyType, true, flags, parent);
 			this.property = bb.getLong();
 		}
 
@@ -164,11 +172,12 @@ public abstract class Property
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
+		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Time(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
+		private Time(int propertyTag, String propertyName, int flags, DirectoryEntry parent, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, "Time", true, flags);
+			super(propertyTag, propertyName, "Time", true, flags, parent);
 			time = (java.util.Date)DataType.timeReader.read(bb);
 		}
 
@@ -199,11 +208,12 @@ public abstract class Property
 		*	@param	propertyName	{@inheritDoc}
 		*	@param	propertyType	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
+		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private VariableWidth(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private VariableWidth(int propertyTag, String propertyName, String propertyType, int flags, DirectoryEntry parent, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, false, flags);
+			super(propertyTag, propertyName, propertyType, false, flags, parent);
 			length = bb.getInt();
 			attachmentTypeFlag = bb.getInt();
 		}
@@ -221,9 +231,10 @@ public abstract class Property
 	/** Create a Property from the given ByteBuffer, advancing the position so the next property can be read.
 	*	@param	bb		The ByteBuffer to read the Property from.
 	*	@param	namedProperties	The file's NamedProperties object to look up non-standard properties
+	*	@param	parent	The Property directory entry's parent entry
 	*	@return	A Property object read out of the given ByteBuffer
 	*/
-	static Property factory(java.nio.ByteBuffer bb, NamedProperties namedProperties)
+	static Property factory(java.nio.ByteBuffer bb, NamedProperties namedProperties, DirectoryEntry parent)
 	{
 		int propertyTag = bb.getInt();
 		int propertyId = propertyTag >>> 16;
@@ -244,25 +255,25 @@ public abstract class Property
 		switch (propertyTag & 0x0000ffff)
 		{
 			case DataType.BINARY:
-				return new VariableWidth(propertyTag, propertyName, "Binary", flags, bb);
+				return new VariableWidth(propertyTag, propertyName, "Binary", flags, parent, bb);
 
 			case DataType.BOOLEAN:
-				return new Boolean(propertyTag, propertyName, flags, bb);
+				return new Boolean(propertyTag, propertyName, flags, parent, bb);
 
 			case DataType.INTEGER_32:
-				return new Integer32(propertyTag, propertyName, flags, bb);
+				return new Integer32(propertyTag, propertyName, flags, parent, bb);
 
 			case DataType.INTEGER_64:
-				return new Integer64(propertyTag, propertyName, "64-bit Integer", flags, bb);
+				return new Integer64(propertyTag, propertyName, "64-bit Integer", flags, parent, bb);
 
 			case DataType.STRING:
-				return new VariableWidth(propertyTag, propertyName, "String", flags, bb);
+				return new VariableWidth(propertyTag, propertyName, "String", flags, parent, bb);
 
 			case DataType.TIME:
-				return new Time(propertyTag, propertyName, flags, bb);
+				return new Time(propertyTag, propertyName, flags, parent, bb);
 
 			default:
-				return new Integer64(propertyTag, propertyName, "Unrecognized", flags, bb);
+				return new Integer64(propertyTag, propertyName, "Unrecognized", flags, parent, bb);
 		}
 	}
 }

@@ -524,7 +524,7 @@ public class DirectoryEntry {
 			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 			propertyStream.position(parent.getChildPropertiesHeaderSize());
 			while (propertyStream.hasRemaining()){
-				Property p = Property.factory(propertyStream, namedProperties);
+				Property p = Property.factory(propertyStream, namedProperties, parent);
 				if (p != null)
 					properties.add(p);
 			}
