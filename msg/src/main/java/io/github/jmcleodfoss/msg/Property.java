@@ -31,17 +31,22 @@ public abstract class Property
 	*/
 	public final String propertyType;
 
+	/** Is the property stored in the object, or is it stored in a separate entry? */
+	public final boolean storedInProperty;
+
 	/** Construct a Property object.
 	*	@param	propertyTag	The property tag. @see propertyTag
 	*	@param	propertyName	The property's name. @see propertyName
 	*	@param	propertyType	The property's type. @see propertyType
+	*	@param	storedInProperty	Is the property stored in the object, or in separate entry?
 	*	@param	flags	The property flags. @see flags
 	*/
-	private Property(int propertyTag, String propertyName, String propertyType, int flags)
+	private Property(int propertyTag, String propertyName, String propertyType, boolean storedInProperty, int flags)
 	{
 		this.propertyTag = propertyTag;
 		this.propertyName = propertyName;
 		this.propertyType = propertyType;
+		this.storedInProperty = storedInProperty;
 		this.flags = flags;
 	}
 
@@ -73,7 +78,7 @@ public abstract class Property
 		**/
 		private Boolean(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, flags);
+			super(propertyTag, propertyName, propertyType, true, flags);
 			this.property = bb.get() != 0;
 
 			// Skip remaining bytes for this entry
@@ -105,7 +110,7 @@ public abstract class Property
 		**/
 		private Integer32(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, flags);
+			super(propertyTag, propertyName, propertyType, true, flags);
 			this.property = bb.getInt();
 
 			// Skip remaining bytes for this entry
@@ -137,7 +142,7 @@ public abstract class Property
 		**/
 		private Integer64(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, flags);
+			super(propertyTag, propertyName, propertyType, true, flags);
 			this.property = bb.getLong();
 		}
 
@@ -166,7 +171,7 @@ public abstract class Property
 		**/
 		private Time(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, flags);
+			super(propertyTag, propertyName, propertyType, true, flags);
 			time = (java.util.Date)DataType.timeReader.read(bb);
 		}
 
@@ -201,7 +206,7 @@ public abstract class Property
 		**/
 		private VariableWidth(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, flags);
+			super(propertyTag, propertyName, propertyType, false, flags);
 			length = bb.getInt();
 			attachmentTypeFlag = bb.getInt();
 		}
