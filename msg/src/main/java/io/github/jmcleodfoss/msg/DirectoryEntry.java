@@ -90,7 +90,7 @@ public class DirectoryEntry {
 	*/
 	private static String nm_ObjectType = "ObjectType";
 
-	/** Data definition key and KVP key for the color flag, which is not stored directly as a member variable but could be retrieved from {@link #dc} 
+	/** Data definition key and KVP key for the color flag, which is not stored directly as a member variable but could be retrieved from {@link #dc}
 	*	@see #data
 	*	@see #keys
 	*	@see DataContainer

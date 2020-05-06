@@ -9,7 +9,7 @@ class ObjectType {
 	*/
 	private static final byte UNKNOWN = 0x00;
 
-	/** The object type for Storage Objects 
+	/** The object type for Storage Objects
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 	*/
 	private static final byte STORAGE = 0x01;
