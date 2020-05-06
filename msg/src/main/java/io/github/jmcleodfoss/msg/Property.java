@@ -35,7 +35,7 @@ public abstract class Property
 	public final boolean storedInProperty;
 
 	/** The Property entry's parent entry */
-	private final DirectoryEntry parent;
+	final DirectoryEntry parent;
 
 	/** Construct a Property object.
 	*	@param	propertyTag	The property tag. @see propertyTag
