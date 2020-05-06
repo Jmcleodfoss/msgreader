@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 /** Wrapper for ResourceBundle to allow easy localization */
 class LocalizedText
 {
-	/** The name of the resource bundle to load. *
+	/** The name of the resource bundle to load. */
 	private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgexplorer.text";
 
 	/** The locale we are running it. */
