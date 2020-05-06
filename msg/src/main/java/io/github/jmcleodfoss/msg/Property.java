@@ -72,13 +72,12 @@ public abstract class Property
 		/** Create a representation of a Boolean property.
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
-		*	@param	propertyType	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Boolean(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Boolean(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, true, flags);
+			super(propertyTag, propertyName, "Boolean", true, flags);
 			this.property = bb.get() != 0;
 
 			// Skip remaining bytes for this entry
@@ -104,13 +103,12 @@ public abstract class Property
 		/** Create a representation of a 32-bit integer property.
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
-		*	@param	propertyType	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Integer32(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Integer32(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, true, flags);
+			super(propertyTag, propertyName, "32-bit Integer", true, flags);
 			this.property = bb.getInt();
 
 			// Skip remaining bytes for this entry
@@ -165,13 +163,12 @@ public abstract class Property
 		/** Create a representation of a time-and-date property.
 		*	@param	propertyTag	{@inheritDoc}
 		*	@param	propertyName	{@inheritDoc}
-		*	@param	propertyType	{@inheritDoc}
 		*	@param	flags		{@inheritDoc}
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
-		private Time(int propertyTag, String propertyName, String propertyType, int flags, java.nio.ByteBuffer bb)
+		private Time(int propertyTag, String propertyName, int flags, java.nio.ByteBuffer bb)
 		{
-			super(propertyTag, propertyName, propertyType, true, flags);
+			super(propertyTag, propertyName, "Time", true, flags);
 			time = (java.util.Date)DataType.timeReader.read(bb);
 		}
 
@@ -250,10 +247,10 @@ public abstract class Property
 				return new VariableWidth(propertyTag, propertyName, "Binary", flags, bb);
 
 			case DataType.BOOLEAN:
-				return new Boolean(propertyTag, propertyName, "Boolean", flags, bb);
+				return new Boolean(propertyTag, propertyName, flags, bb);
 
 			case DataType.INTEGER_32:
-				return new Integer32(propertyTag, propertyName, "32-bit Integer", flags, bb);
+				return new Integer32(propertyTag, propertyName, flags, bb);
 
 			case DataType.INTEGER_64:
 				return new Integer64(propertyTag, propertyName, "64-bit Integer", flags, bb);
@@ -262,7 +259,7 @@ public abstract class Property
 				return new VariableWidth(propertyTag, propertyName, "String", flags, bb);
 
 			case DataType.TIME:
-				return new Time(propertyTag, propertyName, "Time", flags, bb);
+				return new Time(propertyTag, propertyName, flags, bb);
 
 			default:
 				return new Integer64(propertyTag, propertyName, "Unrecognized", flags, bb);
