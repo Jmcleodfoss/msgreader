@@ -5,19 +5,7 @@ import io.github.jmcleodfoss.msg.KVPEntry;
 
 import java.util.Iterator;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 /** A tab shpowing a {@link KVPTable}
 *	@param	<K>	The data type for the key entries of the key-value pairs
