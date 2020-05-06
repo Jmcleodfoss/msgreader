@@ -60,7 +60,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	public class HexTableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
 	{
 		/** Constructor for Byte-renderer.
-		*	@param	property	The name of the list property member variable in the table row object (Row) 
+		*	@param	property	The name of the list property member variable in the table row object (Row)
 		*	@param	index		The index into the list to display in the column this renderer is associated with
 		*/
 		private HexTableCell(String property, int index)

@@ -55,7 +55,7 @@ import javafx.scene.control.TableColumn;
  *
  * 		int nColumns = headings.length;
  *		TableColumn<Row, String> columns = new TableColumn<Row, String>[nColumns];
- * 	
+ *
  *	 	for (int i = 0; i < nColumns; ++i){
  * 			col[i] = new TableColumn<Row, String>(headers[i]);
  * 			col[i].setCellValueFactory(

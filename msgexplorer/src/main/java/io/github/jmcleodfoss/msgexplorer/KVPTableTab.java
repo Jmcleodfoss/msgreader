@@ -50,7 +50,7 @@ class KVPTableTab<K, V> extends Tab
 		table = new KVPTable<K, V>(keyColumnName, valueColumnName, fWideData);
 		setContent(table);
 	}
-	
+
 	/** Update the table with the given data
 	*	@param	data		The new data for the table
 	*	@param	localizer	The localizer mapping for the current locale.
