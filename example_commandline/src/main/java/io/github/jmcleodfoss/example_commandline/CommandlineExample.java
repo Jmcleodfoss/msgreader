@@ -4,19 +4,13 @@ import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
 import io.github.jmcleodfoss.msg.Property;
+import io.github.jmcleodfoss.msg.PropertyTags;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CommandlineExample
 {
-	// Property names to print (see PropertyTags.java)
-	static final int TIME_SENT = 0x00390040;
-	static final int SENDER_NAME = 0x0c1a001f;
-	static final int SENDER_EMAIL = 0x1f001f;
-	static final int SUBJECT = 0x0037001f;
-	static final int BODY = 0x1000001f;
-
 	private static void showProperty(MSG msg, java.util.HashMap<Integer, Property> properties, int propertyTag, String propertyName)
 	{
 		if (properties.keySet().contains(propertyTag))
@@ -40,11 +34,11 @@ public class CommandlineExample
 			DirectoryEntryData root = msg.getDirectoryTree();
 			java.util.HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
 
-			showProperty(msg, properties, TIME_SENT, "Date sent");
-			showProperty(msg, properties, SENDER_NAME, "From");
-			showProperty(msg, properties, SENDER_EMAIL, "Email");
-			showProperty(msg, properties, SUBJECT, "Subject");
-			showProperty(msg, properties, BODY, "Bodey");
+			showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
+			showProperty(msg, properties, PropertyTags.PidTagSenderName, "From");
+			showProperty(msg, properties, PropertyTags.PidTagSenderEmailAddress, "Email");
+			showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
+			showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
 		} catch (java.io.FileNotFoundException e) {
 			System.out.printf("Error: %s not found\n", args[0]);
 			System.exit(1);
