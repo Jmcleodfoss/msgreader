@@ -188,21 +188,31 @@ public class MSG
 		return directory.parents.get(ded.entry).getChildPropertiesHeader(data);
 	}
 
-	/** Get the data for a property entry.
-	*	@param	ded	The entry to retrieve the data from
-	*	@param	data	The bytes to read the data from
-	*	@return	An ArrayList of {@link Property property values} read from the entry.
+	/** Get the data for a property entry as a HashMap indexed by the property tag.
+	*	@param	ded	The entry to parse the data for
+	*	@param	data	The content of the entry to be parsed
+	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getProperties(DirectoryEntryData ded, byte[] data)
+	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded, byte[] data)
 	{
-		return ded.entry.properties(data, directory.parents.get(ded.entry), namedProperties);
+		return ded.entry.propertiesAsHashMap(data, directory.parents.get(ded.entry), namedProperties);
 	}
 
-	/** Get the properties for a given Root Storage, Attachment, or Recipient entry
-	*	@param	ded	The entry to retrieve the properties for.
+	/** Get the data for a property entry as an ArrayList.
+	*	@param	ded	The entry to parse the data for
+	*	@param	data	The content of the entry to be parsed
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getPropertiesForParent(DirectoryEntryData parent)
+	public java.util.ArrayList<Property> getPropertiesAsList(DirectoryEntryData ded, byte[] data)
+	{
+		return ded.entry.propertiesAsList(data, directory.parents.get(ded.entry), namedProperties);
+	}
+
+	/** Get the properties for a given Root Storage, Attachment, or Recipient entry as a HashMap indexed by the property tag
+	*	@param	ded	The entry to retrieve the properties for.
+	*	@return	A HashMap of {@link Property property values} read from the entry.
+	*/
+	public java.util.HashMap<Integer, Property> getPropertiesForParentAsHashMap(DirectoryEntryData parent)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
@@ -210,7 +220,25 @@ public class MSG
 			DirectoryEntry propertiesEntry = iter.next();
 			if (directory.parents.get(propertiesEntry).equals(parent.entry)) {
 				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
-				return propertiesEntry.properties(data, parent.entry, namedProperties);
+				return propertiesEntry.propertiesAsHashMap(data, parent.entry, namedProperties);
+			}
+		}
+		return new java.util.HashMap<Integer, Property>();
+	}
+
+	/** Get the properties for a given Root Storage, Attachment, or Recipient entry as an ArrayList
+	*	@param	ded	The entry to retrieve the properties for.
+	*	@return	An ArrayList of {@link Property property values} read from the entry.
+	*/
+	public java.util.ArrayList<Property> getPropertiesForParentAsList(DirectoryEntryData parent)
+	{
+		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
+		while (iter.hasNext())
+		{
+			DirectoryEntry propertiesEntry = iter.next();
+			if (directory.parents.get(propertiesEntry).equals(parent.entry)) {
+				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
+				return propertiesEntry.propertiesAsList(data, parent.entry, namedProperties);
 			}
 		}
 		return new java.util.ArrayList<Property>();

@@ -302,13 +302,24 @@ public class DirectoryEntry {
 		this.dc = dc;
 	}
 
-	/** Get the properties from a Properties object. Return an empty array for any other kind of entry.
+	/** Get the properties from a Properties object as a HashMap indexed by the property tag.
 	*	@param	data	The bytes in the entry
 	*	@param	parent	The mapping of child nodes to their parents
 	*	@param	namedProperties	The file's named properties object
-	*	@return	An array of FixedWithProperties containing the property data defined in	the Properties entry.
+	*	@return	An empty HashMap for base class
 	*/
-	java.util.ArrayList<Property> properties(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+	java.util.HashMap<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+	{
+		return new java.util.HashMap<Integer, Property>();
+	}
+
+	/** Get the properties from a Properties object as an ArrayList, preserving the order in which they were read.
+	*	@param	data	The bytes in the entry
+	*	@param	parent	The mapping of child nodes to their parents
+	*	@param	namedProperties	The file's named properties object
+	*	@return	An empty ArrayList
+	*/
+	java.util.ArrayList<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 	{
 		return new java.util.ArrayList<Property>();
 	}
@@ -508,17 +519,37 @@ public class DirectoryEntry {
 			super(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 
-		/** Get the properties from a Properties object. Return an empty array for any other kind of entry.
+		/** Get the properties from a Properties object as a HashMap indexed by the property tag.
 		*	@param	data	The bytes in the entry
 		*	@param	parent	The mapping of child nodes to their parents
 		*	@param	namedProperties	The file's named properties object
-		*	@return	An array of KVPs giving the property name and value for the properties defined in
-		*		the Properties entry.
+		*	@return	A HashMap of Property objects containing the property data defined in the Properties entry.
+		*/
+		java.util.HashMap<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+		{
+			java.util.HashMap<Integer, Property> properties = super.propertiesAsHashMap(data, parent, namedProperties);
+
+			java.nio.ByteBuffer propertyStream = java.nio.ByteBuffer.wrap(data);
+			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+			propertyStream.position(parent.getChildPropertiesHeaderSize());
+			while (propertyStream.hasRemaining()){
+				Property p = Property.factory(propertyStream, namedProperties, parent);
+				if (p != null)
+					properties.put(p.propertyTag, p);
+			}
+			return properties;
+		}
+
+		/** Get the properties from a Properties object as an ArrayList.
+		*	@param	data	The bytes in the entry
+		*	@param	parent	The mapping of child nodes to their parents
+		*	@param	namedProperties	The file's named properties object
+		*	@return	An array of Property objects, one for each of the properties listed in the Properties entry
 		*/
 		@Override
-		java.util.ArrayList<Property> properties(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+		java.util.ArrayList<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 		{
-			java.util.ArrayList<Property> properties = super.properties(data, parent, namedProperties);
+			java.util.ArrayList<Property> properties = super.propertiesAsList(data, parent, namedProperties);
 
 			java.nio.ByteBuffer propertyStream = java.nio.ByteBuffer.wrap(data);
 			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);

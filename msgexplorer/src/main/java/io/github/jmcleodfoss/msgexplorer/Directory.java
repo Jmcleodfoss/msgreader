@@ -163,7 +163,7 @@ class Directory extends Tab
 					KVPArray<String, Integer> header = msg.getPropertiesHeader(de, fileData);
 					if (header.size() > 0)
 						tabPropertiesHeader.update(header, localizer);
-					tabProperties.update(msg.getProperties(de, fileData), localizer);
+					tabProperties.update(msg.getPropertiesAsList(de, fileData), localizer);
 					if (header.size() > 0)
 						updateTabs(tabPropertiesHeader, tabProperties);
 					else
