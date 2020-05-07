@@ -32,6 +32,7 @@ class LocalizedText
 
 	/** Get the localized taxt for the stored locale for the given property name
 	*	@param	property	The property name to retrive the localized text for.
+	*	@return	The value for property in the resource bundle
 	*/
 	String getText(String property)
 	{

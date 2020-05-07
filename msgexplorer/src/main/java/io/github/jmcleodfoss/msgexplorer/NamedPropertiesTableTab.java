@@ -64,7 +64,7 @@ class NamedPropertiesTableTab extends Tab
 		*	@param	localizer	The localizer mapping for the current locale.
 		*	@param	propColHeaderNameIdOrStringOffset	The property name to use for the first column (Name ID for Numerical Named Properties,
 		*							String Offset for String Named Properties)
-		*	@param	fmtNameOrStringOffset	The format to use for displaying values in the first column
+		*	@param	fmtNameIdOrStringOffset	The format to use for displaying values in the first column
 		*	@see #numericalNamedPropertyEntriesTableTabFactory
 		*	@see #stringNamedPropertyEntriesTableTabFactory
 		*/
@@ -125,7 +125,7 @@ class NamedPropertiesTableTab extends Tab
 	*	@param	propTabName	The property name to use to look up the tab name
 	*	@param	propColHeaderNameIdOrStringOffset	The property name to use for the first column (Name ID for Numerical Named Properties,
 	*							String Offset for String Named Properties)
-	*	@param	fmtNameOrStringOffset	The format to use for displaying values in the first column
+	*	@param	fmtNameIdOrStringOffset	The format to use for displaying values in the first column
 	*	@see #numericalNamedPropertyEntriesTableTabFactory
 	*	@see #stringNamedPropertyEntriesTableTabFactory
 	*	@see NamedPropertiesTable
@@ -152,6 +152,7 @@ class NamedPropertiesTableTab extends Tab
 
 	/** Create a tab in which to display the Numerical Named Properties
 	*	@param	localizer	The localizer mapping for the current locale.
+	*	@return	A NamedPropertiesTab for displaying numerical named properties
 	*	@see NamedPropertiesTableTab
 	*	@see NamedPropertiesTable
 	*/
@@ -162,6 +163,7 @@ class NamedPropertiesTableTab extends Tab
 
 	/** Create a tab in which to display the String Named Properties
 	*	@param	localizer	The localizer mapping for the current locale.
+	*	@return	A NamedPropertiesTab for displaying string named properties
 	*	@see NamedPropertiesTableTab
 	*	@see NamedPropertiesTable
 	*/
