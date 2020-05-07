@@ -21,13 +21,6 @@ class Sectors extends Tab
 	/* Property for the tab name */
 	static private final String TAB_TITLE = "sectors.main.tabname";
 
-	private ByteDataTable data;
-	private Pagination pagination;
-
-	private MSG msg;
-
-	private UpdateInfoService updateInfoService;
-
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
 	{
 		@Override
@@ -69,6 +62,16 @@ class Sectors extends Tab
 		}
 	}
 
+	private ByteDataTable data;
+	private Pagination pagination;
+
+	private MSG msg;
+
+	private UpdateInfoService updateInfoService;
+
+	/** Create the sector display tab.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	Sectors(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));
@@ -98,6 +101,10 @@ class Sectors extends Tab
 		setContent(pagination);
 	}
 
+	/** Update the sectpr display.
+	*	@param	msg	The msg object for the file we are displaying
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	void update(MSG msg, LocalizedText localizer)
 	{
 		this.msg = msg;
