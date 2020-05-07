@@ -100,10 +100,10 @@ class NamedPropertiesTableTab extends Tab
 
 	NamedPropertiesTable table;
 
-	NamedPropertiesTableTab(LocalizedText localizer, String propTabName, String propColHeaderNameIdOrStringProperty, String fmtNameIdOrStringProperty)
+	NamedPropertiesTableTab(LocalizedText localizer, String propTabName, String propColHeaderNameIdOrStringOffset, String fmtNameIdOrStringOffset)
 	{
 		super(localizer.getText(propTabName));
-		table = new NamedPropertiesTable(localizer, propColHeaderNameIdOrStringProperty, fmtNameIdOrStringProperty);
+		table = new NamedPropertiesTable(localizer, propColHeaderNameIdOrStringOffset, fmtNameIdOrStringOffset);
 		setContent(table);
 	}
 
