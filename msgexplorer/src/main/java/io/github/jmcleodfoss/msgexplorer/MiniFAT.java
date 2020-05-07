@@ -40,7 +40,6 @@ class MiniStream extends Tab
 	/** The data for the selected mini stream entry */
 	private ArrayList<byte[]> data;
 
-
 	/** Create the mini stream tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
