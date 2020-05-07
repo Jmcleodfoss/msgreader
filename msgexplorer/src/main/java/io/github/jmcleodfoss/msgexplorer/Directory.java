@@ -359,7 +359,7 @@ class Directory extends Tab
 		setContent(containingPane);
 	}
 
-	void save(File file, DirectoryEntryData de)
+	private void save(File file, DirectoryEntryData de)
 	{
 		try {
 			FileChannel fc = new FileOutputStream(file).getChannel();
@@ -419,7 +419,7 @@ class Directory extends Tab
 		this.msg = msg;
 	}
 
-	void updateTabs(Tab... newTabs)
+	private void updateTabs(Tab... newTabs)
 	{
 		filePane.getTabs().retainAll(filePane.getTabs().get(0));
 
