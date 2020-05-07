@@ -14,6 +14,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+/** Tab displaying properties entries
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/20c1125f-043d-42d9-b1dc-cb9b7e5198ef">MS-OXMSG Section 2.4: Property Stream</a>
+*/
 class PropertyTableTab extends Tab
 {
 	/* Properties for the tab name and table column headings */
