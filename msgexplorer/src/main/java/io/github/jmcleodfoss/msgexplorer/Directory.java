@@ -73,53 +73,6 @@ class Directory extends Tab
 	static private final String BIN_FILES = "export.filechooser.bin-files";
 	static private final String TXT_FILES = "export.filechooser.txt-files";
 
-	/** The overall pane for all directory info. Left side is the directory
-	*   tree, and the right side is the information about the selected node
-	*   (if any). The right side is invisible if no node is selected.
-	*/
-	private SplitPane containingPane;
-
-	/** The directory tree */
-	private StackPane treePane;
-
-	/** The information about the selected node (if any). The top is the
-	*   directory entry contents (a tabbed pane allowing display of human-
-	*   readable text or raw bytes), and the bottom is the "file"
-	*   for this directory entry (if any).
-	*/
-	private SplitPane infoPane;
-
-	/** The tabbed pane showing the directory entry contents. */
-	private TabPane contentTabs;
-
-	private KVPTableTab<String, String> tabDescription;
-
-	private Tab tabData;
-	private ByteDataTable data;
-
-	private TabPane filePane;
-
-	private Tab tabFileContentsRaw;
-	private ByteDataTable fileContentsRaw;
-
-	private Tab tabFileContentsText;
-	private TextArea fileContentsText;
-
-	private GUIDTableTab tabNamedPropertyGuids;
-	private NamedPropertiesTableTab tabNumericalEntries;
-	private NamedPropertiesTableTab tabStringEntries;
-	private KVPTableTab<Integer, String> tabStringStream;
-	private KVPTableTab<String, String> tabNamedPropertyEntries;
-	private KVPTableTab<String, Integer> tabPropertiesHeader;
-	private PropertyTableTab tabProperties;
-
-	private TreeView<DirectoryEntryData> tree;
-
-	private MSG msg;
-	private LocalizedText localizer;
-
-	private UpdateInfoService updateInfoService;
-
 	private class SelectionChangeListener implements ChangeListener<TreeItem<DirectoryEntryData>>
 	{
 		@Override
@@ -231,6 +184,53 @@ class Directory extends Tab
 			};
 		}
 	}
+
+	/** The overall pane for all directory info. Left side is the directory
+	*   tree, and the right side is the information about the selected node
+	*   (if any). The right side is invisible if no node is selected.
+	*/
+	private SplitPane containingPane;
+
+	/** The directory tree */
+	private StackPane treePane;
+
+	/** The information about the selected node (if any). The top is the
+	*   directory entry contents (a tabbed pane allowing display of human-
+	*   readable text or raw bytes), and the bottom is the "file"
+	*   for this directory entry (if any).
+	*/
+	private SplitPane infoPane;
+
+	/** The tabbed pane showing the directory entry contents. */
+	private TabPane contentTabs;
+
+	private KVPTableTab<String, String> tabDescription;
+
+	private Tab tabData;
+	private ByteDataTable data;
+
+	private TabPane filePane;
+
+	private Tab tabFileContentsRaw;
+	private ByteDataTable fileContentsRaw;
+
+	private Tab tabFileContentsText;
+	private TextArea fileContentsText;
+
+	private GUIDTableTab tabNamedPropertyGuids;
+	private NamedPropertiesTableTab tabNumericalEntries;
+	private NamedPropertiesTableTab tabStringEntries;
+	private KVPTableTab<Integer, String> tabStringStream;
+	private KVPTableTab<String, String> tabNamedPropertyEntries;
+	private KVPTableTab<String, Integer> tabPropertiesHeader;
+	private PropertyTableTab tabProperties;
+
+	private TreeView<DirectoryEntryData> tree;
+
+	private MSG msg;
+	private LocalizedText localizer;
+
+	private UpdateInfoService updateInfoService;
 
 	Directory(LocalizedText localizer)
 	{
@@ -359,6 +359,40 @@ class Directory extends Tab
 		setContent(containingPane);
 	}
 
+	private TreeItem<DirectoryEntryData> addEntry(MSG msg, DirectoryEntryData ded)
+	{
+		TreeItem<DirectoryEntryData> node = new TreeItem<DirectoryEntryData>(ded);
+		java.util.Iterator<DirectoryEntryData> iter = msg.getChildIterator(ded);
+		while (iter.hasNext())
+			node.getChildren().add(addEntry(msg, iter.next()));
+		return node;
+	}
+
+	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
+	}
+
+	private boolean isEntryStreamEntryData(TreeItem<DirectoryEntryData> item)
+	{
+		if (item == null)
+			return false;
+		TreeItem<DirectoryEntryData> parent = item.getParent();
+		if (parent == null)
+			return false;
+		return parent.getParent() == tree.getRoot() && parent.previousSibling() == null;
+	}
+
+	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isEntryStreamEntryData(item) && item.previousSibling() == null;
+	}
+
+	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
+	{
+		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
+	}
+
 	private void save(File file, DirectoryEntryData de)
 	{
 		try {
@@ -376,40 +410,6 @@ class Directory extends Tab
 			alert.setContentText(String.format("An I/O error was encountered when trying to write \"%s\"", file.getAbsolutePath()));
 			alert.showAndWait();
 		}
-	}
-
-	private TreeItem<DirectoryEntryData> addEntry(MSG msg, DirectoryEntryData ded)
-	{
-		TreeItem<DirectoryEntryData> node = new TreeItem<DirectoryEntryData>(ded);
-		java.util.Iterator<DirectoryEntryData> iter = msg.getChildIterator(ded);
-		while (iter.hasNext())
-			node.getChildren().add(addEntry(msg, iter.next()));
-		return node;
-	}
-
-	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
-	{
-		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
-	}
-
-	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
-	{
-		return isEntryStreamEntryData(item) && item.previousSibling() == null;
-	}
-
-	private boolean isEntryStreamEntryData(TreeItem<DirectoryEntryData> item)
-	{
-		if (item == null)
-			return false;
-		TreeItem<DirectoryEntryData> parent = item.getParent();
-		if (parent == null)
-			return false;
-		return parent.getParent() == tree.getRoot() && parent.previousSibling() == null;
-	}
-
-	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
-	{
-		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
 	}
 
 	void update(MSG msg, LocalizedText localizer)
