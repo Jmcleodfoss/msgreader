@@ -86,9 +86,9 @@ class GUIDTableTab extends Tab
 	void update(MSG msg)
 	{
 		String[] guids = msg.namedPropertiesGUIDs();
-		ObservableList<GUIDRow> a1 = FXCollections.observableArrayList();
+		ObservableList<GUIDRow> al = FXCollections.observableArrayList();
 		for (int i = 0; i < guids.length; ++i)
-			a1.add(new GUIDRow(i, guids[i]));
-		table.setItems(a1);
+			al.add(new GUIDRow(i, guids[i]));
+		table.setItems(al);
 	}
 }
