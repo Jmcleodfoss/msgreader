@@ -23,6 +23,26 @@ class Sectors extends Tab
 	/* Property for the tab name */
 	static private final String TAB_TITLE = "sectors.main.tabname";
 
+	/** Page factory to display sectors */
+	private class PageFactory implements new Callback<Integer, Node>
+	{
+		@Override
+		public Node call(Integer pageIndex)
+		{
+			if (msg == null || pageIndex == null)
+				return null;
+			if (pageIndex < 0 || pageIndex >= pagination.getPageCount())
+				return null;
+			updateInfoService.setPageIndex(pageIndex);
+			updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
+			updateInfoService.restart();
+
+			StackPane pane = new StackPane();
+			pane.getChildren().add(new ByteDataTable());
+			return pane;
+		}
+	};
+
 	/** Utility class to update the display after asynchronous read of a new sector. */
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
 	{
@@ -67,12 +87,6 @@ class Sectors extends Tab
 		}
 	}
 
-	/** The sector contents */
-	private ByteDataTable data;
-
-	/** The container for the sector contents display, which allows selection of the sector to view */
-	private Pagination pagination;
-
 	/** Reference to the underlying MSG object */
 	private MSG msg;
 
@@ -86,25 +100,8 @@ class Sectors extends Tab
 	{
 		super(localizer.getText(TAB_TITLE));
 
-		pagination = new Pagination();
-		pagination.setPageFactory(new Callback<Integer, Node>(){
-			@Override
-			public Node call(Integer pageIndex)
-			{
-				if (msg == null || pageIndex == null)
-					return null;
-				if (pageIndex < 0 || pageIndex >= pagination.getPageCount())
-					return null;
-				updateInfoService.setPageIndex(pageIndex);
-				updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
-				updateInfoService.restart();
-
-				data = new ByteDataTable();
-				StackPane pane = new StackPane();
-				pane.getChildren().add(data);
-				return pane;
-			}
-		});
+		Pagination pagination = new Pagination();
+		pagination.setPageFactory(new PageFactory());
 		pagination.setSkin(new VoluminousPaginationSkin(pagination));
 		updateInfoService = new UpdateInfoService();
 
