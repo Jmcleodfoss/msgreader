@@ -27,13 +27,13 @@ import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
 {
-	private static final String PROPNAME_APPLICATION_TITLE_DEFAULT = "application.title.default";
-	private static final String PROPNAME_MENU_FILE = "menu.file";
-	private static final String PROPNAME_MENU_FILE_OPEN = "menu.file.open";
-	private static final String PROPNAME_MENU_FILE_EXIT = "menu.fil.exite";
-	private static final String PROPNAME_LOAD_FILE = "filechooser.title";
-	private static final String PROPNAME_ALL_FILES = "filechooser.all-files";
-	private static final String PROPNAME_MSG_FILES = "filechooser.msg-files";
+	private static final String APPLICATION_TITLE_DEFAULT = "application.title.default";
+	private static final String MENU_FILE = "menu.file";
+	private static final String MENU_FILE_OPEN = "menu.file.open";
+	private static final String MENU_FILE_EXIT = "menu.fil.exite";
+	private static final String LOAD_FILE = "openfile.filechooser.title";
+	private static final String ALL_FILES = "openfile.filechooser.all-files";
+	private static final String MSG_FILES = "openfile.filechooser.msg-files";
 
 	String filename;
 	MSG msg;
@@ -82,7 +82,7 @@ public class MsgExplorer extends javafx.application.Application
 				update(msg);
 				stage.setTitle(pathAndFileName);
 			} else {
-				stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
+				stage.setTitle(localizer.getText(APPLICATION_TITLE_DEFAULT));
 			}
 		}
 	}
@@ -93,11 +93,11 @@ public class MsgExplorer extends javafx.application.Application
 		fileChooser = new FileChooser();
 		open.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				fileChooser.setTitle(localizer.getText(PROPNAME_LOAD_FILE));
+				fileChooser.setTitle(localizer.getText(LOAD_FILE));
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 				fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter(localizer.getText(PROPNAME_ALL_FILES), "*.*"),
-					new FileChooser.ExtensionFilter(localizer.getText(PROPNAME_MSG_FILES), "*.msg")
+					new FileChooser.ExtensionFilter(localizer.getText(ALL_FILES), "*.*"),
+					new FileChooser.ExtensionFilter(localizer.getText(MSG_FILES), "*.msg")
 				);
 				File file = fileChooser.showOpenDialog(stage);
 				if (file != null){
@@ -123,7 +123,7 @@ public class MsgExplorer extends javafx.application.Application
 	public void start(javafx.stage.Stage stage)
 	{
 		localizer = new LocalizedText();
-		stage.setTitle(localizer.getText(PROPNAME_APPLICATION_TITLE_DEFAULT));
+		stage.setTitle(localizer.getText(APPLICATION_TITLE_DEFAULT));
 
 		header = new Header(localizer);
 		difat = new DIFAT(localizer);
