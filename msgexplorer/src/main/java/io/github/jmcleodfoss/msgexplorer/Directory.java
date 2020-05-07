@@ -64,16 +64,16 @@ class Directory extends Tab
 	static private final String PROPERTIES_HEADER_KEY_HEADING = "directory.entry.properties-header.key-heading";
 	static private final String PROPERTIES_HEADER_VALUE_HEADING = "directory.entry.properties-header.value-heading";
 
-	static private final String PROPNAME_MENUITEM_EXPORT = "tree.contextmenu.export";
-	static private final String PROPNAME_MENUITEM_SAVE_ATTACHMENT = "tree.contextmenu.save-attachment";
+	static private final String MENUITEM_EXPORT = "tree.contextmenu.export";
+	static private final String MENUITEM_SAVE_ATTACHMENT = "tree.contextmenu.save-attachment";
 
-	static private final String PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE = "export.filechooser.title-text";
-	static private final String PROPNAME_EXPORT_FILECHOOSER_BINARY_TITLE = "export.filechooser.title-bin";
-	static private final String PROPNAME_SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE = "save.directorychooser.title";
+	static private final String EXPORT_FILECHOOSER_TEXT_TITLE = "export.filechooser.title-text";
+	static private final String EXPORT_FILECHOOSER_BINARY_TITLE = "export.filechooser.title-bin";
+	static private final String SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE = "save.directorychooser.title";
 
-	static private final String PROPNAME_ALL_FILES = "export.filechooser.all-files";
-	static private final String PROPNAME_BIN_FILES = "export.filechooser.bin-files";
-	static private final String PROPNAME_TXT_FILES = "export.filechooser.txt-files";
+	static private final String ALL_FILES = "export.filechooser.all-files";
+	static private final String BIN_FILES = "export.filechooser.bin-files";
+	static private final String TXT_FILES = "export.filechooser.txt-files";
 
 	/** The overall pane for all directory info. Left side is the directory
 	*   tree, and the right side is the information about the selected node
@@ -287,7 +287,7 @@ class Directory extends Tab
 		containingPane.setDividerPositions(0.4f);
 
 		/* Export saves the stream object's contents, defaulting to using the entry's name. */
-		MenuItem export = new MenuItem(localizer.getText(PROPNAME_MENUITEM_EXPORT));
+		MenuItem export = new MenuItem(localizer.getText(MENUITEM_EXPORT));
 		export.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e)
@@ -296,14 +296,14 @@ class Directory extends Tab
 
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"));
+				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ALL_FILES, "*.*"));
 				if (msg.hasTextData(de)) {
-					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_TEXT_TITLE));
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_TXT_FILES, "*.txt"));
+					fileChooser.setTitle(localizer.getText(EXPORT_FILECHOOSER_TEXT_TITLE));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TXT_FILES, "*.txt"));
 					fileChooser.setInitialFileName(de.name + ".txt");
 				} else {
-					fileChooser.setTitle(localizer.getText(PROPNAME_EXPORT_FILECHOOSER_BINARY_TITLE));
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(PROPNAME_BIN_FILES, "*.bin"));
+					fileChooser.setTitle(localizer.getText(EXPORT_FILECHOOSER_BINARY_TITLE));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(BIN_FILES, "*.bin"));
 					fileChooser.setInitialFileName(de.name + ".bin");
 				}
 				File file = fileChooser.showSaveDialog(tree.getScene().getWindow());
@@ -312,7 +312,7 @@ class Directory extends Tab
 			}
 		});
 
-		MenuItem saveAttachment = new MenuItem(localizer.getText(PROPNAME_MENUITEM_SAVE_ATTACHMENT));
+		MenuItem saveAttachment = new MenuItem(localizer.getText(MENUITEM_SAVE_ATTACHMENT));
 		saveAttachment.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e)
@@ -322,7 +322,7 @@ class Directory extends Tab
 
 				DirectoryChooser directoryChooser = new DirectoryChooser();
 				directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-				directoryChooser.setTitle(localizer.getText(PROPNAME_SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE));
+				directoryChooser.setTitle(localizer.getText(SAVE_ATTACHMENT_DIRECTORYCHOOSER_TITLE));
 				File directory = directoryChooser.showDialog(tree.getScene().getWindow());
 				if (directory == null)
 					return;
