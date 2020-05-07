@@ -15,12 +15,15 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
-/** Display raw sectors. */
+/** Tab displaying raw sector contents.
+*   Note that the Pagination control numbers the sectors from 1, although all documentation numbers them from 0.
+*/
 class Sectors extends Tab
 {
 	/* Property for the tab name */
 	static private final String TAB_TITLE = "sectors.main.tabname";
 
+	/** Utility class to update the display after asynchronous read of a new sector. */
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
 	{
 		@Override
@@ -33,8 +36,10 @@ class Sectors extends Tab
 		}
 	}
 
+	/** Utility class for asynchronous read of a new sector. */
 	private class UpdateInfoService extends Service<byte[]>
 	{
+		/** The (0-based) index of the sector to read */
 		private IntegerProperty pageIndex;
 		private IntegerProperty pageIndexProperty()
 		{
@@ -62,11 +67,16 @@ class Sectors extends Tab
 		}
 	}
 
+	/** The sector contents */
 	private ByteDataTable data;
+
+	/** The container for the sector contents display, which allows selection of the sector to view */
 	private Pagination pagination;
 
+	/** Reference to the underlying MSG object */
 	private MSG msg;
 
+	/** Asynchronous update object */
 	private UpdateInfoService updateInfoService;
 
 	/** Create the sector display tab.
