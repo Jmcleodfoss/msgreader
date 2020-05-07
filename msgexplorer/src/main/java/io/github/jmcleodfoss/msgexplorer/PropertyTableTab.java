@@ -27,6 +27,7 @@ class PropertyTableTab extends Tab
 	static private final String PROPERTY_FLAGS_HEADING = "directory.entry.properties-values.flags-heading";
 	static private final String PROPERTY_VALUE_HEADING = "directory.entry.properties-values.value-heading";
 
+	/** A row in the property display table. */
 	public class PropertyRow
 	{
 		private ObjectProperty<Property> property;
@@ -51,8 +52,12 @@ class PropertyTableTab extends Tab
 		}
 	}
 
+	/** The table in which the properties are displayed. */
 	TableView<PropertyRow> table;
 
+	/** Create the property display tab.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	PropertyTableTab(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));
@@ -128,6 +133,10 @@ class PropertyTableTab extends Tab
 		setContent(table);
 	}
 
+	/** Update the property values when a new properties entry is selected
+	*	@param	properties	The list of new properties and values.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	void update (ArrayList<Property> properties, LocalizedText localizer)
 	{
 		ObservableList<PropertyRow> ol = FXCollections.observableArrayList();
