@@ -185,37 +185,23 @@ class Directory extends Tab
 		}
 	}
 
-	/** The overall pane for all directory info. Left side is the directory
-	*   tree, and the right side is the information about the selected node
-	*   (if any). The right side is invisible if no node is selected.
-	*/
-	private SplitPane containingPane;
+	private TreeView<DirectoryEntryData> tree;
 
 	/** The directory tree */
 	private StackPane treePane;
 
-	/** The information about the selected node (if any). The top is the
-	*   directory entry contents (a tabbed pane allowing display of human-
-	*   readable text or raw bytes), and the bottom is the "file"
-	*   for this directory entry (if any).
-	*/
-	private SplitPane infoPane;
+	private KVPTableTab<String, String> tabDescription;
+	private ByteDataTable data;
+	private Tab tabData;
 
 	/** The tabbed pane showing the directory entry contents. */
 	private TabPane contentTabs;
 
-	private KVPTableTab<String, String> tabDescription;
-
-	private Tab tabData;
-	private ByteDataTable data;
-
-	private TabPane filePane;
-
-	private Tab tabFileContentsRaw;
 	private ByteDataTable fileContentsRaw;
+	private Tab tabFileContentsRaw;
 
-	private Tab tabFileContentsText;
 	private TextArea fileContentsText;
+	private Tab tabFileContentsText;
 
 	private GUIDTableTab tabNamedPropertyGuids;
 	private NamedPropertiesTableTab tabNumericalEntries;
@@ -225,9 +211,23 @@ class Directory extends Tab
 	private KVPTableTab<String, Integer> tabPropertiesHeader;
 	private PropertyTableTab tabProperties;
 
-	private TreeView<DirectoryEntryData> tree;
+	/** The information about the selected node (if any). The top is the
+	*   directory entry contents (a tabbed pane allowing display of human-
+	*   readable text or raw bytes), and the bottom is the "file"
+	*   for this directory entry (if any).
+	*/
+	private SplitPane infoPane;
+
+	private TabPane filePane;
+
+	/** The overall pane for all directory info. Left side is the directory
+	*   tree, and the right side is the information about the selected node
+	*   (if any). The right side is invisible if no node is selected.
+	*/
+	private SplitPane containingPane;
 
 	private MSG msg;
+
 	private LocalizedText localizer;
 
 	private UpdateInfoService updateInfoService;
