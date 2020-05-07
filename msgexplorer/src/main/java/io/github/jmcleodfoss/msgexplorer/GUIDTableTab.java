@@ -14,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
+/** Tab to display the Named Properties GUID Stream
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/e910b8f0-ab70-410b-bb3a-0fa236a55bfb">MS-OXMSG Section 2.2.3.1.1: GUID Stream</a>
+*/
 class GUIDTableTab extends Tab
 {
 	/* Properties for the tab name and table column headings */
@@ -21,9 +24,12 @@ class GUIDTableTab extends Tab
 	static private final String INDEX_HEADING = "directory.entry.namedproperties-guidstream.index-heading";
 	static private final String GUIDS_HEADING = "directory.entry.namedproperties-guidstream.guid-heading";
 
+	/** The size of the widest possible GUID, used to set the width of the GUID column in the table */
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
+	/** A row in the GUID table */
 	public class GUIDRow {
+		/** The GUID */
 		private StringProperty guid;
 		private StringProperty guidProperty()
 		{
@@ -40,6 +46,7 @@ class GUIDTableTab extends Tab
 			guidProperty().set(guid);
 		}
 
+		/** The row number / GUID index */
 		private IntegerProperty index;
 		private IntegerProperty indexProperty()
 		{
@@ -63,8 +70,12 @@ class GUIDTableTab extends Tab
 		}
 	}
 
+	/** The GUID display table */
 	private TableView<GUIDRow> table;
 
+	/** Create the GUID display tab.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	GUIDTableTab(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));
@@ -83,6 +94,9 @@ class GUIDTableTab extends Tab
 		setContent(table);
 	}
 
+	/** Update the GUIDdisplay.
+	*	@param	msg	The msg object for the file we are displaying
+	*/
 	void update(MSG msg)
 	{
 		String[] guids = msg.namedPropertiesGUIDs();
