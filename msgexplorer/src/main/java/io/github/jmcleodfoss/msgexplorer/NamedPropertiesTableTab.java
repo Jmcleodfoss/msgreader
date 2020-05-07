@@ -13,6 +13,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+/** Display tab for the Numerical and String Named Properties
+*   These are displayed in separate tabs, created by {@link #numericalNamedPropertyEntriesTableTabFactory} and {@link #stringNamedPropertyEntriesTableTabFactory}
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/81159dd0-649e-4491-b216-877008b23f65">MS-OXMSG Section 2.2.3.1.2: Entry Stream</a>
+*/
 class NamedPropertiesTableTab extends Tab
 {
 	/* Properties for the tab name and table column headings */
@@ -25,6 +29,7 @@ class NamedPropertiesTableTab extends Tab
 	static private final String NUMERICAL_AND_STRING_ENTRIES_PROPERTY_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.property-index-heading";
 	static private final String NUMERICAL_AND_STRING_ENTRIES_GUID_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.guid-index-heading";
 
+	/** A row in the display table */
 	public class NamedPropertyRow {
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntryProperty()
@@ -42,14 +47,27 @@ class NamedPropertiesTableTab extends Tab
 			namedPropertyEntryProperty().set(namedPropertyEntry);
 		}
 
+		/** Create a row object from a value passed from the MSG object.
+		*	@param	namedPropertyEntry	The information about the property to display on this row
+		*/
 		private NamedPropertyRow(EntryStreamEntryData namedPropertyEntry)
 		{
 			setNamedPropertyEntry(namedPropertyEntry);
 		}
 	}
 
+	/** The table showing the String and Numerical Named Properties */
 	class NamedPropertiesTable extends TableView<NamedPropertyRow>
 	{
+		/** Create the Named Properties display table.
+		*   The final two parameters determine whether this is for displaying Numerical Named Properties or String Named Properties.
+		*	@param	localizer	The localizer mapping for the current locale.
+		*	@param	propColHeaderNameIdOrStringOffset	The property name to use for the first column (Name ID for Numerical Named Properties,
+		*							String Offset for String Named Properties)
+		*	@param	fmtNameOrStringOffset	The format to use for displaying values in the first column
+		*	@see #numericalNamedPropertyEntriesTableTabFactory
+		*	@see #stringNamedPropertyEntriesTableTabFactory
+		*/
 		NamedPropertiesTable(LocalizedText localizer, String propColHeaderNameIdOrStringOffset, String fmtNameIdOrStringOffset)
 		{
 			super();
@@ -98,8 +116,20 @@ class NamedPropertiesTableTab extends Tab
 		}
 	}
 
+	/** The table displaying the String or Numerical Named Properties */
 	NamedPropertiesTable table;
 
+	/** Create the Named Properties display table.
+	*   The final three parameters determine whether this is for displaying Numerical Named Properties or String Named Properties.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*	@param	propTabName	The property name to use to look up the tab name
+	*	@param	propColHeaderNameIdOrStringOffset	The property name to use for the first column (Name ID for Numerical Named Properties,
+	*							String Offset for String Named Properties)
+	*	@param	fmtNameOrStringOffset	The format to use for displaying values in the first column
+	*	@see #numericalNamedPropertyEntriesTableTabFactory
+	*	@see #stringNamedPropertyEntriesTableTabFactory
+	*	@see NamedPropertiesTable
+	*/
 	NamedPropertiesTableTab(LocalizedText localizer, String propTabName, String propColHeaderNameIdOrStringOffset, String fmtNameIdOrStringOffset)
 	{
 		super(localizer.getText(propTabName));
@@ -107,6 +137,9 @@ class NamedPropertiesTableTab extends Tab
 		setContent(table);
 	}
 
+	/** Update the Named Properties display
+	*	@param	al	The list of new properties to be displayed
+	*/
 	void update(java.util.ArrayList<EntryStreamEntryData> al)
 	{
 		ObservableList<NamedPropertyRow> ol = FXCollections.observableArrayList();
@@ -117,11 +150,21 @@ class NamedPropertiesTableTab extends Tab
 		table.setItems(ol);
 	}
 
+	/** Create a tab in which to display the Numerical Named Properties
+	*	@param	localizer	The localizer mapping for the current locale.
+	*	@see NamedPropertiesTableTab
+	*	@see NamedPropertiesTable
+	*/
 	static NamedPropertiesTableTab numericalNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
 		return new NamedPropertiesTableTab(localizer, NUMERICALENTRIES_LABEL, NUMERICALENTRIES_NAME_ID_HEADING, "0x%04x");
 	}
 
+	/** Create a tab in which to display the String Named Properties
+	*	@param	localizer	The localizer mapping for the current locale.
+	*	@see NamedPropertiesTableTab
+	*	@see NamedPropertiesTable
+	*/
 	static NamedPropertiesTableTab stringNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
 		return new NamedPropertiesTableTab(localizer, STRINGENTRIES_LABEL, STRINGENTRIES_STRING_OFFSET_HEADING, "0x%04x");
