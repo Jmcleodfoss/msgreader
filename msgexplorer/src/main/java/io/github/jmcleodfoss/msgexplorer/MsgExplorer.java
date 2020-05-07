@@ -93,11 +93,11 @@ public class MsgExplorer extends javafx.application.Application
 		fileChooser = new FileChooser();
 		open.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				fileChooser.setTitle(PROPNAME_LOAD_FILE);
+				fileChooser.setTitle(localizer.getText(PROPNAME_LOAD_FILE));
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 				fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter(PROPNAME_ALL_FILES, "*.*"),
-					new FileChooser.ExtensionFilter(PROPNAME_MSG_FILES, "*.msg")
+					new FileChooser.ExtensionFilter(localizer.getText(PROPNAME_ALL_FILES), "*.*"),
+					new FileChooser.ExtensionFilter(localizer.getText(PROPNAME_MSG_FILES), "*.msg")
 				);
 				File file = fileChooser.showOpenDialog(stage);
 				if (file != null){
