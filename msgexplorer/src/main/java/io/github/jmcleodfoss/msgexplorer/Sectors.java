@@ -24,7 +24,7 @@ class Sectors extends Tab
 	static private final String TAB_TITLE = "sectors.main.tabname";
 
 	/** Page factory to display sectors */
-	private class PageFactory implements new Callback<Integer, Node>
+	private class PageFactory implements Callback<Integer, Node>
 	{
 		@Override
 		public Node call(Integer pageIndex)
@@ -37,11 +37,12 @@ class Sectors extends Tab
 			updateInfoService.setOnSucceeded(new SuccessfulReadHandler());
 			updateInfoService.restart();
 
+			data = new ByteDataTable();
 			StackPane pane = new StackPane();
-			pane.getChildren().add(new ByteDataTable());
+			pane.getChildren().add(data);
 			return pane;
 		}
-	};
+	}
 
 	/** Utility class to update the display after asynchronous read of a new sector. */
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
@@ -87,6 +88,12 @@ class Sectors extends Tab
 		}
 	}
 
+	/** The sector contents */
+	ByteDataTable data;
+
+	/** The Pagination object in which the sector list and current sector are displayed. */
+	Pagination pagination;
+
 	/** Reference to the underlying MSG object */
 	private MSG msg;
 
@@ -100,7 +107,7 @@ class Sectors extends Tab
 	{
 		super(localizer.getText(TAB_TITLE));
 
-		Pagination pagination = new Pagination();
+		pagination = new Pagination();
 		pagination.setPageFactory(new PageFactory());
 		pagination.setSkin(new VoluminousPaginationSkin(pagination));
 		updateInfoService = new UpdateInfoService();
