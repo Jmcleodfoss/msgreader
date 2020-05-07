@@ -35,31 +35,31 @@ public class MsgExplorer extends javafx.application.Application
 	private static final String ALL_FILES = "openfile.filechooser.all-files";
 	private static final String MSG_FILES = "openfile.filechooser.msg-files";
 
-	String filename;
-	MSG msg;
+	private String filename;
+	private MSG msg;
 
-	LocalizedText localizer;
+	private LocalizedText localizer;
 
-	BorderPane mainPane;
+	private BorderPane mainPane;
 
-	MenuBar menuBar;
+	private MenuBar menuBar;
 
-	FileChooser fileChooser;
+	private FileChooser fileChooser;
 
-	TabPane tabs;
+	private TabPane tabs;
 
-	Header header;
-	DIFAT difat;
-	FAT fat;
-	Sectors sectors;
-	MiniStream miniStream;
-	Directory directory;
+	private Header header;
+	private DIFAT difat;
+	private FAT fat;
+	private Sectors sectors;
+	private MiniStream miniStream;
+	private Directory directory;
 
 	public MsgExplorer()
 	{
 	}
 
-	public void openFile(String pathAndFileName, javafx.stage.Stage stage)
+	private void openFile(String pathAndFileName, javafx.stage.Stage stage)
 	{
 		if (pathAndFileName != null) {
 			try {
