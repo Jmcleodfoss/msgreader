@@ -296,14 +296,14 @@ class Directory extends Tab
 
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ALL_FILES, "*.*"));
+				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(localizer.getText(ALL_FILES), "*.*"));
 				if (msg.hasTextData(de)) {
 					fileChooser.setTitle(localizer.getText(EXPORT_FILECHOOSER_TEXT_TITLE));
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TXT_FILES, "*.txt"));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(localizer.getText(TXT_FILES), "*.txt"));
 					fileChooser.setInitialFileName(de.name + ".txt");
 				} else {
 					fileChooser.setTitle(localizer.getText(EXPORT_FILECHOOSER_BINARY_TITLE));
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(BIN_FILES, "*.bin"));
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(localizer.getText(BIN_FILES), "*.bin"));
 					fileChooser.setInitialFileName(de.name + ".bin");
 				}
 				File file = fileChooser.showSaveDialog(tree.getScene().getWindow());
