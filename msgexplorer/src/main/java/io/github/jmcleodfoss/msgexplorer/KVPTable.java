@@ -85,7 +85,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 		private int columnToWrap;
 
 		/** Initialize class members based on the index of the column whose width we want to preserve */
-		WideCellFactoryCallback(int columnToPreserveWidthOf)
+		private WideCellFactoryCallback(int columnToPreserveWidthOf)
 		{
 			this.columnToPreserveWidthOf  = columnToPreserveWidthOf;
 			this.columnToWrap = columnToPreserveWidthOf == 0 ? 1 : 0;
