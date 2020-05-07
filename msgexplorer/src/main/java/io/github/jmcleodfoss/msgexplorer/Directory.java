@@ -40,28 +40,29 @@ import javafx.stage.FileChooser;
 
 class Directory extends Tab
 {
-	static private final String PROPNAME_DIRECTORY_TAB_TITLE = "Directory";
+	/* Properties for the tab name and table column headings */
+	static private final String TAB_TITLE = "directory.main.tabname";
 
-	static private final String PROPNAME_HEADER_FIELDS_TITLE= "entry.header-fields.title";
-	static private final String PROPNAME_HEADER_FIELDS_KEY = "entry.header-fields.key";
-	static private final String PROPNAME_HEADER_FIELDS_VALUE = "entry.header-fields.value";
+	static private final String HEADER_FIELDS_TAB_TITLE = "directory.header.fields.tabname";
+	static private final String HEADER_FIELDS_KEY_HEADING = "directory.header.fields.key-heading";
+	static private final String HEADER_FIELDS_VALUE_HEADING = "directory.header.fields.value-heading";
 
-	static private final String PROPNAME_HEADER_RAW_TITLE = "entry.header-raw.title";
+	static private final String HEADER_RAW_TAB_TITLE = "directory.header.raw.tabname";
 
-	static private final String PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE = "entry.raw.title";
-	static private final String PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE = "entry.text.title";
+	static private final String ENTRY_RAW_TAB_TITLE = "directory.entry.raw.tabname";
+	static private final String ENTRY_TEXT_TAB_TITLE = "directory.entry.text.tabname";
 
-	static private final String PROPNAME_STRINGSTREAM_LABEL = "namedproperties.stringstream.label";
-	static private final String PROPNAME_STRINGSTREAM_OFFSET_HEADER = "namedproperties.stringstream.offset-header";
-	static private final String PROPNAME_STRINGSTREAM_STRING_HEADER = "namedproperties.stringstream.string-header";
+	static private final String NP_STRINGSTREAM_TAB_TITLE = "directory.entry.namedproperties-stringstream.tabname";
+	static private final String NP_STRINGSTREAM_OFFSET_HEADING = "directory.entry.namedproperties-stringstream.offset-heading";
+	static private final String NP_STRINGSTREAM_STRING_HEADING = "directory.entry.namedproperties-stringstream.string-heading";
 
-	static private final String PROPNAME_ENTRY_LABEL = "namedproperties.entries.label";
-	static private final String PROPNAME_ENTRY_KEY_HEADER = "namedproperties.entries.key-header";
-	static private final String PROPNAME_ENTRY_VALUE_HEADER = "namedproperties.entries.value-header";
+	static private final String NP_ENTRIES_TAB_TITLE = "directory.entry.namedproperties-entries.tabname";
+	static private final String NP_ENTRIES_KEY_HEADING = "directory.entry.namedproperties-entries.key-heading";
+	static private final String NP_ENTRIES_VALUE_HEADING = "directory.entry.namedproperties-entries.value-heading";
 
-	static private final String PROPNAME_PROPERTIES_HEADER_LABEL = "properties.header.label";
-	static private final String PROPNAME_PROPERTIES_HEADER_KEY_HEADER = "properties.header.key-header";
-	static private final String PROPNAME_PROPERTIES_HEADER_VALUE_HEADER = "properties.header.value-header";
+	static private final String PROPERTIES_HEADER_TAB_TITLE = "directory.entry.properties-header.tabname";
+	static private final String PROPERTIES_HEADER_KEY_HEADING = "directory.entry.properties-header.key-heading";
+	static private final String PROPERTIES_HEADER_VALUE_HEADING = "directory.entry.properties-header.value-heading";
 
 	static private final String PROPNAME_MENUITEM_EXPORT = "tree.contextmenu.export";
 	static private final String PROPNAME_MENUITEM_SAVE_ATTACHMENT = "tree.contextmenu.save-attachment";
@@ -235,7 +236,7 @@ class Directory extends Tab
 
 	Directory(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_DIRECTORY_TAB_TITLE));
+		super(localizer.getText(TAB_TITLE));
 		this.localizer = localizer;
 		updateInfoService = new UpdateInfoService();
 
@@ -244,35 +245,32 @@ class Directory extends Tab
 		treePane = new StackPane();
 		treePane.getChildren().add(tree);
 
-		tabDescription = new KVPTableTab<String, String>(
-			localizer.getText(PROPNAME_HEADER_FIELDS_TITLE),
-			localizer.getText(PROPNAME_HEADER_FIELDS_KEY),
-			localizer.getText(PROPNAME_HEADER_FIELDS_VALUE));
+		tabDescription = new KVPTableTab<String, String>( localizer.getText(HEADER_FIELDS_TAB_TITLE), localizer.getText(HEADER_FIELDS_KEY_HEADING), localizer.getText(HEADER_FIELDS_VALUE_HEADING));
 		tabDescription.update(MSG.getDirectoryEntryKeys(), localizer);
 
 		data = new ByteDataTable();
-		tabData = new Tab(localizer.getText(PROPNAME_HEADER_RAW_TITLE));
+		tabData = new Tab(localizer.getText(HEADER_RAW_TAB_TITLE));
 		tabData.setContent(data);
 
 		contentTabs = new TabPane(tabDescription, tabData);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		fileContentsRaw = new ByteDataTable();
-		tabFileContentsRaw = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_RAW_TITLE));
+		tabFileContentsRaw = new Tab(localizer.getText(ENTRY_RAW_TAB_TITLE));
 		tabFileContentsRaw.setContent(fileContentsRaw);
 
 		fileContentsText = new TextArea();
 		fileContentsText.setEditable(false);
 
-		tabFileContentsText = new Tab(localizer.getText(PROPNAME_DIRECTORY_CONTENTS_TEXT_TITLE));
+		tabFileContentsText = new Tab(localizer.getText(ENTRY_TEXT_TAB_TITLE));
 		tabFileContentsText.setContent(fileContentsText);
 
 		tabNamedPropertyGuids = new GUIDTableTab(localizer);
 		tabNumericalEntries = NamedPropertiesTableTab.numericalNamedPropertyEntriesTableTabFactory(localizer);
 		tabStringEntries = NamedPropertiesTableTab.stringNamedPropertyEntriesTableTabFactory(localizer);
-		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(PROPNAME_STRINGSTREAM_LABEL), localizer.getText(PROPNAME_STRINGSTREAM_OFFSET_HEADER), localizer.getText(PROPNAME_STRINGSTREAM_STRING_HEADER));
-		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(PROPNAME_ENTRY_LABEL), localizer.getText(PROPNAME_ENTRY_KEY_HEADER), localizer.getText(PROPNAME_ENTRY_VALUE_HEADER));
-		tabPropertiesHeader = new KVPTableTab<String, Integer>(localizer.getText(PROPNAME_PROPERTIES_HEADER_LABEL), localizer.getText(PROPNAME_PROPERTIES_HEADER_KEY_HEADER), localizer.getText(PROPNAME_PROPERTIES_HEADER_VALUE_HEADER));
+		tabStringStream = new KVPTableTab<Integer, String>(localizer.getText(NP_STRINGSTREAM_TAB_TITLE), localizer.getText(NP_STRINGSTREAM_OFFSET_HEADING), localizer.getText(NP_STRINGSTREAM_STRING_HEADING));
+		tabNamedPropertyEntries = new KVPTableTab<String, String>(localizer.getText(NP_ENTRIES_TAB_TITLE), localizer.getText(NP_ENTRIES_KEY_HEADING), localizer.getText(NP_ENTRIES_VALUE_HEADING));
+		tabPropertiesHeader = new KVPTableTab<String, Integer>(localizer.getText(PROPERTIES_HEADER_TAB_TITLE), localizer.getText(PROPERTIES_HEADER_KEY_HEADING), localizer.getText(PROPERTIES_HEADER_VALUE_HEADING));
 
 		tabProperties = new PropertyTableTab(localizer);
 

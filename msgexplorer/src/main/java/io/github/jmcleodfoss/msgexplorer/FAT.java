@@ -8,16 +8,16 @@ import io.github.jmcleodfoss.msg.MSG;
 class FAT extends KVPTableTab<String, String>
 {
 	/* Properties for the tab name and table column headings */
-	static private final String PROPNAME_FAT_TAB_TITLE = "FAT";
-	static private final String PROPNAME_FAT_COL1_HEADING = "FATKVPKey";
-	static private final String PROPNAME_FAT_COL2_HEADING = "FATKVPValue";
+	static private final String TAB_TITLE = "fat.main.tabname";
+	static private final String KEY_HEADING = "fat.display.key-heading";
+	static private final String VALUE_HEADING = "fat.display.value-heading";
 
 	/** Create the FAT display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
 	FAT(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_FAT_TAB_TITLE), localizer.getText(PROPNAME_FAT_COL1_HEADING), localizer.getText(PROPNAME_FAT_COL2_HEADING), true);
+		super(localizer.getText(TAB_TITLE), localizer.getText(KEY_HEADING), localizer.getText(VALUE_HEADING), true);
 	}
 
 	/** Update the FAT display.

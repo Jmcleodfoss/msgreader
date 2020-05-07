@@ -4,15 +4,14 @@ import io.github.jmcleodfoss.msg.MSG;
 
 class Header extends KVPTableTab<String, String>
 {
-	static private final String PROPNAME_HEADER_TAB_TITLE = "Header";
-	static private final String PROPNAME_HEADER_COL1_HEADING = "HeaderKVPKey";
-	static private final String PROPNAME_HEADER_COL2_HEADING = "HeaderKVPValue";
+	/* Properties for the tab name and table column headings */
+	static private final String TAB_TITLE = "header.main.tabname";
+	static private final String KEY_HEADING = "header.display.key-heading";
+	static private final String VALUE_HEADING = "header.display.value-heading";
 
 	Header(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_HEADER_TAB_TITLE),
-			localizer.getText(PROPNAME_HEADER_COL1_HEADING),
-			localizer.getText(PROPNAME_HEADER_COL2_HEADING));
+		super(localizer.getText(TAB_TITLE), localizer.getText(KEY_HEADING), localizer.getText(VALUE_HEADING));
 	}
 
 	void update(MSG msg, LocalizedText localizer)

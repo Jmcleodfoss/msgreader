@@ -15,14 +15,15 @@ import javafx.util.Callback;
 
 class NamedPropertiesTableTab extends Tab
 {
-	static private final String PROPNAME_NUMERICALENTRIES_LABEL = "namedproperties.numericalentries.label";
-	static private final String PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER = "namedproperties.numericalentries.name-id-header";
+	/* Properties for the tab name and table column headings */
+	static private final String NUMERICALENTRIES_LABEL = "directory.entry.namedproperties-numericalentries.tabname";
+	static private final String NUMERICALENTRIES_NAME_ID_HEADING = "directory.entry.namedproperties-numericalentries.name-id-heading";
 
-	static private final String PROPNAME_STRINGENTRIES_LABEL = "namedproperties.stringentries.label";
-	static private final String PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER = "namedproperties.stringentries.string-offset-header";
+	static private final String STRINGENTRIES_LABEL = "directory.entry.namedproperties-stringentries.tabname";
+	static private final String STRINGENTRIES_STRING_OFFSET_HEADING = "directory.entry.namedproperties-stringentries.string-offset-heading";
 
-	static private final String PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER = "namedproperties.snentries.property-index";
-	static private final String PROPNAME_SNENTRIES_GUID_INDEX_HEADER = "namedproperties.snentries.guid-index";
+	static private final String NUMERICAL_AND_STRING_ENTRIES_PROPERTY_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.property-index-heading";
+	static private final String NUMERICAL_AND_STRING_ENTRIES_GUID_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.guid-index-heading";
 
 	public class NamedPropertyRow {
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
@@ -66,7 +67,7 @@ class NamedPropertiesTableTab extends Tab
 				}
 			});
 
-			TableColumn<NamedPropertyRow, EntryStreamEntryData> colPropertyIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(PROPNAME_SNENTRIES_PROPERTY_INDEX_HEADER));
+			TableColumn<NamedPropertyRow, EntryStreamEntryData> colPropertyIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(NUMERICAL_AND_STRING_ENTRIES_PROPERTY_INDEX_HEADING));
 			colPropertyIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, EntryStreamEntryData>("namedPropertyEntry"));
 			colPropertyIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, EntryStreamEntryData>, TableCell<NamedPropertyRow, EntryStreamEntryData>>(){
 				@Override public TableCell<NamedPropertyRow, EntryStreamEntryData> call(TableColumn<NamedPropertyRow, EntryStreamEntryData> column){
@@ -79,7 +80,7 @@ class NamedPropertiesTableTab extends Tab
 				}
 			});
 
-			TableColumn<NamedPropertyRow, EntryStreamEntryData> colGuidIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(PROPNAME_SNENTRIES_GUID_INDEX_HEADER));
+			TableColumn<NamedPropertyRow, EntryStreamEntryData> colGuidIndex = new TableColumn<NamedPropertyRow, EntryStreamEntryData>(localizer.getText(NUMERICAL_AND_STRING_ENTRIES_GUID_INDEX_HEADING));
 			colGuidIndex.setCellValueFactory(new PropertyValueFactory<NamedPropertyRow, EntryStreamEntryData>("namedPropertyEntry"));
 			colGuidIndex.setCellFactory(new Callback<TableColumn<NamedPropertyRow, EntryStreamEntryData>, TableCell<NamedPropertyRow, EntryStreamEntryData>>(){
 				@Override public TableCell<NamedPropertyRow, EntryStreamEntryData> call(TableColumn<NamedPropertyRow, EntryStreamEntryData> column){
@@ -118,11 +119,11 @@ class NamedPropertiesTableTab extends Tab
 
 	static NamedPropertiesTableTab numericalNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
-		return new NamedPropertiesTableTab(localizer, PROPNAME_NUMERICALENTRIES_LABEL, PROPNAME_NUMERICALENTRIES_NAME_ID_HEADER, "0x%04x");
+		return new NamedPropertiesTableTab(localizer, NUMERICALENTRIES_LABEL, NUMERICALENTRIES_NAME_ID_HEADING, "0x%04x");
 	}
 
 	static NamedPropertiesTableTab stringNamedPropertyEntriesTableTabFactory(LocalizedText localizer)
 	{
-		return new NamedPropertiesTableTab(localizer, PROPNAME_STRINGENTRIES_LABEL, PROPNAME_STRINGENTRIES_STRING_OFFSET_HEADER, "0x%04x");
+		return new NamedPropertiesTableTab(localizer, STRINGENTRIES_LABEL, STRINGENTRIES_STRING_OFFSET_HEADING, "0x%04x");
 	}
 }

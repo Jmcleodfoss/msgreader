@@ -16,10 +16,10 @@ import javafx.scene.text.Text;
 
 class GUIDTableTab extends Tab
 {
-	static private final String PROPNAME_GUIDS_TAB_TITLE = "namedproperties.guids.tab-title";
-
-	static private final String PROPNAME_GUIDS_INDEX_HEADER = "namedproperties.guids.index-header";
-	static private final String PROPNAME_GUIDS_GUID_HEADER = "namedproperties.guids.guid-header";
+	/* Properties for the tab name and table column headings */
+	static private final String TAB_TITLE = "directory.entry.namedproperties-guidstream.tabname";
+	static private final String INDEX_HEADING = "directory.entry.namedproperties-guidstream.index-heading";
+	static private final String GUIDS_HEADING = "directory.entry.namedproperties-guidstream.guid-heading";
 
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
@@ -67,13 +67,13 @@ class GUIDTableTab extends Tab
 
 	GUIDTableTab(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_GUIDS_TAB_TITLE));
+		super(localizer.getText(TAB_TITLE));
 
 		table = new TableView<GUIDRow>();
-		TableColumn<GUIDRow, Integer> colIndex = new TableColumn<GUIDRow, Integer>(localizer.getText(PROPNAME_GUIDS_INDEX_HEADER));
+		TableColumn<GUIDRow, Integer> colIndex = new TableColumn<GUIDRow, Integer>(localizer.getText(INDEX_HEADING));
 		colIndex.setCellValueFactory(new PropertyValueFactory<GUIDRow, Integer>("index"));
 
-		TableColumn<GUIDRow, String> colGuid = new TableColumn<GUIDRow, String>(localizer.getText(PROPNAME_GUIDS_GUID_HEADER));
+		TableColumn<GUIDRow, String> colGuid = new TableColumn<GUIDRow, String>(localizer.getText(GUIDS_HEADING));
 		colGuid.setCellValueFactory(new PropertyValueFactory<GUIDRow, String>("guid"));
 		colGuid.setPrefWidth(WIDEST_GUID_TEXT.getBoundsInLocal().getWidth());
 

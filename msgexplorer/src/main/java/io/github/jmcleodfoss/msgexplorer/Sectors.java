@@ -18,7 +18,8 @@ import javafx.util.Callback;
 /** Display raw sectors. */
 class Sectors extends Tab
 {
-	static private final String PROPNAME_SECTOR_TAB_TITLE = "Sectors";
+	/* Property for the tab name */
+	static private final String TAB_TITLE = "sectors.main.tabname";
 
 	private ByteDataTable data;
 	private Pagination pagination;
@@ -70,7 +71,7 @@ class Sectors extends Tab
 
 	Sectors(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_SECTOR_TAB_TITLE));
+		super(localizer.getText(TAB_TITLE));
 
 		pagination = new Pagination();
 		pagination.setPageFactory(new Callback<Integer, Node>(){

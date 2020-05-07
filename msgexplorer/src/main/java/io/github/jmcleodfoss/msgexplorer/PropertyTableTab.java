@@ -16,13 +16,13 @@ import javafx.util.Callback;
 
 class PropertyTableTab extends Tab
 {
-	static private final String PROPNAME_PROPERTIES_LABEL = "properties.values.label";
-
-	static private final String PROPNAME_PROPERTY_ID_HEADER = "properties.values.id-header";
-	static private final String PROPNAME_PROPERTY_TYPE_HEADER = "properties.values.type-header";
-	static private final String PROPNAME_PROPERTY_NAME_HEADER = "properties.values.name-header";
-	static private final String PROPNAME_PROPERTY_FLAGS_HEADER = "properties.values.flags-header";
-	static private final String PROPNAME_PROPERTY_VALUE_HEADER = "properties.values.value-header";
+	/* Properties for the tab name and table column headings */
+	static private final String TAB_TITLE = "directory.entry.properties-values.tabname";
+	static private final String PROPERTY_ID_HEADING = "directory.entry.properties-values.id-heading";
+	static private final String PROPERTY_TYPE_HEADING = "directory.entry.properties-values.type-heading";
+	static private final String PROPERTY_NAME_HEADING = "directory.entry.properties-values.name-heading";
+	static private final String PROPERTY_FLAGS_HEADING = "directory.entry.properties-values.flags-heading";
+	static private final String PROPERTY_VALUE_HEADING = "directory.entry.properties-values.value-heading";
 
 	public class PropertyRow
 	{
@@ -52,9 +52,9 @@ class PropertyTableTab extends Tab
 
 	PropertyTableTab(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_PROPERTIES_LABEL));
+		super(localizer.getText(TAB_TITLE));
 
-		TableColumn<PropertyRow, Property> colPropertyId = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_ID_HEADER));
+		TableColumn<PropertyRow, Property> colPropertyId = new TableColumn<PropertyRow, Property>(localizer.getText(PROPERTY_ID_HEADING));
 		colPropertyId.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
 		colPropertyId.setCellFactory(new Callback<TableColumn<PropertyRow, Property>, TableCell<PropertyRow, Property>>(){
 			@Override public TableCell<PropertyRow, Property> call(TableColumn<PropertyRow, Property> column){
@@ -67,7 +67,7 @@ class PropertyTableTab extends Tab
 			}
 		});
 
-		TableColumn<PropertyRow, Property> colPropertyName = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_NAME_HEADER));
+		TableColumn<PropertyRow, Property> colPropertyName = new TableColumn<PropertyRow, Property>(localizer.getText(PROPERTY_NAME_HEADING));
 		colPropertyName.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
 		colPropertyName.setCellFactory(new Callback<TableColumn<PropertyRow, Property>, TableCell<PropertyRow, Property>>(){
 			@Override public TableCell<PropertyRow, Property> call(TableColumn<PropertyRow, Property> column){
@@ -80,7 +80,7 @@ class PropertyTableTab extends Tab
 			}
 		});
 
-		TableColumn<PropertyRow, Property> colPropertyType = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_TYPE_HEADER));
+		TableColumn<PropertyRow, Property> colPropertyType = new TableColumn<PropertyRow, Property>(localizer.getText(PROPERTY_TYPE_HEADING));
 		colPropertyType.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
 		colPropertyType.setCellFactory(new Callback<TableColumn<PropertyRow, Property>, TableCell<PropertyRow, Property>>(){
 			@Override public TableCell<PropertyRow, Property> call(TableColumn<PropertyRow, Property> column){
@@ -93,7 +93,7 @@ class PropertyTableTab extends Tab
 			}
 		});
 
-		TableColumn<PropertyRow, Property> colPropertyFlags = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_FLAGS_HEADER));
+		TableColumn<PropertyRow, Property> colPropertyFlags = new TableColumn<PropertyRow, Property>(localizer.getText(PROPERTY_FLAGS_HEADING));
 		colPropertyFlags.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
 		colPropertyFlags.setCellFactory(new Callback<TableColumn<PropertyRow, Property>, TableCell<PropertyRow, Property>>(){
 			@Override public TableCell<PropertyRow, Property> call(TableColumn<PropertyRow, Property> column){
@@ -106,7 +106,7 @@ class PropertyTableTab extends Tab
 			}
 		});
 
-		TableColumn<PropertyRow, Property> colValue = new TableColumn<PropertyRow, Property>(localizer.getText(PROPNAME_PROPERTY_VALUE_HEADER));
+		TableColumn<PropertyRow, Property> colValue = new TableColumn<PropertyRow, Property>(localizer.getText(PROPERTY_VALUE_HEADING));
 		colValue.setCellValueFactory(new PropertyValueFactory<PropertyRow, Property>("property"));
 		colValue.setCellFactory(new Callback<TableColumn<PropertyRow, Property>, TableCell<PropertyRow, Property>>(){
 			@Override public TableCell<PropertyRow, Property> call(TableColumn<PropertyRow, Property> column){

@@ -16,7 +16,8 @@ import javafx.scene.layout.StackPane;
 
 class MiniStream extends Tab
 {
-	static private final String PROPNAME_MINISTREAM_TAB_TITLE = "Ministream";
+	/* Property for the tab name */
+	static private final String TAB_TITLE = "ministream.main.tabname";
 
 	/** The parent pane. Left is a single-columned table with the mini
 	*   stream chains, right is the content of the chain.
@@ -32,7 +33,7 @@ class MiniStream extends Tab
 
 	MiniStream(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_MINISTREAM_TAB_TITLE));
+		super(localizer.getText(TAB_TITLE));
 
 		list = new ListView<ArrayList<Integer>>();
 		list.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>(){

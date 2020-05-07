@@ -8,16 +8,16 @@ import io.github.jmcleodfoss.msg.MSG;
 class DIFAT extends KVPTableTab<Integer, Integer>
 {
 	/* Properties for the tab name and table column headings */
-	static private final String PROPNAME_DIFAT_TAB_TITLE = "DIFAT";
-	static private final String PROPNAME_DIFAT_COL1_HEADING = "DIFATKVPKey";
-	static private final String PROPNAME_DIFAT_COL2_HEADING = "DIFATKVPValue";
+	static private final String TAB_TITLE = "difat.main.tabname";
+	static private final String KEY_HEADING = "difat.display.key-heading";
+	static private final String VALUE_HEADING = "difat.display.value-heading";
 
 	/** Create the DIFAT display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
 	DIFAT(LocalizedText localizer)
 	{
-		super(localizer.getText(PROPNAME_DIFAT_TAB_TITLE), localizer.getText(PROPNAME_DIFAT_COL1_HEADING), localizer.getText(PROPNAME_DIFAT_COL2_HEADING));
+		super(localizer.getText(TAB_TITLE), localizer.getText(KEY_HEADING), localizer.getText(VALUE_HEADING));
 	}
 
 	/** Update the DIFAT display.
