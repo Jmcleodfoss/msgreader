@@ -35,7 +35,6 @@ public class MsgExplorer extends javafx.application.Application
 	private static final String ALL_FILES = "openfile.filechooser.all-files";
 	private static final String MSG_FILES = "openfile.filechooser.msg-files";
 
-	private String filename;
 	private MSG msg;
 
 	private LocalizedText localizer;
@@ -67,15 +66,12 @@ public class MsgExplorer extends javafx.application.Application
 			} catch (java.io.FileNotFoundException e) {
 				System.out.printf("Error: %s not found\n", pathAndFileName);
 				msg = null;
-				filename = null;
 			} catch (NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
 				msg = null;
-				filename = null;
 			} catch (java.io.IOException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
 				msg = null;
-				filename = null;
 			}
 
 			if (msg != null){
@@ -144,8 +140,8 @@ public class MsgExplorer extends javafx.application.Application
 		Parameters parameters = getParameters();
 		List<String> args = parameters.getRaw();
 		if (args.size() > 0){
-			filename = args.get(0);
-			openFile(filename, stage);
+			String pathAndFilename = args.get(0);
+			openFile(pathAndFilename, stage);
 		}
 
 		Scene scene = new Scene(mainPane, 800, 600);
