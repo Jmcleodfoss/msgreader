@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
