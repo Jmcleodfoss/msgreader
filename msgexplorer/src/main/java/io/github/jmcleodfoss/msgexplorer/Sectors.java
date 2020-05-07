@@ -115,7 +115,7 @@ class Sectors extends Tab
 		setContent(pagination);
 	}
 
-	/** Update the sectpr display.
+	/** Update the sector display.
 	*	@param	msg	The msg object for the file we are displaying
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/

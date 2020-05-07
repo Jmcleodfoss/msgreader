@@ -12,7 +12,7 @@ class LocalizedText
 	/** The locale we are running it. */
 	private Locale locale;
 
-	/** The respource bundle with localized text. There is an English version of this showing all the property names and their English values. */
+	/** The resource bundle with localized text. There is an English version of this showing all the property names and their English values. */
 	private ResourceBundle resources;
 
 	/** Create a localization object for the default locale */
@@ -30,7 +30,7 @@ class LocalizedText
 		resources = ResourceBundle.getBundle(RESOURCE_SOURCE, locale, this.getClass().getClassLoader());
 	}
 
-	/** Get the localized taxt for the stored locale for the given property name
+	/** Get the localized text for the stored locale for the given property name
 	*	@param	property	The property name to retrive the localized text for.
 	*	@return	The value for property in the resource bundle
 	*/

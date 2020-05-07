@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import javafx.scene.control.Tab;
 
-/** A tab shpowing a {@link KVPTable}
+/** A tab showing a {@link KVPTable}
 *	@param	<K>	The data type for the key entries of the key-value pairs
 *	@param	<V>	The data type for the value entries of the key-value pairs
 *	@see KVPTable
