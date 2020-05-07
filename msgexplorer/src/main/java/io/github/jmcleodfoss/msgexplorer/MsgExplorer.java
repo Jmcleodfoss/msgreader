@@ -27,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 
 public class MsgExplorer extends javafx.application.Application
 {
+	/* Properties for the menu, items, and actions */
 	private static final String APPLICATION_TITLE_DEFAULT = "application.title.default";
 	private static final String MENU_FILE = "menu.file";
 	private static final String MENU_FILE_OPEN = "menu.file.open";
@@ -35,29 +36,51 @@ public class MsgExplorer extends javafx.application.Application
 	private static final String ALL_FILES = "openfile.filechooser.all-files";
 	private static final String MSG_FILES = "openfile.filechooser.msg-files";
 
+	/** The MSG object we are exploring */
 	private MSG msg;
 
+	/** Localization object for UI text */
 	private LocalizedText localizer;
 
+	/** The main display, holds the menu and content */
 	private BorderPane mainPane;
 
+	/** The menu */
 	private MenuBar menuBar;
 
+	/** FileChooser dialog object - only construct it once and use it when needed */
 	private FileChooser fileChooser;
 
+	/** The container for the tabs that show the actual msg file data. */
 	private TabPane tabs;
 
+	/** The tab for the msg file header */
 	private Header header;
+
+	/** The tab for the msg file doubly-indirect file allocation table */
 	private DIFAT difat;
+
+	/** The tab for the msg file allocation table */
 	private FAT fat;
+
+	/** The tab for the msg file's sectors */
 	private Sectors sectors;
+
+	/** The tab for the msg file's mini stream */
 	private MiniStream miniStream;
+
+	/** The tab for the msg file's directory tree */
 	private Directory directory;
 
+	/** Required constructor (needed by JavaFX framework) */
 	public MsgExplorer()
 	{
 	}
 
+	/** Open a new file and display the data
+	*	@param	pathAndFileName	the file to open
+	*	@param	stage	The current stage (used to set the window title)
+	*/
 	private void openFile(String pathAndFileName, javafx.stage.Stage stage)
 	{
 		if (pathAndFileName != null) {
@@ -83,6 +106,10 @@ public class MsgExplorer extends javafx.application.Application
 		}
 	}
 
+	/** Set up the menus
+	*	@param	stage	The current stage (tp give the location of the FileChooser dialog box, and passed to openFile to update the window title)
+	*	@return	The main menubar
+	*/
 	private MenuBar setupMenus(javafx.stage.Stage stage)
 	{
 		MenuItem open = new MenuItem(localizer.getText("menu.file.open"));
@@ -116,6 +143,9 @@ public class MsgExplorer extends javafx.application.Application
 		return new MenuBar(fileMenu);
 	}
 
+	/** Initialize and show the MsgExplorer display
+	*	@param	stage	The current stage
+	*/
 	public void start(javafx.stage.Stage stage)
 	{
 		localizer = new LocalizedText();
@@ -150,6 +180,9 @@ public class MsgExplorer extends javafx.application.Application
 		stage.show();
 	}
 
+	/** Update the constituent displays after loading a new file
+	*	@param	msg	The MSG object for the file we have just opened.
+	*/
 	private void update(MSG msg)
 	{
 		header.update(msg, localizer);
@@ -160,6 +193,9 @@ public class MsgExplorer extends javafx.application.Application
 		directory.update(msg, localizer);
 	}
 
+	/** The main function
+	*	@param	args	The command line arguments, used in {@link #start} if present
+	*/
 	static public void main(String[] args)
 	{
 		launch(MsgExplorer.class, args);
