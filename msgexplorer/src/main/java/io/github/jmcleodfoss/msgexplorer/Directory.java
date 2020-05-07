@@ -36,6 +36,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+/** Class to show the directory information: the tree, the directory entry metadata, and the data (file contents) for each entry, including raw bytes and human-readable content where available.
+*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Srction 2.6: Compound File Directory Sectors</a>
+*	@see GUIDTableTab
+*	@see NamedPropertiesTableTab#numericalNamedPropertyEntriesTableTabFactory
+*	@see NamedPropertiesTableTab#stringNamedPropertyEntriesTableTabFactory
+*/
 class Directory extends Tab
 {
 	/* Properties for the tab name and table column headings */
@@ -73,6 +79,9 @@ class Directory extends Tab
 	static private final String BIN_FILES = "export.filechooser.bin-files";
 	static private final String TXT_FILES = "export.filechooser.txt-files";
 
+	/** Handle selection of a new entry in the tree by initiating an asynchronous read request for the entry.
+	*   The display will be updated when the read is complete.
+	*/
 	private class SelectionChangeListener implements ChangeListener<TreeItem<DirectoryEntryData>>
 	{
 		@Override
@@ -101,6 +110,7 @@ class Directory extends Tab
 		}
 	}
 
+	/** Update the entry displays when the asynchronous read is complete after a new entry has been selected */
 	private class SuccessfulReadHandler implements EventHandler<WorkerStateEvent>
 	{
 		@Override
@@ -156,6 +166,7 @@ class Directory extends Tab
 		}
 	}
 
+	/** Initiate asynchronous reading of the newly-selected entry */
 	private class UpdateInfoService extends Service<byte[]>
 	{
 		private ObjectProperty<TreeItem<DirectoryEntryData>> item;
@@ -185,53 +196,83 @@ class Directory extends Tab
 		}
 	}
 
+	/** The directory tree */
 	private TreeView<DirectoryEntryData> tree;
 
-	/** The directory tree */
+	/** The container for the directory tree */
 	private StackPane treePane;
 
+	/** The directory entry metadata, in human-readable form. */
 	private KVPTableTab<String, String> tabDescription;
+
+	/** The directory entry metadata, as raw bytes. */
 	private ByteDataTable data;
+
+	/** Container for the directory entry metadata. {@link data} */
 	private Tab tabData;
 
-	/** The tabbed pane showing the directory entry contents. */
+	/** The tabbed pane showing the {@link #tabDescription directory entry} and {Alink #data file contents}. */
 	private TabPane contentTabs;
 
+	/** Container for the {@link fileContentsRaw file contents in bytes} */
 	private ByteDataTable fileContentsRaw;
+
+	/** The file contents in bytes */
 	private Tab tabFileContentsRaw;
 
+	/** The file contents as text, where available */
 	private TextArea fileContentsText;
+
+	/** Container for the {@link fileContentsText file contents as text} */
 	private Tab tabFileContentsText;
 
+	/** Display for Named Properties GUID Stream */
 	private GUIDTableTab tabNamedPropertyGuids;
+
+	/** Display for Named Properties Entry Stream Numerical Entries */
 	private NamedPropertiesTableTab tabNumericalEntries;
+
+	/** Display for Named Properties Entry Stream String Entries */
 	private NamedPropertiesTableTab tabStringEntries;
+
+	/** Display for the Named Properties String Stream */
 	private KVPTableTab<Integer, String> tabStringStream;
+
+	/** Display for the named properties entries */
 	private KVPTableTab<String, String> tabNamedPropertyEntries;
+
+	/** Display for the properties entries' header */
 	private KVPTableTab<String, Integer> tabPropertiesHeader;
+
+	/** Display for the properties entries' values */
 	private PropertyTableTab tabProperties;
 
-	/** The information about the selected node (if any). The top is the
-	*   directory entry contents (a tabbed pane allowing display of human-
-	*   readable text or raw bytes), and the bottom is the "file"
-	*   for this directory entry (if any).
+	/** The information about the selected node (if any).
+	*   The top is the directory entry contents (a tabbed pane allowing display of human-readable text or raw bytes), and the 
+	*   bottom is the "file" for this directory entry (if any).
 	*/
 	private SplitPane infoPane;
 
+	/** Container for directory entry and data */
 	private TabPane filePane;
 
-	/** The overall pane for all directory info. Left side is the directory
-	*   tree, and the right side is the information about the selected node
-	*   (if any). The right side is invisible if no node is selected.
+	/** The overall pane for all directory info. Left side is the directory tree, and the right side is the information about
+	*   the selected node (if any). The right side is invisible if no node is selected.
 	*/
 	private SplitPane containingPane;
 
+	/** The underlying MSG object */
 	private MSG msg;
 
+	/** Localization object for the current locale */
 	private LocalizedText localizer;
 
+	/** Asynchronous update object */
 	private UpdateInfoService updateInfoService;
 
+	/** Create and populate the Directory display tab.
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	Directory(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));
@@ -359,6 +400,11 @@ class Directory extends Tab
 		setContent(containingPane);
 	}
 
+	/** Recursively add directory entries to the directory tree.
+	*	@param	msg	The underlying MSG object representing the current file.
+	*	@param	ded	The directory entry to add to the tree.
+	*	@return	The new TreeItem and all its children
+	*/
 	private TreeItem<DirectoryEntryData> addEntry(MSG msg, DirectoryEntryData ded)
 	{
 		TreeItem<DirectoryEntryData> node = new TreeItem<DirectoryEntryData>(ded);
@@ -368,11 +414,19 @@ class Directory extends Tab
 		return node;
 	}
 
+	/** Is the given TreeItem the Named Properties Entry Stream?
+	*	@param	item	The TreeIem to check
+	*	@return	true if this TreeItem is the Named Properties Entry Stream, false otherwise.
+	*/
 	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
 	{
 		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
 	}
 
+	/** Is the passed TreeItem an entry in the Named Properties folder?
+	*	@param	item	The TreeItem to check
+	*	@return	true if this TreeItem is in the Named Properties folder, false otherwise.
+	*/
 	private boolean isEntryStreamEntryData(TreeItem<DirectoryEntryData> item)
 	{
 		if (item == null)
@@ -383,16 +437,28 @@ class Directory extends Tab
 		return parent.getParent() == tree.getRoot() && parent.previousSibling() == null;
 	}
 
+	/** Is the given TreeItem the Named Properties GUID Stream?
+	*	@param	item	The TreeIem to check
+	*	@return	true if this TreeItem is the Named Properties GUID Stream, false otherwise.
+	*/
 	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
 	{
 		return isEntryStreamEntryData(item) && item.previousSibling() == null;
 	}
 
+	/** Is the given TreeItem the Named Properties String Stream?
+	*	@param	item	The TreeIem to check
+	*	@return	true if this TreeItem is the Named Properties String Stream, false otherwise.
+	*/
 	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
 	{
 		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
 	}
 
+	/** Save directory entry contents as a file
+	*	@param	file	The File to save as
+	*	@param	de	The directory entry to save the file for
+	*/
 	private void save(File file, DirectoryEntryData de)
 	{
 		try {
@@ -412,6 +478,10 @@ class Directory extends Tab
 		}
 	}
 
+	/** Update the GUIDdisplay.
+	*	@param	msg	The msg object for the file we are displaying
+	*	@param	localizer	The localizer mapping for the current locale.
+	*/
 	void update(MSG msg, LocalizedText localizer)
 	{
 		tree.setRoot(addEntry(msg, msg.getDirectoryTree()));
@@ -419,6 +489,9 @@ class Directory extends Tab
 		this.msg = msg;
 	}
 
+	/** Update the visible tabs for the directory entry file by removing all but the raw data tab, and adding the passed tabs.
+	*	@param	newTabs	The list of tabs to make visible
+	*/
 	private void updateTabs(Tab... newTabs)
 	{
 		filePane.getTabs().retainAll(filePane.getTabs().get(0));
