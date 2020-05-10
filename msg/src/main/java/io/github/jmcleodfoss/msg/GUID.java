@@ -93,6 +93,9 @@ class GUID {
 	*/
 	static final GUID PSETID_ATTACHMENT = createGUID(new byte[]{(byte)0x96, 0x35, 0x7f, 0x7f, 0x59, (byte)0xe1, 0x47, (byte)0xd0, (byte)0x99, (byte)0xa7, 0x46, 0x51, 0x5c, 0x18, 0x3b, 0x54});
 
+	/** The PostRss property set GUID */
+	static final GUID PSETID_POST_RSS = createGUID(new byte[]{0x00, 0x06, 0x20, 0x41, 0x00, 0x00, 0x00, 0x00, (byte)0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46});
+
 	/** The (unknown use) property set GUID. */
 	static final GUID PS_INTERNAL = createGUID(new byte[]{(byte)0xc1, (byte)0x84, 0x32, (byte)0x81, (byte)0x85, 0x05, (byte)0xd0, 0x11, (byte)0xb2, (byte)0x90, 0x00, (byte)0xaa, 0x00, 0x3c, (byte)0xf6, (byte)0x76});
 
@@ -230,6 +233,7 @@ class GUID {
 		System.out.printf(format, "Sharing", PSETID_SHARING);
 		System.out.printf(format, "XML Extracted Entities", PSETID_XML_EXTRACTED_ENTITIES);
 		System.out.printf(format, "Attachment", PSETID_ATTACHMENT);
+		System.out.printf(format, "PostRss", PSETID_POST_RSS);
 		System.out.printf(format, "Internal", PS_INTERNAL);
 	}
 }
