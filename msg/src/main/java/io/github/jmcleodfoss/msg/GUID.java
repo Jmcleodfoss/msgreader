@@ -90,9 +90,7 @@ class GUID {
 	*/
 	static final GUID PSETID_ATTACHMENT = createGUID(new byte[]{(byte)0x96, 0x35, 0x7f, 0x7f, 0x59, (byte)0xe1, 0x47, (byte)0xd0, (byte)0x99, (byte)0xa7, 0x46, 0x51, 0x5c, 0x18, 0x3b, 0x54});
 
-	/** The (unknown use) property set GUID
-	*	@see	<a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/cc9d955b-1492-47de-9dce-5bdea80a3323">MS-OXPROPS Section 1.3.2: Commontly Used Property Sets</a>
-	*/
+	/** The (unknown use) property set GUID. */
 	static final GUID PS_INTERNAL = createGUID(new byte[]{(byte)0xc1, (byte)0x84, 0x32, (byte)0x81, (byte)0x85, 0x05, (byte)0xd0, 0x11, (byte)0xb2, (byte)0x90, 0x00, (byte)0xaa, 0x00, 0x3c, (byte)0xf6, (byte)0x76});
 
 	/** The ProviderUID for a one-off recipient in a distribution list.
