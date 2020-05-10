@@ -27,7 +27,7 @@ curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/prope
 		a\
 	}
 	}
-	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\(.*\)\r$/s//\	static final public int \1 = \2\4;/p
+	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\(.*\)$/s//\	static final public int \1 = \2\4;/p
 	/^.*static final public int \([^ ]*\).*$/{
 		s//\	\	tags.put(\1, "\1");/
 		H
