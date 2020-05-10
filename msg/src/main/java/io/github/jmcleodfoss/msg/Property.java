@@ -242,8 +242,6 @@ public abstract class Property
 		String propertyName;
 		if (PropertyTags.tags.keySet().contains(propertyTag)) {
 			propertyName = PropertyTags.tags.get(propertyTag);
-//		} else if (PropertyLIDs.lids.keySet().contains(propertyId)) {
-//			propertyName = PropertyLIDs.lids.get(propertyId);
 		} else if ((propertyId & 0x8000) != 0) {
 			int propertyIndex = propertyId & 0x7fff;
 			propertyName = namedProperties.getPropertyName(propertyIndex);
