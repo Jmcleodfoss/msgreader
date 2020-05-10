@@ -12,19 +12,52 @@ package io.github.jmcleodfoss.msg;
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/f6ab1613-aefe-447d-a49c-18217230b148">MS-OXPROPS</a>
 */
 
-class PropertyLIDs
+public class PropertyLIDs
 {
-	static final java.util.HashMap<Integer, String> lids = new java.util.HashMap<Integer, String>();
-	static {
 END_HEADER
 curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/properties.csv | sort -t , -k 2 | sed '
-	/^\(PidLid[^,]*\),\([^,]*\),\([^,]*\),\(.*\)$/s//\	\	lids.put(\2, "\1");/
+	${
+		i\
+
+		i\
+	static final java.util.HashMap<Integer, String> lids = new java.util.HashMap<Integer, String>();
+		i\
+	static final java.util.HashMap<Integer, GUID> guids = new java.util.HashMap<Integer, GUID>();
+		i\
+	static {
+		g
+		a\
+	}
+	}
+
+	/\([^.]\)PS_PUBLIC_STRINGS/s//\1GUID.PS_PUBLIC_STRINGS/
+	/PSETID_Address/s//GUID.PSETID_ADDRESS/
+	/PSETID_Appointment/s//GUID.PSETID_APPOINTMENT/
+	/PSETID_CalendarAssistant/s//GUID.PSETID_CALENDAR_ASSISTANT/
+	/PSETID_Common/s//GUID.PSETID_COMMON/
+	/PSETID_Log/s//GUID.PSETID_LOG/
+	/PSETID_Meeting/s//GUID.PSETID_MEETING/
+	/PSETID_Note/s//GUID.PSETID_NOTE/
+	/PSETID_PostRss/s//GUID.PSETID_POST_RSS/
+	/PSETID_Sharing/s//GUID.PSETID_SHARING/
+	/PSETID_Task/s//GUID.PSETID_TASK/
+
+	/^\(PidLid[^,]*\),0x\([^,]*\),\([^,]*\),0x\([^,]*\),\([^,]*\),\(.*\)$/{
+		s//\	\	public static final int \1 = 0x\2;\
+\	\	lids.put(\1, "\1");\
+\	\	guids.put(\1, \5);/
+		P
+		/=/s/^[^\n]*\n\(.*\)$/\1/
+		H
+		d
+	}
+
 	/n\/a/d
+
 	/^PidTag/d
 	' >> PropertyLIDs.java
 
 cat << END_FOOTER >> PropertyLIDs.java
-	}
 
 	public static void main(String[] args)
 	{

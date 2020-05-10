@@ -109,8 +109,12 @@ class NamedProperties
 		if (entries[propertyIndex].propertyType == EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY)
 			return stringsByOffset.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
-		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset))
-			return PropertyLIDs.lids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset)) {
+			GUID guid = PropertyLIDs.guids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+			if (guid != null && guid.equals(guids[propertyIndex])) {
+				return PropertyLIDs.lids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
+			}
+		}
 
 		return String.format("Not found: 0x%04x (%s)", entries[propertyIndex].nameIdentifierOrStringOffset, indexToGUID(entries[propertyIndex].guidIndex));
 	}
