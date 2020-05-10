@@ -7,16 +7,21 @@ import io.github.jmcleodfoss.msg.Property;
 import io.github.jmcleodfoss.msg.PropertyTags;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class CommandlineExample
 {
-	private static void showProperty(MSG msg, java.util.HashMap<Integer, Property> properties, int propertyTag, String propertyName)
+	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
-			System.out.printf("%s: %s\n", propertyName, msg.getPropertyValue(properties.get(propertyTag)));
-		else
-			System.out.printf("%s: not found\n", propertyName);
+			return msg.getPropertyValue(properties.get(propertyTag));
+		return "not found";
+	}
+
+	private static void showProperty(MSG msg, java.util.HashMap<Integer, Property> properties, int propertyTag, String propertyName)
+	{
+		System.out.printf("%s: %s\n", propertyName, getPropertyValue(msg, properties, propertyTag));
 	}
 
 	// args[0] is the path and filename to open
