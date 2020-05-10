@@ -39,8 +39,7 @@ public class CommandlineExample
 		HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
 
 		showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
-		showProperty(msg, properties, PropertyTags.PidTagSenderName, "From");
-		showProperty(msg, properties, PropertyTags.PidTagSenderEmailAddress, "Email");
+		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
 		showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
 		showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
 
