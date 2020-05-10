@@ -26,6 +26,24 @@ public class CommandlineExample
 		System.out.printf("%s: %s\n", propertyName, getPropertyValue(msg, properties, propertyTag));
 	}
 
+	private static void showMsgFile(String file)
+	throws
+		FileNotFoundException,
+		IOException,
+		NotCFBFileException
+	{
+		MSG msg = new MSG(file);
+
+		DirectoryEntryData root = msg.getDirectoryTree();
+		HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
+
+		showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
+		showProperty(msg, properties, PropertyTags.PidTagSenderName, "From");
+		showProperty(msg, properties, PropertyTags.PidTagSenderEmailAddress, "Email");
+		showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
+		showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
+	}
+
 	// args[0] is the path and filename to open
 	public static void main(String[] args)
 	{
@@ -34,18 +52,8 @@ public class CommandlineExample
 			System.exit(0);
 		}
 
-		MSG msg;
 		try {
-			msg = new MSG(args[0]);
-
-			DirectoryEntryData root = msg.getDirectoryTree();
-			HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
-
-			showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
-			showProperty(msg, properties, PropertyTags.PidTagSenderName, "From");
-			showProperty(msg, properties, PropertyTags.PidTagSenderEmailAddress, "Email");
-			showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
-			showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
+			showMsgFile(args[0]);
 		} catch (FileNotFoundException e) {
 			System.out.printf("Error: %s not found\n", args[0]);
 			System.exit(1);
