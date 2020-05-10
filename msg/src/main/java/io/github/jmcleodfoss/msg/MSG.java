@@ -62,7 +62,7 @@ public class MSG
 	*	@see	Directory#attachmentEntries
 	*	@see	DirectoryEntryDataIterator
 	*/
-	java.util.Iterator<DirectoryEntryData> attachments()
+	public java.util.Iterator<DirectoryEntryData> attachments()
 	{
 		return new DirectoryEntryDataIterator(directory.attachmentEntries.iterator(), directory, namedProperties);
 	}
@@ -461,7 +461,7 @@ public class MSG
 	*	@see	Directory#recipientEntries
 	*	@see	DirectoryEntryDataIterator
 	*/
-	java.util.Iterator<DirectoryEntryData> recipients()
+	public java.util.Iterator<DirectoryEntryData> recipients()
 	{
 		return new DirectoryEntryDataIterator(directory.recipientEntries.iterator(), directory, namedProperties);
 	}
