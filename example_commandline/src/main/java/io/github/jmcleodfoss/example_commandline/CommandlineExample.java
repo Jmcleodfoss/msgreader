@@ -82,7 +82,14 @@ public class CommandlineExample
 		}
 
 		try {
-			showMsgFile(args[0]);
+			boolean first = false;
+			for(String f: args){
+				if (first)
+					System.out.println("--------------------\n");
+				else
+					first = true;
+				showMsgFile(f);
+			}
 		} catch (FileNotFoundException e) {
 			System.out.printf("Error: %s not found\n", args[0]);
 			System.exit(1);
