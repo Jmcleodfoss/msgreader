@@ -43,6 +43,19 @@ public class CommandlineExample
 		showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
 		showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
 
+		Iterator<DirectoryEntryData> recipients = msg.recipients();
+		if (recipients.hasNext()) {
+			System.out.println();
+			System.out.println("Recipients");
+			System.out.println("----------");
+		}
+		while (recipients.hasNext()){
+			HashMap<Integer, Property> m = msg.getPropertiesForParentAsHashMap(recipients.next());
+			String name = getPropertyValue(msg, m, PropertyTags.PidTagDisplayName);
+			String email = getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress);
+			System.out.printf("To: %s (%s)\n", name, email);
+		}
+
 		Iterator<DirectoryEntryData> attachments = msg.attachments();
 		if (attachments.hasNext()) {
 			System.out.println();
