@@ -6,6 +6,8 @@ import io.github.jmcleodfoss.msg.NotCFBFileException;
 import io.github.jmcleodfoss.msg.Property;
 import io.github.jmcleodfoss.msg.PropertyTags;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +21,7 @@ public class CommandlineExample
 		return "not found";
 	}
 
-	private static void showProperty(MSG msg, java.util.HashMap<Integer, Property> properties, int propertyTag, String propertyName)
+	private static void showProperty(MSG msg, HashMap<Integer, Property> properties, int propertyTag, String propertyName)
 	{
 		System.out.printf("%s: %s\n", propertyName, getPropertyValue(msg, properties, propertyTag));
 	}
@@ -37,20 +39,20 @@ public class CommandlineExample
 			msg = new MSG(args[0]);
 
 			DirectoryEntryData root = msg.getDirectoryTree();
-			java.util.HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
+			HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
 
 			showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
 			showProperty(msg, properties, PropertyTags.PidTagSenderName, "From");
 			showProperty(msg, properties, PropertyTags.PidTagSenderEmailAddress, "Email");
 			showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
 			showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
-		} catch (java.io.FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.printf("Error: %s not found\n", args[0]);
 			System.exit(1);
 		} catch (NotCFBFileException e) {
 			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
 			System.exit(1);
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
 			System.exit(1);
 		}
