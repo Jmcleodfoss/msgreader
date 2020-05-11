@@ -157,13 +157,10 @@ public class CommandlineExample
 			}
 		} catch (FileNotFoundException e) {
 			System.out.printf("Error: %s not found\n", args[0]);
-			System.exit(1);
 		} catch (NotCFBFileException e) {
 			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
-			System.exit(1);
 		} catch (IOException e) {
 			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
-			System.exit(1);
 		}
 	}
 }
