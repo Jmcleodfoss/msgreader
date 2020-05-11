@@ -148,19 +148,6 @@ public class MSG
 		return l;
 	}
 
-	/** Get the attachment name for the given attachment stream storage object.
-	*	@param	ded	The entry to find the attachment name of.
-	*	@return	The attachment name, if one was found; null if no name was found
-	*/
-	public String getAttachmentName(DirectoryEntryData ded)
-	{
-		// Return the long name.
-		DirectoryEntry sibling = directory.getSibling(ded.entry, 0x3707001F);
-		if (sibling == null)
-			return null;
-		return DataType.createString(sibling.getContent(mbb, header, fat, miniFAT));
-	}
-
 	/** Get an iterator through a DirectoryEntry's children via the proxy DirectoryEntryData object, and returning an iterator through DirectoryEntryData objects.
 	*	@param	ded	The entry to get the child iterator for
 	*	@return	An iterator through the entry's children, returning objects of type DirectoryEntryData for consumption by client applicaitons

@@ -104,26 +104,6 @@ class Directory {
 			addSiblings(siblings, entries.get(child.rightSiblingId));
 	}
 
-	/** Get the sibling of the given entry index which has the specified property.
-	*	@param	entry		The entry to find the sibling of
-	*	@param	propertyTag	The propertu tag the sibling to look for
-	*	@return	The requested sibling, if found. null if the sibling was not found.
-	*/
-	DirectoryEntry getSibling(DirectoryEntry entry, int propertyTag)
-	{
-		DirectoryEntry parent = parents.get(entry);
-		if (parent == null)
-			return null;
-
-		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
-		for (DirectoryEntry child : children) {
-			if (child.getPropertyTag() == propertyTag)
-				return child;
-		}
-
-		return null;
-	}
-
 	/** Get the first generation child nodes for a given node.
 	*	@param	parent	The directory entry of the parent we want to find the children of, if any.
 	*	@return	The (possibly empty) list of children of the directory entry for parentIndex.
