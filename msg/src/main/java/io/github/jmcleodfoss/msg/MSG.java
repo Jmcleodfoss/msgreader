@@ -212,15 +212,15 @@ public class MSG
 	*	@param	ded	The entry to retrieve the properties for.
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.HashMap<Integer, Property> getPropertiesForParentAsHashMap(DirectoryEntryData parent)
+	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
 		{
 			DirectoryEntry propertiesEntry = iter.next();
-			if (directory.parents.get(propertiesEntry).equals(parent.entry)) {
+			if (directory.parents.get(propertiesEntry).equals(ded.entry)) {
 				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
-				return propertiesEntry.propertiesAsHashMap(data, parent.entry, namedProperties);
+				return propertiesEntry.propertiesAsHashMap(data, ded.entry, namedProperties);
 			}
 		}
 		return new java.util.HashMap<Integer, Property>();
@@ -230,15 +230,15 @@ public class MSG
 	*	@param	ded	The entry to retrieve the properties for.
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getPropertiesForParentAsList(DirectoryEntryData parent)
+	public java.util.ArrayList<Property> getPropertiesAsList(DirectoryEntryData ded)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
 		{
 			DirectoryEntry propertiesEntry = iter.next();
-			if (directory.parents.get(propertiesEntry).equals(parent.entry)) {
+			if (directory.parents.get(propertiesEntry).equals(ded.entry)) {
 				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
-				return propertiesEntry.propertiesAsList(data, parent.entry, namedProperties);
+				return propertiesEntry.propertiesAsList(data, ded.entry, namedProperties);
 			}
 		}
 		return new java.util.ArrayList<Property>();

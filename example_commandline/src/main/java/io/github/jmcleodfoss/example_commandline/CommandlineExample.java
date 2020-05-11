@@ -42,7 +42,7 @@ public class CommandlineExample
 		MSG msg = new MSG(file);
 
 		DirectoryEntryData root = msg.getDirectoryTree();
-		HashMap<Integer, Property> properties = msg.getPropertiesForParentAsHashMap(root);
+		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(root);
 
 		showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
 		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
@@ -56,7 +56,7 @@ public class CommandlineExample
 			System.out.println("----------");
 		}
 		while (recipients.hasNext()){
-			HashMap<Integer, Property> m = msg.getPropertiesForParentAsHashMap(recipients.next());
+			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
 			String name = getPropertyValue(msg, m, PropertyTags.PidTagDisplayName);
 			String email = getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress);
 			System.out.printf("To: %s (%s)\n", name, email);
@@ -72,7 +72,7 @@ public class CommandlineExample
 		}
 		while (attachments.hasNext()){
 			DirectoryEntryData a = attachments.next();
-			HashMap<Integer, Property> m = msg.getPropertiesForParentAsHashMap(a);
+			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
 			String name = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
 			String mimeType = getPropertyValue(msg, m, PropertyTags.PidTagAttachMimeTag);
 			String size = getPropertyValue(msg, m, PropertyTags.PidTagAttachDataBinary);
