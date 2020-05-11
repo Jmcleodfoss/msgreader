@@ -87,11 +87,13 @@ public class CommandlineExample
 
 			// Save attachment if requested
 			if (fSaveAttachments) {
+				// Look for the entry which holds the attachment
 				Iterator<DirectoryEntryData> attachmentChildren = msg.getChildIterator(a);
 				while (attachmentChildren.hasNext()) {
 					DirectoryEntryData c = attachmentChildren.next();
 					if (c.propertyTag == PropertyTags.PidTagAttachDataBinary) {
 						File attachment = new File(name);
+						// Ensure we don't overwrite anything (use Windows style of changing filenames to add a number to guarantee uniqueness)
 						if (attachment.exists()){
 							String absPath = attachment.getAbsolutePath();
 							int extensionIndex = absPath.lastIndexOf('.');
