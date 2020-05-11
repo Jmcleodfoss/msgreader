@@ -3,6 +3,8 @@ package io.github.jmcleodfoss.msgexplorer;
 import io.github.jmcleodfoss.msg.DirectoryEntryData;
 import io.github.jmcleodfoss.msg.KVPArray;
 import io.github.jmcleodfoss.msg.MSG;
+import io.github.jmcleodfoss.msg.Property;
+import io.github.jmcleodfoss.msg.PropertyTags;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.HashMap;
 import java.util.Iterator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -355,7 +358,12 @@ class Directory extends Tab
 			public void handle(ActionEvent e)
 			{
 				DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
-				String filename = msg.getAttachmentName(de);
+				HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
+				Property p = properties.get(PropertyTags.PidTagAttachLongFilename);
+				if (p == null)
+					return;
+
+				String filename = msg.getPropertyValue(p);
 
 				DirectoryChooser directoryChooser = new DirectoryChooser();
 				directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
