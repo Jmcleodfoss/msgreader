@@ -188,22 +188,22 @@ public class MSG
 		return directory.parents.get(ded.entry).getChildPropertiesHeader(data);
 	}
 
-	/** Get the data for a property entry as a HashMap indexed by the property tag.
+	/** Parse the given data for a property entry and return a HashMap of properties indexed by the property tag.
 	*	@param	ded	The entry to parse the data for
 	*	@param	data	The content of the entry to be parsed
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded, byte[] data)
+	public java.util.HashMap<Integer, Property> parsePropertiesAsHashMap(DirectoryEntryData ded, byte[] data)
 	{
 		return ded.entry.propertiesAsHashMap(data, directory.parents.get(ded.entry), namedProperties);
 	}
 
-	/** Get the data for a property entry as an ArrayList.
+	/** Parse the given data for a property entry and return an ArrayList of properties.
 	*	@param	ded	The entry to parse the data for
 	*	@param	data	The content of the entry to be parsed
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getPropertiesAsList(DirectoryEntryData ded, byte[] data)
+	public java.util.ArrayList<Property> parsePropertiesAsList(DirectoryEntryData ded, byte[] data)
 	{
 		return ded.entry.propertiesAsList(data, directory.parents.get(ded.entry), namedProperties);
 	}
