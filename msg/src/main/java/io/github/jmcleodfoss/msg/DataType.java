@@ -3,6 +3,9 @@ package io.github.jmcleodfoss.msg;
 /** The DataType class represents data types within a MSG file */
 abstract class DataType {
 
+	/** The mask for getting the property type from the tag. */
+	static final int PROPERTY_TYPE_MASK = 0xffff;
+
 	/** PTypInteger32, 32-bit integer
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
