@@ -178,6 +178,15 @@ public class MSG
 		return new DirectoryEntryData(directory.entries.get(0), directory, namedProperties);
 	}
 
+	/** Get the property entry for this entry's parent as a HashMap of properties indexed by the property tag.
+	*	@param	ded	The entry to get the sibling properties entry of
+	*	@return	A HashMap of {@link Property property values} read from the entry's parent's properties entry.
+	*/
+	public java.util.HashMap<Integer, Property> getParentPropertiesAsHashMap(DirectoryEntryData ded)
+	{
+		return getPropertiesAsHashMap(directory.parents.get(ded.entry));
+	}
+
 	/** Get the header for a property entry. The interpretation of the header changes depending on the type of the entry's parent.
 	*	@param	ded	The directory entry to retrieve the header from
 	*	@param	data	The bytes to read the header from
@@ -209,21 +218,30 @@ public class MSG
 	}
 
 	/** Get the properties for a given Root Storage, Attachment, or Recipient entry as a HashMap indexed by the property tag
-	*	@param	ded	The entry to retrieve the properties for.
+	*	@param	de	The entry to retrieve the properties for.
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded)
+	private java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntry de)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
 		{
 			DirectoryEntry propertiesEntry = iter.next();
-			if (directory.parents.get(propertiesEntry).equals(ded.entry)) {
+			if (directory.parents.get(propertiesEntry).equals(de)) {
 				byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
-				return propertiesEntry.propertiesAsHashMap(data, ded.entry, namedProperties);
+				return propertiesEntry.propertiesAsHashMap(data, de, namedProperties);
 			}
 		}
 		return new java.util.HashMap<Integer, Property>();
+	}
+
+	/** Get the properties for a given Root Storage, Attachment, or Recipient entry as a HashMap indexed by the property tag
+	*	@param	ded	The entry to retrieve the properties for.
+	*	@return	A HashMap of {@link Property property values} read from the entry.
+	*/
+	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded)
+	{
+		return getPropertiesAsHashMap(ded.entry);
 	}
 
 	/** Get the properties for a given Root Storage, Attachment, or Recipient entry as an ArrayList
