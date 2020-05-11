@@ -63,9 +63,6 @@ public class DirectoryEntry {
 	*/
 	private static final int NO_PROPERTY_TAG = 0x0000;
 
-	/** The mask for getting the property type from the tag. */
-	private static final int PROPERTY_TYPE_MASK = 0xffff;
-
 	/** Data definition key and KVP key for the {@link #directoryEntryName}. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see #data
 	*	@see #keys
@@ -363,7 +360,7 @@ public class DirectoryEntry {
 		if (data == null)
 			return "Empty";
 
-		if ((getPropertyTag() & PROPERTY_TYPE_MASK) == DataType.STRING)
+		if ((getPropertyTag() & DataType.PROPERTY_TYPE_MASK) == DataType.STRING)
 			return DataType.createString(data);
 
 		return ByteUtil.createHexByteString(data);
@@ -736,7 +733,7 @@ public class DirectoryEntry {
 		@Override
 		String getPropertyType()
 		{
-			int propertyType = propertyTag & PROPERTY_TYPE_MASK;
+			int propertyType = propertyTag & DataType.PROPERTY_TYPE_MASK;
 			if (!dataTypeNames.containsKey(propertyType))
 				return "Unknown property type";
 
