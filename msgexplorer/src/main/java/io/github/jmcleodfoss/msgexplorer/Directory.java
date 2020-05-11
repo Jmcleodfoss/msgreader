@@ -133,30 +133,28 @@ class Directory extends Tab
 				} else if (msg.hasTextData(de)) {
 					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
-				} else {
-					if (isNamedPropertiesGuidStream(treeItem)) {
-						tabNamedPropertyGuids.update(msg);
-						updateTabs(tabNamedPropertyGuids);
-					} else if (isNamedPropertiesEntryStream(treeItem)) {
-						tabNumericalEntries.update(msg.namedPropertiesNumericalEntries());
-						tabStringEntries.update(msg.namedPropertiesStringEntries());
-						updateTabs(tabNumericalEntries, tabStringEntries);
-					} else if (isNamedPropertiesStringStream(treeItem)) {
-						tabStringStream.update(msg.namedPropertiesStrings(), localizer);
-						updateTabs(tabStringStream);
-					} else if (isNamedPropertiesEntry(treeItem)) {
-						int i = 0;
-						TreeItem<DirectoryEntryData> item = treeItem.previousSibling();
-						while (item != null) {
-							item = item.previousSibling();
-							++i;
-						}
-						tabNamedPropertyEntries.update(msg.namedPropertyEntry(i-3), localizer);
-						updateTabs(tabNamedPropertyEntries);
-					} else {
-						fileContentsText.setText("");
-						updateTabs();
+				} else if (isNamedPropertiesGuidStream(treeItem)) {
+					tabNamedPropertyGuids.update(msg);
+					updateTabs(tabNamedPropertyGuids);
+				} else if (isNamedPropertiesEntryStream(treeItem)) {
+					tabNumericalEntries.update(msg.namedPropertiesNumericalEntries());
+					tabStringEntries.update(msg.namedPropertiesStringEntries());
+					updateTabs(tabNumericalEntries, tabStringEntries);
+				} else if (isNamedPropertiesStringStream(treeItem)) {
+					tabStringStream.update(msg.namedPropertiesStrings(), localizer);
+					updateTabs(tabStringStream);
+				} else if (isNamedPropertiesEntry(treeItem)) {
+					int i = 0;
+					TreeItem<DirectoryEntryData> item = treeItem.previousSibling();
+					while (item != null) {
+						item = item.previousSibling();
+						++i;
 					}
+					tabNamedPropertyEntries.update(msg.namedPropertyEntry(i-3), localizer);
+					updateTabs(tabNamedPropertyEntries);
+				} else {
+					fileContentsText.setText("");
+					updateTabs();
 				}
 			} else {
 				fileContentsRaw.clear();
