@@ -33,14 +33,14 @@ public class CommandlineExample
 	}
 
 	// Show the selected information about the given file, saving attachments if requested
-	private static void showMsgFile(String file, boolean fSaveAttachments)
+	private static void showMsgFile(String filename, boolean fSaveAttachments)
 	throws
 		FileNotFoundException,
 		IOException,
 		NotCFBFileException
 	{
 		// Get the message
-		MSG msg = new MSG(file);
+		MSG msg = new MSG(filename);
 
 		// Get the directory
 		DirectoryEntryData root = msg.getDirectoryTree();
