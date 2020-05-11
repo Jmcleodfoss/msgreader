@@ -109,6 +109,7 @@ public class CommandlineExample
 						FileChannel fc = new FileOutputStream(attachment).getChannel();
 						fc.write(ByteBuffer.wrap(msg.getFile(c)));
 						fc.close();
+						System.out.printf("Saved attachment %s as %s\n", name, attachment.getAbsolutePath());
 						break;
 					}
 				}
