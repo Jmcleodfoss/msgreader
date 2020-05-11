@@ -363,7 +363,7 @@ public class DirectoryEntry {
 		if (data == null)
 			return "Empty";
 
-		if (hasTextData())
+		if ((getPropertyTag() & PROPERTY_TYPE_MASK) == DataType.STRING)
 			return DataType.createString(data);
 
 		return ByteUtil.createHexByteString(data);
@@ -404,16 +404,6 @@ public class DirectoryEntry {
 	String getPropertyType()
 	{
 		return "n/a";
-	}
-
-	/** Does this entry have a text representation?
-	*	@return	false in the general case, true for Substorages of type Text
-	*	@see #getDataAsText
-	*	@see Substorage#hasTextData
-	*/
-	boolean hasTextData()
-	{
-		return false;
 	}
 
 	/** Return a String for this entry
@@ -751,16 +741,6 @@ public class DirectoryEntry {
 				return "Unknown property type";
 
 			return dataTypeNames.get(propertyType);
-		}
-
-		/** Does this entry have a text representation?
-		*	@return	true if the property stored in this entry is a text type, false otherwise
-		*	@see #getDataAsText
-		*/
-		@Override
-		boolean hasTextData()
-		{
-			return (propertyTag & PROPERTY_TYPE_MASK) == DataType.STRING;
 		}
 	}
 

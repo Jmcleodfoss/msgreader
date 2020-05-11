@@ -395,15 +395,6 @@ public class MSG
 		return directory.propertyEntries.contains(ded.entry);
 	}
 
-	/** Is there a text representation of the "file" for a given directory, or is it binary?
-	*	@param	ded	The directory entry to check the data type of
-	*	@return	true if the file is text, false if it is binary
-	*/
-	public boolean hasTextData(DirectoryEntryData ded)
-	{
-		return ded.entry.hasTextData();
-	}
-
 	/** Get a Named Property entry
 	*	@param	mappingIndex	The index to the named property entry to retrieve
 	*	@return	A KVP array of the information for the requested entry
