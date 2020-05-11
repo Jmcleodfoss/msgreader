@@ -32,11 +32,6 @@ public class CommandlineExample
 		return "not found";
 	}
 
-	private static void showProperty(MSG msg, HashMap<Integer, Property> properties, int propertyTag, String propertyName)
-	{
-		System.out.printf("%s: %s\n", propertyName, getPropertyValue(msg, properties, propertyTag));
-	}
-
 	// Show the selected information about the given file, saving attachments if requested
 	private static void showMsgFile(String file, boolean fSaveAttachments)
 	throws
@@ -54,10 +49,10 @@ public class CommandlineExample
 		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(root);
 
 		// Show selected properties
-		showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
+		System.out.printf("%s: %s\n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
 		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
-		showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
-		showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
+		System.out.printf("%s: %s\n", "Subject", getPropertyValue(msg, properties, PropertyTags.PidTagSubject));
+		System.out.printf("%s: %s\n", "Body", getPropertyValue(msg, properties, PropertyTags.PidTagBody));
 
 		// Show recipients
 		Iterator<DirectoryEntryData> recipients = msg.recipients();
