@@ -18,9 +18,13 @@ import java.util.Iterator;
 
 public class CommandlineExample
 {
+	// Command line options.
 	private static final String OPTION_SAVE_ATTACHMENTS = "-s";
 
+	// Used to display attachments and the description thereof
 	private static final String ATTACHMENT_INFO_FORMAT = "%-25s %-30s %-10s\n";
+
+	// Retrieve the value of a propertyTag
 	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
@@ -33,22 +37,29 @@ public class CommandlineExample
 		System.out.printf("%s: %s\n", propertyName, getPropertyValue(msg, properties, propertyTag));
 	}
 
+	// Show the selected information about the given file, saving attachments if requested
 	private static void showMsgFile(String file, boolean fSaveAttachments)
 	throws
 		FileNotFoundException,
 		IOException,
 		NotCFBFileException
 	{
+		// Get the message
 		MSG msg = new MSG(file);
 
+		// Get the directory
 		DirectoryEntryData root = msg.getDirectoryTree();
+
+		// Get the properties
 		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(root);
 
+		// Show selected properties
 		showProperty(msg, properties, PropertyTags.PidTagClientSubmitTime, "Date sent");
 		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
 		showProperty(msg, properties, PropertyTags.PidTagSubject, "Subject");
 		showProperty(msg, properties, PropertyTags.PidTagBody, "Body");
 
+		// Show recipients
 		Iterator<DirectoryEntryData> recipients = msg.recipients();
 		if (recipients.hasNext()) {
 			System.out.println();
@@ -62,6 +73,7 @@ public class CommandlineExample
 			System.out.printf("To: %s (%s)\n", name, email);
 		}
 
+		// Show attachment data
 		Iterator<DirectoryEntryData> attachments = msg.attachments();
 		if (attachments.hasNext()) {
 			System.out.println();
@@ -78,8 +90,8 @@ public class CommandlineExample
 			String size = getPropertyValue(msg, m, PropertyTags.PidTagAttachDataBinary);
 			System.out.printf(ATTACHMENT_INFO_FORMAT, name, mimeType, PropertyTags.PidTagAttachDataBinary);
 
+			// Save attachment if requested
 			if (fSaveAttachments) {
-				// Look for attachment data
 				Iterator<DirectoryEntryData> attachmentChildren = msg.getChildIterator(a);
 				while (attachmentChildren.hasNext()) {
 					DirectoryEntryData c = attachmentChildren.next();
@@ -107,9 +119,10 @@ public class CommandlineExample
 		}
 	}
 
-	// args[0] is the path and filename to open
+	// See usage info (numFiles == 0 case in main) for description of args.
 	public static void main(String[] args)
 	{
+		// Validate command line arguments
 		boolean fSaveAttachments = false;
 		int numFiles = 0;
 		for (String a: args){
@@ -119,6 +132,7 @@ public class CommandlineExample
 				++numFiles;
 		}
 
+		// Print usage info if no valid arguments encountered
 		if (numFiles == 0) {
 			System.out.println("use (assuming the jar files for example_commandline and msg are in the classpath):");
 			System.out.println();
@@ -130,6 +144,7 @@ public class CommandlineExample
 		}
 
 		try {
+			// Process file(s)
 			boolean first = false;
 			for(String f: args){
 				if (OPTION_SAVE_ATTACHMENTS.equals(f))
