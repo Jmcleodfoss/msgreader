@@ -82,7 +82,7 @@ public class CommandlineExample
 			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
 			String name = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
 			String mimeType = getPropertyValue(msg, m, PropertyTags.PidTagAttachMimeTag);
-			String size = getPropertyValue(msg, m, PropertyTags.PidTagAttachDataBinary);
+			String size = m.get(PropertyTags.PidTagAttachDataBinary).value();
 			System.out.printf(ATTACHMENT_INFO_FORMAT, name, mimeType, PropertyTags.PidTagAttachDataBinary);
 
 			// Save attachment if requested
