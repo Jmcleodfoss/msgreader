@@ -29,7 +29,7 @@ As a file system, the includes a few of the standard components one might expect
   * Short (\< 8 byte) fixed-width properties are stored in a file named "__properties_version1.0" which exists in each folder
   * Fixed-width properties longer than 8 bytes and variable-length properties are stored on per entry in entries named like "__substg1.0_########" where ######## is the property tag, encoding the property ID and the property type.
 
-The public interface to .msg file properties is through a class called MSG (q.v.). Rather than give an example here, I shall direct you to the example_commandline application, which contains a very simple example.
+The public interface to .msg file properties is through a class called MSG (q.v.). Please see the msg_example CommandlineExample application, which contains a very simple console-based example.
 
 # Versions #
 ## 1.0.0 ##
