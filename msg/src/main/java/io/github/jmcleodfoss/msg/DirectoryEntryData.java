@@ -63,6 +63,14 @@ public class DirectoryEntryData {
 		return new DirectoryEntryDataIterator(directory.getChildren(entry).iterator(), directory, namedProperties);
 	}
 
+	/** Is this entry a text property
+	*	@return	True if the property type is string, false otherwise.
+	*/
+	public boolean isText()
+	{
+		return (propertyTag & DataType.PROPERTY_TYPE_MASK) == DataType.STRING;
+	}
+
 	/** Create a string representing this directory entry
 	*	@return	The name of the entry
 	*/
