@@ -6,12 +6,14 @@ import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.Property;
 import io.github.jmcleodfoss.msg.PropertyTags;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import javafx.beans.property.ObjectProperty;
@@ -34,6 +36,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
@@ -58,6 +62,7 @@ class Directory extends Tab
 
 	static private final String ENTRY_RAW_TAB_TITLE = "directory.entry.raw.tabname";
 	static private final String ENTRY_TEXT_TAB_TITLE = "directory.entry.text.tabname";
+	static private final String ENTRY_IMAGE_TAB_TITLE = "directory.entry.image.tabname";
 
 	static private final String NP_STRINGSTREAM_TAB_TITLE = "directory.entry.namedproperties-stringstream.tabname";
 	static private final String NP_STRINGSTREAM_OFFSET_HEADING = "directory.entry.namedproperties-stringstream.offset-heading";
@@ -81,6 +86,17 @@ class Directory extends Tab
 	static private final String ALL_FILES = "export.filechooser.all-files";
 	static private final String BIN_FILES = "export.filechooser.bin-files";
 	static private final String TXT_FILES = "export.filechooser.txt-files";
+
+	/** The list of mime types that can be displayed by javafx.scene.image.Image */
+	private static final ArrayList<String> IMAGE_MIME_TYPES = new ArrayList<String>();
+	static {
+		IMAGE_MIME_TYPES.add("image/bmp");
+		IMAGE_MIME_TYPES.add("image/gif");
+		IMAGE_MIME_TYPES.add("image/jpe");
+		IMAGE_MIME_TYPES.add("image/jpg");
+		IMAGE_MIME_TYPES.add("image/jpeg");
+		IMAGE_MIME_TYPES.add("image/png");
+	};
 
 	/** Handle selection of a new entry in the tree by initiating an asynchronous read request for the entry.
 	*   The display will be updated when the read is complete.
@@ -136,6 +152,19 @@ class Directory extends Tab
 				} else if (msg.hasTextData(de)) {
 					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
+				} else if (de.propertyTag == PropertyTags.PidTagAttachDataBinary) {
+					HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
+					String mimeType = msg.getPropertyValue(properties.get(PropertyTags.PidTagAttachMimeTag));
+					if (IMAGE_MIME_TYPES.contains(mimeType)) {
+						ByteArrayInputStream imageSource = new ByteArrayInputStream(fileData);
+						double imgWidth = filePane.getWidth();
+
+						// Put a buffer at the bottom of the image to reassure the viewer that the image is all there
+						double imgHeight = filePane.getHeight() - filePane.getTabMaxHeight() - 10;
+						Image image = new Image(imageSource, imgWidth, imgHeight, true, true);
+						fileContentsImage.setImage(image);
+						updateTabs(tabFileContentsImage);
+					}
 				} else if (isNamedPropertiesGuidStream(treeItem)) {
 					tabNamedPropertyGuids.update(msg);
 					updateTabs(tabNamedPropertyGuids);
@@ -227,6 +256,12 @@ class Directory extends Tab
 	/** Container for the {@link fileContentsText file contents as text} */
 	private Tab tabFileContentsText;
 
+	/** This file contents as image, as supported (BMP, JPEG, GIF, PNG) */
+	private ImageView fileContentsImage;
+
+	/** Container for the {@link fileContentsImage file contents as Image} */
+	private Tab tabFileContentsImage;
+
 	/** Display for Named Properties GUID Stream */
 	private GUIDTableTab tabNamedPropertyGuids;
 
@@ -304,6 +339,10 @@ class Directory extends Tab
 
 		tabFileContentsText = new Tab(localizer.getText(ENTRY_TEXT_TAB_TITLE));
 		tabFileContentsText.setContent(fileContentsText);
+
+		fileContentsImage = new ImageView();
+		tabFileContentsImage = new Tab(localizer.getText(ENTRY_IMAGE_TAB_TITLE));
+		tabFileContentsImage.setContent(fileContentsImage);
 
 		tabNamedPropertyGuids = new GUIDTableTab(localizer);
 		tabNumericalEntries = NamedPropertiesTableTab.numericalNamedPropertyEntriesTableTabFactory(localizer);
