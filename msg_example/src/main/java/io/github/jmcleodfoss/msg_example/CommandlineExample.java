@@ -63,9 +63,7 @@ public class CommandlineExample
 		}
 		while (recipients.hasNext()){
 			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
-			String name = getPropertyValue(msg, m, PropertyTags.PidTagDisplayName);
-			String email = getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress);
-			System.out.printf("To: %s (%s)\n", name, email);
+			System.out.printf("To: %s (%s)\n", getPropertyValue(msg, m, PropertyTags.PidTagDisplayName), getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress));
 		}
 
 		// Show attachment data
