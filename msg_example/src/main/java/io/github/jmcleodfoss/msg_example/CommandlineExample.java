@@ -141,26 +141,26 @@ public class CommandlineExample
 			System.exit(0);
 		}
 
-		try {
-			// Process file(s)
-			boolean first = false;
-			for(String f: args){
-				if (OPTION_SAVE_ATTACHMENTS.equals(f))
-					continue;
+		// Process file(s)
+		boolean first = false;
+		for(String f: args){
+			if (OPTION_SAVE_ATTACHMENTS.equals(f))
+				continue;
 
-				if (first)
-					System.out.println("--------------------\n");
-				else
-					first = true;
+			if (first)
+				System.out.println("--------------------\n");
+			else
+				first = true;
 
+			try {
 				showMsgFile(f, fSaveAttachments);
+			} catch (FileNotFoundException e) {
+				System.out.printf("Error: %s not found\n", f);
+			} catch (IOException e) {
+				System.out.printf("Error: %s is not a compound binary file format or msg file\n", f);
+			} catch (NotCFBFileException e) {
+				System.out.printf("Error: %s is not a compound binary file format or msg file\n", f);
 			}
-		} catch (FileNotFoundException e) {
-			System.out.printf("Error: %s not found\n", args[0]);
-		} catch (IOException e) {
-			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
-		} catch (NotCFBFileException e) {
-			System.out.printf("Error: %s is not a compound binary file format or msg file\n", args[0]);
 		}
 	}
 }
