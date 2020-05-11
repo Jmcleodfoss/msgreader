@@ -134,17 +134,17 @@ class Directory extends Tab
 					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
 				} else {
-					if (isGuidStream(treeItem)) {
+					if (isNamedPropertiesGuidStream(treeItem)) {
 						tabNamedPropertyGuids.update(msg);
 						updateTabs(tabNamedPropertyGuids);
-					} else if (isEntryStream(treeItem)) {
+					} else if (isNamedPropertiesEntryStream(treeItem)) {
 						tabNumericalEntries.update(msg.namedPropertiesNumericalEntries());
 						tabStringEntries.update(msg.namedPropertiesStringEntries());
 						updateTabs(tabNumericalEntries, tabStringEntries);
-					} else if (isStringStream(treeItem)) {
+					} else if (isNamedPropertiesStringStream(treeItem)) {
 						tabStringStream.update(msg.namedPropertiesStrings(), localizer);
 						updateTabs(tabStringStream);
-					} else if (isEntryStreamEntryData(treeItem)) {
+					} else if (isNamedPropertiesEntry(treeItem)) {
 						int i = 0;
 						TreeItem<DirectoryEntryData> item = treeItem.previousSibling();
 						while (item != null) {
@@ -418,16 +418,16 @@ class Directory extends Tab
 	*	@param	item	The TreeIem to check
 	*	@return	true if this TreeItem is the Named Properties Entry Stream, false otherwise.
 	*/
-	private boolean isEntryStream(TreeItem<DirectoryEntryData> item)
+	private boolean isNamedPropertiesEntryStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
+		return isNamedPropertiesEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() == null;
 	}
 
 	/** Is the passed TreeItem an entry in the Named Properties folder?
 	*	@param	item	The TreeItem to check
 	*	@return	true if this TreeItem is in the Named Properties folder, false otherwise.
 	*/
-	private boolean isEntryStreamEntryData(TreeItem<DirectoryEntryData> item)
+	private boolean isNamedPropertiesEntry(TreeItem<DirectoryEntryData> item)
 	{
 		if (item == null)
 			return false;
@@ -441,18 +441,18 @@ class Directory extends Tab
 	*	@param	item	The TreeIem to check
 	*	@return	true if this TreeItem is the Named Properties GUID Stream, false otherwise.
 	*/
-	private boolean isGuidStream(TreeItem<DirectoryEntryData> item)
+	private boolean isNamedPropertiesGuidStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isEntryStreamEntryData(item) && item.previousSibling() == null;
+		return isNamedPropertiesEntry(item) && item.previousSibling() == null;
 	}
 
 	/** Is the given TreeItem the Named Properties String Stream?
 	*	@param	item	The TreeIem to check
 	*	@return	true if this TreeItem is the Named Properties String Stream, false otherwise.
 	*/
-	private boolean isStringStream(TreeItem<DirectoryEntryData> item)
+	private boolean isNamedPropertiesStringStream(TreeItem<DirectoryEntryData> item)
 	{
-		return isEntryStreamEntryData(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
+		return isNamedPropertiesEntry(item) && item.previousSibling() != null && item.previousSibling().previousSibling() != null && item.previousSibling().previousSibling().previousSibling() == null;
 	}
 
 	/** Save directory entry contents as a file
