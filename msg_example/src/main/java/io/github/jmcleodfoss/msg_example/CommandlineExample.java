@@ -157,7 +157,7 @@ public class CommandlineExample
 			} catch (FileNotFoundException e) {
 				System.out.printf("Error: %s not found\n", f);
 			} catch (IOException e) {
-				System.out.printf("Error: %s is not a compound binary file format or msg file\n", f);
+				System.out.printf("Error reading %s or writing one of its attachments (if save requested)\n", f);
 			} catch (NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file\n", f);
 			}
