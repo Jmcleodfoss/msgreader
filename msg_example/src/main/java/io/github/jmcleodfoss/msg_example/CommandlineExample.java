@@ -16,15 +16,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/** Simple example command line application using the msg library.
+*   <p>
+*   <pre>
+*Use (assuming the jars for msg_example and msg are in the classpath):
+*	java io.github.jmcleodfoss.msg_example.CommandlineExample [-s] msg-file-1 [msg-file 2 ...]
+*Options
+*   	-s: Save all attachments found in the main message (does not save anything for embedded msg entities)
+*   </pre>
+*/
 public class CommandlineExample
 {
-	// Command line options.
+	/** Command line option to save attachments */
 	private static final String OPTION_SAVE_ATTACHMENTS = "-s";
 
-	// Used to display attachments and the description thereof
+	/** Format for displaying attachments and the description thereof */
 	private static final String ATTACHMENT_INFO_FORMAT = "%-25s %-30s %-10s\n";
 
-	// Retrieve the value of a propertyTag
+	/* Retrieve the value of a propertyTag
+	*	@param	msg	The msg file object
+	*	@param	properties	The list of properties for the message in the message file
+	*	@param	propertyTag	The tag of the property to retrieve
+	*	@return	A String containing the value of the property
+	*/
 	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
@@ -32,7 +46,10 @@ public class CommandlineExample
 		return "not found";
 	}
 
-	// Show the selected information about the given file, saving attachments if requested
+	/* Show the selected information about the given file, saving attachments if requested
+	*	@param	filename	The name of the .msg file to open
+	*	@param	fSaveAttachments	Whether to save the attachments found in the file
+	*/
 	private static void showMsgFile(String filename, boolean fSaveAttachments)
 	throws
 		FileNotFoundException,
@@ -110,7 +127,9 @@ public class CommandlineExample
 		}
 	}
 
-	// See usage info (numFiles == 0 case in main) for description of args.
+	/** Process the given files
+	*	@param	args	The command line arguments giving the file(s) to process and whether to save attachment data	
+	*/
 	public static void main(String[] args)
 	{
 		// Validate command line arguments
