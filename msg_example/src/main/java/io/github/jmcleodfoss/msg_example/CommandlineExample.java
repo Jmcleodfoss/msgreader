@@ -17,13 +17,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /** Simple example command line application using the msg library.
-*   <p>
-*   <pre>
-*Use (assuming the jars for msg_example and msg are in the classpath):
-*	java io.github.jmcleodfoss.msg_example.CommandlineExample [-s] msg-file-1 [msg-file 2 ...]
-*Options
-*   	-s: Save all attachments found in the main message (does not save anything for embedded msg entities)
-*   </pre>
+<pre>
+
+Use (assuming the jars for msg_example and msg are in the classpath):
+	java io.github.jmcleodfoss.msg_example.CommandlineExample [-s] msg-file-1 [msg-file 2 ...]
+Options
+	-s: Save all attachments found in the main message (does not save anything for embedded msg entities)
+</pre>
 */
 public class CommandlineExample
 {
