@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
@@ -63,6 +64,77 @@ class SwingExample extends JFrame
 	}
 
 	// Worker class for saving attachments
+	class AttachmentsSaver extends SwingWorker<ArrayList<String>, Object>
+	{
+		private Iterator<DirectoryEntryData> attachments;
+		private File path;
+
+		AttachmentsSaver(File path, Iterator<DirectoryEntryData> attachments)
+		{
+			this.attachments = attachments;
+			this.path = path;
+		}
+
+		@Override
+		public ArrayList<String> doInBackground()
+		{
+			ArrayList<String> filesWithErrors = new ArrayList<String>();
+
+			while (attachments.hasNext()){
+				DirectoryEntryData a = attachments.next();
+				HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
+				String attachmentName = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
+
+				// Look for the entry which holds the attachment
+				Iterator<DirectoryEntryData> attachmentChildren = msg.getChildIterator(a);
+				while (attachmentChildren.hasNext()) {
+					DirectoryEntryData c = attachmentChildren.next();
+					if (c.propertyTag == PropertyTags.PidTagAttachDataBinary) {
+						File attachment = new File(path, attachmentName);
+						// Ensure we don't overwrite anything (use Windows style of changing filenames to add a number to guarantee uniqueness)
+						if (attachment.exists()){
+							int extensionIndex = attachmentName.lastIndexOf('.');
+							String baseName = attachmentName.substring(0, extensionIndex);
+							String extension = attachmentName.substring(extensionIndex);
+
+							int i = 0;
+							do {
+								attachment = new File(path, String.format("%s (%d)%s", baseName, i++, extension));
+							} while (attachment.exists());
+						}
+
+						try {
+System.out.println("Saving " + attachment.toString());
+							FileChannel fCh = new FileOutputStream(attachment).getChannel();
+							fCh.write(ByteBuffer.wrap(msg.getFile(c)));
+							fCh.close();
+						} catch (Exception ex) {
+System.out.println("Failed " + attachment.toString());
+							filesWithErrors.add(attachmentName);
+						}
+						break;
+					}
+				}
+			}
+			return filesWithErrors;
+		}
+
+		@Override
+		public void done()
+		{
+			try {
+				ArrayList<String> filesWithErrors = get();
+				if (filesWithErrors.size() == 0)
+					return;
+
+				StringBuilder sb = new StringBuilder("There was a problem saving the following files:\n");
+				for (String f: filesWithErrors)
+					sb.append(f + "\n");
+				JOptionPane.showMessageDialog(null, "Problem saving attachments", sb.toString(), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) { }
+		}
+	}
+
 	class SaveAttachmentsActionListener implements ActionListener
 	{
 		@Override
@@ -72,45 +144,8 @@ class SwingExample extends JFrame
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			fc.setAcceptAllFileFilterUsed(false);
 
-			if (fc.showOpenDialog(SwingExample.this) == JFileChooser.APPROVE_OPTION) {
-				File path = fc.getSelectedFile();
-				
-				Iterator<DirectoryEntryData> attachments = msg.attachments();
-				while (attachments.hasNext()){
-					DirectoryEntryData a = attachments.next();
-					HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
-					String attachmentName = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
-
-					// Look for the entry which holds the attachment
-					Iterator<DirectoryEntryData> attachmentChildren = msg.getChildIterator(a);
-					while (attachmentChildren.hasNext()) {
-						DirectoryEntryData c = attachmentChildren.next();
-						if (c.propertyTag == PropertyTags.PidTagAttachDataBinary) {
-							File attachment = new File(path, attachmentName);
-							// Ensure we don't overwrite anything (use Windows style of changing filenames to add a number to guarantee uniqueness)
-							if (attachment.exists()){
-								int extensionIndex = attachmentName.lastIndexOf('.');
-								String baseName = attachmentName.substring(0, extensionIndex);
-								String extension = attachmentName.substring(extensionIndex);
-
-								int i = 0;
-								do {
-									attachment = new File(path, String.format("%s (%d)%s", baseName, i++, extension));
-								} while (attachment.exists());
-							}
-
-							try {
-								FileChannel fCh = new FileOutputStream(attachment).getChannel();
-								fCh.write(ByteBuffer.wrap(msg.getFile(c)));
-								fCh.close();
-							} catch (Exception ex) {
-								JOptionPane.showMessageDialog(null, ex.toString(), String.format("Unable to save attachment %s", attachmentName), JOptionPane.ERROR_MESSAGE);
-							}
-							break;
-						}
-					}
-				}
-			}
+			if (fc.showOpenDialog(SwingExample.this) == JFileChooser.APPROVE_OPTION)
+				new AttachmentsSaver(fc.getSelectedFile(), msg.attachments()).execute();
 		}
 	}
 
