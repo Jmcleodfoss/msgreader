@@ -47,7 +47,7 @@ public class CommandlineExample
 		System.out.printf("%s: %s\n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
 		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
 		System.out.printf("%s: %s\n", "Subject", getPropertyValue(msg, properties, PropertyTags.PidTagSubject));
-		System.out.printf("%s: %s\n", "Body", getPropertyValue(msg, properties, PropertyTags.PidTagBody));
+		System.out.printf("%s: %s\n", "Message", getPropertyValue(msg, properties, PropertyTags.PidTagBody));
 
 		// Show recipients
 		Iterator<DirectoryEntryData> recipients = msg.recipients();
