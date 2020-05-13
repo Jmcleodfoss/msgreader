@@ -57,6 +57,7 @@ class SwingExample extends JFrame
 		{
 			try {
 				SwingExample.this.remove(msgDisplay);
+				setTitle("msg Explorer");
 				SwingExample.this.add(msgDisplay = get(), BorderLayout.CENTER);
 				SwingExample.this.pack();
 			} catch (Exception e) { }
@@ -205,6 +206,7 @@ System.out.println("Failed " + attachment.toString());
 			}
 		});
 
+		setTitle("msg Explorer");
 		add(msgDisplay = readMsg(filename), BorderLayout.CENTER);
 
 		pack();
@@ -306,6 +308,7 @@ System.out.println("Failed " + attachment.toString());
 			saveAttachmentsItem.setEnabled(false);
 		}
 
+		setTitle(filename);
 		return msgBox;
 	}
 
