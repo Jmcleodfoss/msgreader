@@ -146,7 +146,7 @@ public class CommandlineExample
 		if (numFiles == 0) {
 			System.out.println("use (assuming the jar files for msg_example and msg are in the classpath):");
 			System.out.println();
-			System.out.println("\tjava io.github.jmcleodfoss.msg_example.CommandlineExample [-s] msg-file1 msg-file2 ...");
+			System.out.println("\tjava io.github.jmcleodfoss.msg_example.CommandlineExample [-s] msg-file1 [msg-file2 ...]");
 			System.out.println();
 			System.out.println("Option:");
 			System.out.println("\t-s: save all attachments found");
