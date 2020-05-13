@@ -33,7 +33,6 @@ public class DirectoryEntryData {
 	*	@see DirectoryEntry#nm_StartingSectorLocation
 	*	@see DirectoryEntry#nm_StreamSize
 	*	@see DirectoryEntry#nm_PropertyName
-	*	@see DirectoryEntry#nm_PropertyId
 	*	@see DirectoryEntry#nm_PropertyType
 	*	@see DirectoryEntry#data
 	*/

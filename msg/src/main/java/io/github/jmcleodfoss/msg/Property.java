@@ -1,7 +1,8 @@
 package io.github.jmcleodfoss.msg;
 
 /** Class for passing fixed-width property data to client applications
-*	@see DirectoryEntry#properties
+*	@see DirectoryEntry#propertiesAsHashMap
+*	@see DirectoryEntry#propertiesAsList
 *	@see io.github.jmcleodfoss.msg.DirectoryEntry.Properties
 */
 public abstract class Property
