@@ -38,7 +38,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 <pre>
 
 Use (assuming the jars for msg_example and msg are in the classpath):
-	java io.github.jmcleodfoss.msg_example.SwingExample msg-file
+	java io.github.jmcleodfoss.msg_example.SwingExample [msg-file]
 </pre>
 <p>
 * Note that All msg processing takes place in:
@@ -77,7 +77,6 @@ public class SwingExample extends JFrame
 		public void done()
 		{
 			try {
-				SwingExample.this.remove(msgDisplay);
 				setTitle("msg Explorer");
 				SwingExample.this.add(msgDisplay = get(), BorderLayout.CENTER);
 				SwingExample.this.pack();
@@ -221,8 +220,13 @@ public class SwingExample extends JFrame
 				fc.setFileFilter(new FileNameExtensionFilter("Outlook .msg file", "msg"));
 				if (fc.showOpenDialog(SwingExample.this) == JFileChooser.APPROVE_OPTION) {
 					try {
-						msg.close();
+						if (msg != null) {
+							msg.close();
+							msg = null;
+						}
 					} catch (IOException ex) { /* not much we can do here, so go on. */ }
+					if (msgDisplay != null)
+						SwingExample.this.remove(msgDisplay);
 					new NewFileLoader(fc.getSelectedFile().toString()).execute();
 				}
 			}
@@ -234,14 +238,16 @@ public class SwingExample extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					msg.close();
+					if (msg != null)
+						msg.close();
 				} catch (IOException ex) { /* not much we can do here, so go on. */ }
 				dispose();
 			}
 		});
 
 		setTitle("msg Explorer");
-		add(msgDisplay = readMsg(filename), BorderLayout.CENTER);
+		if (filename != null)
+			add(msgDisplay = readMsg(filename), BorderLayout.CENTER);
 
 		pack();
 		setVisible(true);
@@ -367,13 +373,13 @@ public class SwingExample extends JFrame
 	*/
 	public static void main(String[] args)
 	{
-		if (args.length == 0 || args.length > 1) {
+		if (args.length > 1) {
 			System.out.println("use (assuming the jar files for msg_example and msg are in the classpath):");
 			System.out.println();
-			System.out.println("\tjava io.github.jmcleodfoss.msg_example.SwingExample msg-file");
+			System.out.println("\tjava io.github.jmcleodfoss.msg_example.SwingExample [msg-file]");
 			System.exit(0);
 		}
 
-		new SwingExample(args[0]);
+		new SwingExample(args.length == 0 ? null : args[0]);
 	}
 }
