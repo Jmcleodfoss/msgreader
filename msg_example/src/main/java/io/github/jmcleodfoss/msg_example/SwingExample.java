@@ -34,24 +34,45 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-class SwingExample extends JFrame
+/** Simple example Java Swing line application using the msg library.
+<pre>
+
+Use (assuming the jars for msg_example and msg are in the classpath):
+	java io.github.jmcleodfoss.msg_example.SwingExample msg-file
+</pre>
+<p>
+* Note that All msg processing takes place in:
+<ul>
+<li>readMsg</li>
+<li>SaveAttachmentsActionListener#actionPerformed</li>
+<li>AttachmentsSaver#doInBackground</li>
+</ul>
+*/
+public class SwingExample extends JFrame
 {
-	// Worker class for loading new files. Probably overkill for most .msg files.
+	/** Worker class for loading new files */
 	class NewFileLoader extends SwingWorker<Box, Object>
 	{
 		private final String filename;
 
+		/** Initialize a NewFileLoader object for loading new files
+		*	@param	filename	The name of the file to load.
+		*/
 		NewFileLoader(String filename)
 		{
 			this.filename = filename;
 		}
 
+		/** Read the msg file
+		*	@return	The Box component which holds the message contents for display.
+		*/
 		@Override
 		public Box doInBackground()
 		{
 			return readMsg(filename);
 		}
 
+		/** Update the display */
 		@Override
 		public void done()
 		{
@@ -64,18 +85,24 @@ class SwingExample extends JFrame
 		}
 	}
 
-	// Worker class for saving attachments
+	/** Worker class for saving attachments */
 	class AttachmentsSaver extends SwingWorker<ArrayList<String>, Object>
 	{
 		private Iterator<DirectoryEntryData> attachments;
 		private File path;
 
+		/** Initialize an AttachmentsSaver object for saving attachments.
+		*	@param	path	The file to open
+		*	@param	attachments	An iterator through the attachments in the msg file. */
 		AttachmentsSaver(File path, Iterator<DirectoryEntryData> attachments)
 		{
 			this.attachments = attachments;
 			this.path = path;
 		}
 
+		/** Save the attachments
+		*	@return	The list of files we failed to save
+		*/
 		@Override
 		public ArrayList<String> doInBackground()
 		{
@@ -118,6 +145,7 @@ class SwingExample extends JFrame
 			return filesWithErrors;
 		}
 
+		/** List any attachments which could not be saved. */
 		@Override
 		public void done()
 		{
@@ -134,8 +162,13 @@ class SwingExample extends JFrame
 		}
 	}
 
+	/** ActionListener for saving attachments */
 	class SaveAttachmentsActionListener implements ActionListener
 	{
+		/** Initiate saving attachments.
+		*	@param	e	The ActionEvent which triggered this to execute (ignored)
+		*	@see	AttachmentsSaver
+		*/
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fc = new JFileChooser();
@@ -148,16 +181,19 @@ class SwingExample extends JFrame
 		}
 	}
 
-	// Need to preserve the MSG object to save attachments if requested
+	/** The msg file we are currently displaying (needed in case attachments are to be saved) */
 	private MSG msg;
 
-	// Need to save the message display Box to remove it cleanly when reading the next file.
+	/* The container for the message display. We need to preserve this so we can remove it cleanly on reading a new file. */
 	private Box msgDisplay;
 
-	// Need to save the Save Attachments menu item so we can enable or disable it based on whether there are any attachments.
+	/** The Save Attachments menu item; we preserve this so we can enable or disable it based on whether there are any attachments in the current file. */
 	private JMenuItem saveAttachmentsItem;
 
-	// Constructor. All the msg processing takes place in readMsg and in SaveAttachmentsActionListener.actionPerformed
+	/** The constructor for the SwingExample application.
+	*   This sets up the frame and menu, and calls #readFile to read in the msg file and create the display.
+	*	@param	filename	The file to load initially.
+	*/ 
 	SwingExample(String filename)
 	{
 		super();
@@ -212,7 +248,10 @@ class SwingExample extends JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	// Open the given .msg file
+	/** Open the given .msg file, put desired content into Box container, and return it.
+	*	@param	filename	The name of the ,msg file to load
+	*	@return	A Box component containing information about the message
+	*/
 	private Box readMsg(String filename)
 	{
 		// Read the msg file. Display an error message and return an empty component on error.
@@ -310,7 +349,12 @@ class SwingExample extends JFrame
 		return msgBox;
 	}
 
-	// Retrieve the value of a propertyTag
+	/* Retrieve the value of a propertyTag
+	*	@param	msg	The msg file object
+	*	@param	properties	The list of properties for the message in the message file
+	*	@param	propertyTag	The tag of the property to retrieve
+	*	@return	A String containing the value of the property
+	*/
 	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
@@ -318,6 +362,9 @@ class SwingExample extends JFrame
 		return "not found";
 	}
 
+	/** Display the given file or show usage information.
+	*	@param	args	The command line arguments giving the file(s) to process and whether to save attachment data	
+	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0 || args.length > 1) {
