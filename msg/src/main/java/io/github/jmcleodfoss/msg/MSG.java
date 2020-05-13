@@ -249,8 +249,9 @@ public class MSG
 		return new java.util.ArrayList<Property>();
 	}
 
-	/** Retrieve the value for a property
+	/** Retrieve the value for a property, as a String
 	*	@param	property	The property to retrieve the value of
+	*	@return	A String showing the property's value.
 	*/
 	public String getPropertyValue(Property property)
 	{
