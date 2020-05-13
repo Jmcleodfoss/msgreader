@@ -105,12 +105,10 @@ class SwingExample extends JFrame
 						}
 
 						try {
-System.out.println("Saving " + attachment.toString());
 							FileChannel fCh = new FileOutputStream(attachment).getChannel();
 							fCh.write(ByteBuffer.wrap(msg.getFile(c)));
 							fCh.close();
 						} catch (Exception ex) {
-System.out.println("Failed " + attachment.toString());
 							filesWithErrors.add(attachmentName);
 						}
 						break;
