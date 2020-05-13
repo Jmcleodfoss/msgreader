@@ -39,14 +39,9 @@ public class CommandlineExample
 		IOException,
 		NotCFBFileException
 	{
-		// Get the message
+		// Get the message information we need
 		MSG msg = new MSG(filename);
-
-		// Get the directory
-		DirectoryEntryData root = msg.getDirectoryTree();
-
-		// Get the properties
-		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(root);
+		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
 
 		// Show selected properties
 		System.out.printf("%s: %s\n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
