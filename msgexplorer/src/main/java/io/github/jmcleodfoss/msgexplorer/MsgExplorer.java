@@ -25,6 +25,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 
+/** msg explorer application: show msg file at any required level of detail. */
 public class MsgExplorer extends javafx.application.Application
 {
 	/* Properties for the menu, items, and actions */
