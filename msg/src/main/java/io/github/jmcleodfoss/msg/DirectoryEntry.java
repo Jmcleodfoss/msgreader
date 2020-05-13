@@ -79,7 +79,7 @@ public class DirectoryEntry {
 	*/
 	private static String nm_DirectoryEntryNameLength = "DirectoryEntryNameLength";
 
-	/** Data defintion key and KVP key for the {@link #objectType}. The intention is that client applications will use this to look up a localized description if needed.
+	/** Data definition key and KVP key for the {@link #objectType}. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see #data
 	*	@see #keys
 	*	@see DataContainer

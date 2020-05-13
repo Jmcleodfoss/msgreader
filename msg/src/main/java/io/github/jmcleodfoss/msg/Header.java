@@ -67,7 +67,7 @@ class Header {
 	*/
 	private static final String nm_FirstDirectorySectorLocation = "FirstDirectorySectorLocation";
 
-	/** KVP key for the transactioni signaturei number. This value is not stored as a member variable in this class. The intention is that client applications will use this to look up a localized description if needed.
+	/** KVP key for the transaction signature number. This value is not stored as a member variable in this class. The intention is that client applications will use this to look up a localized description if needed.
 	*	@see DataContainer
 	* 	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2,2: Compound File Header</a>
 	*/
