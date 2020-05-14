@@ -19,6 +19,6 @@ mvn -P doc-dev javadoc:javadoc
 '''
 This will put the Javadoc for all (private, package-private, protected, and public) entities in the directory target/site/javadoc-dev.
 
-## Version 1.0
+## Version 1.0.0
 * Download the jar (link TBD)
 * View the Javadoc (link TBD)
