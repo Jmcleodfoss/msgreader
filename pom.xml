@@ -3,7 +3,7 @@
 
 	<groupId>io.github.jmcleodfoss</groupId>
 	<artifactId>msg-parent</artifactId>
-	<version>1.0.0</version>
+	<version>0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://io.github.com/Jmcleodfoss/msgreader</url>
@@ -152,6 +152,12 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 						<version>1.5</version>
+						<configuration>
+							<!-- Work around an apparent bug in the maven-javadoc-plugin. If sourcepath is undefined, it defaults to
+								${project.build.directory}/apidocs/src.
+							-->
+							<sourcepath>${project.build.sourceDirectory}</sourcepath>
+						</configuration>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -171,6 +177,7 @@
 						<configuration>
 							<serverId>ossrh</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+<!-- for testing -->
 							<autoReleaseAfterClose>false</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
