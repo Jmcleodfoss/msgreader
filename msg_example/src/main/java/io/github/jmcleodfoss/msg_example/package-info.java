@@ -1,3 +1,3 @@
 /** Example applications for msg library. */
 
-package io.github.jmcleodfoss.msg;
+package io.github.jmcleodfoss.msg_example;
