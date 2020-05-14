@@ -29,7 +29,10 @@ As a file system, the includes a few of the standard components one might expect
   * Short (\< 8 byte) fixed-width properties are stored in a file named "__properties_version1.0" which exists in each folder
   * Fixed-width properties longer than 8 bytes and variable-length properties are stored on per entry in entries named like "__substg1.0_########" where ######## is the property tag, encoding the property ID and the property type.
 
-The public interface to .msg file properties is through a class called MSG (q.v.). Please see the msg_example CommandlineExample application, which contains a very simple console-based example.
+The public interface to .msg file properties is through a class called MSG (q.v.). For examples, please see the following projects:
+* [io.github.jmcleodfoss.msg_example](https://github.com/Jmcleodfoss/msgreader/blob/master/msg_example/README.md).CommandlineExample, a very simple console-based example which displays the date, sender, subject, message body, recipients, and attachment info for a .msg file, optionally saving the attachments
+* [io.github.jmcleodfoss.msg_example](https://github.com/Jmcleodfoss/msgreader/blob/master/msg_example/README.md).SwingExample, a relatively simple Swing application to display the same information as the CommandlineExample application
+* [io.github.jmcleodfoss.msgexplorer](https://github.com/Jmcleodfoss/msgreader/blob/master/msgexplorer/README.md), a full-featured JavaFX application which allows viewing any part of a .msg file.
 
 # Versions #
 ## 1.0.0 ##
