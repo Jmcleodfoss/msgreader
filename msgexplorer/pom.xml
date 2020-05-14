@@ -81,4 +81,22 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<offlineLinks>
+						<offlineLink>
+							<url>https://openjfx.io/javadoc/14//</url>
+							<location>${project.basedir}/../extras/javafx-package-list</location>
+						</offlineLink>
+					</offlineLinks>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
