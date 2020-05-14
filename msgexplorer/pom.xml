@@ -24,6 +24,26 @@
 		</repository>
 	</repositories>
 
+	<dependencies>
+		<dependency>
+			<groupId>io.github.jmcleodfoss</groupId>
+			<artifactId>msg</artifactId>
+			<version>0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.jmcleodfoss</groupId>
+			<artifactId>voluminouspaginationskin</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>14</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -52,24 +72,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>io.github.jmcleodfoss</groupId>
-			<artifactId>msg</artifactId>
-			<version>0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.github.jmcleodfoss</groupId>
-			<artifactId>voluminouspaginationskin</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>14</version>
-		</dependency>
-	</dependencies>
 </project>
