@@ -27,6 +27,18 @@
 	<properties>
 		<project.scm.id>github</project.scm.id>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- The version of JavaFX to use (in msgexplorer, but the parent pom needs this for reporting -->
+		<msgproject.javafx.version>14</msgproject.javafx.version>
+
+		<!--	Running "mvn site" from the parent pom fails unless the Javadoc classpath contains these files:
+			* org.openjfx.javafx-base-win.jar
+			* org.openjfx.javafx-controls-win.jar
+			* org.openjfx.javafx-graphics-win.jar
+			I have not found a good way to do this, so I just force it to use the "win" classifier. Since
+			Since we are building documentation rather than an executable, the platform shouldn't matter.
+		-->
+		<msgproject.javafx.platform>win</msgproject.javafx.platform>
 	</properties>
 
 	<scm>
@@ -217,6 +229,41 @@
 				<version>3.2.0</version>
 				<configuration>
 					<show>public</show>
+
+					<additionalDependencies>
+						<additionalDependency>
+							<groupId>io.github.jmcleodfoss</groupId>
+							<artifactId>msg</artifactId>
+							<version>0.0-SNAPSHOT</version>
+						</additionalDependency>
+
+						<additionalDependency>
+							<groupId>io.github.jmcleodfoss</groupId>
+							<artifactId>voluminouspaginationskin</artifactId>
+							<version>2.0.0</version>
+						</additionalDependency>
+
+						<additionalDependency>
+							<groupId>org.openjfx</groupId>
+							<artifactId>javafx-controls</artifactId>
+							<version>${msgproject.javafx.version}</version>
+							<classifier>${msgproject.javafx.platform}</classifier>
+						</additionalDependency>
+
+						<additionalDependency>
+							<groupId>org.openjfx</groupId>
+							<artifactId>javafx-base</artifactId>
+							<version>${msgproject.javafx.version}</version>
+							<classifier>${msgproject.javafx.platform}</classifier>
+						</additionalDependency>
+
+						<additionalDependency>
+							<groupId>org.openjfx</groupId>
+							<artifactId>javafx-graphics</artifactId>
+							<version>${msgproject.javafx.version}</version>
+							<classifier>${msgproject.javafx.platform}</classifier>
+						</additionalDependency>
+					</additionalDependencies>
 				</configuration>
 				<reportSets>
 					<reportSet><!-- by default, id = "default" -->
