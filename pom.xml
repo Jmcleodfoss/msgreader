@@ -99,6 +99,7 @@
 			<modules>
 				<module>msg</module>
 				<module>msgexplorer</module>
+				<module>msg_example</module>
 			</modules>
 
 			<activation>
