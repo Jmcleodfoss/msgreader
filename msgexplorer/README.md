@@ -34,4 +34,4 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
 
 ## Version 1.0.0
 * View the Javadoc (link TBD)
-* [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msgexplorer-1.0.0.jar)
+* [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msgexplorer/1.0.0/msgexplorer-1.0.0.jar)
