@@ -33,5 +33,5 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
     java --module-path <module-path> --add-modules javafx.controls io.github.jmcleodfoss.msgexplorer.MsgExplorer [msg-file]
 
 ## Version 1.0.0
-* Download the jar (link TBD)
 * View the Javadoc (link TBD)
+* [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msgexplorer-1.0.0.jar)

@@ -19,5 +19,5 @@ Use (assumng the jar files for msg_example and msg are in the classpath):
 The application permits saving attachments (if any), and opening a new file.
 
 ### Version 1.0.0
-* Download from Maven Central (link TBD)
 * Javadoc (link TBD)
+* [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msgexplorer-1.0.0.jar)

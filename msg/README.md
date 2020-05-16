@@ -38,5 +38,4 @@ The public interface to .msg file properties is through a class called MSG (q.v.
 ## 1.0.0 ##
 Initial version
 * Javadoc (link TBD)
-* Download jar from xxx (link TBD) 
-* Download from Sonatype OSS Maven Repository (link TBD)
+* [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msg-1.0.0.jar)
