@@ -27,6 +27,7 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
     * [javafx-base-14-win.jar / javafx-base-mac.jar / javafx-base-14-linux.jar](https://mvnrepository.com/artifact/org.openjfx/javafx-base)
     * [javafx-controls-14-win.jar / javafx-controls-14-mac.jar / javafx-controls-14-linux.jar](https://repo1.maven.org/maven2/org/openjfx/javafx-controls/14/)
     * [javafx-graphics-14-win.jar / javafx-graphics-14-mac.jar / javafx-graphics-14-linux.jar](https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/14/)
+
 2 The location of the javafx jar files is the "<module-path>" in the command below
 3 Add msgexplorer to the class path (the msgexplorer jar file already includes the non-JavaFX dependencies)
 4 Run via
