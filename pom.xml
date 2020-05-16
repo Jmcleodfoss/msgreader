@@ -42,8 +42,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:https://github.com/Jmcleodfoss/mreadersgreader.git</connection>
-		<developerConnection>scm:git:https://github.com/jmcleodfoss/msgreader.git</developerConnection>
+		<connection>scm:git:https://github.com/Jmcleodfoss/msgreader.git</connection>
+		<developerConnection>scm:git:https://github.com/Jmcleodfoss/msgreader.git</developerConnection>
 		<url>https://github.com/Jmcleodfoss/msgreader</url>
 	</scm>
 
