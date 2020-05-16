@@ -40,6 +40,11 @@
 			<useProjectArtifact>true</useProjectArtifact>
 			<unpack>true</unpack>
 			<scope>runtime</scope>
+			<excludes>
+				<exclude>org.openjfx:javafx-base</exclude>
+				<exclude>org.openjfx:javafx-controls</exclude>
+				<exclude>org.openjfx:javafx-graphics</exclude>
+			</excludes>
 		</dependencySet>
 	</dependencySets>
 </assembly>
