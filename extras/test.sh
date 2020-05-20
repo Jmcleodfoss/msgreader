@@ -67,6 +67,7 @@ TestMSGFile() {
 	TestModule io.github.jmcleodfoss.msg.Header "$msg"
 	TestModule io.github.jmcleodfoss.msg.MiniFAT "$msg"
 	TestModule io.github.jmcleodfoss.msg.NamedProperties "$msg"
+	TestModule io.github.jmcleodfoss.msg.Property "$msg"
 }
 
 rm -rf $results_dir
