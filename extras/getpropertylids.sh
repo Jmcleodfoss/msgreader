@@ -35,6 +35,7 @@ curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/prope
 	/PSETID_Appointment/s//GUID.PSETID_APPOINTMENT/
 	/PSETID_CalendarAssistant/s//GUID.PSETID_CALENDAR_ASSISTANT/
 	/PSETID_Common/s//GUID.PSETID_COMMON/
+	/PS_Internal/s//GUID.PS_INTERNAL/
 	/PSETID_Log/s//GUID.PSETID_LOG/
 	/PSETID_Meeting/s//GUID.PSETID_MEETING/
 	/PSETID_Note/s//GUID.PSETID_NOTE/
@@ -58,6 +59,13 @@ curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/prope
 	' >> PropertyLIDs.java
 
 cat << END_FOOTER >> PropertyLIDs.java
+
+	static String name(int lid, GUID guid)
+	{
+		if (lids.containsKey(lid) && guids.containsKey(lid) && guid.equals(guids.get(lid)))
+			return PropertyLIDs.lids.get(lid);
+		return String.format("LID-%08x (%s)", lid, GUID.name(guid));
+	}
 
 	public static void main(String[] args)
 	{
