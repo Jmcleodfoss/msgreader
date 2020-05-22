@@ -27,6 +27,8 @@ curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/extras/prope
 		a\
 	}
 	}
+
+	/\(PidTag\)\(7BitDisplayName\)/s//\1_\2/
 	/^\(PidTag[^,]*\),\([^,]*\),\([^,]*\),0x\([^,]*\),,$/s//\	static final public int \1 = \2\4;/p
 	/^.*static final public int \([^ ]*\).*$/{
 		s//\	\	tags.put(\1, "\1");/
