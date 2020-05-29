@@ -207,15 +207,6 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
-				<configuration>
-					<trimStackTrace>false</trimStackTrace>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
@@ -243,7 +234,6 @@
 					<reportSet><!-- by default, id = "default" -->
 						<reports><!-- select non-aggregate reports -->
 							<report>javadoc</report>
-							<report>test-javadoc</report>
 						</reports>
 					</reportSet>
 					<reportSet><!-- aggregate reportSet, to define in poms having modules -->
