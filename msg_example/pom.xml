@@ -25,4 +25,23 @@
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<additionalDependencies>
+						<additionalDependency>
+							<groupId>io.github.jmcleodfoss</groupId>
+							<artifactId>msg</artifactId>
+							<version>1.0.1-SNAPSHOT</version>
+						</additionalDependency>
+					</additionalDependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
