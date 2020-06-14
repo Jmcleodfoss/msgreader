@@ -6,4 +6,4 @@ cat << END_HEADER > GUID.java
 // Any changes must be made to that file.
 
 END_HEADER
-curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/pst/src/main/java/io/github/jmcleodfoss/GUID.java |sed '/package io.github.jmcleodfoss.pst/s/pst/msg/' >> GUID.java
+curl https://raw.githubusercontent.com/Jmcleodfoss/pstreader/master/pst/src/main/java/io/github/jmcleodfoss/pst/GUID.java |sed '/package io.github.jmcleodfoss.pst/s/pst/msg/' >> GUID.java
