@@ -223,7 +223,11 @@ class MiniFAT {
 					System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
 				System.out.println("\nMini FAT sector chains");
 				System.out.printf(minifat.getChains());
-			} catch (final Exception e) {
+			} catch (final java.io.FileNotFoundException e) {
+				System.out.printf("File %s not found%n", a);
+			} catch (final java.io.IOException e) {
+				System.out.printf("There was a problem reading from file %s%n", a);
+			} catch (final NotCFBFileException e) {
 				e.printStackTrace(System.out);
 			}
 		}

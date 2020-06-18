@@ -264,7 +264,11 @@ class NamedProperties
 						namedPropertiesMapping.propertyNameMappings[i],
 						namedPropertiesMapping.indexToGUID(namedPropertiesMapping.propertyNameMappings[i].guidIndex)
 						);
-			} catch (final Exception e) {
+			} catch (final java.io.FileNotFoundException e) {
+				System.out.printf("File %s not found%n", a);
+			} catch (final java.io.IOException e) {
+				System.out.printf("There was a problem reading from file %s%n", a);
+			} catch (final NotCFBFileException e) {
 				e.printStackTrace(System.out);
 			}
 		}
