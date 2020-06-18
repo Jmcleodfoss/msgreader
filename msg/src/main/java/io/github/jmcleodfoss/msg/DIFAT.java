@@ -49,6 +49,8 @@ class DIFAT {
 		*/
 		public Integer next()
 		{
+			if (entry >= numEntries)
+				throw new java.util.NoSuchElementException();
 			return difat[entry++];
 		}
 	}

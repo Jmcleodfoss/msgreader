@@ -44,6 +44,8 @@ class FAT {
 		*/
 		public Integer next()
 		{
+			if (entry == Sector.ENDOFCHAIN)
+				throw new java.util.NoSuchElementException();
 			int retval = entry;
 			entry = fat[entry];
 			return retval;
@@ -79,6 +81,8 @@ class FAT {
 		{
 			int retval = entry;
 			do {
+				if (entry >= numSectors)
+					throw new java.util.NoSuchElementException();
 				++entry;
 			} while (entry < numSectors && fat[entry] != Sector.FREESECT);
 			return retval;

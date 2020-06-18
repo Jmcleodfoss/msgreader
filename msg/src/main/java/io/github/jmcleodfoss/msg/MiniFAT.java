@@ -32,6 +32,8 @@ class MiniFAT {
 		*/
 		public Integer next()
 		{
+			if (entry == Sector.ENDOFCHAIN)
+				throw new java.util.NoSuchElementException();
 			int retval = entry;
 			entry = miniFATSectors[entry];
 			return retval;
