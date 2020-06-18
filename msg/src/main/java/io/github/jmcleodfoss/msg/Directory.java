@@ -131,43 +131,46 @@ class Directory {
 	}
 
 	/** Test this class by printing out the directory and the list of children for each node.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
+	*	@param	args	The msg file(s) to display the directory(ies) of.
 	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [msg-file] ...");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+		for (String a: args) {
+			try {
+				System.out.println(a);
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				FAT fat = new FAT(mbb, header, difat);
+				Directory directory = new Directory(mbb, header, fat);
 
-			java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
-			int i = 0;
-			while (iterator.hasNext())
-				System.out.printf("0x%02x: %s%n", i++, iterator.next().toString());
+				java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
+				int i = 0;
+				while (iterator.hasNext())
+					System.out.printf("0x%02x: %s%n", i++, iterator.next().toString());
 
-			System.out.println("\n");
-			for (i = 0; i < directory.entries.size(); ++i){
-				java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
-				if (children.size() > 0){
-					System.out.printf("Children of 0x%02x:%n", i);
-					java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
-					while (childIterator.hasNext())
-						System.out.println("\t" + childIterator.next());
+				System.out.println("\n");
+				for (i = 0; i < directory.entries.size(); ++i){
+					java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
+					if (children.size() > 0){
+						System.out.printf("Children of 0x%02x:%n", i);
+						java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
+						while (childIterator.hasNext())
+							System.out.println("\t" + childIterator.next());
+					}
 				}
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
 			}
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }
