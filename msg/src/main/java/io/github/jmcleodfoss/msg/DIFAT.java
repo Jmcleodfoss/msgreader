@@ -117,42 +117,45 @@ class DIFAT {
 	}
 
 	/**	Test this class by reading in the DIFAT index table and printing it out.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
+	*	@param	args	The msg file(s) to print the DIFAT index table of
 	*/
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.FAT msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.FAT msg-file [msg-file ...]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+		for (String a: args) {
+			try {
+				System.out.println(a);
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			java.util.Iterator<Integer> iterator = difat.iterator();
-			while (iterator.hasNext()) {
-				System.out.println(Sector.getDescription(iterator.next()));
-			}
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				java.util.Iterator<Integer> iterator = difat.iterator();
+				while (iterator.hasNext()) {
+					System.out.println(Sector.getDescription(iterator.next()));
+				}
 
-			System.out.println();
-			System.out.println("FAT sector chain description");
-			KVPArray<Integer, Integer> data = difat.data();
-			java.util.Iterator<KVPEntry<Integer, Integer>> fatchain = data.iterator();
-			while (fatchain.hasNext()){
-				KVPEntry<Integer, Integer> e = fatchain.next();
-				System.out.printf("FAT sector %d index %d%n", e.getKey(), e.getValue());
+				System.out.println();
+				System.out.println("FAT sector chain description");
+				KVPArray<Integer, Integer> data = difat.data();
+				java.util.Iterator<KVPEntry<Integer, Integer>> fatchain = data.iterator();
+				while (fatchain.hasNext()){
+					KVPEntry<Integer, Integer> e = fatchain.next();
+					System.out.printf("FAT sector %d index %d%n", e.getKey(), e.getValue());
+				}
+			} catch (final java.io.FileNotFoundException e) {
+				System.out.printf("File %s not found%n", a);
+			} catch (final java.io.IOException e) {
+				System.out.printf("There was a problem reading from file %s%n", a);
+			} catch (final NotCFBFileException e) {
+				e.printStackTrace(System.out);
 			}
-		} catch (final java.io.FileNotFoundException e) {
-			System.out.printf("File %s not found%n", args[0]);
-		} catch (final java.io.IOException e) {
-			System.out.printf("There was a problem reading from file %s%n", args[0]);
-		} catch (final NotCFBFileException e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }
