@@ -43,7 +43,7 @@ abstract class DataType {
 	static final int SIZEOF_LONG = Long.SIZE / Byte.SIZE;
 
 	/** The character encoding used for Unicode data.  */
-	private static final String CHARSET_WIDE = new String("UTF-16LE");
+	private static final String CHARSET_WIDE = "UTF-16LE";
 
 	/** Create an object of type DataType. */
 	protected DataType()
