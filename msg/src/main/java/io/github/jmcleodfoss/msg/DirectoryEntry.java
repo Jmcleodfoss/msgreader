@@ -408,12 +408,12 @@ public class DirectoryEntry {
 	*/
 	public String toString()
 	{
-		return String.format("name %s\n" +
-			"starting sector %d (0x%08x) size %d\n" +
-			"object type %s\n" +
-			"left sibling 0x%08x right sibling 0x%08x child 0x%08x\n" +
-			"class ID %s\n" +
-			"created %s modified %s\n",
+		return String.format("name %s%n" +
+			"starting sector %d (0x%08x) size %d%n" +
+			"object type %s%n" +
+			"left sibling 0x%08x right sibling 0x%08x child 0x%08x%n" +
+			"class ID %s%n" +
+			"created %s modified %s%n",
 		directoryEntryName,
 		startingSectorLocation, startingSectorLocation, streamSize,
 		objectType.toString(),

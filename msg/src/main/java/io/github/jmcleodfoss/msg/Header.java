@@ -317,10 +317,10 @@ class Header {
 	@Override
 	public String toString()
 	{
-		return String.format("sector size 0x%04x mini sector size 0x%04x\n" +
-		"dir sectors %d starting at %s\n" +
-		"FAT sectors %d\n" +
-		"mini FAT sectors %d starting at %s\n" +
+		return String.format("sector size 0x%04x mini sector size 0x%04x%n" +
+		"dir sectors %d starting at %s%n" +
+		"FAT sectors %d%n" +
+		"mini FAT sectors %d starting at %s%n" +
 		"DIFAT sectors %d starting at %s",
 		sectorSize, miniSectorSize,
 		numberOfDirectorySectors, Sector.getDescription(firstDirectorySectorLocation),

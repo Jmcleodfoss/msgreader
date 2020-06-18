@@ -247,7 +247,7 @@ class FAT {
 
 				System.out.println("FAT contents");
 				for (int i = 0; i < fat.numEntries; ++i)
-					System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
+					System.out.printf("%d: %s%n", i, Sector.getDescription(fat.fat[i]));
 
 				System.out.println("\nFAT sector chains");
 				System.out.println(fat.getChainsAsString());
