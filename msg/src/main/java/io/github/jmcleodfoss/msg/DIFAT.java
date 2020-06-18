@@ -147,7 +147,11 @@ class DIFAT {
 				KVPEntry<Integer, Integer> e = fatchain.next();
 				System.out.printf("FAT sector %d index %d%n", e.getKey(), e.getValue());
 			}
-		} catch (final Exception e) {
+		} catch (final java.io.FileNotFoundException e) {
+			System.out.printf("File %s not found%n", args[0]);
+		} catch (final java.io.IOException e) {
+			System.out.printf("There was a problem reading from file %s%n", args[0]);
+		} catch (final NotCFBFileException e) {
 			e.printStackTrace(System.out);
 		}
 	}
