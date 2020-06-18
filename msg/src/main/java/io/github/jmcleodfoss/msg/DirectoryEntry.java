@@ -917,41 +917,44 @@ public class DirectoryEntry {
 	}
 
 	/** Test this class by printing out the directory entries
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
+	*	@param	args	The msg file(s) to display the directory entries of
 	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [msg-file ...]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);
-			MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+		for (String a: args) {
+			try {
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
-			int i = 0;
-			while (iterator.hasNext()){
-				DirectoryEntry de = iterator.next();
-				System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s%n",
-					i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
-				byte[] data = de.getContent(mbb, header, fat, miniFAT);
-				if (data != null)
-					System.out.println(de.getDataAsText(data));
-				System.out.println();
-				++i;
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				FAT fat = new FAT(mbb, header, difat);
+				Directory directory = new Directory(mbb, header, fat);
+				MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+
+				java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
+				int i = 0;
+				while (iterator.hasNext()){
+					DirectoryEntry de = iterator.next();
+					System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s%n",
+						i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
+					byte[] data = de.getContent(mbb, header, fat, miniFAT);
+					if (data != null)
+						System.out.println(de.getDataAsText(data));
+					System.out.println();
+					++i;
+				}
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
 			}
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }
