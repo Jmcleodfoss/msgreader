@@ -224,43 +224,46 @@ class FAT {
 	}
 
 	/**	Test this class by reading in the FAT index table and printing it out.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
+	*	@param	args	The msg file(s) to display the FAT for.
 	*/
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.FAT msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.FAT msg-file [msg-file ,,,]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			FAT fat = new FAT(mbb, header, difat);
+		for (String a: args) {
+			try {
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			System.out.println("FAT contents");
-			for (int i = 0; i < fat.numEntries; ++i)
-				System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				FAT fat = new FAT(mbb, header, difat);
 
-			System.out.println("\nFAT sector chains");
-			System.out.println(fat.getChainsAsString());
+				System.out.println("FAT contents");
+				for (int i = 0; i < fat.numEntries; ++i)
+					System.out.printf("%d: %s\n", i, Sector.getDescription(fat.fat[i]));
 
-			System.out.println("\nFAT free sectors");
-			StringBuilder s = new StringBuilder();
-			java.util.Iterator<Integer> iter = fat.freeSectorIterator();
-			while (iter.hasNext()){
-				if (s.length() > 0)
-					s.append(" ");
-				s.append(iter.next());
+				System.out.println("\nFAT sector chains");
+				System.out.println(fat.getChainsAsString());
+
+				System.out.println("\nFAT free sectors");
+				StringBuilder s = new StringBuilder();
+				java.util.Iterator<Integer> iter = fat.freeSectorIterator();
+				while (iter.hasNext()){
+					if (s.length() > 0)
+						s.append(" ");
+					s.append(iter.next());
+				}
+				System.out.println(s);
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
 			}
-			System.out.println(s);
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }

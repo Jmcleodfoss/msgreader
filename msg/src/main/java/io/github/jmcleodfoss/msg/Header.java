@@ -330,32 +330,35 @@ class Header {
 	}
 
 	/** Test this class by reading in the MSG file header and printing it out.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
+	*	@param	args	The msg file(s) to shoow the header for.
 	*/
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Header msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Header msg-file [msg-file ...]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			System.out.println(header);
+		for (String a: args) {
+			try {
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			System.out.println();
-			java.util.Iterator<KVPEntry<String, String>> i = header.data().iterator();
-			while (i.hasNext()){
-				KVPEntry<String, String> kvp = i.next();
-				System.out.println(kvp);
+				Header header = new Header(mbb, fc.size());
+				System.out.println(header);
+
+				System.out.println();
+				java.util.Iterator<KVPEntry<String, String>> i = header.data().iterator();
+				while (i.hasNext()){
+					KVPEntry<String, String> kvp = i.next();
+					System.out.println(kvp);
+				}
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
 			}
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }

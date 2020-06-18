@@ -195,34 +195,37 @@ class MiniFAT {
 	}
 
 	/** Test this class by reading in the mini FAT index table and printing it out.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to processed and a log level.
+	*	@param	args	The msg file(s) to display the mini FAT index table for.
 	*/
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.MiniFAT msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.MiniFAT msg-file [msg-file ...]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);
-			MiniFAT minifat = new MiniFAT(mbb, header, fat, directory);
+		for (String a: args) {
+			try {
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			System.out.println("Mini FAT contents");
-			for (int i = 0; i < minifat.miniFATSectors.length; ++i)
-				System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
-			System.out.println("\nMini FAT sector chains");
-			System.out.printf(minifat.getChains());
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				FAT fat = new FAT(mbb, header, difat);
+				Directory directory = new Directory(mbb, header, fat);
+				MiniFAT minifat = new MiniFAT(mbb, header, fat, directory);
+
+				System.out.println("Mini FAT contents");
+				for (int i = 0; i < minifat.miniFATSectors.length; ++i)
+					System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
+				System.out.println("\nMini FAT sector chains");
+				System.out.printf(minifat.getChains());
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
+			}
 		}
 	}
 }

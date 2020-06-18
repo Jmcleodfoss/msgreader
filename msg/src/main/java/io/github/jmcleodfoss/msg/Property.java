@@ -277,43 +277,46 @@ public abstract class Property
 	}
 
 	/** Test this class by printing out the properties and property values.
-	*	@param	args	The command line arguments to the test application; this is expected to be a MSG file to be processed and a log level.
+	*	@param	args	The msg file(s) to show the properties and vlaues for.
 	*/
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {
-			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [log-level]");
+			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [msg-file ...]");
 			System.exit(1);
 		}
-		try {
-			java.io.File file = new java.io.File(args[0]);
-			java.io.FileInputStream stream = new java.io.FileInputStream(file);
-			java.nio.channels.FileChannel fc = stream.getChannel();
-			java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			Header header = new Header(mbb, fc.size());
-			DIFAT difat = new DIFAT(mbb, header);
-			FAT fat = new FAT(mbb, header, difat);
-			Directory directory = new Directory(mbb, header, fat);
-			MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
-			NamedProperties namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+		for (String a: args) {
+			try {
+				java.io.File file = new java.io.File(a);
+				java.io.FileInputStream stream = new java.io.FileInputStream(file);
+				java.nio.channels.FileChannel fc = stream.getChannel();
+				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-			java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
-			while (iter.hasNext()) {
-				DirectoryEntry propertiesEntry = iter.next();
-				if (directory.parents.get(propertiesEntry).equals(directory.entries.get(0))) {
-					byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
-					java.util.Iterator<Property> properties = propertiesEntry.propertiesAsList(data, propertiesEntry, namedProperties).iterator();
-					while (properties.hasNext()) {
-						Property property = properties.next();
-						System.out.printf("0x%08x %s: %s%n",  property.propertyTag, property.propertyName, property.value());
+				Header header = new Header(mbb, fc.size());
+				DIFAT difat = new DIFAT(mbb, header);
+				FAT fat = new FAT(mbb, header, difat);
+				Directory directory = new Directory(mbb, header, fat);
+				MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+				NamedProperties namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+
+				java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
+				while (iter.hasNext()) {
+					DirectoryEntry propertiesEntry = iter.next();
+					if (directory.parents.get(propertiesEntry).equals(directory.entries.get(0))) {
+						byte[] data = propertiesEntry.getContent(mbb, header, fat, miniFAT);
+						java.util.Iterator<Property> properties = propertiesEntry.propertiesAsList(data, propertiesEntry, namedProperties).iterator();
+						while (properties.hasNext()) {
+							Property property = properties.next();
+							System.out.printf("0x%08x %s: %s%n",  property.propertyTag, property.propertyName, property.value());
+						}
+						break;
 					}
-					break;
 				}
+			} catch (final Exception e) {
+				e.printStackTrace(System.out);
 			}
-		} catch (final Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 }
