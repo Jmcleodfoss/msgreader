@@ -218,7 +218,7 @@ class MiniFAT {
 
 			System.out.println("Mini FAT contents");
 			for (int i = 0; i < minifat.miniFATSectors.length; ++i)
-				System.out.printf("%d: 0x%08x\n", i, minifat.miniFATSectors[i]);
+				System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
 			System.out.println("\nMini FAT sector chains");
 			System.out.printf(minifat.getChains());
 		} catch (final Exception e) {

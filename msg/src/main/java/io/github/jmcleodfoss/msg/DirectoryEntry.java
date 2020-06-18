@@ -942,7 +942,7 @@ public class DirectoryEntry {
 			int i = 0;
 			while (iterator.hasNext()){
 				DirectoryEntry de = iterator.next();
-				System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s\n",
+				System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s%n",
 					i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
 				byte[] data = de.getContent(mbb, header, fat, miniFAT);
 				if (data != null)

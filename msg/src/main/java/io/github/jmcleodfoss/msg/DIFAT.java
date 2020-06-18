@@ -82,7 +82,7 @@ class DIFAT {
 				al.position(currentSector*header.intsPerSector());
 				final int sectorSignature = al.get();
 				if (sectorSignature != Sector.DIFSECT){
-					System.out.printf("Invalid sector signature for DIFAT: found 0x%08x expected 0x%08x\n", sectorSignature, Sector.DIFSECT);
+					System.out.printf("Invalid sector signature for DIFAT: found 0x%08x expected 0x%08x%n", sectorSignature, Sector.DIFSECT);
 				}
 			}
 
@@ -145,7 +145,7 @@ class DIFAT {
 			java.util.Iterator<KVPEntry<Integer, Integer>> fatchain = data.iterator();
 			while (fatchain.hasNext()){
 				KVPEntry<Integer, Integer> e = fatchain.next();
-				System.out.printf("FAT sector %d index %d\n", e.getKey(), e.getValue());
+				System.out.printf("FAT sector %d index %d%n", e.getKey(), e.getValue());
 			}
 		} catch (final Exception e) {
 			e.printStackTrace(System.out);

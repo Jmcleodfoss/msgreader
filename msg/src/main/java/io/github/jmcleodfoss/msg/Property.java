@@ -307,7 +307,7 @@ public abstract class Property
 					java.util.Iterator<Property> properties = propertiesEntry.propertiesAsList(data, propertiesEntry, namedProperties).iterator();
 					while (properties.hasNext()) {
 						Property property = properties.next();
-						System.out.printf("0x%08x %s: %s\n",  property.propertyTag, property.propertyName, property.value());
+						System.out.printf("0x%08x %s: %s%n",  property.propertyTag, property.propertyName, property.value());
 					}
 					break;
 				}

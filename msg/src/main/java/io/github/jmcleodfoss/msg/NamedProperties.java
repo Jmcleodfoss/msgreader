@@ -252,13 +252,13 @@ class NamedProperties
 			java.util.Iterator<Integer> iter_i = namedPropertiesMapping.stringsByOffset.keySet().iterator();
 			while (iter_i.hasNext()){
 				int key = iter_i.next();
-				System.out.printf("0x%04x: %s\n", key, namedPropertiesMapping.stringsByOffset.get(key));
+				System.out.printf("0x%04x: %s%n", key, namedPropertiesMapping.stringsByOffset.get(key));
 			}
 
 			System.out.println();
 			System.out.println("Entries");
 			for (int i = 0; i < namedPropertiesMapping.propertyNameMappings.length; ++i)
-				System.out.printf("%s GUID %s\n",
+				System.out.printf("%s GUID %s%n",
 					namedPropertiesMapping.propertyNameMappings[i],
 					namedPropertiesMapping.indexToGUID(namedPropertiesMapping.propertyNameMappings[i].guidIndex)
 					);
