@@ -88,13 +88,13 @@ public class MsgExplorer extends javafx.application.Application
 			try {
 				msg = new MSG(pathAndFileName);
 			} catch (final java.io.FileNotFoundException e) {
-				System.out.printf("Error: %s not found\n", pathAndFileName);
+				System.out.printf("Error: %s not found%n", pathAndFileName);
 				msg = null;
 			} catch (final NotCFBFileException e) {
-				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
+				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);
 				msg = null;
 			} catch (final java.io.IOException e) {
-				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
+				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);
 				msg = null;
 			}
 
