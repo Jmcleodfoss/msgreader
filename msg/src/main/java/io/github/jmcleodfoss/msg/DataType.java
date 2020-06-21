@@ -58,7 +58,7 @@ abstract class DataType {
 	{
 		try {
 			return new String(arr, CHARSET_WIDE);
-		} catch (java.io.UnsupportedEncodingException e){
+		} catch (final java.io.UnsupportedEncodingException e){
 			// UTF-16 should be supported everywhere by now.
 			return "";
 		}
@@ -376,7 +376,7 @@ abstract class DataType {
 		private static final java.util.Date PST_BASE_TIME = initBaseTime();
 
 		/** The format to use when converting time objects to strings. */
-		private static final java.text.SimpleDateFormat OUTPUT_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
+		private final java.text.SimpleDateFormat OUTPUT_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
 
 		/** Create a reader/display object for a PTypTime value */
 		private Time()
