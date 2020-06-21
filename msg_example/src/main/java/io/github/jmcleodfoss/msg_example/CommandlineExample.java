@@ -31,7 +31,7 @@ public class CommandlineExample
 	private static final String OPTION_SAVE_ATTACHMENTS = "-s";
 
 	/** Format for displaying attachments and the description thereof */
-	private static final String ATTACHMENT_INFO_FORMAT = "%-25s %-30s %-10s\n";
+	private static final String ATTACHMENT_INFO_FORMAT = "%-25s %-30s %-10s%n";
 
 	/* Retrieve the value of a propertyTag
 	*	@param	msg	The msg file object
@@ -61,10 +61,10 @@ public class CommandlineExample
 		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
 
 		// Show selected properties
-		System.out.printf("%s: %s\n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
-		System.out.printf("From %s (%s)\n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
-		System.out.printf("%s: %s\n", "Subject", getPropertyValue(msg, properties, PropertyTags.PidTagSubject));
-		System.out.printf("%s: %s\n", "Message", getPropertyValue(msg, properties, PropertyTags.PidTagBody));
+		System.out.printf("%s: %s%n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
+		System.out.printf("From %s (%s)%n", getPropertyValue(msg, properties, PropertyTags.PidTagSenderName), getPropertyValue(msg, properties, PropertyTags.PidTagSenderEmailAddress));
+		System.out.printf("%s: %s%n", "Subject", getPropertyValue(msg, properties, PropertyTags.PidTagSubject));
+		System.out.printf("%s: %s%n", "Message", getPropertyValue(msg, properties, PropertyTags.PidTagBody));
 
 		// Show recipients
 		Iterator<DirectoryEntryData> recipients = msg.recipients();
@@ -75,7 +75,7 @@ public class CommandlineExample
 		}
 		while (recipients.hasNext()){
 			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
-			System.out.printf("To: %s (%s)\n", getPropertyValue(msg, m, PropertyTags.PidTagDisplayName), getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress));
+			System.out.printf("To: %s (%s)%n", getPropertyValue(msg, m, PropertyTags.PidTagDisplayName), getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress));
 		}
 
 		// Show attachment data
@@ -119,7 +119,7 @@ public class CommandlineExample
 						FileChannel fc = new FileOutputStream(attachment).getChannel();
 						fc.write(ByteBuffer.wrap(msg.getFile(c)));
 						fc.close();
-						System.out.printf("Saved attachment %s as %s\n", name, attachment.getAbsolutePath());
+						System.out.printf("Saved attachment %s as %s%n", name, attachment.getAbsolutePath());
 						break;
 					}
 				}
@@ -167,11 +167,11 @@ public class CommandlineExample
 			try {
 				showMsgFile(f, fSaveAttachments);
 			} catch (FileNotFoundException e) {
-				System.out.printf("Error: %s not found\n", f);
+				System.out.printf("Error: %s not found%n", f);
 			} catch (IOException e) {
-				System.out.printf("Error reading %s or writing one of its attachments (if save requested)\n", f);
+				System.out.printf("Error reading %s or writing one of its attachments (if save requested)%n", f);
 			} catch (NotCFBFileException e) {
-				System.out.printf("Error: %s is not a compound binary file format or msg file\n", f);
+				System.out.printf("Error: %s is not a compound binary file format or msg file%n", f);
 			}
 		}
 	}
