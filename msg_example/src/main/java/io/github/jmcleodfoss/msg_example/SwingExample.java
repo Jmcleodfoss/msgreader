@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 import javax.swing.Box;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -80,7 +81,9 @@ public class SwingExample extends JFrame
 				setTitle("msg Explorer");
 				SwingExample.this.add(msgDisplay = get(), BorderLayout.CENTER);
 				SwingExample.this.pack();
-			} catch (Exception e) { }
+			} catch (InterruptedException e) {
+			} catch (ExecutionException e) {
+			}
 		}
 	}
 
@@ -134,7 +137,9 @@ public class SwingExample extends JFrame
 							FileChannel fCh = new FileOutputStream(attachment).getChannel();
 							fCh.write(ByteBuffer.wrap(msg.getFile(c)));
 							fCh.close();
-						} catch (Exception ex) {
+						} catch (FileNotFoundException ex) {
+							filesWithErrors.add(attachmentName);
+						} catch (IOException ex) {
 							filesWithErrors.add(attachmentName);
 						}
 						break;
@@ -157,7 +162,9 @@ public class SwingExample extends JFrame
 				for (String f: filesWithErrors)
 					sb.append(f + "\n");
 				JOptionPane.showMessageDialog(null, "Problem saving attachments", sb.toString(), JOptionPane.ERROR_MESSAGE);
-			} catch (Exception e) { }
+			} catch (InterruptedException e) {
+			} catch (ExecutionException e) {
+			}
 		}
 	}
 
@@ -224,7 +231,9 @@ public class SwingExample extends JFrame
 							msg.close();
 							msg = null;
 						}
-					} catch (IOException ex) { /* not much we can do here, so go on. */ }
+					} catch (IOException ex) {
+						ex.printStackTrace(System.out);
+					}
 					if (msgDisplay != null)
 						SwingExample.this.remove(msgDisplay);
 					new NewFileLoader(fc.getSelectedFile().toString()).execute();
@@ -240,7 +249,9 @@ public class SwingExample extends JFrame
 				try {
 					if (msg != null)
 						msg.close();
-				} catch (IOException ex) { /* not much we can do here, so go on. */ }
+				} catch (IOException ex) {
+					ex.printStackTrace(System.out);
+				}
 				dispose();
 			}
 		});
