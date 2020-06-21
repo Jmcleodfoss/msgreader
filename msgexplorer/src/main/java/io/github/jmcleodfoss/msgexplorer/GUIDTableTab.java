@@ -28,7 +28,7 @@ class GUIDTableTab extends Tab
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
 	/** A row in the GUID table */
-	public class GUIDRow {
+	static public class GUIDRow {
 		/** The GUID */
 		private StringProperty guid;
 		private StringProperty guidProperty()

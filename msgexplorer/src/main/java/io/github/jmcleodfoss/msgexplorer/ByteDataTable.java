@@ -57,7 +57,7 @@ class ByteDataTable extends TableView<ByteDataTable.Row>
 	}
 
 	/** Renderer for Bytes as text. */
-	public class HexTableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
+	static public class HexTableCell extends ListPropertyEntryValueFactory<Byte, Row, String>
 	{
 		/** Constructor for Byte-renderer.
 		*	@param	property	The name of the list property member variable in the table row object (Row)

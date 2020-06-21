@@ -30,7 +30,7 @@ class NamedPropertiesTableTab extends Tab
 	static private final String NUMERICAL_AND_STRING_ENTRIES_GUID_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.guid-index-heading";
 
 	/** A row in the display table */
-	public class NamedPropertyRow {
+	static public class NamedPropertyRow {
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntryProperty()
 		{

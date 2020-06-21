@@ -28,7 +28,7 @@ class PropertyTableTab extends Tab
 	static private final String PROPERTY_VALUE_HEADING = "directory.entry.properties-values.value-heading";
 
 	/** A row in the property display table. */
-	public class PropertyRow
+	static public class PropertyRow
 	{
 		private ObjectProperty<Property> property;
 		private ObjectProperty<Property> propertyProperty()
