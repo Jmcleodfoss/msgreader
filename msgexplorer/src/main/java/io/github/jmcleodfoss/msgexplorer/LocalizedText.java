@@ -9,9 +9,6 @@ class LocalizedText
 	/** The name of the resource bundle to load. */
 	private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgexplorer.text";
 
-	/** The locale we are running it. */
-	private Locale locale;
-
 	/** The resource bundle with localized text. There is an English version of this showing all the property names and their English values. */
 	private ResourceBundle resources;
 
@@ -26,7 +23,6 @@ class LocalizedText
 	*/
 	LocalizedText(java.util.Locale locale)
 	{
-		this.locale = locale;
 		resources = ResourceBundle.getBundle(RESOURCE_SOURCE, locale, this.getClass().getClassLoader());
 	}
 
