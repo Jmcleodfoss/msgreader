@@ -81,8 +81,8 @@ public class SwingExample extends JFrame
 				setTitle("msg Explorer");
 				SwingExample.this.add(msgDisplay = get(), BorderLayout.CENTER);
 				SwingExample.this.pack();
-			} catch (InterruptedException e) {
-			} catch (ExecutionException e) {
+			} catch (final InterruptedException e) {
+			} catch (final ExecutionException e) {
 			}
 		}
 	}
@@ -137,9 +137,9 @@ public class SwingExample extends JFrame
 							FileChannel fCh = new FileOutputStream(attachment).getChannel();
 							fCh.write(ByteBuffer.wrap(msg.getFile(c)));
 							fCh.close();
-						} catch (FileNotFoundException ex) {
+						} catch (final FileNotFoundException ex) {
 							filesWithErrors.add(attachmentName);
-						} catch (IOException ex) {
+						} catch (final IOException ex) {
 							filesWithErrors.add(attachmentName);
 						}
 						break;
@@ -162,8 +162,8 @@ public class SwingExample extends JFrame
 				for (String f: filesWithErrors)
 					sb.append(f + "\n");
 				JOptionPane.showMessageDialog(null, "Problem saving attachments", sb.toString(), JOptionPane.ERROR_MESSAGE);
-			} catch (InterruptedException e) {
-			} catch (ExecutionException e) {
+			} catch (final InterruptedException e) {
+			} catch (final ExecutionException e) {
 			}
 		}
 	}
@@ -231,7 +231,7 @@ public class SwingExample extends JFrame
 							msg.close();
 							msg = null;
 						}
-					} catch (IOException ex) {
+					} catch (final IOException ex) {
 						ex.printStackTrace(System.out);
 					}
 					if (msgDisplay != null)
@@ -249,7 +249,7 @@ public class SwingExample extends JFrame
 				try {
 					if (msg != null)
 						msg.close();
-				} catch (IOException ex) {
+				} catch (final IOException ex) {
 					ex.printStackTrace(System.out);
 				}
 				dispose();
@@ -274,13 +274,13 @@ public class SwingExample extends JFrame
 		// Read the msg file. Display an error message and return an empty component on error.
 		try {
 			msg = new MSG(filename);
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.toString(), String.format("%s not found", filename), JOptionPane.ERROR_MESSAGE);
 			return Box.createHorizontalBox();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			JOptionPane.showMessageDialog(null, e.toString(), String.format("Error reading %s", filename), JOptionPane.ERROR_MESSAGE);
 			return Box.createHorizontalBox();
-		} catch (NotCFBFileException e) {
+		} catch (final NotCFBFileException e) {
 			JOptionPane.showMessageDialog(null, e.toString(), String.format("%s is not a .msg file", filename), JOptionPane.ERROR_MESSAGE);
 			return Box.createHorizontalBox();
 		}
