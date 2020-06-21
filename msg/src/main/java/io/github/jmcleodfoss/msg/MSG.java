@@ -137,11 +137,11 @@ public class MSG
 			l.add(new KVPEntry<String, String>(entryName, getFATChainString(chain.iterator())));
 		}
 
-		java.util.Iterator<String> iter = mandatoryEntries.keySet().iterator();
+		java.util.Iterator<java.util.Map.Entry<String, Boolean>> iter = mandatoryEntries.entrySet().iterator();
 		while (iter.hasNext()){
-			String entryName = iter.next();
-			if (!mandatoryEntries.get(entryName))
-				l.add(new KVPEntry<String, String>(entryName, ""));
+			java.util.Map.Entry<String, Boolean> entry = iter.next();
+			if (!entry.getValue())
+				l.add(new KVPEntry<String, String>(entry.getKey(), ""));
 		}
 
 		l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
