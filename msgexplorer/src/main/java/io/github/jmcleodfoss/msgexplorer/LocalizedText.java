@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 class LocalizedText
 {
 	/** The name of the resource bundle to load. */
-	private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgexplorer.text";
+	static private final String RESOURCE_SOURCE = "io.github.jmcleodfoss.msgexplorer.text";
 
 	/** The resource bundle with localized text. There is an English version of this showing all the property names and their English values. */
 	private ResourceBundle resources;
