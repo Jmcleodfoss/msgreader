@@ -26,7 +26,7 @@ class Directory {
 	/** Ad hoc utility class to collect information from DirectoryEntry construction for use in final variables in Directory.
 	*	@see Directory#Directory
 	*/
-	class ConstructorData {
+	static class ConstructorData {
 
 		/** The attachment entries in the directory (including both those in the main message and any in attached message objects
 		*	@see Directory#attachmentEntries
