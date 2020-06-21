@@ -87,13 +87,13 @@ public class MsgExplorer extends javafx.application.Application
 		if (pathAndFileName != null) {
 			try {
 				msg = new MSG(pathAndFileName);
-			} catch (java.io.FileNotFoundException e) {
+			} catch (final java.io.FileNotFoundException e) {
 				System.out.printf("Error: %s not found\n", pathAndFileName);
 				msg = null;
-			} catch (NotCFBFileException e) {
+			} catch (final NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
 				msg = null;
-			} catch (java.io.IOException e) {
+			} catch (final java.io.IOException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file\n", pathAndFileName);
 				msg = null;
 			}

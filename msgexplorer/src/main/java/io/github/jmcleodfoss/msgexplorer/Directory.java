@@ -510,12 +510,12 @@ class Directory extends Tab
 			FileChannel fc = new FileOutputStream(file).getChannel();
 			fc.write(ByteBuffer.wrap(msg.getFile(de)));
 			fc.close();
-		} catch (FileNotFoundException ex){
+		} catch (final FileNotFoundException ex){
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setHeaderText("File not found");
 			alert.setContentText(String.format("File \"%s\" was not found", file.getAbsolutePath()));
 			alert.showAndWait();
-		} catch (IOException ex){
+		} catch (final IOException ex){
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setHeaderText("I/O Error");
 			alert.setContentText(String.format("An I/O error was encountered when trying to write \"%s\"", file.getAbsolutePath()));
