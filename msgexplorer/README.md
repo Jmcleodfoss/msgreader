@@ -30,7 +30,7 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
 2. The location of the javafx jar files is the "<module-path>" in the command below
 3. Add msgexplorer to the class path (the msgexplorer jar file already includes the non-JavaFX dependencies)
 4. Run via
-    java --module-path <module-path> --add-modules javafx.controls io.github.jmcleodfoss.msgexplorer.MsgExplorer [msg-file]
+    `java --module-path <module-path> --add-modules javafx.controls io.github.jmcleodfoss.msgexplorer.MsgExplorer [msg-file]`
 
 ## Version 1.0.0
 * [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msgexplorer/1.0.0/io.github.jmcleodfoss.msgexplorer/module-summary.html)
