@@ -37,7 +37,7 @@ TestMSGIndependentModule() {
 	declare output=$results_dir/${class#io.github.jmcleodfoss.*.*}.out
 	echo "
 $(date +%H:%M:%S): starting $class test" >> $stats
-	java -cp "$cp" $class "$@" > "$output"
+	java -cp "$cp" "$class" "$@" > "$output"
 	echo "$(date +%H:%M:%S): done $class test" >> $stats
 }
 
@@ -48,7 +48,7 @@ TestModule() {
 	declare output=$(GetTestDirectory "$1")/${class#io/github/jmcleodfoss/*/*}.out
 	echo "
 $(date +%H:%M:%S): starting $class test" >> $stats
-	java -cp "$cp" $class "$@" > "$output"
+	java -cp "$cp" "$class" "$@" > "$output"
 	echo "$(date +%H:%M:%S): done $class test" >> $stats
 }
 
