@@ -36,9 +36,9 @@ TestMSGIndependentModule() {
 
 	declare output=$results_dir/${class#io.github.jmcleodfoss.*.*}.out
 	echo "
-"$(date +%H:%M:%S)": starting $class test" >> $stats
+$(date +%H:%M:%S): starting $class test" >> $stats
 	java $options -cp "$cp" $class "$@" > "$output"
-	echo $(date +%H:%M:%S)": done $class test" >> $stats
+	echo "$(date +%H:%M:%S): done $class test" >> $stats
 }
 
 TestModule() {
@@ -47,9 +47,9 @@ TestModule() {
 
 	declare output=$(GetTestDirectory "$1")/${class#io/github/jmcleodfoss/*/*}.out
 	echo "
-"$(date +%H:%M:%S)": starting $class test" >> $stats
+$(date +%H:%M:%S): starting $class test" >> $stats
 	java $options -cp "$cp" $class "$@" > "$output"
-	echo $(date +%H:%M:%S)": done $class test" >> $stats
+	echo "$(date +%H:%M:%S): done $class test" >> $stats
 }
 
 TestMSGFile() {
@@ -75,7 +75,7 @@ if [ ! -d $results_dir ]; then
 	mkdir $results_dir
 fi
 
-echo "Starting tests at " $(date +%H:%M:%S) > $stats
+echo "Starting tests at $(date +%H:%M:%S)" > $stats
 
 # Tests which have the same output for all pst files.
 TestMSGIndependentModule io.github.jmcleodfoss.msg.GUID
@@ -85,7 +85,7 @@ for msg in "$input_dir"/*.msg; do
 	TestMSGFile "$msg"
 done
 
-echo "Ending tests at " $(date +%H:%M:%S) >> $stats
+echo "Ending tests at $(date +%H:%M:%S)" >> $stats
 
 declare result=$(grep -e java\.lang\..*Exception -e [a-n]Exception $results_dir/*/*.out)
 if [[ $? -gt 0 ]]; then
