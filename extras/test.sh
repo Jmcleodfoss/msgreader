@@ -26,7 +26,8 @@ fi
 
 
 GetTestDirectory() {
-	declare temp=$(basename "$1")
+	declare temp
+	temp=$(basename "$1")
 	echo "$results_dir/${temp%.pst}"
 }
 
@@ -45,7 +46,8 @@ TestModule() {
 	declare class=$1
 	shift
 
-	declare output=$(GetTestDirectory "$1")/${class#io/github/jmcleodfoss/*/*}.out
+	declare output
+	output=$(GetTestDirectory "$1")/${class#io/github/jmcleodfoss/*/*}.out
 	echo "
 $(date +%H:%M:%S): starting $class test" >> $stats
 	java -cp "$cp" "$class" "$@" > "$output"
@@ -54,7 +56,8 @@ $(date +%H:%M:%S): starting $class test" >> $stats
 
 TestMSGFile() {
 	declare msg="$1"
-	declare output_dir=$(GetTestDirectory "$msg")
+	declare output_dir
+	output_dir=$(GetTestDirectory "$msg")
 	if [ ! -d "$output_dir" ]; then
 		mkdir "$output_dir"
 	fi
