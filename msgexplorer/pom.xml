@@ -21,7 +21,7 @@
 	<repositories>
 		<repository>
 			<id>ICM</id>
-			<url>http://maven.icm.edu.pl/artifactory/repo/</url>
+			<url>https://maven.icm.edu.pl/artifactory/repo/</url>
 		</repository>
 	</repositories>
 
