@@ -1,3 +1,4 @@
+![MIT License](https://img.shields.io/badge/license-MIT-green) ![Codacy Security Scan](https://github.com/Jmcleodfoss/msgreader/workflows/Codacy%20Security%20Scan/badge.svg) ![CodeQL](https://github.com/Jmcleodfoss/msgreader/workflows/CodeQL/badge.svg) ![Xanitizer Security Analysis](https://github.com/Jmcleodfoss/msgreader/workflows/Xanitizer%20Security%20Analysis/badge.svg) 
 # msgreader
 Java library for reading Microsoft Compound File Binary (CFB) Files, including Outlook .msg files.
 
