@@ -89,5 +89,5 @@ echo "Ending tests at $(date +%H:%M:%S)" >> $stats
 
 declare result=$(grep -e java\.lang\..*Exception -e [a-n]Exception $results_dir/*/*.out)
 if [[ $? -gt 0 ]]; then
-	echo "Errors found\n$result"
+	printf "Errors found\n$result"
 fi
