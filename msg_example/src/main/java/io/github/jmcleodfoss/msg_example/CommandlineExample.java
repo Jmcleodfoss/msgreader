@@ -93,7 +93,7 @@ public class CommandlineExample
 			String name = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
 			String mimeType = getPropertyValue(msg, m, PropertyTags.PidTagAttachMimeTag);
 			String size = m.get(PropertyTags.PidTagAttachDataBinary).value();
-			System.out.printf(ATTACHMENT_INFO_FORMAT, name, mimeType, PropertyTags.PidTagAttachDataBinary);
+			System.out.printf(ATTACHMENT_INFO_FORMAT, name, mimeType, size);
 
 			// Save attachment if requested
 			if (fSaveAttachments) {
