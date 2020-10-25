@@ -110,6 +110,8 @@ abstract class DataType {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/cc9d955b-1492-47de-9dce-5bdea80a3323">MS-OXPROPS Section 1.3.2: Commonly Used Property Sets</a>
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
+	// Note that this class name clashes with another class name in the package.
+	@SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
 	private static class GUID extends DataType {
 
 		/** The size of a GUID. */
