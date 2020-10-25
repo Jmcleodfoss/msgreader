@@ -34,6 +34,10 @@ class GUIDTableTab extends Tab
 	static public class GUIDRow {
 		/** The GUID */
 		private StringProperty guid;
+
+		/** The row number / GUID index */
+		private IntegerProperty index;
+
 		private StringProperty guidProperty()
 		{
 			if (guid == null)
@@ -49,8 +53,6 @@ class GUIDTableTab extends Tab
 			guidProperty().set(guid);
 		}
 
-		/** The row number / GUID index */
-		private IntegerProperty index;
 		private IntegerProperty indexProperty()
 		{
 			if (index == null)

@@ -33,6 +33,8 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 	/** Table row data, stored as to Strings to allow for localization by the calling function. */
 	public class TableData {
 		private StringProperty key;
+		private StringProperty value;
+
 		private StringProperty keyProperty()
 		{
 			if (key == null)
@@ -48,7 +50,6 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 			return keyProperty().get();
 		}
 
-		private StringProperty value;
 		private StringProperty valueProperty()
 		{
 			if (value == null)

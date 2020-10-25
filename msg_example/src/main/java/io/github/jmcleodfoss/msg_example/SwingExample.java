@@ -51,6 +51,15 @@ Use (assuming the jars for msg_example and msg are in the classpath):
 */
 public class SwingExample extends JFrame
 {
+	/** The msg file we are currently displaying (needed in case attachments are to be saved) */
+	private MSG msg;
+
+	/* The container for the message display. We need to preserve this so we can remove it cleanly on reading a new file. */
+	private Box msgDisplay;
+
+	/** The Save Attachments menu item; we preserve this so we can enable or disable it based on whether there are any attachments in the current file. */
+	private JMenuItem saveAttachmentsItem;
+
 	/** Worker class for loading new files */
 	class NewFileLoader extends SwingWorker<Box, Object>
 	{
@@ -186,15 +195,6 @@ public class SwingExample extends JFrame
 				new AttachmentsSaver(fc.getSelectedFile(), msg.attachments()).execute();
 		}
 	}
-
-	/** The msg file we are currently displaying (needed in case attachments are to be saved) */
-	private MSG msg;
-
-	/* The container for the message display. We need to preserve this so we can remove it cleanly on reading a new file. */
-	private Box msgDisplay;
-
-	/** The Save Attachments menu item; we preserve this so we can enable or disable it based on whether there are any attachments in the current file. */
-	private JMenuItem saveAttachmentsItem;
 
 	/** The constructor for the SwingExample application.
 	*   This sets up the frame and menu, and calls #readFile to read in the msg file and create the display.

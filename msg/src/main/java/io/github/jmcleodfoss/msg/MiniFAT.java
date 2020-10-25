@@ -5,6 +5,30 @@ package io.github.jmcleodfoss.msg;
 */
 class MiniFAT {
 
+	/** The number of bytes in a mini sector. This can be calculated using the Mini Sector Shift value in the header, but it's always the same.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
+	private static final int MINI_SECTOR_SIZE = 64;
+
+	/** The sector size (from the file header)
+	*	@see Header#sectorSize
+	*/
+	private final int sectorSize;
+
+	/** The number of mini sectors in a full sector. The size of a full sector is different for Version 3 and Version 4 files.
+	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
+	*/
+	private final int miniSectorsPerFullSector;
+
+	/** The number of mini FAT sectors */
+	private final int numEntries;
+
+	/** The mini FAT data */
+	private final int[] miniFATSectors;
+
+	/** The mini stream sectors. */
+	private java.util.ArrayList<Integer> miniSectors = new java.util.ArrayList<Integer>();
+
 	/** Iterator for Mini FAT index entry chains. This returns the offset of the next mini sector to read. */
 	private class ChainIterator implements java.util.Iterator<Integer> {
 
@@ -39,30 +63,6 @@ class MiniFAT {
 			return retval;
 		}
 	}
-
-	/** The number of bytes in a mini sector. This can be calculated using the Mini Sector Shift value in the header, but it's always the same.
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
-	*/
-	private static final int MINI_SECTOR_SIZE = 64;
-
-	/** The sector size (from the file header)
-	*	@see Header#sectorSize
-	*/
-	private final int sectorSize;
-
-	/** The number of mini sectors in a full sector. The size of a full sector is different for Version 3 and Version 4 files.
-	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
-	*/
-	private final int miniSectorsPerFullSector;
-
-	/** The number of mini FAT sectors */
-	private final int numEntries;
-
-	/** The mini FAT data */
-	private final int[] miniFATSectors;
-
-	/** The mini stream sectors. */
-	private java.util.ArrayList<Integer> miniSectors = new java.util.ArrayList<Integer>();
 
 	/** Read the Mini FAT
 	* 	@param	mbb	The data stream

@@ -45,6 +45,24 @@ abstract class DataType {
 	/** The character encoding used for Unicode data.  */
 	private static final String CHARSET_WIDE = "UTF-16LE";
 
+	/** A reader/display object for GUIDs. */
+	static final GUID classIdReader = new GUID();
+
+	/** The reader/display object for 8-bit integers. */
+	static final Integer8 integer8Reader = new Integer8();
+
+	/** The reader/display object for 16-bit. */
+	static final Integer16 integer16Reader = new Integer16();
+
+	/** The reader/display object for 32-bit integers. */
+	static final Integer32 integer32Reader = new Integer32();
+
+	/** The reader/display object for 64-bit integers. */
+	static final Integer64 integer64Reader = new Integer64();
+
+	/** A reader/display object for time values */
+	static final Time timeReader = new Time();
+
 	/** Create an object of type DataType. */
 	protected DataType()
 	{
@@ -154,9 +172,6 @@ abstract class DataType {
 		}
 	}
 
-	/** A reader/display object for GUIDs. */
-	static final GUID classIdReader = new GUID();
-
 	/** The Integer8 class describes how to read, display, and return the size of an 8-bit integer.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
@@ -190,9 +205,6 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/display object for 8-bit integers. */
-	static final Integer8 integer8Reader = new Integer8();
-
 	/** The Integer16 class describes how to read, display, and get the size of a 16-bit integer.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
@@ -225,9 +237,6 @@ abstract class DataType {
 			return 2;
 		}
 	}
-
-	/** The reader/display object for 16-bit. */
-	static final Integer16 integer16Reader = new Integer16();
 
 	/** The Integer32 class describes how to read, display, and get the size of a 32-bit integer.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
@@ -267,9 +276,6 @@ abstract class DataType {
 		}
 	}
 
-	/** The reader/display object for 32-bit integers. */
-	static final Integer32 integer32Reader = new Integer32();
-
 	/** The Integer64 class describes how to read, display, and get the size of a 64-bit integer.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
@@ -302,9 +308,6 @@ abstract class DataType {
 			return 8;
 		}
 	}
-
-	/** The reader/display object for 64-bit integers. */
-	static final Integer64 integer64Reader = new Integer64();
 
 	/** The SizedByteArray class describes how to read, display, and get the size of an array of bytes of known size
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
@@ -414,9 +417,6 @@ abstract class DataType {
 			return 8;
 		}
 	}
-
-	/** A reader/display object for time values */
-	static final Time timeReader = new Time();
 
 	/** The UnicodeString class describes how to read, display, and get the size of a UTF-16 string of known size.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>

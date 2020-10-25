@@ -27,6 +27,9 @@ class PropertyTableTab extends Tab
 	static private final String PROPERTY_FLAGS_HEADING = "directory.entry.properties-values.flags-heading";
 	static private final String PROPERTY_VALUE_HEADING = "directory.entry.properties-values.value-heading";
 
+	/** The table in which the properties are displayed. */
+	TableView<PropertyRow> table;
+
 	/** A row in the property display table. */
 	static public class PropertyRow
 	{
@@ -51,9 +54,6 @@ class PropertyTableTab extends Tab
 			setProperty(property);
 		}
 	}
-
-	/** The table in which the properties are displayed. */
-	TableView<PropertyRow> table;
 
 	/** Create the property display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
