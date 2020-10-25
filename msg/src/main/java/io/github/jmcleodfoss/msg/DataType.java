@@ -375,14 +375,16 @@ abstract class DataType {
 		*	@return	A Date object for the base time
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
+		@SuppressWarnings("PMD.AvoidThrowingRawExceptionTypes")
 		private static java.util.Date initBaseTime()
 		{
 			try {
 				final java.text.SimpleDateFormat PST_BASE_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy");
 				return PST_BASE_FORMAT.parse("January 1, 1601");
 			} catch (final java.text.ParseException e) {
-				e.printStackTrace(System.out);
-				System.exit(1);
+				// If this happens, the format defined above no longer matches the given date.
+				// This can't be handled by client code; it needs a change to the code above.
+				throw new RuntimeException(e);
 			}
 			return new java.util.Date();
 		}
