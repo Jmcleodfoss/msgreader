@@ -286,6 +286,7 @@ class Directory extends Tab
 	/** Create and populate the Directory display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
+	@SuppressWarnings("PMD.ExcessiveMessageLength")
 	Directory(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));
