@@ -131,9 +131,6 @@ class Header {
 		new DataDefinition(nm_NumberOfDIFATSectors, DataType.integer32Reader, true),
 	};
 
-	/** Size of the header block */
-	private static final int SIZE = DataDefinition.size(header_fields);
-
 	/** The data repository (preserved after constructor since we don't
 	*   read everything from it that we might want to display).
 	*/
