@@ -52,6 +52,8 @@ public class MSG
 		directory = new Directory(mbb, header, fat);
 		miniFAT = new MiniFAT(mbb, header, fat, directory);
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+
+		stream.close();
 	}
 
 	/** Get an iterator through all attachments in the msg file
