@@ -930,35 +930,44 @@ public class DirectoryEntry {
 		for (String a: args) {
 			try {
 				java.io.File file = new java.io.File(a);
+
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
-				java.nio.channels.FileChannel fc = stream.getChannel();
-				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+				try {
+					java.nio.channels.FileChannel fc = stream.getChannel();
+					java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+					mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-				Header header = new Header(mbb, fc.size());
-				DIFAT difat = new DIFAT(mbb, header);
-				FAT fat = new FAT(mbb, header, difat);
-				Directory directory = new Directory(mbb, header, fat);
-				MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+					Header header = new Header(mbb, fc.size());
+					DIFAT difat = new DIFAT(mbb, header);
+					FAT fat = new FAT(mbb, header, difat);
+					Directory directory = new Directory(mbb, header, fat);
+					MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
 
-				java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
-				int i = 0;
-				while (iterator.hasNext()){
-					DirectoryEntry de = iterator.next();
-					System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s%n",
-						i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
-					byte[] data = de.getContent(mbb, header, fat, miniFAT);
-					if (data != null)
-						System.out.println(de.getDataAsText(data));
-					System.out.println();
-					++i;
+					java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
+					int i = 0;
+					while (iterator.hasNext()){
+						DirectoryEntry de = iterator.next();
+						System.out.printf("0x%02x: left 0x%08x right 0x%08x child 0x%08x %s%n",
+							i, de.leftSiblingId, de.rightSiblingId, de.childId, de.objectType.toString());
+						byte[] data = de.getContent(mbb, header, fat, miniFAT);
+						if (data != null)
+							System.out.println(de.getDataAsText(data));
+						System.out.println();
+						++i;
+					}
+				} catch (final java.io.IOException e) {
+					System.out.printf("There was a problem reading from file %s%n", a);
+				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} finally {
+					try {
+						stream.close();
+					} catch (final java.io.IOException e) {
+						System.out.printf("There was a problem closing file %s%n", a);
+					}
 				}
 			} catch (final java.io.FileNotFoundException e) {
 				System.out.printf("File %s not found%n", a);
-			} catch (final java.io.IOException e) {
-				System.out.printf("There was a problem reading from file %s%n", a);
-			} catch (final NotCFBFileException e) {
-				e.printStackTrace(System.out);
 			}
 		}
 	}
