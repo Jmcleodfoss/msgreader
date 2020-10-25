@@ -453,7 +453,7 @@ class Directory extends Tab
 	private TreeItem<DirectoryEntryData> addEntry(MSG msg, DirectoryEntryData ded)
 	{
 		TreeItem<DirectoryEntryData> node = new TreeItem<DirectoryEntryData>(ded);
-		java.util.Iterator<DirectoryEntryData> iter = msg.getChildIterator(ded);
+		Iterator<DirectoryEntryData> iter = msg.getChildIterator(ded);
 		while (iter.hasNext())
 			node.getChildren().add(addEntry(msg, iter.next()));
 		return node;
