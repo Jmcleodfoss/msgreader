@@ -72,11 +72,6 @@ public class MsgExplorer extends Application
 	/** The tab for the msg file's directory tree */
 	private Directory directory;
 
-	/** Required constructor (needed by JavaFX framework) */
-	public MsgExplorer()
-	{
-	}
-
 	/** Open a new file and display the data
 	*	@param	pathAndFileName	the file to open
 	*	@param	stage	The current stage (used to set the window title)
