@@ -237,6 +237,7 @@ public abstract class Property
 	*	@param	parent	The Property directory entry's parent entry
 	*	@return	A Property object read out of the given ByteBuffer
 	*/
+	@SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
 	static Property factory(java.nio.ByteBuffer bb, NamedProperties namedProperties, DirectoryEntry parent)
 	{
 		int propertyTag = bb.getInt();
