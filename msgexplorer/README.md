@@ -28,6 +28,7 @@ This will put the Javadoc for all (private, package-private, protected, and publ
 Caveat: This is a JavaFX application, which complicates things. In time, I will release jar files for each major platform (Windows, Mac, Linux) which include the relevant JFX modules, but for this first release, I have not done so, which makes running the software complicated.
 1.  Install the required parts of JavaFX, by one of the following mechanisms:
     *   Install the [JavaFX SDK](https://gluonhq.com/products/javafx/)
+
     *   Download the JavaFX jars for your platform from Maven Central:
         *   [javafx-base-14-win.jar / javafx-base-mac.jar / javafx-base-14-linux.jar](https://mvnrepository.com/artifact/org.openjfx/javafx-base)
         *   [javafx-controls-14-win.jar / javafx-controls-14-mac.jar / javafx-controls-14-linux.jar](https://repo1.maven.org/maven2/org/openjfx/javafx-controls/14/)

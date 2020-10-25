@@ -26,6 +26,7 @@ As a file system, the includes a few of the standard components one might expect
     *   The file message properties
     *   A folder for each recipient
     *   A folder for each attachment
+
 *   Properties for both the main message and for each attachment and each recipient folder are stored im two ways:
     *   Short (\< 8 byte) fixed-width properties are stored in a file named "__properties_version1.0" which exists in each folder
     *   Fixed-width properties longer than 8 bytes and variable-length properties are stored on per entry in entries named like "__substg1.0_########" where ######## is the property tag, encoding the property ID and the property type.
