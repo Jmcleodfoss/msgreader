@@ -7,7 +7,7 @@ Additional useful material can be found in:
 *   [MS-OXPROPS: Exchange Server Protocols Master Property List](https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxprops/f6ab1613-aefe-447d-a49c-18217230b148)
 *   [MS-OXCDATA: Data Structures](https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/1afa0cd9-b1a0-4520-b623-bf15030af5d8)
 
-# .msg File Structure
+## .msg File Structure
 This is not intended to serve as an introduction to .msg files, but provides a brief overview of what a .msg file is and how it is stored.
 
 The .msg file format is built on top of a more generic format called the Compound File Binary Format, which describes a basic file system and directory structure which is stored within a single file. .msg files are stored using this file system, but other types of file can be as well. This library exposes some .msg-specific functionality, but should work for any CFB files if used carefully.
@@ -35,8 +35,8 @@ The public interface to .msg file properties is through a class called MSG (q.v.
 *   [io.github.jmcleodfoss.msg_example](https://github.com/Jmcleodfoss/msgreader/blob/master/msg_example/README.md).SwingExample, a relatively simple Swing application to display the same information as the CommandlineExample application
 *   [io.github.jmcleodfoss.msgexplorer](https://github.com/Jmcleodfoss/msgreader/blob/master/msgexplorer/README.md), a full-featured JavaFX application which allows viewing any part of a .msg file.
 
-# Versions #
-## 1.0.0 ##
+## Versions #
+### 1.0.0 ##
 Initial version
 *   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.0/io.github.jmcleodfoss.msg/module-summary.html)
 *   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msg-1.0.0.jar)
