@@ -31,7 +31,7 @@ public class MsgExplorer extends Application
 	private static final String APPLICATION_TITLE_DEFAULT = "application.title.default";
 	private static final String MENU_FILE = "menu.file";
 	private static final String MENU_FILE_OPEN = "menu.file.open";
-	private static final String MENU_FILE_EXIT = "menu.fil.exite";
+	private static final String MENU_FILE_EXIT = "menu.file.exit";
 	private static final String LOAD_FILE = "openfile.filechooser.title";
 	private static final String ALL_FILES = "openfile.filechooser.all-files";
 	private static final String MSG_FILES = "openfile.filechooser.msg-files";
