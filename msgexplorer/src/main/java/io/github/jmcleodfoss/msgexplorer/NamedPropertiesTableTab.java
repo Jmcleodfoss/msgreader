@@ -29,6 +29,9 @@ class NamedPropertiesTableTab extends Tab
 	static private final String NUMERICAL_AND_STRING_ENTRIES_PROPERTY_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.property-index-heading";
 	static private final String NUMERICAL_AND_STRING_ENTRIES_GUID_INDEX_HEADING = "directory.entry.namedproperties-numerical-and-string-entries.guid-index-heading";
 
+	/** The table displaying the String or Numerical Named Properties */
+	NamedPropertiesTable table;
+
 	/** A row in the display table */
 	static public class NamedPropertyRow {
 		private ObjectProperty<EntryStreamEntryData> namedPropertyEntry;
@@ -115,9 +118,6 @@ class NamedPropertiesTableTab extends Tab
 			setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		}
 	}
-
-	/** The table displaying the String or Numerical Named Properties */
-	NamedPropertiesTable table;
 
 	/** Create the Named Properties display table.
 	*   The final three parameters determine whether this is for displaying Numerical Named Properties or String Named Properties.
