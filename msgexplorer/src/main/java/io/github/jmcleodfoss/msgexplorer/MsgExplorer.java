@@ -112,7 +112,7 @@ public class MsgExplorer extends Application
 	*/
 	private MenuBar setupMenus(javafx.stage.Stage stage)
 	{
-		MenuItem open = new MenuItem(localizer.getText("menu.file.open"));
+		MenuItem open = new MenuItem(localizer.getText(MENU_FILE_OPEN));
 		fileChooser = new FileChooser();
 		open.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -130,7 +130,7 @@ public class MsgExplorer extends Application
 		});
 		open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN));
 
-		MenuItem exit = new MenuItem(localizer.getText("menu.file.exit"));
+		MenuItem exit = new MenuItem(localizer.getText(MENU_FILE_EXIT));
 		exit.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				Platform.exit();
@@ -138,7 +138,7 @@ public class MsgExplorer extends Application
 		});
 		exit.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
 
-		Menu fileMenu = new Menu(localizer.getText("menu.file"), null, open, exit);
+		Menu fileMenu = new Menu(localizer.getText(MENU_FILE), null, open, exit);
 
 		return new MenuBar(fileMenu);
 	}
