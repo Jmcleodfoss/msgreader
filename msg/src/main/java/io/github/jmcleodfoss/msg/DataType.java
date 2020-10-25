@@ -386,7 +386,6 @@ abstract class DataType {
 				// This can't be handled by client code; it needs a change to the code above.
 				throw new RuntimeException(e);
 			}
-			return new java.util.Date();
 		}
 
 		/** Create a String representation of the passed Date value
