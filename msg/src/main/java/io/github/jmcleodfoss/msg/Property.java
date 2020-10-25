@@ -70,6 +70,7 @@ public abstract class Property
 	public abstract String value();
 
 	/** Encapsulate a Boolean property. */
+	@SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
 	private static class Boolean extends Property
 	{
 		/** The value of the Boolean property */
