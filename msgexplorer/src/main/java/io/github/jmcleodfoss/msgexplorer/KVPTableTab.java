@@ -1,9 +1,6 @@
 package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.KVPArray;
-import io.github.jmcleodfoss.msg.KVPEntry;
-
-import java.util.Iterator;
 
 import javafx.scene.control.Tab;
 

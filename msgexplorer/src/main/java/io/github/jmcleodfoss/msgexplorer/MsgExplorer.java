@@ -26,7 +26,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 
 /** msg explorer application: show msg file at any required level of detail. */
-public class MsgExplorer extends javafx.application.Application
+public class MsgExplorer extends Application
 {
 	/* Properties for the menu, items, and actions */
 	private static final String APPLICATION_TITLE_DEFAULT = "application.title.default";
@@ -82,18 +82,18 @@ public class MsgExplorer extends javafx.application.Application
 	*	@param	pathAndFileName	the file to open
 	*	@param	stage	The current stage (used to set the window title)
 	*/
-	private void openFile(String pathAndFileName, javafx.stage.Stage stage)
+	private void openFile(String pathAndFileName, Stage stage)
 	{
 		if (pathAndFileName != null) {
 			try {
 				msg = new MSG(pathAndFileName);
-			} catch (final java.io.FileNotFoundException e) {
+			} catch (final FileNotFoundException e) {
 				System.out.printf("Error: %s not found%n", pathAndFileName);
 				msg = null;
 			} catch (final NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);
 				msg = null;
-			} catch (final java.io.IOException e) {
+			} catch (final IOException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);
 				msg = null;
 			}

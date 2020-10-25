@@ -1,7 +1,5 @@
 package io.github.jmcleodfoss.msgexplorer;
 
-import java.util.List;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
