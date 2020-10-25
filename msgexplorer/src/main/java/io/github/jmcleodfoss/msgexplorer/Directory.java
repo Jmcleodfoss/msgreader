@@ -101,26 +101,14 @@ class Directory extends Tab
 	/** The directory tree */
 	private TreeView<DirectoryEntryData> tree;
 
-	/** The container for the directory tree */
-	private StackPane treePane;
-
 	/** The directory entry metadata, in human-readable form. */
 	private KVPTableTab<String, String> tabDescription;
 
 	/** The directory entry metadata, as raw bytes. */
 	private ByteDataTable data;
 
-	/** Container for the directory entry metadata. {@link data} */
-	private Tab tabData;
-
-	/** The tabbed pane showing the {@link #tabDescription directory entry} and {Alink #data file contents}. */
-	private TabPane contentTabs;
-
 	/** Container for the {@link fileContentsRaw file contents in bytes} */
 	private ByteDataTable fileContentsRaw;
-
-	/** The file contents in bytes */
-	private Tab tabFileContentsRaw;
 
 	/** The file contents as text, where available */
 	private TextArea fileContentsText;
@@ -155,19 +143,8 @@ class Directory extends Tab
 	/** Display for the properties entries' values */
 	private PropertyTableTab tabProperties;
 
-	/** The information about the selected node (if any).
-	*   The top is the directory entry contents (a tabbed pane allowing display of human-readable text or raw bytes), and the 
-	*   bottom is the "file" for this directory entry (if any).
-	*/
-	private SplitPane infoPane;
-
 	/** Container for directory entry and data */
 	private TabPane filePane;
-
-	/** The overall pane for all directory info. Left side is the directory tree, and the right side is the information about
-	*   the selected node (if any). The right side is invisible if no node is selected.
-	*/
-	private SplitPane containingPane;
 
 	/** The underlying MSG object */
 	private MSG msg;
@@ -317,21 +294,24 @@ class Directory extends Tab
 
 		tree = new TreeView<DirectoryEntryData>();
 		tree.getSelectionModel().selectedItemProperty().addListener(new SelectionChangeListener());
-		treePane = new StackPane();
+
+		StackPane treePane = new StackPane();
 		treePane.getChildren().add(tree);
 
 		tabDescription = new KVPTableTab<String, String>( localizer.getText(HEADER_FIELDS_TAB_TITLE), localizer.getText(HEADER_FIELDS_KEY_HEADING), localizer.getText(HEADER_FIELDS_VALUE_HEADING));
 		tabDescription.update(MSG.getDirectoryEntryKeys(), localizer);
 
 		data = new ByteDataTable();
-		tabData = new Tab(localizer.getText(HEADER_RAW_TAB_TITLE));
+
+		Tab tabData = new Tab(localizer.getText(HEADER_RAW_TAB_TITLE));
 		tabData.setContent(data);
 
-		contentTabs = new TabPane(tabDescription, tabData);
+		TabPane contentTabs = new TabPane(tabDescription, tabData);
 		contentTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 		fileContentsRaw = new ByteDataTable();
-		tabFileContentsRaw = new Tab(localizer.getText(ENTRY_RAW_TAB_TITLE));
+
+		Tab tabFileContentsRaw = new Tab(localizer.getText(ENTRY_RAW_TAB_TITLE));
 		tabFileContentsRaw.setContent(fileContentsRaw);
 
 		fileContentsText = new TextArea();
@@ -356,12 +336,12 @@ class Directory extends Tab
 		filePane = new TabPane(tabFileContentsRaw);
 		filePane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		infoPane = new SplitPane();
+		SplitPane infoPane = new SplitPane();
 		infoPane.getItems().addAll(contentTabs, filePane);
 		infoPane.setOrientation(Orientation.VERTICAL);
 		infoPane.setDividerPositions(0.5f);
 
-		containingPane = new SplitPane();
+		SplitPane containingPane = new SplitPane();
 		containingPane.getItems().addAll(treePane, infoPane);
 		containingPane.setDividerPositions(0.4f);
 

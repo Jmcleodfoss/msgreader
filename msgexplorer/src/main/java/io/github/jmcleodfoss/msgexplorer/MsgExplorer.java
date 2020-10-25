@@ -42,17 +42,8 @@ public class MsgExplorer extends Application
 	/** Localization object for UI text */
 	private LocalizedText localizer;
 
-	/** The main display, holds the menu and content */
-	private BorderPane mainPane;
-
-	/** The menu */
-	private MenuBar menuBar;
-
 	/** FileChooser dialog object - only construct it once and use it when needed */
 	private FileChooser fileChooser;
-
-	/** The container for the tabs that show the actual msg file data. */
-	private TabPane tabs;
 
 	/** The tab for the msg file header */
 	private Header header;
@@ -153,12 +144,12 @@ public class MsgExplorer extends Application
 		miniStream = new MiniStream(localizer);
 		directory = new Directory(localizer);
 
-		tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
+		TabPane tabs = new TabPane(header, difat, fat, sectors, miniStream, directory);
 		tabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-		menuBar = setupMenus(stage);
+		MenuBar menuBar = setupMenus(stage);
 
-		mainPane = new BorderPane();
+		BorderPane mainPane = new BorderPane();
 		mainPane.setTop(menuBar);
 		mainPane.setCenter(tabs);
 

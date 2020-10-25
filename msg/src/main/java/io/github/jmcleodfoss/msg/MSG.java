@@ -5,9 +5,6 @@ package io.github.jmcleodfoss.msg;
 */
 public class MSG
 {
-	/** The data stream for the file. */
-	private java.io.FileInputStream stream;
-
 	/** The FileChannel of the data stream, used to jump around the file. */
 	private java.nio.channels.FileChannel fc;
 
@@ -43,7 +40,7 @@ public class MSG
 		NotCFBFileException,
 		java.io.IOException
 	{
-		stream = new java.io.FileInputStream(fn);
+		java.io.FileInputStream stream = new java.io.FileInputStream(fn);
 		fc = stream.getChannel();
 
 		mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());

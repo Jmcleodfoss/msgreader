@@ -21,17 +21,8 @@ class MiniStream extends Tab
 	/* Property for the tab name */
 	static private final String TAB_TITLE = "ministream.main.tabname";
 
-	/** The parent pane. Left is a single-columned table with the mini stream chains, right is the content of the chain. */
-	private SplitPane containingPane;
-
-	/** Containing pane for the list of mini stream chains. */
-	private StackPane listPane;
-
 	/** The mini stream chains */
 	private ListView<ArrayList<Integer>> list;
-
-	/** Containing pane for the contents of the selected mini stream entry */
-	private StackPane dataPane;
 
 	/** The display for the selected mini stream entry */
 	private ByteDataTable dataDisplay;
@@ -58,15 +49,17 @@ class MiniStream extends Tab
 				}
 			}
 		});
-		listPane = new StackPane();
+
+		StackPane listPane = new StackPane();
 		listPane.getChildren().add(list);
 
 		data = new ArrayList<byte[]>();
 		dataDisplay = new ByteDataTable();
-		dataPane = new StackPane();
+
+		StackPane dataPane = new StackPane();
 		dataPane.getChildren().add(dataDisplay);
 
-		containingPane = new SplitPane();
+		SplitPane containingPane = new SplitPane();
 		containingPane.getItems().addAll(listPane, dataPane);
 		containingPane.setDividerPositions(0.4f);
 
