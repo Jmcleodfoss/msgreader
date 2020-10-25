@@ -932,7 +932,6 @@ public class DirectoryEntry {
 			System.out.println(a);
 			try {
 				java.io.File file = new java.io.File(a);
-
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
 				try {
 					java.nio.channels.FileChannel fc = stream.getChannel();
