@@ -105,7 +105,7 @@ public class MsgExplorer extends Application
 	*	@param	stage	The current stage (tp give the location of the FileChooser dialog box, and passed to openFile to update the window title)
 	*	@return	The main menubar
 	*/
-	private MenuBar setupMenus(javafx.stage.Stage stage)
+	private MenuBar setupMenus(Stage stage)
 	{
 		MenuItem open = new MenuItem(localizer.getText(MENU_FILE_OPEN));
 		fileChooser = new FileChooser();
@@ -141,7 +141,7 @@ public class MsgExplorer extends Application
 	/** Initialize and show the MsgExplorer display
 	*	@param	stage	The current stage
 	*/
-	public void start(javafx.stage.Stage stage)
+	public void start(Stage stage)
 	{
 		localizer = new LocalizedText();
 		stage.setTitle(localizer.getText(APPLICATION_TITLE_DEFAULT));

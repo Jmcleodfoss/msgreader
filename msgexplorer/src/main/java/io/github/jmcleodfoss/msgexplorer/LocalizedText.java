@@ -21,7 +21,7 @@ class LocalizedText
 	/** Create a localization object for the given locale
 	*	@param	locale	The locale to localize for
 	*/
-	LocalizedText(java.util.Locale locale)
+	LocalizedText(Locale locale)
 	{
 		resources = ResourceBundle.getBundle(RESOURCE_SOURCE, locale, this.getClass().getClassLoader());
 	}
