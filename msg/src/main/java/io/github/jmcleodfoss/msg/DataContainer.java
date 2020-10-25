@@ -12,12 +12,6 @@ class DataContainer extends java.util.IdentityHashMap<String, Object> {
 	/** The serialVersionUID is required because the base class is serializable. */
 	private static final long serialVersionUID = 1L;
 
-	/** Constructor with default maximum size .*/
-	DataContainer()
-	{
-		super();
-	}
-
 	/** Read in all descriptions from the given data stream.
 	*	@param	byteBuffer	The input stream from which to read the data.
 	*	@param	description	The list of descriptions of data to be read.

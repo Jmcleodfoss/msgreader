@@ -162,12 +162,6 @@ abstract class DataType {
 	*/
 	private static class Integer8 extends DataType {
 
-		/** Create a reader / display object for a PTypeInteger8 value */
-		private Integer8()
-		{
-			super();
-		}
-
 		/** Create a String from the passed Byte value
 		*	@param	o	The Byte object to display.
 		*	@return	A String representation of the Byte object (in hexadecimal).
@@ -203,12 +197,6 @@ abstract class DataType {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
 	private static class Integer16 extends DataType {
-
-		/** Create a reader / display object for a PtypInteger16 value */
-		private Integer16()
-		{
-			super();
-		}
 
 		/** Create a String from the passed Short value.
 		*	@param	o	The Short object to display.
@@ -286,12 +274,6 @@ abstract class DataType {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 	*/
 	private static class Integer64 extends DataType {
-
-		/** Create a reader / display object for a PtypInteger64 value */
-		private Integer64()
-		{
-			super();
-		}
 
 		/** Create a String from the passed Long value
 		*	@param	o	The Long object to display.
