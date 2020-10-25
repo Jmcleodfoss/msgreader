@@ -144,7 +144,7 @@ public class MSG
 				l.add(new KVPEntry<String, String>(entry.getKey(), ""));
 		}
 
-		l.add(new KVPEntry<String, String>("FreeSectors", getFATChainString(fat.freeSectorIterator())));
+		l.add(new KVPEntry<String, String>(FREE_SECTORS, getFATChainString(fat.freeSectorIterator())));
 		return l;
 	}
 
