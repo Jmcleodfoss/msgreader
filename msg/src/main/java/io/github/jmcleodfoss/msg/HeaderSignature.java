@@ -3,6 +3,7 @@ package io.github.jmcleodfoss.msg;
 /** The file signature.
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/05060311-bfce-4b12-874d-71fd4ce63aea">MS-CFB Section 2.2: Compound File Header</a>
 */
+@SuppressWarnings("PMD.ClassNamingConventions")
 class HeaderSignature {
 
 	/** The bytes which form the signature, in the order in which they are documented.

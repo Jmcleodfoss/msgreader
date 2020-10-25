@@ -3,6 +3,7 @@ package io.github.jmcleodfoss.msg;
 /** Constants and classes for dealing with sectors
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/9d33df18-7aee-4065-9121-4eabe41c29d4">MS-CFB Section 2.1: Compound Sector Numbers and Types</a>
 */
+@SuppressWarnings("PMD.ClassNamingConventions")
 class Sector {
 
 	/** The maximum regular sector index
