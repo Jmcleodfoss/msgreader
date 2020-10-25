@@ -98,6 +98,86 @@ class Directory extends Tab
 		IMAGE_MIME_TYPES.add("image/png");
 	};
 
+	/** The directory tree */
+	private TreeView<DirectoryEntryData> tree;
+
+	/** The container for the directory tree */
+	private StackPane treePane;
+
+	/** The directory entry metadata, in human-readable form. */
+	private KVPTableTab<String, String> tabDescription;
+
+	/** The directory entry metadata, as raw bytes. */
+	private ByteDataTable data;
+
+	/** Container for the directory entry metadata. {@link data} */
+	private Tab tabData;
+
+	/** The tabbed pane showing the {@link #tabDescription directory entry} and {Alink #data file contents}. */
+	private TabPane contentTabs;
+
+	/** Container for the {@link fileContentsRaw file contents in bytes} */
+	private ByteDataTable fileContentsRaw;
+
+	/** The file contents in bytes */
+	private Tab tabFileContentsRaw;
+
+	/** The file contents as text, where available */
+	private TextArea fileContentsText;
+
+	/** Container for the {@link fileContentsText file contents as text} */
+	private Tab tabFileContentsText;
+
+	/** This file contents as image, as supported (BMP, JPEG, GIF, PNG) */
+	private ImageView fileContentsImage;
+
+	/** Container for the {@link fileContentsImage file contents as Image} */
+	private Tab tabFileContentsImage;
+
+	/** Display for Named Properties GUID Stream */
+	private GUIDTableTab tabNamedPropertyGuids;
+
+	/** Display for Named Properties Entry Stream Numerical Entries */
+	private NamedPropertiesTableTab tabNumericalEntries;
+
+	/** Display for Named Properties Entry Stream String Entries */
+	private NamedPropertiesTableTab tabStringEntries;
+
+	/** Display for the Named Properties String Stream */
+	private KVPTableTab<Integer, String> tabStringStream;
+
+	/** Display for the named properties entries */
+	private KVPTableTab<String, String> tabNamedPropertyEntries;
+
+	/** Display for the properties entries' header */
+	private KVPTableTab<String, Integer> tabPropertiesHeader;
+
+	/** Display for the properties entries' values */
+	private PropertyTableTab tabProperties;
+
+	/** The information about the selected node (if any).
+	*   The top is the directory entry contents (a tabbed pane allowing display of human-readable text or raw bytes), and the 
+	*   bottom is the "file" for this directory entry (if any).
+	*/
+	private SplitPane infoPane;
+
+	/** Container for directory entry and data */
+	private TabPane filePane;
+
+	/** The overall pane for all directory info. Left side is the directory tree, and the right side is the information about
+	*   the selected node (if any). The right side is invisible if no node is selected.
+	*/
+	private SplitPane containingPane;
+
+	/** The underlying MSG object */
+	private MSG msg;
+
+	/** Localization object for the current locale */
+	private LocalizedText localizer;
+
+	/** Asynchronous update object */
+	private UpdateInfoService updateInfoService;
+
 	/** Handle selection of a new entry in the tree by initiating an asynchronous read request for the entry.
 	*   The display will be updated when the read is complete.
 	*/
@@ -225,86 +305,6 @@ class Directory extends Tab
 			};
 		}
 	}
-
-	/** The directory tree */
-	private TreeView<DirectoryEntryData> tree;
-
-	/** The container for the directory tree */
-	private StackPane treePane;
-
-	/** The directory entry metadata, in human-readable form. */
-	private KVPTableTab<String, String> tabDescription;
-
-	/** The directory entry metadata, as raw bytes. */
-	private ByteDataTable data;
-
-	/** Container for the directory entry metadata. {@link data} */
-	private Tab tabData;
-
-	/** The tabbed pane showing the {@link #tabDescription directory entry} and {Alink #data file contents}. */
-	private TabPane contentTabs;
-
-	/** Container for the {@link fileContentsRaw file contents in bytes} */
-	private ByteDataTable fileContentsRaw;
-
-	/** The file contents in bytes */
-	private Tab tabFileContentsRaw;
-
-	/** The file contents as text, where available */
-	private TextArea fileContentsText;
-
-	/** Container for the {@link fileContentsText file contents as text} */
-	private Tab tabFileContentsText;
-
-	/** This file contents as image, as supported (BMP, JPEG, GIF, PNG) */
-	private ImageView fileContentsImage;
-
-	/** Container for the {@link fileContentsImage file contents as Image} */
-	private Tab tabFileContentsImage;
-
-	/** Display for Named Properties GUID Stream */
-	private GUIDTableTab tabNamedPropertyGuids;
-
-	/** Display for Named Properties Entry Stream Numerical Entries */
-	private NamedPropertiesTableTab tabNumericalEntries;
-
-	/** Display for Named Properties Entry Stream String Entries */
-	private NamedPropertiesTableTab tabStringEntries;
-
-	/** Display for the Named Properties String Stream */
-	private KVPTableTab<Integer, String> tabStringStream;
-
-	/** Display for the named properties entries */
-	private KVPTableTab<String, String> tabNamedPropertyEntries;
-
-	/** Display for the properties entries' header */
-	private KVPTableTab<String, Integer> tabPropertiesHeader;
-
-	/** Display for the properties entries' values */
-	private PropertyTableTab tabProperties;
-
-	/** The information about the selected node (if any).
-	*   The top is the directory entry contents (a tabbed pane allowing display of human-readable text or raw bytes), and the 
-	*   bottom is the "file" for this directory entry (if any).
-	*/
-	private SplitPane infoPane;
-
-	/** Container for directory entry and data */
-	private TabPane filePane;
-
-	/** The overall pane for all directory info. Left side is the directory tree, and the right side is the information about
-	*   the selected node (if any). The right side is invisible if no node is selected.
-	*/
-	private SplitPane containingPane;
-
-	/** The underlying MSG object */
-	private MSG msg;
-
-	/** Localization object for the current locale */
-	private LocalizedText localizer;
-
-	/** Asynchronous update object */
-	private UpdateInfoService updateInfoService;
 
 	/** Create and populate the Directory display tab.
 	*	@param	localizer	The localizer mapping for the current locale.

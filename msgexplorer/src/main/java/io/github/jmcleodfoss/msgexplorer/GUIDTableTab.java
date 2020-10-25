@@ -27,6 +27,9 @@ class GUIDTableTab extends Tab
 	/** The size of the widest possible GUID, used to set the width of the GUID column in the table */
 	static private final Text WIDEST_GUID_TEXT = new Text("00000000-0000-0000-0000-000000000000");
 
+	/** The GUID display table */
+	private TableView<GUIDRow> table;
+
 	/** A row in the GUID table */
 	static public class GUIDRow {
 		/** The GUID */
@@ -69,9 +72,6 @@ class GUIDTableTab extends Tab
 			setIndex(index);
 		}
 	}
-
-	/** The GUID display table */
-	private TableView<GUIDRow> table;
 
 	/** Create the GUID display tab.
 	*	@param	localizer	The localizer mapping for the current locale.

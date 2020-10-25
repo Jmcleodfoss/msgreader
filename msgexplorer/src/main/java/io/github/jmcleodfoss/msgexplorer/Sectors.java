@@ -23,6 +23,18 @@ class Sectors extends Tab
 	/* Property for the tab name */
 	static private final String TAB_TITLE = "sectors.main.tabname";
 
+	/** The sector contents */
+	ByteDataTable data;
+
+	/** The Pagination object in which the sector list and current sector are displayed. */
+	Pagination pagination;
+
+	/** Reference to the underlying MSG object */
+	private MSG msg;
+
+	/** Asynchronous update object */
+	private UpdateInfoService updateInfoService;
+
 	/** Page factory to display sectors */
 	private class PageFactory implements Callback<Integer, Node>
 	{
@@ -87,18 +99,6 @@ class Sectors extends Tab
 			};
 		}
 	}
-
-	/** The sector contents */
-	ByteDataTable data;
-
-	/** The Pagination object in which the sector list and current sector are displayed. */
-	Pagination pagination;
-
-	/** Reference to the underlying MSG object */
-	private MSG msg;
-
-	/** Asynchronous update object */
-	private UpdateInfoService updateInfoService;
 
 	/** Create the sector display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
