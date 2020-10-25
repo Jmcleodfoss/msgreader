@@ -919,6 +919,7 @@ public class DirectoryEntry {
 	/** Test this class by printing out the directory entries
 	*	@param	args	The msg file(s) to display the directory entries of
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {

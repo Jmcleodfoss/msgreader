@@ -382,6 +382,7 @@ public class SwingExample extends JFrame
 	/** Display the given file or show usage information.
 	*	@param	args	The command line arguments giving the file(s) to process and whether to save attachment data	
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(String[] args)
 	{
 		if (args.length > 1) {

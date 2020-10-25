@@ -130,6 +130,7 @@ public class CommandlineExample
 	/** Process the given files
 	*	@param	args	The command line arguments giving the file(s) to process and whether to save attachment data	
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(String[] args)
 	{
 		// Validate command line arguments

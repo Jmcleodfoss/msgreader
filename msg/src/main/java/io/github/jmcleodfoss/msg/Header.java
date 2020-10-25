@@ -332,6 +332,7 @@ class Header {
 	/** Test this class by reading in the MSG file header and printing it out.
 	*	@param	args	The msg file(s) to shoow the header for.
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {

@@ -281,6 +281,7 @@ public abstract class Property
 	/** Test this class by printing out the properties and property values.
 	*	@param	args	The msg file(s) to show the properties and vlaues for.
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {

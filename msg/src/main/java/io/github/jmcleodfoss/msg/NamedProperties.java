@@ -213,6 +213,7 @@ class NamedProperties
 	/**	Test this class by printing out the GUID, entries, and strings.
 	*	@param	args	The msg file(s) to print out the named properties information for.
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(String[] args)
 	{
 		if (args.length == 0) {

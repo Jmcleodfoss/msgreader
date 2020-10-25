@@ -191,6 +191,7 @@ public class MsgExplorer extends Application
 	/** The main function
 	*	@param	args	The command line arguments, used in {@link #start} if present
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	static public void main(String[] args)
 	{
 		launch(MsgExplorer.class, args);

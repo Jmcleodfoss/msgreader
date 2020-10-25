@@ -121,6 +121,7 @@ class DIFAT {
 	/**	Test this class by reading in the DIFAT index table and printing it out.
 	*	@param	args	The msg file(s) to print the DIFAT index table of
 	*/
+	@SuppressWarnings("PMD.DoNotCallSystemExit")
 	public static void main(final String[] args)
 	{
 		if (args.length == 0) {
