@@ -48,9 +48,8 @@ class Sector {
 			case ENDOFCHAIN: return "End of Chain";
 			case FREESECT: return "Free";
 			case MAXREGSEC: return "Max Regular Sector";
+			default: return "Regular Sector " + String.format("%d", sectorId);
 		}
-
-		return "Regular Sector " + String.format("%d", sectorId);
 	}
 
 	/** Get the sector size given the sector shift.
