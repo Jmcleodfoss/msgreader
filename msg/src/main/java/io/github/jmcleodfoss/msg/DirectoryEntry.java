@@ -283,7 +283,7 @@ public class DirectoryEntry {
 	*	@param	dc			The data container all the information was read from
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-OXCFB Section 2.6.1: Compound File Directory Entry</a>
 	*/
-	SuppressWarnings("PMD.ExcessiveParameterList")
+	@SuppressWarnings("PMD.ExcessiveParameterList")
 	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 	{
 		this.directoryEntryName = directoryEntryName;
