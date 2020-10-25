@@ -14,7 +14,7 @@ This is a JavaFX application written to use Java 11. The generic JavaFX code (as
 included in the jar file, but the platform-specific JavaFX libraries need to be installed and in the classpath for it to work.
 
 The published Javadoc covers only public classes, functions, and members, of which there are very few. More interesting Javadoc can be generated via
-'''
+'''bash
 mvn -P doc-dev javadoc:javadoc
 '''
 This will put the Javadoc for all (private, package-private, protected, and public) entities in the directory target/site/javadoc-dev.
