@@ -259,7 +259,7 @@ public abstract class Property
 				return new VariableWidth(propertyTag, propertyName, "Binary", flags, parent, bb);
 
 			case DataType.BOOLEAN:
-				return new Boolean(propertyTag, propertyName, flags, parent, bb);
+				return new io.github.jmcleodfoss.msg.Property.Boolean(propertyTag, propertyName, flags, parent, bb);
 
 			case DataType.INTEGER_32:
 				return new Integer32(propertyTag, propertyName, flags, parent, bb);
