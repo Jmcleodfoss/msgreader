@@ -46,15 +46,21 @@ public class MSG
 		stream = new java.io.FileInputStream(fn);
 		fc = stream.getChannel();
 
-		mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-		mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+		try {
+			mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+			mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-		header = new Header(mbb, fc.size());
-		difat = new DIFAT(mbb, header);
-		fat = new FAT(mbb, header, difat);
-		directory = new Directory(mbb, header, fat);
-		miniFAT = new MiniFAT(mbb, header, fat, directory);
-		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+			header = new Header(mbb, fc.size());
+			difat = new DIFAT(mbb, header);
+			fat = new FAT(mbb, header, difat);
+			directory = new Directory(mbb, header, fat);
+			miniFAT = new MiniFAT(mbb, header, fat, directory);
+			namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+		} catch (Exception e) {
+			fc.close();
+			stream.close();
+			throw e;
+		}
 	}
 
 	/** Get an iterator through all attachments in the msg file
