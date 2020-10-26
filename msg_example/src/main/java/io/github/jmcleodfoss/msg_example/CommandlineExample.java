@@ -124,6 +124,7 @@ public class CommandlineExample
 				}
 			}
 		}
+		msg.close();
 	}
 
 	/** Process the given files
