@@ -148,30 +148,33 @@ class Directory {
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
 				try {
 					java.nio.channels.FileChannel fc = stream.getChannel();
-					java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-					mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+					try {
+						java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+						mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-					Header header = new Header(mbb, fc.size());
-					DIFAT difat = new DIFAT(mbb, header);
-					FAT fat = new FAT(mbb, header, difat);
-					Directory directory = new Directory(mbb, header, fat);
+						Header header = new Header(mbb, fc.size());
+						DIFAT difat = new DIFAT(mbb, header);
+						FAT fat = new FAT(mbb, header, difat);
+						Directory directory = new Directory(mbb, header, fat);
 
-					java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
-					int i = 0;
-					while (iterator.hasNext())
-						System.out.printf("0x%02x: %s%n", i++, iterator.next().toString());
+						java.util.Iterator<DirectoryEntry> iterator = directory.entries.iterator();
+						int i = 0;
+						while (iterator.hasNext())
+							System.out.printf("0x%02x: %s%n", i++, iterator.next().toString());
 
-					System.out.println("\n");
-					for (i = 0; i < directory.entries.size(); ++i){
-						java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
-						if (children.size() > 0){
-							System.out.printf("Children of 0x%02x:%n", i);
-							java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
-							while (childIterator.hasNext())
-								System.out.println("\t" + childIterator.next());
+						System.out.println("\n");
+						for (i = 0; i < directory.entries.size(); ++i){
+							java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
+							if (children.size() > 0){
+								System.out.printf("Children of 0x%02x:%n", i);
+								java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
+								while (childIterator.hasNext())
+									System.out.println("\t" + childIterator.next());
+							}
 						}
+					} finally {
+						fc.close();
 					}
-					fc.close();
 				} catch (final java.io.IOException e) {
 					System.out.printf("There was a problem reading from file %s%n", a);
 				} catch (final NotCFBFileException e) {
