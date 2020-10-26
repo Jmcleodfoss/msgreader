@@ -57,8 +57,11 @@ public class MSG
 			miniFAT = new MiniFAT(mbb, header, fat, directory);
 			namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 		} catch (Exception e) {
-			fc.close();
-			stream.close();
+			try {
+				fc.close();
+			} finally {
+				stream.close();
+			}
 			throw e;
 		}
 	}
@@ -80,8 +83,11 @@ public class MSG
 	throws
 		java.io.IOException
 	{
-		fc.close();
-		stream.close();
+		try {
+			fc.close();
+		} finally {
+			stream.close();
+		}
 	}
 
 	/** Create a string representation of the given bytes, assumed to be
