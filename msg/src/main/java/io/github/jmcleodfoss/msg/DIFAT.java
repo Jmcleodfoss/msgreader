@@ -129,8 +129,8 @@ class DIFAT {
 			System.exit(1);
 		}
 		for (String a: args) {
+			System.out.println(a);
 			try {
-				System.out.println(a);
 				java.io.File file = new java.io.File(a);
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
 				java.nio.channels.FileChannel fc = stream.getChannel();
