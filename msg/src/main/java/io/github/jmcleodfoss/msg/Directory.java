@@ -140,6 +140,7 @@ class Directory {
 			System.out.println("use:\n\tjava io.github.jmcleodfoss.mst.Directory msg-file [msg-file] ...");
 			System.exit(1);
 		}
+
 		for (String a: args) {
 			try {
 				System.out.println(a);
