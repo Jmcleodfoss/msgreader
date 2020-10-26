@@ -115,13 +115,16 @@ public class CommandlineExample
 							} while (attachment.exists());
 						}
 
-						FileOutputStream fos = new FileOutputStream(attachment);
-						FileChannel fc = fos.getChannel();
 						try {
-							fc.write(ByteBuffer.wrap(msg.getFile(c)));
-							System.out.printf("Saved attachment %s as %s%n", name, attachment.getAbsolutePath());
+							FileOutputStream fos = new FileOutputStream(attachment);
+							try {
+								FileChannel fc = fos.getChannel();
+								fc.write(ByteBuffer.wrap(msg.getFile(c)));
+								System.out.printf("Saved attachment %s as %s%n", name, attachment.getAbsolutePath());
+							} finally {
+								fc.close();
+							}
 						} finally {
-							fc.close();
 							fos.close();
 						}
 						break;
