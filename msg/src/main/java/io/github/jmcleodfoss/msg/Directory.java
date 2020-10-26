@@ -173,7 +173,11 @@ class Directory {
 							}
 						}
 					} finally {
-						fc.close();
+						try {
+							fc.close();
+						} catch (final java.io.IOException e) {
+							System.out.printf("There was a problem closing filechannel for stream for file %s%n", a);
+						}
 					}
 				} catch (final java.io.IOException e) {
 					System.out.printf("There was a problem reading from file %s%n", a);
