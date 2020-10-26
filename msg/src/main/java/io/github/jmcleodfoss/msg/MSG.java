@@ -53,6 +53,7 @@ public class MSG
 		miniFAT = new MiniFAT(mbb, header, fat, directory);
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
 
+		fc.close();
 		stream.close();
 	}
 

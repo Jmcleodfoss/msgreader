@@ -171,6 +171,7 @@ class Directory {
 								System.out.println("\t" + childIterator.next());
 						}
 					}
+					fc.close();
 				} catch (final java.io.IOException e) {
 					System.out.printf("There was a problem reading from file %s%n", a);
 				} catch (final NotCFBFileException e) {
