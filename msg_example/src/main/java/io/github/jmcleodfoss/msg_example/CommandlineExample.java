@@ -117,10 +117,13 @@ public class CommandlineExample
 
 						FileOutputStream fos = new FileOutputStream(attachment);
 						FileChannel fc = fos.getChannel();
-						fc.write(ByteBuffer.wrap(msg.getFile(c)));
-						fc.close();
-						fos.close();
-						System.out.printf("Saved attachment %s as %s%n", name, attachment.getAbsolutePath());
+						try {
+							fc.write(ByteBuffer.wrap(msg.getFile(c)));
+							System.out.printf("Saved attachment %s as %s%n", name, attachment.getAbsolutePath());
+						} finally {
+							fc.close();
+							fos.close();
+						}
 						break;
 					}
 				}
