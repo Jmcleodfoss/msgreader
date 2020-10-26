@@ -5,6 +5,9 @@ package io.github.jmcleodfoss.msg;
 */
 public class MSG
 {
+	/** The file stream for the msg file */
+	private java.io.FileInputStream stream;
+
 	/** The FileChannel of the data stream, used to jump around the file. */
 	private java.nio.channels.FileChannel fc;
 
@@ -40,7 +43,7 @@ public class MSG
 		NotCFBFileException,
 		java.io.IOException
 	{
-		java.io.FileInputStream stream = new java.io.FileInputStream(fn);
+		stream = new java.io.FileInputStream(fn);
 		fc = stream.getChannel();
 
 		mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
@@ -52,9 +55,6 @@ public class MSG
 		directory = new Directory(mbb, header, fat);
 		miniFAT = new MiniFAT(mbb, header, fat, directory);
 		namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
-
-		fc.close();
-		stream.close();
 	}
 
 	/** Get an iterator through all attachments in the msg file
@@ -75,6 +75,7 @@ public class MSG
 		java.io.IOException
 	{
 		fc.close();
+		stream.close();
 	}
 
 	/** Create a string representation of the given bytes, assumed to be
