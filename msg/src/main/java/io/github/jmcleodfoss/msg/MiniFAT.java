@@ -212,27 +212,35 @@ class MiniFAT {
 			try {
 				java.io.File file = new java.io.File(a);
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
-				java.nio.channels.FileChannel fc = stream.getChannel();
-				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+				try {
+					java.nio.channels.FileChannel fc = stream.getChannel();
+					java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+					mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-				Header header = new Header(mbb, fc.size());
-				DIFAT difat = new DIFAT(mbb, header);
-				FAT fat = new FAT(mbb, header, difat);
-				Directory directory = new Directory(mbb, header, fat);
-				MiniFAT minifat = new MiniFAT(mbb, header, fat, directory);
+					Header header = new Header(mbb, fc.size());
+					DIFAT difat = new DIFAT(mbb, header);
+					FAT fat = new FAT(mbb, header, difat);
+					Directory directory = new Directory(mbb, header, fat);
+					MiniFAT minifat = new MiniFAT(mbb, header, fat, directory);
 
-				System.out.println("Mini FAT contents");
-				for (int i = 0; i < minifat.miniFATSectors.length; ++i)
-					System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
-				System.out.println("\nMini FAT sector chains");
-				System.out.printf(minifat.getChains());
+					System.out.println("Mini FAT contents");
+					for (int i = 0; i < minifat.miniFATSectors.length; ++i)
+						System.out.printf("%d: 0x%08x%n", i, minifat.miniFATSectors[i]);
+					System.out.println("\nMini FAT sector chains");
+					System.out.printf(minifat.getChains());
+				} catch (final java.io.IOException e) {
+					System.out.printf("There was a problem reading from file %s%n", a);
+				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} finally {
+					try {
+						stream.close();
+					} catch (final java.io.IOException e) {
+						System.out.printf("There was a problem closing file %s%n", a);
+					}
+				}
 			} catch (final java.io.FileNotFoundException e) {
 				System.out.printf("File %s not found%n", a);
-			} catch (final java.io.IOException e) {
-				System.out.printf("There was a problem reading from file %s%n", a);
-			} catch (final NotCFBFileException e) {
-				e.printStackTrace(System.out);
 			}
 		}
 	}

@@ -226,51 +226,59 @@ class NamedProperties
 			try {
 				java.io.File file = new java.io.File(a);
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
-				java.nio.channels.FileChannel fc = stream.getChannel();
-				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+				try {
+					java.nio.channels.FileChannel fc = stream.getChannel();
+					java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+					mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-				Header header = new Header(mbb, fc.size());
-				DIFAT difat = new DIFAT(mbb, header);
-				FAT fat = new FAT(mbb, header, difat);
-				Directory directory = new Directory(mbb, header, fat);
-				MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
-				NamedProperties namedPropertiesMapping = new NamedProperties(mbb, header, fat, directory, miniFAT);
+					Header header = new Header(mbb, fc.size());
+					DIFAT difat = new DIFAT(mbb, header);
+					FAT fat = new FAT(mbb, header, difat);
+					Directory directory = new Directory(mbb, header, fat);
+					MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+					NamedProperties namedPropertiesMapping = new NamedProperties(mbb, header, fat, directory, miniFAT);
 
-				System.out.println("GUID stream");
-				for (int i = 0; i < namedPropertiesMapping.guids.length; ++i)
-					System.out.println(namedPropertiesMapping.guids[i]);
+					System.out.println("GUID stream");
+					for (int i = 0; i < namedPropertiesMapping.guids.length; ++i)
+						System.out.println(namedPropertiesMapping.guids[i]);
 
-				System.out.println();
-				System.out.println("Entry stream");
-				for (int i = 0; i < namedPropertiesMapping.entries.length; ++i)
-					System.out.println(namedPropertiesMapping.entries[i]);
+					System.out.println();
+					System.out.println("Entry stream");
+					for (int i = 0; i < namedPropertiesMapping.entries.length; ++i)
+						System.out.println(namedPropertiesMapping.entries[i]);
 
-				System.out.println();
-				System.out.println("String stream");
-				java.util.Iterator<String> iter_s = namedPropertiesMapping.strings.iterator();
-				while (iter_s.hasNext())
-					System.out.println(iter_s.next());
-				System.out.println();
-				java.util.Iterator<Integer> iter_i = namedPropertiesMapping.stringsByOffset.keySet().iterator();
-				while (iter_i.hasNext()){
-					int key = iter_i.next();
-					System.out.printf("0x%04x: %s%n", key, namedPropertiesMapping.stringsByOffset.get(key));
+					System.out.println();
+					System.out.println("String stream");
+					java.util.Iterator<String> iter_s = namedPropertiesMapping.strings.iterator();
+					while (iter_s.hasNext())
+						System.out.println(iter_s.next());
+					System.out.println();
+					java.util.Iterator<Integer> iter_i = namedPropertiesMapping.stringsByOffset.keySet().iterator();
+					while (iter_i.hasNext()){
+						int key = iter_i.next();
+						System.out.printf("0x%04x: %s%n", key, namedPropertiesMapping.stringsByOffset.get(key));
+					}
+
+					System.out.println();
+					System.out.println("Entries");
+					for (int i = 0; i < namedPropertiesMapping.propertyNameMappings.length; ++i)
+						System.out.printf("%s GUID %s%n",
+							namedPropertiesMapping.propertyNameMappings[i],
+							namedPropertiesMapping.indexToGUID(namedPropertiesMapping.propertyNameMappings[i].guidIndex)
+							);
+				} catch (final java.io.IOException e) {
+					System.out.printf("There was a problem reading from file %s%n", a);
+				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} finally {
+					try {
+						stream.close();
+					} catch (final java.io.IOException e) {
+						System.out.printf("There was a problem closing file %s%n", a);
+					}
 				}
-
-				System.out.println();
-				System.out.println("Entries");
-				for (int i = 0; i < namedPropertiesMapping.propertyNameMappings.length; ++i)
-					System.out.printf("%s GUID %s%n",
-						namedPropertiesMapping.propertyNameMappings[i],
-						namedPropertiesMapping.indexToGUID(namedPropertiesMapping.propertyNameMappings[i].guidIndex)
-						);
 			} catch (final java.io.FileNotFoundException e) {
 				System.out.printf("File %s not found%n", a);
-			} catch (final java.io.IOException e) {
-				System.out.printf("There was a problem reading from file %s%n", a);
-			} catch (final NotCFBFileException e) {
-				e.printStackTrace(System.out);
 			}
 		}
 	}
