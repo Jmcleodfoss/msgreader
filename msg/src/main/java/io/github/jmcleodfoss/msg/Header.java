@@ -341,25 +341,33 @@ class Header {
 			try {
 				java.io.File file = new java.io.File(a);
 				java.io.FileInputStream stream = new java.io.FileInputStream(file);
-				java.nio.channels.FileChannel fc = stream.getChannel();
-				java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
-				mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
+				try {
+					java.nio.channels.FileChannel fc = stream.getChannel();
+					java.nio.MappedByteBuffer mbb = fc.map(java.nio.channels.FileChannel.MapMode.READ_ONLY, 0, fc.size());
+					mbb.order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-				Header header = new Header(mbb, fc.size());
-				System.out.println(header);
+					Header header = new Header(mbb, fc.size());
+					System.out.println(header);
 
-				System.out.println();
-				java.util.Iterator<KVPEntry<String, String>> i = header.data().iterator();
-				while (i.hasNext()){
-					KVPEntry<String, String> kvp = i.next();
-					System.out.println(kvp);
+					System.out.println();
+					java.util.Iterator<KVPEntry<String, String>> i = header.data().iterator();
+					while (i.hasNext()){
+						KVPEntry<String, String> kvp = i.next();
+						System.out.println(kvp);
+					}
+				} catch (final java.io.IOException e) {
+					System.out.printf("There was a problem reading from file %s%n", a);
+				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} finally {
+					try {
+						stream.close();
+					} catch (final java.io.IOException e) {
+						System.out.printf("There was a problem closing file %s%n", a);
+					}
 				}
 			} catch (final java.io.FileNotFoundException e) {
 				System.out.printf("File %s not found%n", a);
-			} catch (final java.io.IOException e) {
-				System.out.printf("There was a problem reading from file %s%n", a);
-			} catch (final NotCFBFileException e) {
-				e.printStackTrace(System.out);
 			}
 		}
 	}
