@@ -235,6 +235,7 @@ class MiniFAT {
 				} finally {
 					try {
 						stream.close();
+						System.out.println();
 					} catch (final java.io.IOException e) {
 						System.out.printf("There was a problem closing file %s%n", a);
 					}
