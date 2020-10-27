@@ -154,7 +154,8 @@ class GUID
 	GUID(byte[] arr, int offset)
 	{
 		byte[] guid = new byte[SIZE];
-		int iSrc, iDest;
+		int iSrc
+		int iDest;
 		for (iSrc = offset, iDest = 0; iDest < 4; ++iSrc, ++iDest)
 			guid[3-iDest] = arr[iSrc];
 		for (; iDest < SIZE; ++iSrc, ++iDest)
