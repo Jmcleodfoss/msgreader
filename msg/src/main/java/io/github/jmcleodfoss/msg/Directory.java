@@ -172,6 +172,7 @@ class Directory {
 									System.out.println("\t" + childIterator.next());
 							}
 						}
+					} catch (java.util.NoSuchElementException e) {
 					} finally {
 						try {
 							fc.close();
