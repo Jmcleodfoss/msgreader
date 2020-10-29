@@ -5,6 +5,7 @@ import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
 import io.github.jmcleodfoss.msg.Property;
 import io.github.jmcleodfoss.msg.PropertyTags;
+import io.github.jmcleodfoss.msg.UnknownStorageTypeException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,7 +54,8 @@ public class CommandlineExample
 	throws
 		FileNotFoundException,
 		IOException,
-		NotCFBFileException
+		NotCFBFileException,
+		UnknownStorageTypeException
 	{
 		// Get the message information we need
 		MSG msg = new MSG(filename);
@@ -181,6 +183,8 @@ public class CommandlineExample
 				System.out.printf("Error reading %s or writing one of its attachments (if save requested)%n", f);
 			} catch (final NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file%n", f);
+			} catch (final UnknownStorageTypeException e) {
+				System.out.printf("Error: Unknown storage type encountered reading %s%n", f);
 			}
 		}
 	}

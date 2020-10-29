@@ -61,11 +61,13 @@ class Directory {
 	*	@param	byteBuffer	The CFB file
 	*	@param	header		The CFB header
 	*	@param	fat		The CFB file allocation table
+	*	@throws	UnknownStorageTypeException	The object type is not one of UNKNOWN, STORAGE, STREAM, or ROOT_STORAGE.
 	*	@throws	java.io.IOException	An error was encountered reading the directory structure.
 	*	@see DirectoryEntry#factory
 	*/
 	Directory(java.nio.ByteBuffer byteBuffer, Header header, FAT fat)
 	throws
+		UnknownStorageTypeException,
 		java.io.IOException
 	{
 		ConstructorData cd = new ConstructorData();
@@ -182,6 +184,8 @@ class Directory {
 				} catch (final java.io.IOException e) {
 					System.out.printf("There was a problem reading from file %s%n", a);
 				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} catch (final UnknownStorageTypeException e) {
 					e.printStackTrace(System.out);
 				} finally {
 					try {

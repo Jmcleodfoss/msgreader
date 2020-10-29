@@ -2,6 +2,7 @@ package io.github.jmcleodfoss.msgexplorer;
 
 import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
+import io.github.jmcleodfoss.msg.UnknownStorageTypeException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -77,6 +78,9 @@ public class MsgExplorer extends Application
 				msg = null;
 			} catch (final NotCFBFileException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);
+				msg = null;
+			} catch (final UnknownStorageTypeException e) {
+				System.out.printf("Error: Unknown storage type encountered while reading %s%n", pathAndFileName);
 				msg = null;
 			} catch (final IOException e) {
 				System.out.printf("Error: %s is not a compound binary file format or msg file%n", pathAndFileName);

@@ -5,6 +5,7 @@ import io.github.jmcleodfoss.msg.MSG;
 import io.github.jmcleodfoss.msg.NotCFBFileException;
 import io.github.jmcleodfoss.msg.Property;
 import io.github.jmcleodfoss.msg.PropertyTags;
+import io.github.jmcleodfoss.msg.UnknownStorageTypeException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -282,6 +283,9 @@ public class SwingExample extends JFrame
 			return Box.createHorizontalBox();
 		} catch (final NotCFBFileException e) {
 			JOptionPane.showMessageDialog(null, e.toString(), String.format("%s is not a .msg file", filename), JOptionPane.ERROR_MESSAGE);
+			return Box.createHorizontalBox();
+		} catch (final UnknownStorageTypeException e) {
+			JOptionPane.showMessageDialog(null, e.toString(), String.format("Unrecognized storage type encountered in %s", filename), JOptionPane.ERROR_MESSAGE);
 			return Box.createHorizontalBox();
 		}
 

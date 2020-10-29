@@ -270,6 +270,8 @@ class NamedProperties
 					System.out.printf("There was a problem reading from file %s%n", a);
 				} catch (final NotCFBFileException e) {
 					e.printStackTrace(System.out);
+				} catch (final UnknownStorageTypeException e) {
+					e.printStackTrace(System.out);
 				} finally {
 					try {
 						stream.close();

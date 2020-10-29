@@ -839,11 +839,13 @@ public class DirectoryEntry {
 	*	@param	byteBuffer	The data stream for the msg file
 	*	@param	cd		The holder for information used to build the {link @Directory#Directory Directory constructor} after all entries have been read.
 	*	@return	The DirectoryEntry object read from the byteBuffer
+	*	@throws	UnknownStorageTypeException	The object type is not one of UNKNOWN, STORAGE, STREAM, or ROOT_STORAGE.
 	*	@throws	java.io.IOException	If the file could not be read
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
 	static DirectoryEntry factory(java.nio.ByteBuffer byteBuffer, Directory.ConstructorData cd)
 	throws
+		UnknownStorageTypeException,
 		java.io.IOException
 	{
 		DataContainer dc = new DataContainer();
@@ -959,6 +961,8 @@ public class DirectoryEntry {
 				} catch (final java.io.IOException e) {
 					System.out.printf("There was a problem reading from file %s%n", a);
 				} catch (final NotCFBFileException e) {
+					e.printStackTrace(System.out);
+				} catch (final UnknownStorageTypeException e) {
 					e.printStackTrace(System.out);
 				} finally {
 					try {

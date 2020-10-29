@@ -36,11 +36,13 @@ public class MSG
 	*	header, DIFAT, etc.
 	*	@param	fn	The name of the file to read.
 	*	@throws	NotCFBFileException	The input stream does not contain a PST file.
+	*	@throws	UnknownStorageTypeException	The object type is not one of UNKNOWN, STORAGE, STREAM, or ROOT_STORAGE.
 	* 	@throws	java.io.IOException	There was an I/O error reading the input stream.
 	*/
 	public MSG(String fn)
 	throws
 		NotCFBFileException,
+		UnknownStorageTypeException,
 		java.io.IOException
 	{
 		stream = new java.io.FileInputStream(fn);
