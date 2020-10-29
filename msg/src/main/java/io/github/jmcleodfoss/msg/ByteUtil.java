@@ -42,30 +42,17 @@ class ByteUtil {
 		return s.toString();
 	}
 
-	/** Create a signed long from the first "n" bytes of the given array, ordered from LSB to MSB.
-	*	@param	rawData	The bytes to make the long value from.
-	*	@param	n_requested	The number of bytes to use (n must be less than or equal to 8, the number of bytes in a long value).
-	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
-	*/
-	static long makeLongLE(byte[] rawData, int n_requested)
-	{
-		int n = Math.min(n_requested, rawData.length);
-		if (n > LONG_BYTES)
-			throw new RuntimeException("Need 8 bytes or fewer to make a long value");
-
-		long val = 0;
-		for (int i = n - 1; i >= 0; --i)
-			val = (val << Byte.SIZE) | (rawData[i] & 0xff);
-		return val;
-	}
-
 	/** Create a signed long from the given array of bytes, ordered from LSB to MSB.
 	*	@param	rawData	The bytes to make the long value from.
 	*	@return	A long value corresponding to the given array of bytes as a little-endian value.
 	*/
 	static long makeLongLE(byte[] rawData)
 	{
-		return makeLongLE(rawData, LONG_BYTES);
+		int n = LONG_BYTES;
+		long val = 0;
+		for (int i = n - 1; i >= 0; --i)
+			val = (val << Byte.SIZE) | (rawData[i] & 0xff);
+		return val;
 	}
 
 	/** This is a simplistic test for some of the functions in this class.
