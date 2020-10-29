@@ -27,7 +27,7 @@ class ObjectType {
 	/** The actual object type. */
 	private final byte type;
 
-	/* Construct an ObjectType from the given byte read out of a directory entry block
+	/** Construct an ObjectType from the given byte read out of a directory entry block
 	*	@param	type	The type as read
 	*/
 	ObjectType(byte type)
