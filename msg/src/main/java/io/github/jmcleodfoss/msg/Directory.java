@@ -171,7 +171,7 @@ class Directory {
 								System.out.printf("Children of 0x%02x:%n", i);
 								java.util.Iterator<DirectoryEntry> childIterator = children.iterator();
 								while (childIterator.hasNext())
-									System.out.println("\t" + childIterator.next());
+									System.out.printf("\t%s", childIterator.next().toString());
 							}
 						}
 					} catch (final java.io.IOException e) {
