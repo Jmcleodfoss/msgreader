@@ -28,7 +28,7 @@
 		<project.scm.id>github</project.scm.id>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- The version of JavaFX to use (in msgexplorer, but the parent pom needs this for reporting -->
+		<!-- The version of JavaFX to use (in msgexplorer, but the parent pom needs this for reporting) -->
 		<msgproject.javafx.version>14</msgproject.javafx.version>
 
 		<!--	Running "mvn site" from the parent pom fails unless the Javadoc classpath contains these files:
