@@ -35,7 +35,7 @@
 			* org.openjfx.javafx-base-win.jar
 			* org.openjfx.javafx-controls-win.jar
 			* org.openjfx.javafx-graphics-win.jar
-			I have not found a good way to do this, so I just force it to use the "win" classifier. Since
+			I have not found a good way to do this, so I just force it to use the "win" classifier.
 			Since we are building documentation rather than an executable, the platform shouldn't matter.
 		-->
 		<msgproject.javafx.platform>win</msgproject.javafx.platform>
