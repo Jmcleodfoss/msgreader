@@ -41,3 +41,8 @@ The public interface to .msg file properties is through a class called MSG (q.v.
 Initial version
 *   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.0/io.github.jmcleodfoss.msg/module-summary.html)
 *   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msg-1.0.0.jar)
+
+### 1.0.1
+Addresses security and, resource leaks, and code quality issues found by static analysis tools (Codacy and Xanitizer, primarily)
+*   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.1/io.github.jmcleodfoss.msg/module-summary.html)
+*   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.1/msg-1.0.1.jar)
