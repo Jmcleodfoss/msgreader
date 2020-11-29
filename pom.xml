@@ -250,6 +250,11 @@
 				<version>3.2.0</version>
 				<configuration>
 					<show>public</show>
+
+					<!-- Work around an apparent bug in the maven-javadoc-plugin. If sourcepath is undefined, it defaults to
+						${project.build.directory}/apidocs/src.
+					-->
+					<sourcepath>${project.build.sourceDirectory}</sourcepath>
 				</configuration>
 				<reportSets>
 					<reportSet><!-- by default, id = "default" -->
