@@ -37,7 +37,7 @@
 						<additionalDependency>
 							<groupId>io.github.jmcleodfoss</groupId>
 							<artifactId>msg</artifactId>
-							<version>1.0.1-SNAPSHOT</version>
+							<version>1.0.1</version>
 						</additionalDependency>
 					</additionalDependencies>
 				</configuration>
