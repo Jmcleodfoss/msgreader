@@ -3,42 +3,41 @@ package io.github.jmcleodfoss.msg;
 /** The ObjectType class represents a CFB entry object type; it can be one of { {@link #UNKNOWN}, {@link #STORAGE}, {@link #STREAM}, {@link ROOT_STORAGE} }
 *	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 */
-class ObjectType {
+enum ObjectType {
 	/** The object type for Unknown or Unallocated entries.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 	*/
-	private static final byte UNKNOWN = 0x00;
+	UNKNOWN(0x00, "Unknown or unallocated"),
 
 	/** The object type for Storage Objects
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 	*/
-	private static final byte STORAGE = 0x01;
+	STORAGE(0x01, "Storage Object"),
 
 	/** The object type for Stream Objects
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 	*/
-	private static final byte STREAM = 0x02;
+	STREAM(0x02, "Stream Object"),
 
 	/** The object type for Root Storage Objects
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-CFB 2.6.1 Compound File Directory Entry</a>
 	*/
-	private static final byte ROOT_STORAGE = 0x05;
+	ROOT_STORAGE(0x05, "Root Storage Object");
 
 	/** The actual object type. */
 	private final byte type;
 
+	/** The name of the object type. */
+	private final String name;
+	
 	/** Construct an ObjectType from the given byte read out of a directory entry block
 	*	@param	type	The type as read
 	*	@throws	UnknownStorageTypeException	The object type is not one of UNKNOWN, STORAGE, STREAM, or ROOT_STORAGE.
 	*/
-	ObjectType(byte type)
-	throws
-		UnknownStorageTypeException
+	ObjectType(int type, String name)
 	{
-		if (type != UNKNOWN && type != STORAGE && type != STREAM && type != ROOT_STORAGE)
-			throw new UnknownStorageTypeException(type);
-
-		this.type = type;
+		this.type = (byte) type;
+		this.name = name;
 	}
 
 	/** Is the a Root Storage Object?
@@ -46,7 +45,7 @@ class ObjectType {
 	*/
 	boolean isRootStorage()
 	{
-		return type == ROOT_STORAGE;
+		return this == ROOT_STORAGE;
 	}
 
 	/** Is the a Storage Object?
@@ -54,7 +53,7 @@ class ObjectType {
 	*/
 	boolean isStorage()
 	{
-		return type == STORAGE;
+		return this == STORAGE;
 	}
 
 	/** Is the a Stream Object?
@@ -62,7 +61,18 @@ class ObjectType {
 	*/
 	boolean isStream()
 	{
-		return type == STREAM;
+		return this == STREAM;
+	}
+
+	public static ObjectType valueOf(byte type) throws UnknownStorageTypeException
+	{
+		for (ObjectType value : values()) {
+			if (value.type == type) {
+				return value;
+			}
+		}
+		
+		throw new UnknownStorageTypeException(type);
 	}
 
 	/** Create a String value describing this object type.
@@ -70,12 +80,6 @@ class ObjectType {
 	*/
 	public String toString()
 	{
-		switch (type){
-		case UNKNOWN: return "Unknown or unallocated";
-		case STORAGE: return "Storage Object";
-		case STREAM: return "Stream Object";
-		case ROOT_STORAGE: return "Root Storage Object";
-		default: return String.format("Unrecognized type %d for Object Type", type);
-		}
+		return name;
 	}
 }
