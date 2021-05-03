@@ -1,6 +1,6 @@
 # Example msg library applications
 ## CommandlineExample
-Provide some information about a .msg file form the command line.
+Provide some information about a .msg file from the command line.
 
 Use (assuming the jar files for msg_example and msg are in the classpath):
 
@@ -12,7 +12,7 @@ Option:
 ## SwingExample
 A Java Swing application to show basic information from a msg file.
 
-Use (assumng the jar files for msg_example and msg are in the classpath):
+Use (assuming the jar files for msg_example and msg are in the classpath):
 
         java io.github.jmcleodfoss.msg_example.SwingExample msg-file
 
