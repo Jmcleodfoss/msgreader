@@ -12,7 +12,7 @@ package io.github.jmcleodfoss.msg;
 @SuppressWarnings("PMD.ExcessiveClassLength")
 public class PropertyTags
 {
-	static final public int PidTagCurrentDraftEntryId = 0102;
+	static final public int PidTagCurrentDraftEntryId = 0x0102;
 	static final public int PidTagTemplateData = 0x00010102;
 	static final public int PidTagAlternateRecipientAllowed = 0x0002000b;
 	static final public int PidTagScriptData = 0x00040102;
