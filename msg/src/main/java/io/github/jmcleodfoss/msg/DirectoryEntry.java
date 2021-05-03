@@ -855,7 +855,7 @@ public class DirectoryEntry {
 		/* The name length returned includes the terminating null. */
 		int directoryEntryNameLength = (Short)dc.get(nm_DirectoryEntryNameLength) - 1;
 		String directoryEntryName = ((String)dc.get(nm_DirectoryEntryName)).substring(0, directoryEntryNameLength/2);
-		ObjectType objectType = new ObjectType((Byte)dc.get(nm_ObjectType));
+		ObjectType objectType = ObjectType.valueOf((Byte)dc.get(nm_ObjectType));
 		int leftSiblingId = (Integer)dc.get(nm_LeftSiblingId);
 		int rightSiblingId = (Integer)dc.get(nm_RightSiblingId);
 		int childId = (Integer)dc.get(nm_ChildId);
