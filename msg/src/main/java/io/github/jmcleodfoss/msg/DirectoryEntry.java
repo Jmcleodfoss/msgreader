@@ -889,7 +889,7 @@ public class DirectoryEntry {
 		} else if (UNALLOCATED.equals(directoryEntryName)){
 			return new Unallocated(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		} else {
-			System.out.println("Imcrecogmozed directory entry name or template " + directoryEntryName);
+			System.out.println("Unrecognized directory entry name or template " + directoryEntryName);
 			return new DirectoryEntry(directoryEntryName, directoryEntryPosition, objectType, leftSiblingId, rightSiblingId, childId, clsid, creationTime, modifiedTime, startingSectorLocation, streamSize, dc);
 		}
 	}
