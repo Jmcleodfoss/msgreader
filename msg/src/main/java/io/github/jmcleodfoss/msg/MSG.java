@@ -57,7 +57,7 @@ public class MSG
 				fat = new FAT(mbb, header, difat);
 				directory = new Directory(mbb, header, fat);
 				miniFAT = new MiniFAT(mbb, header, fat, directory);
-				namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+				namedProperties = directory.namedPropertiesMappingEntry == null ? null : new NamedProperties(mbb, header, fat, directory, miniFAT);
 			} catch (Exception e) {
 				fc.close();
 				throw e;

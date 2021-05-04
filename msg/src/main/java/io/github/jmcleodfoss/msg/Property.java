@@ -305,7 +305,7 @@ public abstract class Property
 					FAT fat = new FAT(mbb, header, difat);
 					Directory directory = new Directory(mbb, header, fat);
 					MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
-					NamedProperties namedProperties = new NamedProperties(mbb, header, fat, directory, miniFAT);
+					NamedProperties namedProperties = directory.namedPropertiesMappingEntry == null ? null : new NamedProperties(mbb, header, fat, directory, miniFAT);
 
 					java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 					while (iter.hasNext()) {

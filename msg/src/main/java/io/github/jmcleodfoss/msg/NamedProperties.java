@@ -236,6 +236,10 @@ class NamedProperties
 					FAT fat = new FAT(mbb, header, difat);
 					Directory directory = new Directory(mbb, header, fat);
 					MiniFAT miniFAT = new MiniFAT(mbb, header, fat, directory);
+					if (directory.namedPropertiesMappingEntry == null) {
+						System.out.printf("%s does not containe a Named Properties Mapping Entry%n", a);
+						continue;
+					}
 					NamedProperties namedPropertiesMapping = new NamedProperties(mbb, header, fat, directory, miniFAT);
 
 					System.out.println("GUID stream");
