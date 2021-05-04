@@ -24,7 +24,6 @@ else
 	declare cp=msg/target/msg-$version.jar
 fi
 
-
 GetTestDirectory() {
 	declare temp
 	temp=$(basename "$1")
@@ -84,7 +83,7 @@ echo "Starting tests at $(date +%H:%M:%S)" > $stats
 TestMSGIndependentModule io.github.jmcleodfoss.msg.GUID
 
 # Tests done on each pst file
-for msg in "$input_dir"/*.msg; do
+for msg in "$input_dir"/*.{msg,msi}; do
 	TestMSGFile "$msg"
 done
 
