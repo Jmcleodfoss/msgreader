@@ -379,10 +379,11 @@ abstract class DataType {
 		private static java.util.Date initBaseTime()
 		{
 			try {
-				final java.text.SimpleDateFormat PST_BASE_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy");
+				final java.util.Locale DATE_LOCALE = new java.util.Locale("en", "US");
+				final java.text.SimpleDateFormat PST_BASE_FORMAT = new java.text.SimpleDateFormat("MMMM dd, yyyy", DATE_LOCALE);
 				return PST_BASE_FORMAT.parse("January 1, 1601");
 			} catch (final java.text.ParseException e) {
-				// If this happens, the format defined above no longer matches the given date.
+				// If this happens, the format defined above no longer matches the given date or there is a problem with the locale.
 				// This can't be handled by client code; it needs a change to the code above.
 				throw new RuntimeException(e);
 			}
