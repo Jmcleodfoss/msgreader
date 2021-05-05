@@ -49,3 +49,7 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
 Addresses security and, resource leaks, and code quality issues found by static analysis tools (Codacy and Xanitizer, primarily)
 *   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msgexplorer/1.0.1/io.github.jmcleodfoss.msgexplorer/module-summary.html)
 *   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msgexplorer/1.0.1/msgexplorer-1.0.0.jar)
+
+### 1.0.2
+*   Run in non-English locales (Issue #2)
+*   Read MSI files (Issue #5)
