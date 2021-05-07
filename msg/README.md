@@ -42,9 +42,12 @@ Initial version
 *   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.0/io.github.jmcleodfoss.msg/module-summary.html)
 *   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.0/msg-1.0.0.jar)
 
-### 1.0.1 (2020-05-05)
+### 1.0.1 (never released)
+Version 1.0.1 the of msg library was never released. Only msgexplorer was released in 1.0.1.
+
+### 1.0.2 (2021-05-07)
 Addresses security and, resource leaks, and code quality issues found by static analysis tools (Codacy and Xanitizer, primarily)
 Runs in non-English locales (fixes Issue #2)
 Account for CBF files which do not include a Named Properties section (probably every type except MSG files, but definitely MSI files) (fixes Issue #5)
-*   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.1/io.github.jmcleodfoss.msg/module-summary.html)
-*   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.1/msg-1.0.1.jar)
+*   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg/1.0.2/io.github.jmcleodfoss.msg/module-summary.html)
+*   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg/1.0.2/msg-1.0.2.jar)

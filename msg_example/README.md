@@ -22,7 +22,10 @@ The application permits saving attachments (if any), and opening a new file.
 *   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg_example/1.0.0/io.github.jmcleodfoss.msg_example/module-summary.html)
 *   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg_example/1.0.0/msg_example-1.0.0.jar)
 
-### 1.0.1
+### 1.0.1 (never released)
+Version 1.0.1 of msg_example was never released. Only msgexplorer was released in 1.0.1.
+
+### 1.0.2 (2021-05-07)
 Addresses security and, resource leaks, and code quality issues found by static analysis tools (Codacy and Xanitizer, primarily)
-*   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg_example/1.0.1/io.github.jmcleodfoss.msg_example/module-summary.html)
-*   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg_example/1.0.1/msg_example-1.0.1.jar)
+*   [View Javadoc](https://javadoc.io/doc/io.github.jmcleodfoss/msg_example/1.0.2/io.github.jmcleodfoss.msg_example/module-summary.html)
+*   [Download from Sonatype OSS Maven Repository](https://repo1.maven.org/maven2/io/github/jmcleodfoss/msg_example/1.0.2/msg_example-1.0.2.jar)
