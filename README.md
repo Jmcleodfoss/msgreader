@@ -11,3 +11,8 @@ Contents:
 *   [msg](https://github.com/Jmcleodfoss/msgreader/tree/master/msg), the library for reading .msg files
 *   [msgexplorer](https://github.com/Jmcleodfoss/msgreader/tree/master/msgexplorer), a sample application for viewing a .msg file at any desired level of detail
 *   [msg_example](https://github.com/Jmcleodfoss/msgreader/tree/master/msg_example), a pair of simple applications for displaying basic information about a .msg file, and for saving attachments
+
+Versions:
+*   1.0.0 (2020-05-16) Initial version (all modules)
+*   1.0.1 (2020-11-29) Release of msgexplorer only
+*   1.0.2 (2021-12-07) Update to msg library, all modules updated (no substantial changes to code for msg_example or msgexplorer)
