@@ -349,7 +349,11 @@ public class DirectoryEntry {
 	*/
 	byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
 	{
-		return null;
+		if (streamSize == 0)
+			return null;
+		if (header.isInMiniStream(streamSize))
+			return miniFAT.read(startingSectorLocation, streamSize, mbb);
+		return fat.read(startingSectorLocation, streamSize, mbb, header);
 	}
 
 	/** Return a String representation of the data bytes
@@ -549,21 +553,6 @@ public class DirectoryEntry {
 			}
 			return properties;
 		}
-
-		/** Get the entry's contents, if any.
-		*	@param	mbb	{@inheritDoc}
-		*	@param	header	{@inheritDoc}
-		*	@param	fat	{@inheritDoc}
-		*	@param	miniFAT	{@inheritDoc}
-		*	@return	{@inheritDoc}
-		*/
-		@Override
-		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
-		{
-			if (header.isInMiniStream(streamSize))
-				return miniFAT.read(startingSectorLocation, streamSize, mbb);
-			return fat.read(startingSectorLocation, streamSize, mbb, header);
-		}
 	}
 
 	/** Recipient Object Storage
@@ -702,21 +691,6 @@ public class DirectoryEntry {
 		int getChildPropertiesHeaderSize()
 		{
 			return 28;
-		}
-
-		/** Get the entry's contents, if any.
-		*	@param	mbb	{@inheritDoc}
-		*	@param	header	{@inheritDoc}
-		*	@param	fat	{@inheritDoc}
-		*	@param	miniFAT	{@inheritDoc}
-		*	@return	{@inheritDoc}
-		*/
-		@Override
-		byte[] getContent(java.nio.MappedByteBuffer mbb, Header header, FAT fat, MiniFAT miniFAT)
-		{
-			if (header.isInMiniStream(streamSize))
-				return miniFAT.read(startingSectorLocation, streamSize, mbb);
-			return fat.read(startingSectorLocation, streamSize, mbb, header);
 		}
 
 		/** Get the property tag (ID and type code), if any.
