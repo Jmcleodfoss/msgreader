@@ -211,7 +211,7 @@ class Directory extends Tab
 					updateTabs(tabFileContentsText);
 				} else if (de.propertyTag == PropertyTags.PidTagAttachDataBinary) {
 					HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
-					String mimeType = msg.getPropertyValue(properties.get(PropertyTags.PidTagAttachMimeTag));
+					String mimeType = properties.get(PropertyTags.PidTagAttachMimeTagW).value();
 					if (IMAGE_MIME_TYPES.contains(mimeType)) {
 						ByteArrayInputStream imageSource = new ByteArrayInputStream(fileData);
 						double imgWidth = filePane.getWidth();
