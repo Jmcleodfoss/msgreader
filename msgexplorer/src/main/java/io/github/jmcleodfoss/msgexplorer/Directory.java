@@ -379,7 +379,7 @@ class Directory extends Tab
 			{
 				DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
 				HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
-				Property p = properties.get(PropertyTags.PidTagAttachLongFilename);
+				Property p = properties.get(PropertyTags.PidTagAttachLongFilenameW);
 				if (p == null)
 					return;
 
