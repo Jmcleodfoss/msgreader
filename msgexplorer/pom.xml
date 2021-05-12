@@ -83,7 +83,7 @@
 				<configuration>
 					<offlineLinks>
 						<offlineLink>
-							<url>https://openjfx.io/javadoc/${msgproject.javafx.version}/</url>
+							<url>https://openjfx.io/javadoc/${msgproject.javafx.version}/javafx.graphics</url>
 							<location>${project.basedir}/../extras/javafx-package-list</location>
 						</offlineLink>
 					</offlineLinks>
