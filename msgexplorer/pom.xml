@@ -101,7 +101,7 @@
 						<additionalDependency>
 							<groupId>io.github.jmcleodfoss</groupId>
 							<artifactId>msg</artifactId>
-							<version>1.0.2</version>
+							<version>1.0.3-SNAPSHOT</version>
 						</additionalDependency>
 
 						<additionalDependency>
