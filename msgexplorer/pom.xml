@@ -112,14 +112,14 @@
 
 						<additionalDependency>
 							<groupId>org.openjfx</groupId>
-							<artifactId>javafx-controls</artifactId>
+							<artifactId>javafx-base</artifactId>
 							<version>${msgproject.javafx.version}</version>
 							<classifier>${msgproject.javafx.platform}</classifier>
 						</additionalDependency>
 
 						<additionalDependency>
 							<groupId>org.openjfx</groupId>
-							<artifactId>javafx-base</artifactId>
+							<artifactId>javafx-controls</artifactId>
 							<version>${msgproject.javafx.version}</version>
 							<classifier>${msgproject.javafx.platform}</classifier>
 						</additionalDependency>
