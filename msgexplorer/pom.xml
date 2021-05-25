@@ -107,7 +107,7 @@
 						<additionalDependency>
 							<groupId>io.github.jmcleodfoss</groupId>
 							<artifactId>voluminouspaginationskin</artifactId>
-							<version>2.0.0</version>
+							<version>2.0.1</version>
 						</additionalDependency>
 
 						<additionalDependency>
