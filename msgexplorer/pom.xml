@@ -94,12 +94,9 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.3.0</version>
 				<configuration>
-					<offlineLinks>
-						<offlineLink>
-							<url>https://openjfx.io/javadoc/${msgproject.javafx.version}/javafx.graphics</url>
-							<location>${project.basedir}/../extras/javafx-package-list</location>
-						</offlineLink>
-					</offlineLinks>
+					<links>
+						<link>https://openjfx.io/javadoc/${msgproject.javafx.version}/</link>
+					</links>
 					<additionalDependencies>
 						<additionalDependency>
 							<groupId>io.github.jmcleodfoss</groupId>
