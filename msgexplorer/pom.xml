@@ -40,9 +40,22 @@
 
 		<dependency>
 			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<version>${msgproject.javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
 			<version>${msgproject.javafx.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>${msgproject.javafx.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
