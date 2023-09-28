@@ -46,6 +46,7 @@ class MiniFAT {
 		/** Is there a new entry to return?
  		*	@return	true if there is another entry, false if there is not
  		*/
+		@Override
 		public boolean hasNext()
 		{
 			return entry != Sector.ENDOFCHAIN;
@@ -54,6 +55,7 @@ class MiniFAT {
 		/** Return the next mini FAT index entry
 		*	@return	The next entry in the mini FAT sector chain
 		*/
+		@Override
 		public Integer next()
 		{
 			if (entry == Sector.ENDOFCHAIN)

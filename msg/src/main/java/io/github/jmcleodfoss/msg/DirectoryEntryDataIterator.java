@@ -27,6 +27,7 @@ class DirectoryEntryDataIterator implements java.util.Iterator<DirectoryEntryDat
 	/** Is there another entry in the list?
 	*	@return	true if there is another entry, false otherwise
 	*/
+	@Override
 	public boolean hasNext()
 	{
 		return iterator.hasNext();
@@ -35,6 +36,7 @@ class DirectoryEntryDataIterator implements java.util.Iterator<DirectoryEntryDat
 	/** Get the next entry as a DirectoryEntryData object
 	*	@return	A DirectoryEntryData object for the next entry.
 	*/
+	@Override
 	public DirectoryEntryData next()
 	{
 		return new DirectoryEntryData(iterator.next(), directory, namedProperties);

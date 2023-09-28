@@ -59,6 +59,7 @@ public abstract class Property
 	/** Create a String representation of the property.
 	*	@return	A String with the format "roperty tag (property name): value"
 	*/
+	@Override
 	public String toString()
 	{
 		return String.format("0x%08x (%s): %s", propertyTag, propertyName, value());

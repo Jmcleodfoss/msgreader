@@ -77,6 +77,7 @@ enum ObjectType {
 	/** Create a String value describing this object type.
 	*	@return	A String containing a description of this object type.
 	*/
+	@Override
 	public String toString()
 	{
 		return name;

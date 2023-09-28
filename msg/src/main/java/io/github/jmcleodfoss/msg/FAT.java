@@ -34,6 +34,7 @@ class FAT {
 		*	@return	true if there are any more sectors in this chain,
 		*		false otherwise
 		*/
+		@Override
 		public boolean hasNext()
 		{
 			return entry != Sector.ENDOFCHAIN;
@@ -42,6 +43,7 @@ class FAT {
 		/** Return the next FAT index entry
 		*	@return	the next entry in the chain as given by the FAT
 		*/
+		@Override
 		public Integer next()
 		{
 			if (entry == Sector.ENDOFCHAIN)
@@ -69,6 +71,7 @@ class FAT {
 		*	@return	true if there are any more free sectors to list,
 		*		false otherwise
 		*/
+		@Override
 		public boolean hasNext()
 		{
 			return entry < numSectors && fat[entry] == Sector.FREESECT;
@@ -77,6 +80,7 @@ class FAT {
 		/** Return the next FAT free entry
 		*	@return	The next free sector according to the FAT
 		*/
+		@Override
 		public Integer next()
 		{
 			int retval = entry;

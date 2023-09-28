@@ -59,6 +59,7 @@ class EntryStreamEntry
 	/** Get a String representation of this object.
 	*	@return	A string representing this object
 	*/
+	@Override
 	public String toString()
 	{
 		String pt;

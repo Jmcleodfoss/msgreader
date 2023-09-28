@@ -39,6 +39,7 @@ class DIFAT {
 		*	@return	True if there is another DIFAT entry to return,
 		*		false if there is not
 		*/
+		@Override
 		public boolean hasNext()
 		{
 			return entry < numEntries;
@@ -47,6 +48,7 @@ class DIFAT {
 		/** Get the next DIFAT index entry
 		*	@return	The next DIFAT index entry
 		*/
+		@Override
 		public Integer next()
 		{
 			if (entry >= numEntries)
