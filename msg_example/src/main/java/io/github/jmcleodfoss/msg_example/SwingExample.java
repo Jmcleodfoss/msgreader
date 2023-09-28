@@ -52,6 +52,9 @@ Use (assuming the jars for msg_example and msg are in the classpath):
 */
 public class SwingExample extends JFrame
 {
+	/**	The serialVersionUID is required because the base class is serializable. */
+	private static final long serialVersionUID = 1L;
+
 	/** The msg file we are currently displaying (needed in case attachments are to be saved) */
 	private MSG msg;
 
