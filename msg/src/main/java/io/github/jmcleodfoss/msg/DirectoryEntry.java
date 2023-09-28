@@ -243,17 +243,17 @@ public class DirectoryEntry {
 	/** The object GUID.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
-	protected final GUID clsid;
+	private final GUID clsid;
 
 	/** The creation time of the storage object, or all 0's if the creation time was not recorded
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
-	protected final java.util.Date creationTime;
+	private final java.util.Date creationTime;
 
 	/** The modification time of the storage object, or all 0's if the creation time was not recorded
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
 	*/
-	protected final java.util.Date modifiedTime;
+	private final java.util.Date modifiedTime;
 
 	/** The first sector of a stream object, or, for the root storage entry only, the first sector of the mini stream.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB Section 2.6: Compound File Directory Sectors</a>
@@ -284,7 +284,7 @@ public class DirectoryEntry {
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/60fe8611-66c3-496b-b70d-a504c94c9ace">MS-OXCFB Section 2.6.1: Compound File Directory Entry</a>
 	*/
 	@SuppressWarnings("PMD.ExcessiveParameterList")
-	protected DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
+	private DirectoryEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 	{
 		this.directoryEntryName = directoryEntryName;
 		this.directoryEntryPosition = directoryEntryPosition;
