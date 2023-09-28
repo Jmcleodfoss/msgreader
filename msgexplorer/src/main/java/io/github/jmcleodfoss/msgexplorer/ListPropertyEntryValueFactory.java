@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 
-/* Cell factory for use when property lists provide cell data for a column.
+/** Cell factory for use when property lists provide cell data for a column.
  * 	@param	<R>	data type of the list associated with this factory.
  * 	@param	<S>	row data type
  * 	@param	<T>	cell type
