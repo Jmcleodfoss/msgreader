@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 
 /** Simple example command line application using the msg library.
@@ -39,7 +39,7 @@ public class CommandlineExample
 	*	@param	propertyTag	The tag of the property to retrieve
 	*	@return	A String containing the value of the property
 	*/
-	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
+	private static String getPropertyValue(MSG msg, Map<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
 			return msg.getPropertyValue(properties.get(propertyTag));
@@ -59,7 +59,7 @@ public class CommandlineExample
 	{
 		// Get the message information we need
 		MSG msg = new MSG(filename);
-		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
+		Map<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
 
 		// Show selected properties
 		System.out.printf("%s: %s%n", "Date sent", getPropertyValue(msg, properties, PropertyTags.PidTagClientSubmitTime));
@@ -75,7 +75,7 @@ public class CommandlineExample
 			System.out.println("----------");
 		}
 		while (recipients.hasNext()){
-			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
+			Map<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
 			System.out.printf("To: %s (%s)%n", getPropertyValue(msg, m, PropertyTags.PidTagDisplayName), getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress));
 		}
 
@@ -90,7 +90,7 @@ public class CommandlineExample
 		}
 		while (attachments.hasNext()){
 			DirectoryEntryData a = attachments.next();
-			HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
+			Map<Integer, Property> m = msg.getPropertiesAsHashMap(a);
 			String name = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
 			String mimeType = getPropertyValue(msg, m, PropertyTags.PidTagAttachMimeTag);
 			String size = m.get(PropertyTags.PidTagAttachDataBinary).value();
