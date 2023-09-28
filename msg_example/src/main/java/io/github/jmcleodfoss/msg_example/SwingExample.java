@@ -52,6 +52,7 @@ Use (assuming the jars for msg_example and msg are in the classpath):
 <li>AttachmentsSaver#doInBackground</li>
 </ul>
 */
+@SuppressWarnings("serial")
 public class SwingExample extends JFrame
 {
 	/**	The serialVersionUID is required because the base class is serializable. */
