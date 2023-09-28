@@ -205,6 +205,7 @@ public abstract class Property
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/bac41dfb-c824-4e3c-9b5e-b61106f6739f">MS-OXMSG Section 2.4.2.2: Variable Length Property or Multiple-Valued Property Entry</a>
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/252923d6-dd41-468b-9c57-d3f68051a516">MS-OXCMSG Section 2.2.2.9: PidTagAttachMethod Property</a>
 		*/
+		@SuppressWarnings("UnusedVariable")
 		private int attachmentTypeFlag;
 
 		/** Create a representation of a variable-width, or fixed width with more than 4 bytes, property.
