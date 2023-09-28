@@ -32,7 +32,6 @@ enum ObjectType {
 	
 	/** Construct an ObjectType from the given byte read out of a directory entry block
 	*	@param	type	The type as read
-	*	@throws	UnknownStorageTypeException	The object type is not one of UNKNOWN, STORAGE, STREAM, or ROOT_STORAGE.
 	*/
 	ObjectType(int type, String name)
 	{
