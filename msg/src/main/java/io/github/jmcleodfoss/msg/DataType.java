@@ -117,6 +117,7 @@ abstract class DataType {
 		/** Obtain the size of this object
 		*	@return	The size of this object in the file, in bytes.
 		*/
+		@Override
 		int size()
 		{
 			return size;
@@ -145,6 +146,7 @@ abstract class DataType {
 		*	@param	o	The GUID to display.
 		*	@return	A String showing the GUID.
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return ((io.github.jmcleodfoss.msg.GUID)o).toString();
@@ -155,6 +157,7 @@ abstract class DataType {
 		*	@return	The GUID read in from the incoming data stream.
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			byte arr[] = new byte[SIZE];
@@ -166,6 +169,7 @@ abstract class DataType {
 		/** Return the size of GUID object
 		*	@return	The size of a GUID
 		*/
+		@Override
 		int size()
 		{
 			return SIZE;
@@ -181,6 +185,7 @@ abstract class DataType {
 		*	@param	o	The Byte object to display.
 		*	@return	A String representation of the Byte object (in hexadecimal).
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return Integer.toHexString((Byte)o & 0xff);
@@ -191,6 +196,7 @@ abstract class DataType {
 		*	@return	A Byte object corresponding to the 8-bit integer read in from the data stream.
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Byte)byteBuffer.get();
@@ -199,6 +205,7 @@ abstract class DataType {
 		/** Obtain the size of an 8-bit integer
 		*	@return	The size of an 8-bit integer, in bytes.
 		*/
+		@Override
 		int size()
 		{
 			return 1;
@@ -214,6 +221,7 @@ abstract class DataType {
 		*	@param	o	The Short object to display.
 		*	@return	A String representation of the Short object (in hexadecimal).
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return Integer.toHexString((Short)o & 0xffff);
@@ -224,6 +232,7 @@ abstract class DataType {
 		*	@return	A Short object corresponding to the 16-bit integer read in from the data stream.
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Short)byteBuffer.getShort();
@@ -232,6 +241,7 @@ abstract class DataType {
 		/** Obtain the size of a 16-bit integer.
 		*	@return	The size of a 16-bit integer in bytes.
 		*/
+		@Override
 		int size()
 		{
 			return 2;
@@ -253,6 +263,7 @@ abstract class DataType {
 		*	@param	o	The Integer object to display.
 		*	@return	A String representation of the Integer object (in hexadecimal).
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return Integer.toHexString((Integer)o);
@@ -262,6 +273,7 @@ abstract class DataType {
 		*	@param	byteBuffer	The incoming data stream from which to read the 32-bit integer.
 		*	@return	An Integer object corresponding to the 32-bit integer read in from the data stream.
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Integer)byteBuffer.getInt();
@@ -270,6 +282,7 @@ abstract class DataType {
 		/** Obtain the size of a 32-bit integer
 		*	@return	The size of a 32-bit integer in the
 		*/
+		@Override
 		int size()
 		{
 			return 4;
@@ -285,6 +298,7 @@ abstract class DataType {
 		*	@param	o	The Long object to display.
 		*	@return	A String representation of the Long object (in hexadecimal).
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return Long.toHexString((Long)o);
@@ -295,6 +309,7 @@ abstract class DataType {
 		*	@return	A Long object corresponding to the 64-bit integer read in from the data stream.
 		*	@see <a href="https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcdata/0c77892e-288e-435a-9c49-be1c20c7afdb">MS-OXCDATA Section 2.11.1: Property Data Types</a>
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return (Long)byteBuffer.getLong();
@@ -303,6 +318,7 @@ abstract class DataType {
 		/** Obtain the size of a 64-bit integer
 		*	@return	The size of a 64-bit integer in bytes.
 		*/
+		@Override
 		int size()
 		{
 			return 8;
@@ -326,6 +342,7 @@ abstract class DataType {
 		*	@param	o	The array of bytes to display.
 		*	@return	A String showing the bytes in the array in hexadecimal.
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			byte[] a = (byte[])o;
@@ -348,6 +365,7 @@ abstract class DataType {
 		*	@param	byteBuffer	The incoming data stream to read from. Note that this is entirely consumed.
 		*	@return	The array of bytes read in from the incoming data stream.
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			return read(byteBuffer, size);
@@ -394,6 +412,7 @@ abstract class DataType {
 		*	@return	A String representation of the given object, formatted according to {@link #OUTPUT_FORMAT}.
 		*	@see	#OUTPUT_FORMAT
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return OUTPUT_FORMAT.format((java.util.Date)o);
@@ -403,6 +422,7 @@ abstract class DataType {
 		*	@param	byteBuffer	The incoming data stream from which to read the time.
 		*	@return	A Java Date object corresponding to the MS time read from the data stream.
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			long hundred_ns = byteBuffer.getLong();
@@ -414,6 +434,7 @@ abstract class DataType {
 		/** Obtain the size in bytes of an MS time object
 		*	@return	The size of an MS time object
 		*/
+		@Override
 		int size()
 		{
 			return 8;
@@ -436,6 +457,7 @@ abstract class DataType {
 		*	@param	o	The String to display.
 		*	@return	The given String.
 		*/
+		@Override
 		String makeString(final Object o)
 		{
 			return (String)o;
@@ -445,6 +467,7 @@ abstract class DataType {
 		*	@param	byteBuffer	The incoming data stream from which to read the data.
 		*	@return	A String corresponding to the Boolean read in from the data stream.
 		*/
+		@Override
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			byte arr[] = new byte[size];

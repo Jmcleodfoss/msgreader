@@ -73,6 +73,7 @@ public class DirectoryEntryData {
 	/** Create a string representing this directory entry
 	*	@return	The name of the entry
 	*/
+	@Override
 	public String toString()
 	{
 		return name;

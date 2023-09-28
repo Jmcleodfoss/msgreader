@@ -411,6 +411,7 @@ public class DirectoryEntry {
 	/** Return a String for this entry
 	*	@return	A String representation of this entry.
 	*/
+	@Override
 	public String toString()
 	{
 		return String.format("name %s%n" +
@@ -517,6 +518,7 @@ public class DirectoryEntry {
 		*	@param	namedProperties	The file's named properties object
 		*	@return	A HashMap of Property objects containing the property data defined in the Properties entry.
 		*/
+		@Override
 		java.util.HashMap<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 		{
 			java.util.HashMap<Integer, Property> properties = super.propertiesAsHashMap(data, parent, namedProperties);
