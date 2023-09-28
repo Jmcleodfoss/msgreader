@@ -58,7 +58,7 @@ import javafx.scene.control.TableColumn;
  * 			col[i] = new TableColumn<Row, String>(headers[i]);
  * 			col[i].setCellValueFactory(
  * 				new ListPropertyEntryValueFactory<Byte, Rows, String>("columnsData", i){
- *					@Override
+ *					\\@Override
  *					public ObservableValue<String> call(TableColumn.CellDataFeatures<Rows,String> param)
  *					{
  *						byte b = getValue(param);
