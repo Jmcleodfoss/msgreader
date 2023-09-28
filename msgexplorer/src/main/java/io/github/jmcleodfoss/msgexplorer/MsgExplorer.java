@@ -136,6 +136,7 @@ public class MsgExplorer extends Application
 	/** Initialize and show the MsgExplorer display
 	*	@param	stage	The current stage
 	*/
+	@Override
 	public void start(Stage stage)
 	{
 		localizer = new LocalizedText();

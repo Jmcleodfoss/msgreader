@@ -272,9 +272,11 @@ class Directory extends Tab
 			itemProperty().set(entry);
 		}
 
+		@Override
 		protected Task<byte[]> createTask()
 		{
 			return new Task<byte[]>() {
+				@Override
 				protected byte[] call()
 				{
 					return msg.getFile(getItem().getValue());

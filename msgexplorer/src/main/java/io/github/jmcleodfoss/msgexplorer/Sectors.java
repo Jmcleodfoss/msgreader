@@ -89,9 +89,11 @@ class Sectors extends Tab
 			return pageIndexProperty().get();
 		}
 
+		@Override
 		protected Task<byte[]> createTask()
 		{
 			return new Task<byte[]>() {
+				@Override
 				protected byte[] call()
 				{
 					return msg.getSector(getPageIndex());
