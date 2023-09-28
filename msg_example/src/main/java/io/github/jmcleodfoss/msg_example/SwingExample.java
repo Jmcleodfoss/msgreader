@@ -278,6 +278,7 @@ public class SwingExample extends JFrame
 	*	@param	filename	The name of the ,msg file to load
 	*	@return	A Box component containing information about the message
 	*/
+	@SuppressWarnings("JdkObsolete") // We use the JTable constructor that takes Vector arguments
 	private Box readMsg(String filename)
 	{
 		// Read the msg file. Display an error message and return an empty component on error.
