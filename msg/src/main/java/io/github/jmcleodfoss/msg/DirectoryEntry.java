@@ -435,18 +435,18 @@ public class DirectoryEntry {
 	private static class Attachment extends DirectoryEntry {
 
 		/** Construct an Attachment directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private Attachment(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -469,18 +469,18 @@ public class DirectoryEntry {
 	private static class NamedPropertiesMapping extends DirectoryEntry {
 
 		/** Construct a NamedPropertiesMapping directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private NamedPropertiesMapping(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -494,18 +494,18 @@ public class DirectoryEntry {
 	private static class Properties extends DirectoryEntry {
 
 		/** Construct a Properties directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private Properties(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -563,18 +563,18 @@ public class DirectoryEntry {
 	private static class Recipient extends DirectoryEntry {
 
 		/** Construct a Recipient directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private Recipient(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -597,18 +597,18 @@ public class DirectoryEntry {
 	private static class RootEntry extends DirectoryEntry {
 
 		/** Construct a RootEntry directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private RootEntry(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{
@@ -655,19 +655,18 @@ public class DirectoryEntry {
 		int propertyTag;
 
 		/** Construct a Substorage directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	propertyTag		The property tag, as a String
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private Substorage(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, String propertyTag, DataContainer dc)
 		{
@@ -724,18 +723,18 @@ public class DirectoryEntry {
 	private static class Unallocated extends DirectoryEntry {
 
 		/** Construct an Unallocated directory entry from the directory entry data
-		*	@param	directoryEntryName	{@inheritDoc}
-		*	@param	directoryEntryPosition	{@inheritDoc}
-		*	@param	objectType		{@inheritDoc}
-		*	@param	leftSiblingId		{@inheritDoc}
-		*	@param	rightSiblingId		{@inheritDoc}
-		*	@param	childId			{@inheritDoc}
-		*	@param	clsid			{@inheritDoc}
-		*	@param	creationTime		{@inheritDoc}
-		*	@param	modifiedTime		{@inheritDoc}
-		*	@param	startingSectorLocation	{@inheritDoc}
-		*	@param	streamSize		{@inheritDoc}
-		*	@param	dc			{@inheritDoc}
+		*	@param	directoryEntryName	The name of the directory entry
+		*	@param	directoryEntryPosition	The byte offset into the file of the directory entry
+		*	@param	objectType		The {@link ObjectType} of the entry
+		*	@param	leftSiblingId		The index of the entry's left sibling
+		*	@param	rightSiblingId		The index of the entry's right sibling
+		*	@param	childId			The index of the entry's child (only one is referenced; siblings are found via left and right sibling IDs
+		*	@param	clsid			The {@link GUID} for the entry
+		*	@param	creationTime		The entry's creation time
+		*	@param	modifiedTime		The time of the entry's latest modification
+		*	@param	startingSectorLocation	The starting sector (or mini sector) of the file (depending on the streanSize)
+		*	@param	streamSize		The size of the data
+		*	@param	dc			The data container all the information was read from
 		*/
 		private Unallocated(String directoryEntryName, int directoryEntryPosition, ObjectType objectType, int leftSiblingId, int rightSiblingId, int childId, GUID clsid, java.util.Date creationTime, java.util.Date modifiedTime, int startingSectorLocation, long streamSize, DataContainer dc)
 		{

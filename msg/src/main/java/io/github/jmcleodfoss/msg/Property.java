@@ -77,9 +77,9 @@ public abstract class Property
 		private boolean property;
 
 		/** Create a representation of a Boolean property.
-		*	@param	propertyTag	{@inheritDoc}
-		*	@param	propertyName	{@inheritDoc}
-		*	@param	flags		{@inheritDoc}
+		*	@param	propertyTag	The property tag. @see propertyTag
+		*	@param	propertyName	The property's name. @see propertyName
+		*	@param	flags	The property flags. @see flags
 		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
@@ -109,9 +109,9 @@ public abstract class Property
 		private int property;
 
 		/** Create a representation of a 32-bit integer property.
-		*	@param	propertyTag	{@inheritDoc}
-		*	@param	propertyName	{@inheritDoc}
-		*	@param	flags		{@inheritDoc}
+		*	@param	propertyTag	The property tag. @see propertyTag
+		*	@param	propertyName	The property's name. @see propertyName
+		*	@param	flags	The property flags. @see flags
 		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
@@ -141,10 +141,10 @@ public abstract class Property
 		private long property;
 
 		/** Create a representation of a 64-bit integer property.
-		*	@param	propertyTag	{@inheritDoc}
-		*	@param	propertyName	{@inheritDoc}
-		*	@param	propertyType	{@inheritDoc}
-		*	@param	flags		{@inheritDoc}
+		*	@param	propertyTag	The property tag. @see propertyTag
+		*	@param	propertyName	The property's name. @see propertyName
+		*	@param	propertyType	The property's type. @see propertyType
+		*	@param	flags	The property flags. @see flags
 		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
@@ -171,9 +171,9 @@ public abstract class Property
 		private java.util.Date time;
 
 		/** Create a representation of a time-and-date property.
-		*	@param	propertyTag	{@inheritDoc}
-		*	@param	propertyName	{@inheritDoc}
-		*	@param	flags		{@inheritDoc}
+		*	@param	propertyTag	The property tag. @see propertyTag
+		*	@param	propertyName	The property's name. @see propertyName
+		*	@param	flags	The property flags. @see flags
 		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
@@ -207,10 +207,10 @@ public abstract class Property
 		private int attachmentTypeFlag;
 
 		/** Create a representation of a variable-width, or fixed width with more than 4 bytes, property.
-		*	@param	propertyTag	{@inheritDoc}
-		*	@param	propertyName	{@inheritDoc}
-		*	@param	propertyType	{@inheritDoc}
-		*	@param	flags		{@inheritDoc}
+		*	@param	propertyTag	The property tag. @see propertyTag
+		*	@param	propertyName	The property's name. @see propertyName
+		*	@param	propertyType	The property's type. @see propertyType
+		*	@param	flags	The property flags. @see flags
 		*	@param	parent	The Property directory entry's parent entry
 		*	@param	bb		The ByteBuffer from which to read the property value.
 		**/
