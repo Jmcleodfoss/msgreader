@@ -10,8 +10,13 @@ package io.github.jmcleodfoss.msg;
 */
 
 @SuppressWarnings("PMD.ExcessiveClassLength")
-public class PropertyTags
+final public class PropertyTags
 {
+	/** Private constructor to prevent this class from being instantiated */
+	private PropertyTags()
+	{
+	}
+
 	static final public int PidTagTemplateData = 0x00010102;
 	static final public int PidTagAlternateRecipientAllowed = 0x0002000b;
 	static final public int PidTagScriptData = 0x00040102;
