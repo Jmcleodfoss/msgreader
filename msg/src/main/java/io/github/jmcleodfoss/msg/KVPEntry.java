@@ -6,6 +6,9 @@ package io.github.jmcleodfoss.msg;
 */
 public class KVPEntry<K, V> extends java.util.AbstractMap.SimpleImmutableEntry<K, V>
 {
+	/**	The serialVersionUID is required because the base class is serializable. */
+	private static final long serialVersionUID = 1L;
+
 	/** Construct a new KVP pair.
 	*	@param	k	The key for the entry
 	*	@param	v	The value of the entry
