@@ -94,8 +94,9 @@ public class SwingExample extends JFrame
 				setTitle("msg Explorer");
 				SwingExample.this.add(msgDisplay = get(), BorderLayout.CENTER);
 				SwingExample.this.pack();
-			} catch (final InterruptedException e) {
-			} catch (final ExecutionException e) {
+			} catch (final	InterruptedException
+				|	ExecutionException e) {
+				// These exceptions don't prevent subsequent execution
 			}
 		}
 	}
@@ -175,8 +176,9 @@ public class SwingExample extends JFrame
 				for (String f: filesWithErrors)
 					sb.append(f + "\n");
 				JOptionPane.showMessageDialog(null, "Problem saving attachments", sb.toString(), JOptionPane.ERROR_MESSAGE);
-			} catch (final InterruptedException e) {
-			} catch (final ExecutionException e) {
+			} catch (final InterruptedException
+				|	ExecutionException e) {
+				// These exceptions don't prevent subsequent execution
 			}
 		}
 	}
