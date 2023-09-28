@@ -18,7 +18,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
@@ -102,7 +104,7 @@ public class SwingExample extends JFrame
 	}
 
 	/** Worker class for saving attachments */
-	class AttachmentsSaver extends SwingWorker<ArrayList<String>, Object>
+	class AttachmentsSaver extends SwingWorker<List<String>, Object>
 	{
 		private Iterator<DirectoryEntryData> attachments;
 		private File path;
@@ -120,9 +122,9 @@ public class SwingExample extends JFrame
 		*	@return	The list of files we failed to save
 		*/
 		@Override
-		public ArrayList<String> doInBackground()
+		public List<String> doInBackground()
 		{
-			ArrayList<String> filesWithErrors = new ArrayList<String>();
+			List<String> filesWithErrors = new ArrayList<String>();
 
 			while (attachments.hasNext()){
 				DirectoryEntryData a = attachments.next();
@@ -168,7 +170,7 @@ public class SwingExample extends JFrame
 		public void done()
 		{
 			try {
-				ArrayList<String> filesWithErrors = get();
+				List<String> filesWithErrors = get();
 				if (filesWithErrors.size() == 0)
 					return;
 
@@ -381,7 +383,7 @@ public class SwingExample extends JFrame
 	*	@param	propertyTag	The tag of the property to retrieve
 	*	@return	A String containing the value of the property
 	*/
-	private static String getPropertyValue(MSG msg, HashMap<Integer, Property> properties, int propertyTag)
+	private static String getPropertyValue(MSG msg, Map<Integer, Property> properties, int propertyTag)
 	{
 		if (properties.keySet().contains(propertyTag))
 			return msg.getPropertyValue(properties.get(propertyTag));
