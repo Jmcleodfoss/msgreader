@@ -19,7 +19,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Vector;
@@ -129,7 +128,7 @@ public class SwingExample extends JFrame
 
 			while (attachments.hasNext()){
 				DirectoryEntryData a = attachments.next();
-				HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
+				Map<Integer, Property> m = msg.getPropertiesAsHashMap(a);
 				String attachmentName = getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename);
 
 				// Look for the entry which holds the attachment
@@ -298,7 +297,7 @@ public class SwingExample extends JFrame
 			return Box.createHorizontalBox();
 		}
 
-		HashMap<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
+		Map<Integer, Property> properties = msg.getPropertiesAsHashMap(msg.getDirectoryTree());
 
 		Box msgBox = Box.createVerticalBox();
 
@@ -334,7 +333,7 @@ public class SwingExample extends JFrame
 			Box rList = Box.createVerticalBox();
 
 			while (recipients.hasNext()){
-				HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
+				Map<Integer, Property> m = msg.getPropertiesAsHashMap(recipients.next());
 				r = Box.createHorizontalBox();
 				r.add(new JTextArea(String.format("%s (%s)", getPropertyValue(msg, m, PropertyTags.PidTagDisplayName), getPropertyValue(msg, m, PropertyTags.PidTagEmailAddress))));
 				rList.add(r);
@@ -350,7 +349,7 @@ public class SwingExample extends JFrame
 			Vector<Vector<String>> attachmentData = new Vector<Vector<String>>();
 			while (attachments.hasNext()){
 				DirectoryEntryData a = attachments.next();
-				HashMap<Integer, Property> m = msg.getPropertiesAsHashMap(a);
+				Map<Integer, Property> m = msg.getPropertiesAsHashMap(a);
 
 				Vector<String> row = new Vector<String>();
 				row.add(getPropertyValue(msg, m, PropertyTags.PidTagAttachLongFilename));

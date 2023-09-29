@@ -140,7 +140,7 @@ class NamedPropertiesTableTab extends Tab
 	/** Update the Named Properties display
 	*	@param	al	The list of new properties to be displayed
 	*/
-	void update(java.util.ArrayList<EntryStreamEntryData> al)
+	void update(java.util.List<EntryStreamEntryData> al)
 	{
 		ObservableList<NamedPropertyRow> ol = FXCollections.observableArrayList();
 		for (java.util.Iterator<EntryStreamEntryData> iter = al.iterator(); iter.hasNext(); ){

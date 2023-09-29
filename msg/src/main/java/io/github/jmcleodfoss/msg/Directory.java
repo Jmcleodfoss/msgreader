@@ -95,7 +95,7 @@ class Directory {
 	*	@param	child		The given child for the parent we are collecting the children of.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
-	private void addSiblings(java.util.ArrayList<DirectoryEntry> siblings, DirectoryEntry child)
+	private void addSiblings(java.util.List<DirectoryEntry> siblings, DirectoryEntry child)
 	{
 		if (child.leftSiblingId != Sector.FREESECT)
 			addSiblings(siblings, entries.get(child.leftSiblingId));
@@ -111,7 +111,7 @@ class Directory {
 	*	@return	The (possibly empty) list of children of the directory entry for parentIndex.
 	*	@see <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/a94d7445-c4be-49cd-b6b9-2f4abc663817">MS-CFB 2.6 Compound File Directory Sectors</a>
 	*/
-	java.util.ArrayList<DirectoryEntry> getChildren(DirectoryEntry parent)
+	java.util.List<DirectoryEntry> getChildren(DirectoryEntry parent)
 	{
 		java.util.ArrayList<DirectoryEntry> children = new java.util.ArrayList<DirectoryEntry>();
 		if (parent.childId != Sector.FREESECT)
@@ -124,7 +124,7 @@ class Directory {
 	*/
 	private void setParent(DirectoryEntry parent)
 	{
-		java.util.ArrayList<DirectoryEntry> children = getChildren(parent);
+		java.util.List<DirectoryEntry> children = getChildren(parent);
 		for (java.util.Iterator<DirectoryEntry> iter = children.iterator(); iter.hasNext(); ){
 			DirectoryEntry de = iter.next();
 			parents.put(de, parent);
@@ -166,7 +166,7 @@ class Directory {
 
 						System.out.println("\n");
 						for (i = 0; i < directory.entries.size(); ++i){
-							java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
+							java.util.List<DirectoryEntry> children = directory.getChildren(directory.entries.get(i));
 							if (children.size() > 0){
 								System.out.printf("Children of 0x%02x:%n", i);
 								java.util.Iterator<DirectoryEntry> childIterator = children.iterator();

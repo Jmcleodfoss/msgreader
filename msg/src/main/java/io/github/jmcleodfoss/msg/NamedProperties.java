@@ -47,7 +47,7 @@ class NamedProperties
 	*/
 	NamedProperties(java.nio.MappedByteBuffer mbb, Header header, FAT fat, Directory directory, MiniFAT miniFAT)
 	{
-		java.util.ArrayList<DirectoryEntry> children = directory.getChildren(directory.namedPropertiesMappingEntry);
+		java.util.List<DirectoryEntry> children = directory.getChildren(directory.namedPropertiesMappingEntry);
 		java.util.Iterator<DirectoryEntry> iter = children.iterator();
 
 		// After accounting for the GUID, Entry, and String streams, the
@@ -84,9 +84,9 @@ class NamedProperties
 	*	@param	propertyType	The type of entry to return.
 	*	@return	An array of EntryStreamEntryData objects for the numerical named properties.
 	*/
-	java.util.ArrayList<EntryStreamEntryData> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
+	java.util.List<EntryStreamEntryData> getEntryStreamEntries(EntryStreamEntry.PropertyType propertyType)
 	{
-		java.util.ArrayList<EntryStreamEntryData> npEntries = new java.util.ArrayList<EntryStreamEntryData>();
+		java.util.List<EntryStreamEntryData> npEntries = new java.util.ArrayList<EntryStreamEntryData>();
 		for (EntryStreamEntry entry: entries){
 			if (entry.propertyType != propertyType)
 				continue;

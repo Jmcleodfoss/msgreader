@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Iterator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -88,7 +89,7 @@ class Directory extends Tab
 	static private final String TXT_FILES = "export.filechooser.txt-files";
 
 	/** The list of mime types that can be displayed by javafx.scene.image.Image */
-	private static final ArrayList<String> IMAGE_MIME_TYPES = new ArrayList<String>();
+	private static final List<String> IMAGE_MIME_TYPES = new ArrayList<String>();
 	static {
 		IMAGE_MIME_TYPES.add("image/bmp");
 		IMAGE_MIME_TYPES.add("image/gif");
@@ -210,7 +211,7 @@ class Directory extends Tab
 					fileContentsText.setText(msg.convertFileToString(de, fileData));
 					updateTabs(tabFileContentsText);
 				} else if (de.propertyTag == PropertyTags.PidTagAttachDataBinary) {
-					HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
+					Map<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
 					String mimeType = properties.get(PropertyTags.PidTagAttachMimeTagW).value();
 					if (IMAGE_MIME_TYPES.contains(mimeType)) {
 						ByteArrayInputStream imageSource = new ByteArrayInputStream(fileData);
@@ -380,7 +381,7 @@ class Directory extends Tab
 			public void handle(ActionEvent e)
 			{
 				DirectoryEntryData de = tree.getFocusModel().getFocusedItem().getValue();
-				HashMap<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
+				Map<Integer, Property> properties = msg.getParentPropertiesAsHashMap(de);
 				Property p = properties.get(PropertyTags.PidTagAttachLongFilenameW);
 				if (p == null)
 					return;

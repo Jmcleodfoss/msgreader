@@ -3,6 +3,7 @@ package io.github.jmcleodfoss.msgexplorer;
 import io.github.jmcleodfoss.msg.Property;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.property.ObjectProperty;
@@ -137,7 +138,7 @@ class PropertyTableTab extends Tab
 	*	@param	properties	The list of new properties and values.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
-	void update (ArrayList<Property> properties, LocalizedText localizer)
+	void update (List<Property> properties, LocalizedText localizer)
 	{
 		ObservableList<PropertyRow> ol = FXCollections.observableArrayList();
 		for (Property p : properties)

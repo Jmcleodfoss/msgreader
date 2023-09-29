@@ -5,6 +5,7 @@ import io.github.jmcleodfoss.msg.KVPArray;
 import io.github.jmcleodfoss.msg.KVPEntry;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 
 import javafx.collections.ListChangeListener;
@@ -22,13 +23,13 @@ class MiniStream extends Tab
 	static private final String TAB_TITLE = "ministream.main.tabname";
 
 	/** The mini stream chains */
-	private ListView<ArrayList<Integer>> list;
+	private ListView<List<Integer>> list;
 
 	/** The display for the selected mini stream entry */
 	private ByteDataTable dataDisplay;
 
 	/** The data for the selected mini stream entry */
-	private ArrayList<byte[]> data;
+	private List<byte[]> data;
 
 	/** Create the mini stream tab.
 	*	@param	localizer	The localizer mapping for the current locale.
@@ -37,14 +38,14 @@ class MiniStream extends Tab
 	{
 		super(localizer.getText(TAB_TITLE));
 
-		list = new ListView<ArrayList<Integer>>();
+		list = new ListView<List<Integer>>();
 		list.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>(){
 			@Override
-			public void onChanged(ListChangeListener.Change c)
+			public void onChanged(ListChangeListener.Change<? extends Integer> c)
 			{
 				while (c.next()){
 					if (c.wasReplaced()){
-						dataDisplay.update(data.get((Integer)c.getList().get(0)));
+						dataDisplay.update(data.get(c.getList().get(0)));
 					}
 				}
 			}
@@ -79,10 +80,10 @@ class MiniStream extends Tab
 			return;
 		}
 
-		KVPArray<ArrayList<Integer>, byte[]> miniFATData = msg.miniFATData();
-		Iterator<KVPEntry<ArrayList<Integer>, byte[]>> iter = miniFATData.iterator();
+		KVPArray<List<Integer>, byte[]> miniFATData = msg.miniFATData();
+		Iterator<KVPEntry<List<Integer>, byte[]>> iter = miniFATData.iterator();
 		while (iter.hasNext()) {
-			KVPEntry<ArrayList<Integer>, byte[]> row = iter.next();
+			KVPEntry<List<Integer>, byte[]> row = iter.next();
 			list.getItems().add(row.getKey());
 			data.add(row.getValue());
 		}

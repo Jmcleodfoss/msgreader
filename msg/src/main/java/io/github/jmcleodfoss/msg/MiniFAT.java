@@ -110,9 +110,9 @@ class MiniFAT {
 	/** Get all the mini sector chains
 	*	@return	An ArrayList of ArrayLists containing the mini sector chains
 	*/
-	java.util.ArrayList<java.util.ArrayList<Integer>> getAllChains()
+	java.util.List<java.util.List<Integer>> getAllChains()
 	{
-		java.util.ArrayList<java.util.ArrayList<Integer>> chains = new java.util.ArrayList<java.util.ArrayList<Integer>>();
+		java.util.List<java.util.List<Integer>> chains = new java.util.ArrayList<java.util.List<Integer>>();
 
 		boolean[] shown = new boolean[numEntries];
 		for (int i = 0; i < numEntries; ++i){
@@ -125,7 +125,7 @@ class MiniFAT {
 			}
 
 			/* Found a new chain */
-			java.util.ArrayList<Integer> thisChain = new java.util.ArrayList<Integer>();
+			java.util.List<Integer> thisChain = new java.util.ArrayList<Integer>();
 
 			int sector = i;
 			do {
@@ -155,7 +155,7 @@ class MiniFAT {
 	*/
 	private String getChains()
 	{
-		java.util.Iterator<java.util.ArrayList<Integer>> chainsIterator = getAllChains().iterator();
+		java.util.Iterator<java.util.List<Integer>> chainsIterator = getAllChains().iterator();
 
 		StringBuilder s = new StringBuilder();
 		while(chainsIterator.hasNext()){

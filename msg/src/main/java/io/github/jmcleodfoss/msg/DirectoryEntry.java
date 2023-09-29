@@ -306,7 +306,7 @@ public class DirectoryEntry {
 	*	@param	namedProperties	The file's named properties object
 	*	@return	An empty HashMap for base class
 	*/
-	java.util.HashMap<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+	java.util.Map<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 	{
 		return new java.util.HashMap<Integer, Property>();
 	}
@@ -317,7 +317,7 @@ public class DirectoryEntry {
 	*	@param	namedProperties	The file's named properties object
 	*	@return	An empty ArrayList
 	*/
-	java.util.ArrayList<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+	java.util.List<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 	{
 		return new java.util.ArrayList<Property>();
 	}
@@ -519,9 +519,9 @@ public class DirectoryEntry {
 		*	@return	A HashMap of Property objects containing the property data defined in the Properties entry.
 		*/
 		@Override
-		java.util.HashMap<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+		java.util.Map<Integer, Property> propertiesAsHashMap(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 		{
-			java.util.HashMap<Integer, Property> properties = super.propertiesAsHashMap(data, parent, namedProperties);
+			java.util.Map<Integer, Property> properties = super.propertiesAsHashMap(data, parent, namedProperties);
 
 			java.nio.ByteBuffer propertyStream = java.nio.ByteBuffer.wrap(data);
 			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
@@ -541,9 +541,9 @@ public class DirectoryEntry {
 		*	@return	An array of Property objects, one for each of the properties listed in the Properties entry
 		*/
 		@Override
-		java.util.ArrayList<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
+		java.util.List<Property> propertiesAsList(byte[] data, final DirectoryEntry parent, NamedProperties namedProperties)
 		{
-			java.util.ArrayList<Property> properties = super.propertiesAsList(data, parent, namedProperties);
+			java.util.List<Property> properties = super.propertiesAsList(data, parent, namedProperties);
 
 			java.nio.ByteBuffer propertyStream = java.nio.ByteBuffer.wrap(data);
 			propertyStream.order(java.nio.ByteOrder.LITTLE_ENDIAN);
@@ -747,7 +747,7 @@ public class DirectoryEntry {
 	*	@param	parents		The mapping of child nodes to their parents
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
-	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.HashMap<DirectoryEntry, DirectoryEntry> parents)
+	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.Map<DirectoryEntry, DirectoryEntry> parents)
 	{
 		/* See MS-OXMSG Section 2.2.3: Named Property Storage */
 		final int GUID_STREAM_PROPERTY_TAG = 0x00020102;

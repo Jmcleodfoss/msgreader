@@ -129,10 +129,10 @@ public class MSG
 
 		KVPArray<String, String> l = new KVPArray<String, String>();
 
-		java.util.Iterator<java.util.ArrayList<Integer>> chains = fat.getAllChains().iterator();
+		java.util.Iterator<java.util.List<Integer>> chains = fat.getAllChains().iterator();
 		int applicationChainIndex = 0;
 		while (chains.hasNext()){
-			java.util.ArrayList<Integer> chain = chains.next();
+			java.util.List<Integer> chain = chains.next();
 			int firstSector = chain.get(0);
 
 			String entryName;
@@ -184,7 +184,7 @@ public class MSG
 	*	@param	ded	The entry to get the sibling properties entry of
 	*	@return	A HashMap of {@link Property property values} read from the entry's parent's properties entry.
 	*/
-	public java.util.HashMap<Integer, Property> getParentPropertiesAsHashMap(DirectoryEntryData ded)
+	public java.util.Map<Integer, Property> getParentPropertiesAsHashMap(DirectoryEntryData ded)
 	{
 		return getPropertiesAsHashMap(directory.parents.get(ded.entry));
 	}
@@ -204,7 +204,7 @@ public class MSG
 	*	@param	data	The content of the entry to be parsed
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.HashMap<Integer, Property> parsePropertiesAsHashMap(DirectoryEntryData ded, byte[] data)
+	public java.util.Map<Integer, Property> parsePropertiesAsHashMap(DirectoryEntryData ded, byte[] data)
 	{
 		return ded.entry.propertiesAsHashMap(data, directory.parents.get(ded.entry), namedProperties);
 	}
@@ -214,7 +214,7 @@ public class MSG
 	*	@param	data	The content of the entry to be parsed
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> parsePropertiesAsList(DirectoryEntryData ded, byte[] data)
+	public java.util.List<Property> parsePropertiesAsList(DirectoryEntryData ded, byte[] data)
 	{
 		return ded.entry.propertiesAsList(data, directory.parents.get(ded.entry), namedProperties);
 	}
@@ -223,7 +223,7 @@ public class MSG
 	*	@param	de	The entry to retrieve the properties for.
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	private java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntry de)
+	private java.util.Map<Integer, Property> getPropertiesAsHashMap(DirectoryEntry de)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
@@ -241,7 +241,7 @@ public class MSG
 	*	@param	ded	The entry to retrieve the properties for.
 	*	@return	A HashMap of {@link Property property values} read from the entry.
 	*/
-	public java.util.HashMap<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded)
+	public java.util.Map<Integer, Property> getPropertiesAsHashMap(DirectoryEntryData ded)
 	{
 		return getPropertiesAsHashMap(ded.entry);
 	}
@@ -250,7 +250,7 @@ public class MSG
 	*	@param	ded	The entry to retrieve the properties for.
 	*	@return	An ArrayList of {@link Property property values} read from the entry.
 	*/
-	public java.util.ArrayList<Property> getPropertiesAsList(DirectoryEntryData ded)
+	public java.util.List<Property> getPropertiesAsList(DirectoryEntryData ded)
 	{
 		java.util.Iterator<DirectoryEntry> iter = directory.propertyEntries.iterator();
 		while (iter.hasNext())
@@ -348,13 +348,13 @@ public class MSG
 	/** Get the mini FAT data as a table consisting of the mini FAT sectors in the first column, and the data in the second.
 	*	@return	An array of the mini FAT chains and data
 	*/
-	public KVPArray<java.util.ArrayList<Integer>, byte[]> miniFATData()
+	public KVPArray<java.util.List<Integer>, byte[]> miniFATData()
 	{
-		KVPArray<java.util.ArrayList<Integer>, byte[]> l = new KVPArray<java.util.ArrayList<Integer>, byte[]>();
+		KVPArray<java.util.List<Integer>, byte[]> l = new KVPArray<java.util.List<Integer>, byte[]>();
 
-		java.util.Iterator<java.util.ArrayList<Integer>> chains = miniFAT.getAllChains().iterator();
+		java.util.Iterator<java.util.List<Integer>> chains = miniFAT.getAllChains().iterator();
 		while (chains.hasNext()){
-			java.util.ArrayList<Integer> chain = chains.next();
+			java.util.List<Integer> chain = chains.next();
 			java.util.Iterator<Integer> iter = chain.iterator();
 			int destOffset = 0;
 			byte[] data = new byte[chain.size()*header.miniSectorSize];
@@ -364,7 +364,7 @@ public class MSG
 				destOffset += header.miniSectorSize;
 			}
 
-			l.add(new KVPEntry<java.util.ArrayList<Integer>, byte[]>(chain, data));
+			l.add(new KVPEntry<java.util.List<Integer>, byte[]>(chain, data));
 		}
 
 		return l;
@@ -434,7 +434,7 @@ public class MSG
 	/** Get the numeric named properties entries
 	*	@return	An ArrayList containing the named properties' numeric entries
 	*/
-	public java.util.ArrayList<EntryStreamEntryData> namedPropertiesNumericalEntries()
+	public java.util.List<EntryStreamEntryData> namedPropertiesNumericalEntries()
 	{
 		return namedProperties.getEntryStreamEntries(EntryStreamEntry.PropertyType.NUMERICAL_NAMED_PROPERTY);
 	}
@@ -442,7 +442,7 @@ public class MSG
 	/** Get the string named properties entries
 	*	@return	An ArrayList containing the named properties' string entries
 	*/
-	public java.util.ArrayList<EntryStreamEntryData> namedPropertiesStringEntries()
+	public java.util.List<EntryStreamEntryData> namedPropertiesStringEntries()
 	{
 		return namedProperties.getEntryStreamEntries(EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY);
 	}
