@@ -39,7 +39,7 @@ Caveat: This is a JavaFX application, which complicates things. In time, I will 
 3.  Add msgexplorer to the class path (the msgexplorer jar file already includes the non-JavaFX dependencies)
 
 4.  Run via
-    `java --module-path <module-path> --add-modules javafx.controls io.github.jmcleodfoss.msgexplorer.MsgExplorer [msg-file]`
+    `java --module-path <module-path> --add-modules javafx.controls -j msgexplorer-<version>.jar [msg-file]`
 
 ## Releases
 ### 1.0.0
