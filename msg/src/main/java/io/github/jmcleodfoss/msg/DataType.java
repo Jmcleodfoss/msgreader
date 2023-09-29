@@ -423,6 +423,7 @@ abstract class DataType {
 		*	@return	A Java Date object corresponding to the MS time read from the data stream.
 		*/
 		@Override
+		@SuppressWarnings("JavaUtilDate") // Relaticely safe use of java.util.Date
 		Object read(java.nio.ByteBuffer byteBuffer)
 		{
 			long hundred_ns = byteBuffer.getLong();

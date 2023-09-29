@@ -412,6 +412,7 @@ public class DirectoryEntry {
 	*	@return	A String representation of this entry.
 	*/
 	@Override
+	@SuppressWarnings("JavaUtilDate") // Relaticely safe use of java.util.Date
 	public String toString()
 	{
 		return String.format("name %s%n" +
@@ -747,6 +748,7 @@ public class DirectoryEntry {
 	*	@param	parents		The mapping of child nodes to their parents
 	*	@return	An array of key-value pairs consisting of a description of the data and the data itself
 	*/
+	@SuppressWarnings("JavaUtilDate") // Relaticely safe use of java.util.Date
 	KVPArray<String, String> data(final NamedProperties namedProperties, final java.util.Map<DirectoryEntry, DirectoryEntry> parents)
 	{
 		/* See MS-OXMSG Section 2.2.3: Named Property Storage */

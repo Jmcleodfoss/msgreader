@@ -166,6 +166,7 @@ public abstract class Property
 	}
 
 	/** Encapsulate a time-date property. */
+	@SuppressWarnings("JavaUtilDate") // Relatively save use of java.util.Date
 	private static class Time extends Property
 	{
 		/** The value of the time-date property */
