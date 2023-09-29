@@ -9,6 +9,12 @@ public class KVPArray<K, V> extends java.util.ArrayList<KVPEntry<K, V>>
 	/**	The serialVersionUID is required because the base class is serializable. */
 	private static final long serialVersionUID = 1L;
 
+	/** Constructor for the KVPArray object */
+	public KVPArray()
+	{
+		super();
+	}
+
 	/** Add a new KVP pair to the end of the list.
 	*	@param	k	The key for the entry
 	*	@param	v	The value of the entry
