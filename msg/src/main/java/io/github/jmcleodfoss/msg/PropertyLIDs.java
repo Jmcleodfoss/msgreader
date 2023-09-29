@@ -12,6 +12,11 @@ package io.github.jmcleodfoss.msg;
 @SuppressWarnings("PMD.ExcessiveClassLength")
 public class PropertyLIDs
 {
+	/** Private constructor to prevent this class from being instantiated */
+	private PropertyLIDs()
+	{
+	}
+
 		public static final int PidLidAttendeeCriticalChange = 0x00000001;
 		public static final int PidLidWhere = 0x00000002;
 		public static final int PidLidGlobalObjectId = 0x00000003;
