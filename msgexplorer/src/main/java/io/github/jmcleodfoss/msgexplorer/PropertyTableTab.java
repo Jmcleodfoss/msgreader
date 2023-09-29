@@ -59,6 +59,7 @@ class PropertyTableTab extends Tab
 	/** Create the property display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
+	@SuppressWarnings("unchecked")
 	PropertyTableTab(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));

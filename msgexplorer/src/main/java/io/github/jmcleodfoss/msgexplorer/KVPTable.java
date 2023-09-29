@@ -161,6 +161,7 @@ class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 	*	@param	valueColumnName	The heading for the second column, which displays the values
 	*	@param	fWideData	Flag indicating whether to increase the width of the key column to prevent the displayed data from wrapping
 	*/
+	@SuppressWarnings("unchecked")
 	KVPTable(String keyColumnName, String valueColumnName, boolean fWideData)
 	{
 		super();

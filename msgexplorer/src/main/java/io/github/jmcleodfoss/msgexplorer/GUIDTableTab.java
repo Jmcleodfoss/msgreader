@@ -78,6 +78,7 @@ class GUIDTableTab extends Tab
 	/** Create the GUID display tab.
 	*	@param	localizer	The localizer mapping for the current locale.
 	*/
+	@SuppressWarnings("unchecked")
 	GUIDTableTab(LocalizedText localizer)
 	{
 		super(localizer.getText(TAB_TITLE));

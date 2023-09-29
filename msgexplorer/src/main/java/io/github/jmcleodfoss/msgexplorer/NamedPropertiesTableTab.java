@@ -60,6 +60,7 @@ class NamedPropertiesTableTab extends Tab
 	}
 
 	/** The table showing the String and Numerical Named Properties */
+	@SuppressWarnings("unchecked")
 	class NamedPropertiesTable extends TableView<NamedPropertyRow>
 	{
 		/** Create the Named Properties display table.
