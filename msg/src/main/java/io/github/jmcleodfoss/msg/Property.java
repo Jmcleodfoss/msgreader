@@ -71,7 +71,7 @@ public abstract class Property
 	public abstract String value();
 
 	/** Encapsulate a Boolean property. */
-	@SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
+	@SuppressWarnings({"PMD.UnnecessaryFullyQualifiedName", "JavaLangClash"}) // since this is a private class, we have full control over how it is used.
 	private static class Boolean extends Property
 	{
 		/** The value of the Boolean property */
