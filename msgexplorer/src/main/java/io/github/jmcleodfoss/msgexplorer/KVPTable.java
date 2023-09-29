@@ -31,6 +31,7 @@ import javafx.util.Callback;
 class KVPTable<K, V> extends TableView<KVPTable<K,V>.TableData>
 {
 	/** Table row data, stored as to Strings to allow for localization by the calling function. */
+	@SuppressWarnings("ClassCanBeStatic")
 	public class TableData {
 		private StringProperty key;
 		private StringProperty value;
