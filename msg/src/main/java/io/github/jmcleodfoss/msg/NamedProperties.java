@@ -63,7 +63,7 @@ class NamedProperties
 			// case where all the data fits into one mini sector, but makes
 			// it much easier to deal with an Entry stream which spans multiple
 			// mini and non-mini sectors.
-			byte[] data = (byte[])de.getContent(mbb, header, fat, miniFAT);
+			byte[] data = de.getContent(mbb, header, fat, miniFAT);
 
 			if (GUID_STREAM_NAME.equals(de.directoryEntryName)){
 				setGUIDS(de, data);
