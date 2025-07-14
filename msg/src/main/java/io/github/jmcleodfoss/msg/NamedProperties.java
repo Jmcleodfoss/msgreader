@@ -109,6 +109,9 @@ class NamedProperties
 			return stringsByOffset.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 
 		if (PropertyLIDs.lids.keySet().contains(entries[propertyIndex].nameIdentifierOrStringOffset)) {
+			if (propertyIndex >= guids.length)
+				return String.format("Out of bounds error [guids] (%d >= %d)", propertyIndex, guids.length);
+
 			GUID guid = PropertyLIDs.guids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
 			if (guid != null && guid.equals(guids[propertyIndex])) {
 				return PropertyLIDs.lids.get(entries[propertyIndex].nameIdentifierOrStringOffset);
