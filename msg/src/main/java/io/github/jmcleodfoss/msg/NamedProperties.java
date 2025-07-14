@@ -103,7 +103,7 @@ class NamedProperties
 	String getPropertyName(int propertyIndex)
 	{
 		if (propertyIndex >= entries.length)
-			return String.format("Out of bounds error (%d >= %d", propertyIndex, entries.length);
+			return String.format("Out of bounds error [entries] (%d >= %d)", propertyIndex, entries.length);
 
 		if (entries[propertyIndex].propertyType == EntryStreamEntry.PropertyType.STRING_NAMED_PROPERTY)
 			return stringsByOffset.get(entries[propertyIndex].nameIdentifierOrStringOffset);
